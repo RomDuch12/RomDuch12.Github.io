@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>[Prénom Nom] – Programmation UGV Datron & outils logiciels</title>
+<meta name="description" content="Programmeur-régleur UGV Datron et développeur d'outils de génération SIMPL.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400&display=swap">
+<script>
+/* ======================= CONTENU ÉDITABLE ======================= */
+const CONFIG = {
+  nom: "[Prénom Nom]",
+  titre: "Programmation UGV Datron & outils logiciels d'atelier",
+  accroche: "Programmeur-régleur sur centres Datron en production. Je développe les outils qui génèrent, vérifient et fiabilisent les programmes SIMPL.",
+  contact: { email: "prenom.nom@example.com", linkedin: "", telephone: "" },
+  competences: [
+    ["Usinage UGV", "Datron neo et centres UGV, gravure de précision sur laiton, montages et bridages, réglage en production."],
+    ["SIMPL / DATRON next", "Écriture et génération de programmes SIMPL, sous-programmes, exploitation des fonctions spécifiques de la neo."],
+    ["Développement", "Python, PySide6, Flask, architecture modulaire, validation de données, tests, exécutables PyInstaller."],
+    ["Méthodes", "Stratégies ébauche/finition par outil, bibliothèques d'outils partagées, contrôle des profondeurs avant envoi machine."]
+  ],
+  outils: [
+    ["NeoDrive", "Pilotage des Datron au-delà du DXF : stratégies d'ébauche et de finition par outil, fonctions avancées de la neo. Pensé pour superviser plusieurs opérateurs sur un parc machines."],
+    ["TauDrive", "Préparation de gravure laser développée en interne, en remplacement d'un logiciel du commerce, mieux adaptée au flux atelier."],
+    ["DatronComposer / DaThread", "Application PySide6 modulaire (≈5 100 lignes, 11 types d'opérations, bibliothèque d'outils, visualiseur DXF, générateur SIMPL, suite de tests). Utilisée en production par un collègue."]
+  ],
+  /* Vidéos : { titre, youtube: "ID de la vidéo" } ou { titre, mp4: "videos/fichier.mp4" } */
+  videos: [
+    // { titre: "NeoDrive – de la pièce au programme", youtube: "XXXXXXXXXXX" },
+    // { titre: "TauDrive – préparation laser", mp4: "videos/taudrive.mp4" }
+  ],
+  /* Programmes affichés dans le visualiseur : coller un export SIMPL entre les backticks */
+  programmes: [
+    { titre: "Démo générique (à remplacer par un export réel)", code: `// Démo : contour + perçages + poche
+X=0 Y=0 Z=5
+X=5 Y=5 Z=5
+X=5 Y=5 Z=-0.5
+X=55 Y=5
+X=55 Y=35
+X=5 Y=35
+X=5 Y=5
+Z=-1.0
+X=55 Y=5
+X=55 Y=35
+X=5 Y=35
+X=5 Y=5
+Z=5
+X=12 Y=12 Z=5
+Z=-2
+Z=5
+X=48 Y=12
+Z=-2
+Z=5
+X=48 Y=28
+Z=-2
+Z=5
+X=12 Y=28
+Z=-2
+Z=5
+X=30 Y=20
+Z=-0.8
+X=34 Y=20
+X=34 Y=24
+X=26 Y=24
+X=26 Y=16
+X=38 Y=16
+X=38 Y=26
+X=22 Y=26
+X=22 Y=14
+X=40 Y=14
+Z=5` }
+  ]
+};
+/* ================================================================ */
+</script>
+<style>
+:root{--bg:#EDEFF1;--card:#FAFBFB;--ink:#1F2A36;--mute:#5E6B78;--line:#CBD1D6;--brass:#9A7430;--brass-l:#C9A35A;--rapid:#9AA6B2;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151B21;--card:#1E262E;--ink:#E4E8EC;--mute:#98A4B0;--line:#33404B;--brass:#D2A857;--brass-l:#E5C27E;--rapid:#56636F}}
+:root[data-theme="dark"]{--bg:#151B21;--card:#1E262E;--ink:#E4E8EC;--mute:#98A4B0;--line:#33404B;--brass:#D2A857;--brass-l:#E5C27E;--rapid:#56636F}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Barlow,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:980px;margin:0 auto;padding:28px 18px 70px}
+header{display:grid;gap:6px;padding:10px 0 26px;border-bottom:2px solid var(--brass);margin-bottom:34px}
+h1{font:700 clamp(2.2rem,6vw,3.6rem)/1 "Barlow Condensed",Arial Narrow,sans-serif;margin:0}
+.tag{font:600 1.2rem "Barlow Condensed",sans-serif;color:var(--brass);margin:0}
+.lead{max-width:62ch;margin:6px 0 0;color:var(--mute)}
+.contact{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}
+.contact a{color:var(--ink);font-weight:600;text-decoration-color:var(--brass);text-underline-offset:3px}
+h2{font:700 1.8rem/1.1 "Barlow Condensed",sans-serif;margin:44px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.cell{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brass);padding:14px 16px;border-radius:4px}
+.cell h3{margin:0 0 4px;font:600 1.1rem Barlow,sans-serif}
+.cell p{margin:0;color:var(--mute);max-width:65ch}
+.viewer{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.vtop{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px;border-bottom:1px solid var(--line)}
+.vbody{display:grid;grid-template-columns:1.6fr 1fr;min-height:360px}
+@media (max-width:760px){.vbody{grid-template-columns:1fr}}
+canvas{width:100%;height:100%;min-height:320px;display:block;background:var(--bg)}
+pre{margin:0;max-height:420px;overflow:auto;font:400 13px/1.6 "JetBrains Mono",Consolas,monospace;border-left:1px solid var(--line)}
+pre div{padding:0 10px;white-space:pre}
+pre div.cur{background:var(--brass);color:#fff}
+select,button,input[type=range]{font:600 15px Barlow,sans-serif}
+select,button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 12px;border-radius:5px;cursor:pointer}
+button.primary{background:var(--brass);border-color:var(--brass);color:#fff}
+:focus-visible{outline:3px solid var(--brass-l);outline-offset:2px}
+input[type=range]{flex:1;min-width:120px;accent-color:var(--brass)}
+.info{padding:8px 10px;color:var(--mute);font-size:14px;border-top:1px solid var(--line);display:flex;gap:16px;flex-wrap:wrap}
+.leg i{display:inline-block;width:18px;height:3px;vertical-align:middle;margin-right:5px}
+.vids{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.vid{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.vid .ratio{position:relative;padding-top:56.25%}
+.vid iframe,.vid video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.vid p{margin:0;padding:10px 12px;font-weight:600}
+footer{margin-top:50px;color:var(--mute);font-size:14px}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1 id="nom"></h1>
+  <p class="tag" id="titre"></p>
+  <p class="lead" id="accroche"></p>
+  <div class="contact" id="contact"></div>
+</header>
+
+<section id="sec-videos" hidden><h2>En vidéo</h2><div class="vids" id="videos"></div></section>
+
+<section>
+  <h2>Trajectoires générées</h2>
+  <div class="viewer">
+    <div class="vtop">
+      <select id="prog" aria-label="Programme"></select>
+      <button class="primary" id="play">Lire</button>
+      <input type="range" id="pos" min="0" max="1000" value="1000" aria-label="Avancement">
+      <select id="speed" aria-label="Vitesse"><option value="0.5">×0,5</option><option value="1" selected>×1</option><option value="3">×3</option></select>
+      <label><button id="load" type="button">Ouvrir un fichier…</button><input type="file" id="file" accept=".simpl,.txt,.nc,.mcr,*/*" hidden></label>
+    </div>
+    <div class="vbody"><canvas id="cv"></canvas><pre id="code" aria-label="Code du programme"></pre></div>
+    <div class="info"><span class="leg"><i style="background:var(--brass)"></i>Usinage (Z ≤ 0)</span><span class="leg"><i style="background:var(--rapid)"></i>Hors matière</span><span id="stats"></span></div>
+  </div>
+</section>
+
+<section><h2>Compétences</h2><div class="grid" id="competences"></div></section>
+<section><h2>Outils développés</h2><div class="grid" id="outils"></div></section>
+
+<footer id="foot"></footer>
+</main>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- Contenu ---------- */
+$('nom').textContent=CONFIG.nom; $('titre').textContent=CONFIG.titre; $('accroche').textContent=CONFIG.accroche;
+const c=CONFIG.contact, links=[];
+if(c.email) links.push(`<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`);
+if(c.telephone) links.push(`<a href="tel:${esc(c.telephone.replace(/\s/g,''))}">${esc(c.telephone)}</a>`);
+if(c.linkedin) links.push(`<a href="${esc(c.linkedin)}" rel="noopener">LinkedIn</a>`);
+$('contact').innerHTML=links.join('');
+const cells=a=>a.map(([t,d])=>`<div class="cell"><h3>${esc(t)}</h3><p>${esc(d)}</p></div>`).join('');
+$('competences').innerHTML=cells(CONFIG.competences); $('outils').innerHTML=cells(CONFIG.outils);
+$('foot').textContent=`${CONFIG.nom} · Programmes présentés sur pièces de démonstration, sans données clients.`;
+if(CONFIG.videos.length){
+  $('sec-videos').hidden=false;
+  $('videos').innerHTML=CONFIG.videos.map(v=>{
+    const m=v.youtube?`<iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}?rel=0" title="${esc(v.titre)}" allow="encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe>`
+      :`<video src="${esc(v.mp4)}" controls preload="metadata" playsinline></video>`;
+    return `<div class="vid"><div class="ratio">${m}</div><p>${esc(v.titre)}</p></div>`;}).join('');
+}
+
+/* ---------- Lecteur de programmes ---------- */
+const NUM='(-?\\d*\\.?\\d+)';
+const reAxyz=new RegExp('^\\s*Axyz\\s+\\d+\\s*,\\s*'+NUM+'\\s*,\\s*'+NUM+'\\s*,\\s*'+NUM,'i');
+const reAxis=new RegExp('\\b([XYZ])\\s*=?\\s*'+NUM,'gi');
+function parse(src){
+  const lines=src.replace(/\r/g,'').split('\n'), pts=[]; let p={x:0,y:0,z:10}, started=false;
+  lines.forEach((raw,i)=>{
+    let l=raw.replace(/\/\/.*$|;.*$|\{[^}]*\}|\([^)]*\)/g,'');
+    let n={...p}, hit=false, m=l.match(reAxyz);
+    if(m){n.x=+m[1];n.y=+m[2];n.z=+m[3];hit=true;}
+    else{ let a; reAxis.lastIndex=0; while((a=reAxis.exec(l))){n[a[1].toLowerCase()]=+a[2];hit=true;} }
+    if(hit){ if(!started){pts.push({...n,line:i});started=true;} else pts.push({...n,line:i}); p=n; }
+  });
+  return {lines,pts};
+}
+
+const cv=$('cv'), ctx=cv.getContext('2d'), pre=$('code');
+let prog=null, segs=[], total=0, prog01=1, playing=false, last=0, curLine=-1;
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+function load(src){
+  prog=parse(src); segs=[]; total=0;
+  for(let i=1;i<prog.pts.length;i++){const a=prog.pts[i-1],b=prog.pts[i];
+    const L=Math.hypot(b.x-a.x,b.y-a.y,b.z-a.z); if(L===0) continue;
+    segs.push({a,b,L,s:total,cut:a.z<=0&&b.z<=0}); total+=L;}
+  pre.innerHTML=prog.lines.map((l,i)=>`<div data-l="${i}">${esc(l)||' '}</div>`).join('');
+  const zs=prog.pts.map(p=>p.z);
+  $('stats').textContent=prog.pts.length?`${prog.pts.length} positions · longueur ${total.toFixed(0)} mm · Z min ${Math.min(...zs).toFixed(2)} mm`
+    :'Aucun déplacement reconnu dans ce fichier.';
+  curLine=-1; prog01=1; $('pos').value=1000; stop(); draw();
+}
+function fit(){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1; cv.width=r.width*d; cv.height=r.height*d; ctx.setTransform(d,0,0,d,0,0); return r;}
+function draw(){
+  const r=fit(); ctx.clearRect(0,0,r.width,r.height); if(!prog||!prog.pts.length) return;
+  const xs=prog.pts.map(p=>p.x), ys=prog.pts.map(p=>p.y);
+  const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+  const pad=24, k=Math.min((r.width-2*pad)/((x1-x0)||1),(r.height-2*pad)/((y1-y0)||1));
+  const ox=(r.width-(x1-x0)*k)/2, oy=(r.height-(y1-y0)*k)/2;
+  const X=x=>ox+(x-x0)*k, Y=y=>r.height-oy-(y-y0)*k;
+  const lim=prog01*total; let tool=prog.pts[0], line=prog.pts[0].line;
+  ctx.lineCap='round'; ctx.lineJoin='round';
+  for(const s of segs){
+    if(s.s>=lim) break;
+    const f=Math.min(1,(lim-s.s)/s.L), b={x:s.a.x+(s.b.x-s.a.x)*f,y:s.a.y+(s.b.y-s.a.y)*f,z:s.a.z+(s.b.z-s.a.z)*f};
+    ctx.strokeStyle=s.cut?css('--brass'):css('--rapid'); ctx.lineWidth=s.cut?2.2:1; ctx.setLineDash(s.cut?[]:[4,4]);
+    ctx.beginPath(); ctx.moveTo(X(s.a.x),Y(s.a.y)); ctx.lineTo(X(b.x),Y(b.y)); ctx.stroke();
+    if(s.a.z>0&&s.b.z<=0&&s.a.x===s.b.x&&s.a.y===s.b.y){ctx.setLineDash([]);ctx.beginPath();ctx.arc(X(s.a.x),Y(s.a.y),3,0,7);ctx.stroke();}
+    tool=b; line=s.b.line;
+  }
+  ctx.setLineDash([]); ctx.fillStyle=tool.z<=0?css('--brass'):css('--ink');
+  ctx.beginPath(); ctx.arc(X(tool.x),Y(tool.y),5,0,7); ctx.fill();
+  ctx.fillStyle=css('--mute'); ctx.font='13px Barlow,sans-serif';
+  ctx.fillText(`X ${tool.x.toFixed(2)}  Y ${tool.y.toFixed(2)}  Z ${tool.z.toFixed(2)}`,10,r.height-10);
+  if(line!==curLine){ pre.querySelector('.cur')?.classList.remove('cur'); const el=pre.querySelector(`[data-l="${line}"]`);
+    if(el){el.classList.add('cur'); if(playing) pre.scrollTop=el.offsetTop-pre.clientHeight/2;} curLine=line; }
+}
+function tick(t){ if(!playing) return; const dt=(t-last)/1000; last=t;
+  const dur=Math.max(6,Math.min(40,total/15))/(+$('speed').value);
+  prog01=Math.min(1,prog01+dt/dur); $('pos').value=prog01*1000; draw();
+  if(prog01>=1) stop(); else requestAnimationFrame(tick); }
+function stop(){playing=false;$('play').textContent='Lire';}
+$('play').onclick=()=>{ if(playing) return stop(); if(prog01>=1) prog01=0; playing=true; $('play').textContent='Pause'; last=performance.now(); requestAnimationFrame(tick); };
+$('pos').oninput=e=>{stop(); prog01=e.target.value/1000; draw();};
+$('prog').innerHTML=CONFIG.programmes.map((p,i)=>`<option value="${i}">${esc(p.titre)}</option>`).join('');
+$('prog').onchange=e=>load(CONFIG.programmes[e.target.value].code);
+$('load').onclick=()=>$('file').click();
+$('file').onchange=e=>{const f=e.target.files[0]; if(!f) return; f.text().then(load);};
+addEventListener('resize',draw);
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+if(CONFIG.programmes.length) load(CONFIG.programmes[0].code);
+})();
+</script>
+</body>
+</html>
