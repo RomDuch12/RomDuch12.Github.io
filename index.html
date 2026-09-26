@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>[Prénom Nom] – Programmation UGV Datron & outils logiciels</title>
-<meta name="description" content="Programmeur-régleur UGV Datron et développeur d'outils de génération SIMPL.">
+<title>Romain Duchatelle – Programmation UGV Datron & outils logiciels</title>
+<meta name="description" content="Romain Duchatelle – programmeur-régleur UGV Datron, développeur de NeoDrive, DaThread et TauDrive (génération SimPL et laser).">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400&display=swap">
 <script>
 /* ======================= CONTENU ÉDITABLE ======================= */
 const CONFIG = {
-  nom: "[Prénom Nom]",
+  nom: "Romain Duchatelle",
   titre: "Programmation UGV Datron & outils logiciels d'atelier",
   accroche: "Programmeur-régleur sur centres Datron en production. Je développe les outils qui génèrent, vérifient et fiabilisent les programmes SIMPL.",
-  contact: { email: "prenom.nom@example.com", linkedin: "", telephone: "" },
+  contact: { email: "romduch@gmail.com", linkedin: "", telephone: "" },
   competences: [
     ["Usinage UGV", "Datron neo et centres UGV, gravure de précision sur laiton, montages et bridages, réglage en production."],
     ["SIMPL / DATRON next", "Écriture et génération de programmes SIMPL, sous-programmes, exploitation des fonctions spécifiques de la neo."],
@@ -20,18 +20,20 @@ const CONFIG = {
     ["Méthodes", "Stratégies ébauche/finition par outil, bibliothèques d'outils partagées, contrôle des profondeurs avant envoi machine."]
   ],
   outils: [
-    ["NeoDrive", "Pilotage des Datron au-delà du DXF : stratégies d'ébauche et de finition par outil, fonctions avancées de la neo. Pensé pour superviser plusieurs opérateurs sur un parc machines."],
-    ["TauDrive", "Préparation de gravure laser développée en interne, en remplacement d'un logiciel du commerce, mieux adaptée au flux atelier."],
-    ["DatronComposer / DaThread", "Application PySide6 modulaire (≈5 100 lignes, 11 types d'opérations, bibliothèque d'outils, visualiseur DXF, générateur SIMPL, suite de tests). Utilisée en production par un collègue."]
+    ["NeoDrive", "Générateur de code SimPL pour Datron à partir d'opérations de base : taraudage, surfaçage, découpe, poche, perçage, perçage-fraisage, gravure depuis DXF et décalages d'origine (offsets)."],
+    ["DaThread", "Détecteur des taraudages à effectuer depuis un DXF. Gère aussi les perçages et les gravures, pour le montage des bruts sur plaques de reprise."],
+    ["TauDrive", "Générateur de parcours pour laser Cielle, avec ses fonctions dédiées."]
   ],
-  /* Vidéos : { titre, youtube: "ID de la vidéo" } ou { titre, mp4: "videos/fichier.mp4" } */
+  /* Vidéos : { titre, youtube: "ID de la vidéo" } ou { titre, mp4: "videos/fichier.mp4" } ; vertical: true pour un Short */
   videos: [
-    // { titre: "NeoDrive – de la pièce au programme", youtube: "XXXXXXXXXXX" },
-    // { titre: "TauDrive – préparation laser", mp4: "videos/taudrive.mp4" }
+    { titre: "Démo NeoDrive – 2 gravures en 60 s", youtube: "trOm5kLQ-AI" },
+    { titre: "Démo NeoDrive – format Short", youtube: "3QQsX1AAxw8", vertical: true }
   ],
-  /* Programmes affichés dans le visualiseur : coller un export SIMPL entre les backticks */
+  /* Programmes du visualiseur : { titre, url: "programmes/fichier.simpl" } (chargé à la demande)
+     ou { titre, code: `...` } (export SimPL collé entre les backticks). Le premier est affiché par défaut. */
   programmes: [
-    { titre: "Démo générique (à remplacer par un export réel)", code: `// Démo : contour + perçages + poche
+    { titre: "Calendreta – programme NeoDrive (SimPL)", url: "programmes/calendreta.simpl" },
+    { titre: "Démo générique : contour + perçages + poche", code: `// Démo : contour + perçages + poche
 X=0 Y=0 Z=5
 X=5 Y=5 Z=5
 X=5 Y=5 Z=-0.5
@@ -111,6 +113,8 @@ input[type=range]{flex:1;min-width:120px;accent-color:var(--brass)}
 .vids{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
 .vid{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden}
 .vid .ratio{position:relative;padding-top:56.25%}
+.vid.vertical{max-width:360px}
+.vid.vertical .ratio{padding-top:177.78%}
 .vid iframe,.vid video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
 .vid p{margin:0;padding:10px 12px;font-weight:600}
 footer{margin-top:50px;color:var(--mute);font-size:14px}
@@ -128,7 +132,8 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}
 <section id="sec-videos" hidden><h2>En vidéo</h2><div class="vids" id="videos"></div></section>
 
 <section>
-  <h2>Trajectoires générées</h2>
+  <h2>Démo SimPL : trajectoires générées</h2>
+  <p class="lead" style="margin:-4px 0 12px">Programme Calendreta affiché par défaut. Chargez votre propre fichier SimPL avec « Ouvrir un fichier… ».</p>
   <div class="viewer">
     <div class="vtop">
       <select id="prog" aria-label="Programme"></select>
@@ -168,7 +173,7 @@ if(CONFIG.videos.length){
   $('videos').innerHTML=CONFIG.videos.map(v=>{
     const m=v.youtube?`<iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}?rel=0" title="${esc(v.titre)}" allow="encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe>`
       :`<video src="${esc(v.mp4)}" controls preload="metadata" playsinline></video>`;
-    return `<div class="vid"><div class="ratio">${m}</div><p>${esc(v.titre)}</p></div>`;}).join('');
+    return `<div class="vid${v.vertical?' vertical':''}"><div class="ratio">${m}</div><p>${esc(v.titre)}</p></div>`;}).join('');
 }
 
 /* ---------- Lecteur de programmes ---------- */
@@ -178,6 +183,7 @@ const reAxis=new RegExp('\\b([XYZ])\\s*=?\\s*'+NUM,'gi');
 function parse(src){
   const lines=src.replace(/\r/g,'').split('\n'), pts=[]; let p={x:0,y:0,z:10}, started=false;
   lines.forEach((raw,i)=>{
+    if(/^\s*(ShiftWcs|#|@)/i.test(raw)) return; // décalages de repère, commentaires, métadonnées : pas un déplacement
     let l=raw.replace(/\/\/.*$|;.*$|\{[^}]*\}|\([^)]*\)/g,'');
     let n={...p}, hit=false, m=l.match(reAxyz);
     if(m){n.x=+m[1];n.y=+m[2];n.z=+m[3];hit=true;}
@@ -235,12 +241,23 @@ function stop(){playing=false;$('play').textContent='Lire';}
 $('play').onclick=()=>{ if(playing) return stop(); if(prog01>=1) prog01=0; playing=true; $('play').textContent='Pause'; last=performance.now(); requestAnimationFrame(tick); };
 $('pos').oninput=e=>{stop(); prog01=e.target.value/1000; draw();};
 $('prog').innerHTML=CONFIG.programmes.map((p,i)=>`<option value="${i}">${esc(p.titre)}</option>`).join('');
-$('prog').onchange=e=>load(CONFIG.programmes[e.target.value].code);
+/* Programme par URL (chargé à la demande) ou code intégré ; repli sur la démo générique si le fichier manque */
+const demo=CONFIG.programmes.find(p=>p.code);
+function pick(i){ const p=CONFIG.programmes[i]; $('prog').value=i;
+  if(p.code!==undefined) return load(p.code);
+  if(p.cache) return load(p.cache);
+  $('stats').textContent='Chargement…';
+  fetch(p.url).then(r=>{if(!r.ok) throw new Error(r.status); return r.text();})
+    .then(t=>{p.cache=t; load(t);})
+    .catch(()=>{ if(demo){ pick(CONFIG.programmes.indexOf(demo)); }
+      $('stats').textContent=`« ${p.titre} » indisponible : démo générique affichée.`; });
+}
+$('prog').onchange=e=>pick(+e.target.value);
 $('load').onclick=()=>$('file').click();
 $('file').onchange=e=>{const f=e.target.files[0]; if(!f) return; f.text().then(load);};
 addEventListener('resize',draw);
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
-if(CONFIG.programmes.length) load(CONFIG.programmes[0].code);
+if(CONFIG.programmes.length) pick(0);
 })();
 </script>
 </body>
