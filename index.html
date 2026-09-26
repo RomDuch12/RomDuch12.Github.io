@@ -24,9 +24,10 @@ const CONFIG = {
     ["DaThread", "Détecteur des taraudages à effectuer depuis un DXF. Gère aussi les perçages et les gravures, pour le montage des bruts sur plaques de reprise."],
     ["TauDrive", "Générateur de parcours pour laser Cielle, avec ses fonctions dédiées."]
   ],
-  /* Vidéos : { titre, youtube: "ID de la vidéo" } ou { titre, mp4: "videos/fichier.mp4" } ; vertical: true pour un Short */
+  /* Vidéos : { titre, youtube: "ID de la vidéo" } ou { titre, mp4: "videos/fichier.mp4" } ;
+     vertical: true pour un Short ; masque: true pour la cacher sans la supprimer */
   videos: [
-    { titre: "Démo NeoDrive – 2 gravures en 60 s", youtube: "trOm5kLQ-AI" },
+    { titre: "Démo NeoDrive – 2 gravures en 60 s", youtube: "trOm5kLQ-AI", masque: true },   // masquée temporairement
     { titre: "Démo NeoDrive – format Short", youtube: "3QQsX1AAxw8", vertical: true }
   ],
   /* Programmes du visualiseur : { titre, url: "programmes/fichier.simpl" } (chargé à la demande)
@@ -92,7 +93,7 @@ h1{font:700 clamp(2.2rem,6vw,3.6rem)/1 "Barlow Condensed",Arial Narrow,sans-seri
 .hero{display:block;width:100%;max-width:720px;height:auto;margin-top:18px;border-radius:6px;border:1px solid var(--line)}
 .contact a{color:var(--ink);font-weight:600;text-decoration-color:var(--brass);text-underline-offset:3px}
 h2{font:700 1.8rem/1.1 "Barlow Condensed",sans-serif;margin:44px 0 14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:12px}
 .cell{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brass);padding:14px 16px;border-radius:4px}
 .cell h3{margin:0 0 4px;font:600 1.1rem Barlow,sans-serif}
 .cell p{margin:0;color:var(--mute);max-width:65ch}
@@ -105,13 +106,13 @@ pre{margin:0;max-height:420px;overflow:auto;font:400 13px/1.6 "JetBrains Mono",C
 pre div{padding:0 10px;white-space:pre}
 pre div.cur{background:var(--brass);color:#fff}
 select,button,input[type=range]{font:600 15px Barlow,sans-serif}
-select,button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 12px;border-radius:5px;cursor:pointer}
+select,button{max-width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 12px;border-radius:5px;cursor:pointer}
 button.primary{background:var(--brass);border-color:var(--brass);color:#fff}
 :focus-visible{outline:3px solid var(--brass-l);outline-offset:2px}
 input[type=range]{flex:1;min-width:120px;accent-color:var(--brass)}
 .info{padding:8px 10px;color:var(--mute);font-size:14px;border-top:1px solid var(--line);display:flex;gap:16px;flex-wrap:wrap}
 .leg i{display:inline-block;width:18px;height:3px;vertical-align:middle;margin-right:5px}
-.vids{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.vids{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:14px}
 .vid{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden}
 .vid .ratio{position:relative;padding-top:56.25%}
 .vid.vertical{max-width:360px}
@@ -119,6 +120,22 @@ input[type=range]{flex:1;min-width:120px;accent-color:var(--brass)}
 .vid iframe,.vid video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
 .vid p{margin:0;padding:10px 12px;font-weight:600}
 footer{margin-top:50px;color:var(--mute);font-size:14px}
+/* générateur */
+.gen{display:grid;gap:12px}
+.gbox{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.gbox h3{margin:0 0 8px;font:600 1.1rem Barlow,sans-serif}
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px 12px}
+.fields label{display:grid;gap:2px;font-size:14px;color:var(--mute)}
+.fields input,.fields select,.fields textarea{font:400 15px Barlow,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:5px 7px;min-width:0}
+.fields textarea{font:400 13px "JetBrains Mono",monospace;min-height:64px}
+.fields .wide{grid-column:1/-1}
+.op{border-left:4px solid var(--brass)}
+.ophead{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.ophead h3{margin:0;flex:1}
+.ophead button{padding:3px 9px;font-size:13px}
+.addbar{display:flex;flex-wrap:wrap;gap:6px}
+.genout{width:100%;min-height:260px;font:400 13px/1.5 "JetBrains Mono",monospace;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:8px}
+.warn{color:var(--brass);font-size:14px}
 </style>
 </head>
 <body>
@@ -133,7 +150,7 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}
 
 <section id="sec-videos" hidden><h2>En vidéo</h2><div class="vids" id="videos"></div></section>
 
-<section>
+<section id="sec-viewer">
   <h2>Démo SimPL : trajectoires générées</h2>
   <p class="lead" style="margin:-4px 0 12px">Programme Calendreta affiché par défaut. Chargez votre propre fichier SimPL avec « Ouvrir un fichier… ».</p>
   <div class="viewer">
@@ -147,6 +164,12 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}
     <div class="vbody"><canvas id="cv"></canvas><pre id="code" aria-label="Code du programme"></pre></div>
     <div class="info"><span class="leg"><i style="background:var(--brass)"></i>Usinage (Z ≤ 0)</span><span class="leg"><i style="background:var(--rapid)"></i>Hors matière</span><span id="stats"></span></div>
   </div>
+</section>
+
+<section id="sec-gen">
+  <h2>Générateur SimPL</h2>
+  <p class="lead" style="margin:-4px 0 12px">Composez un programme Datron à partir des opérations de base de NeoDrive, avec une bibliothèque d'outils générique (<a href="tools.json">tools.json</a>). Vérifiez toujours le programme en simulation avant usinage.</p>
+  <div id="gen" class="gen"><noscript>Le générateur nécessite JavaScript.</noscript></div>
 </section>
 
 <section><h2>Compétences</h2><div class="grid" id="competences"></div></section>
@@ -170,9 +193,10 @@ $('contact').innerHTML=links.join('');
 const cells=a=>a.map(([t,d])=>`<div class="cell"><h3>${esc(t)}</h3><p>${esc(d)}</p></div>`).join('');
 $('competences').innerHTML=cells(CONFIG.competences); $('outils').innerHTML=cells(CONFIG.outils);
 $('foot').textContent=`${CONFIG.nom} · Programmes présentés sur pièces de démonstration, sans données clients.`;
-if(CONFIG.videos.length){
+const videos=CONFIG.videos.filter(v=>!v.masque);
+if(videos.length){
   $('sec-videos').hidden=false;
-  $('videos').innerHTML=CONFIG.videos.map(v=>{
+  $('videos').innerHTML=videos.map(v=>{
     const m=v.youtube?`<iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}?rel=0" title="${esc(v.titre)}" allow="encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe>`
       :`<video src="${esc(v.mp4)}" controls preload="metadata" playsinline></video>`;
     return `<div class="vid${v.vertical?' vertical':''}"><div class="ratio">${m}</div><p>${esc(v.titre)}</p></div>`;}).join('');
@@ -188,6 +212,27 @@ function parse(src){
     if(/^\s*(ShiftWcs|#|@)/i.test(raw)) return; // décalages de repère, commentaires, métadonnées : pas un déplacement
     let l=raw.replace(/\/\/.*$|;.*$|\{[^}]*\}|\([^)]*\)/g,'');
     let n={...p}, hit=false, m=l.match(reAxyz);
+    const arc=l.match(/^\s*Arc\s+(CW|CCW)\b/i);
+    if(arc){ // Arc CW|CCW X Y dX dY : fin (X,Y), centre = départ + (dX,dY) → interpolation
+      const g=k=>{const r=l.match(new RegExp('\\b'+k+'\\s*=\\s*'+NUM));return r?+r[1]:null;};
+      const ex=g('X')??p.x, ey=g('Y')??p.y, cx=p.x+(g('dX')??0), cy=p.y+(g('dY')??0), r=Math.hypot(p.x-cx,p.y-cy);
+      let a0=Math.atan2(p.y-cy,p.x-cx), a1=Math.atan2(ey-cy,ex-cx), ccw=arc[1].toUpperCase()==='CCW';
+      let sw=ccw?a1-a0:a0-a1; while(sw<=1e-9) sw+=2*Math.PI;
+      const steps=Math.max(4,Math.ceil(sw/0.15));
+      for(let k=1;k<=steps;k++){const a=a0+(ccw?1:-1)*sw*k/steps; pts.push({x:cx+r*Math.cos(a),y:cy+r*Math.sin(a),z:p.z,line:i});}
+      p={...p,x:ex,y:ey}; started=true; return;
+    }
+    const cyc=raw.match(/^\s*(Drill|DrillMilling|CircleFromMid|CircleFace|Thread|RectFromMid|RectangleFace)\s*\(/);
+    if(cyc){ // cycles machine (paramètres entre parenthèses, lus sur la ligne brute) : tracé approché à la profondeur
+      const g=k=>{const r=raw.match(new RegExp('\\b'+k+'\\s*=\\s*'+NUM));return r?+r[1]:null;};
+      const z=-(g('depth')??1), push=(x,y)=>pts.push({x,y,z,line:i});
+      if(cyc[1]==='Drill') push(p.x,p.y);
+      else if(/Rect/.test(cyc[1])){const w=(g('widthX')??10)/2,h=(g('widthY')??10)/2;
+        [[-w,-h],[w,-h],[w,h],[-w,h],[-w,-h]].forEach(([a,b])=>push(p.x+a,p.y+b));}
+      else{const tn=l.match(/threadName="M(\d+(?:\.\d+)?)"/), r=(g('diameter')??(tn?+tn[1]:5))/2;
+        for(let k=0;k<=24;k++){const a=k/24*2*Math.PI; push(p.x+r*Math.cos(a),p.y+r*Math.sin(a));}}
+      pts.push({...p,line:i}); started=true; return;
+    }
     if(m){n.x=+m[1];n.y=+m[2];n.z=+m[3];hit=true;}
     else{ let a; reAxis.lastIndex=0; while((a=reAxis.exec(l))){n[a[1].toLowerCase()]=+a[2];hit=true;} }
     if(hit){ if(!started){pts.push({...n,line:i});started=true;} else pts.push({...n,line:i}); p=n; }
@@ -260,7 +305,10 @@ $('file').onchange=e=>{const f=e.target.files[0]; if(!f) return; f.text().then(l
 addEventListener('resize',draw);
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
 if(CONFIG.programmes.length) pick(0);
+/* point d'entrée pour le générateur : affiche un programme généré */
+window.simplViewer={show(src){ load(src); document.getElementById('sec-viewer').scrollIntoView({behavior:'smooth'}); }};
 })();
 </script>
+<script src="generateur.js" defer></script>
 </body>
 </html>
