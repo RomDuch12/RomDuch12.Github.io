@@ -33,3 +33,14 @@
 /* ---------- sélecteur de thème ---------- */
 .themesel{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--mute)}
 .themesel select{font:500 14px Barlow,"Segoe UI",sans-serif;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:5px;padding:4px 8px;max-width:100%}
+
+/* Navigation commune du site */
+.topbar{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.topbar .prefs{display:flex;flex-wrap:wrap;gap:8px}
+.sitenav{display:flex;flex-wrap:wrap;gap:4px 14px}
+.sitenav a{color:var(--ink);font-weight:600;text-decoration-color:var(--brass);text-underline-offset:3px}
+.sitenav a[aria-current]{color:var(--brass);text-decoration:none}
+.sitenav a[aria-current="true"]{color:var(--brass)}
+.subnav{display:flex;flex-wrap:wrap;gap:2px 14px;padding:5px 10px;margin:-6px 0 10px;background:var(--card);border-left:3px solid var(--brass);border-radius:4px;font-size:15px}
+.subnav a{color:var(--ink);font-weight:500;text-decoration-color:var(--brass);text-underline-offset:3px}
+.subnav a[aria-current]{color:var(--brass);font-weight:600;text-decoration:none}

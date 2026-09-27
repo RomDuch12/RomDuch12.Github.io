@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TauDrive – RomDuch</title>
+<meta name="description" content="TauDrive web – dessin de gravure laser (texte, formes, DXF, offset, hachurage), génération du job ISO + CLJOB pour laser Cielle et visualiseur de job.">
+<script src="i18n.js"></script>
+<script src="theme.js"></script>
+<link rel="stylesheet" href="themes.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Barlow,"Segoe UI",Roboto,"Noto Sans SC","Microsoft YaHei",Arial,sans-serif}
+main{max-width:1280px;margin:0 auto;padding:28px 18px 70px}
+header{display:grid;gap:6px;padding:10px 0 22px;border-bottom:2px solid var(--brass);margin-bottom:10px}
+h1{font:700 clamp(2.2rem,6vw,3.6rem)/1 "Barlow Condensed",Arial Narrow,sans-serif;margin:6px 0 0}
+.tag{font:600 1.2rem "Barlow Condensed",sans-serif;color:var(--brass);margin:0}
+.lead{max-width:75ch;margin:6px 0 0;color:var(--mute)}
+h2{font:700 1.8rem/1.1 "Barlow Condensed",sans-serif;margin:40px 0 12px}
+h3{margin:14px 0 8px;font:600 1.1rem Barlow,sans-serif}
+a{color:var(--ink);text-decoration-color:var(--brass);text-underline-offset:3px}
+.nav{display:flex;flex-wrap:wrap;gap:6px 16px}.nav a{font-weight:600}
+select,button,input,textarea{font:600 15px Barlow,sans-serif}
+select,button{max-width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:6px 11px;border-radius:5px;cursor:pointer}
+button.primary{background:var(--brass);border-color:var(--brass);color:var(--on-accent)}
+button:disabled{opacity:.5;cursor:default}
+:focus-visible{outline:3px solid var(--brass-l);outline-offset:2px}
+.muted{color:var(--mute)}.small{font-size:14px}.warn{color:var(--brass)}.bad{color:var(--warn)}
+.app{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.tools{display:flex;flex-wrap:wrap;gap:6px;padding:8px;border-bottom:1px solid var(--line);align-items:center}
+.tools .sep{width:1px;align-self:stretch;background:var(--line);margin:0 4px}
+.work{display:grid;grid-template-columns:minmax(0,1fr) 380px}
+@media (max-width:900px){.work{grid-template-columns:1fr}}
+.stage{position:relative;min-width:0;border-right:1px solid var(--line)}
+#td-cv{display:block;width:100%;height:560px;background:var(--bg);touch-action:none;cursor:crosshair}
+@media (max-width:900px){#td-cv{height:420px}.stage{border-right:0;border-bottom:1px solid var(--line)}}
+.statusbar{display:flex;flex-wrap:wrap;gap:6px 16px;padding:6px 10px;border-top:1px solid var(--line);font-size:14px;color:var(--mute)}
+.side{max-height:620px;overflow:auto;padding:10px 12px}
+@media (max-width:900px){.side{max-height:none}}
+#td-list{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:5px;max-height:190px;overflow:auto}
+#td-list li{display:flex;gap:8px;align-items:center;padding:4px 8px;border-bottom:1px solid var(--line);cursor:pointer}
+#td-list li:last-child{border-bottom:0}
+#td-list li span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#td-list li small{color:var(--mute)}
+#td-list li.on{background:var(--brass);color:var(--on-accent)}#td-list li.on small{color:var(--on-accent)}
+#td-list li.vide{cursor:default;color:var(--mute)}
+#td-list .eye{padding:0 6px;border:0;background:none;color:inherit;font-size:14px}
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px 12px}
+.fields label{display:grid;gap:2px;font-size:14px;color:var(--mute);align-content:start}
+.fields label.chk{display:flex;gap:6px;align-items:center;color:var(--ink)}
+.fields input,.fields select,.fields textarea{font:400 15px Barlow,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:5px 7px;min-width:0;width:100%}
+.fields input[type=checkbox]{width:auto}
+.fields .wide{grid-column:1/-1}
+.procbar,.addbar{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.linkish{color:var(--ink);text-decoration:underline;text-decoration-color:var(--brass);cursor:pointer}
+.gbox{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.files{list-style:none;padding:0;margin:8px 0;display:grid;gap:4px}
+.files li{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.files button{padding:2px 9px;font-size:13px}
+code{font:400 14px "JetBrains Mono",monospace}
+.viewer{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.vtop{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px;border-bottom:1px solid var(--line)}
+.vtop input[type=range]{flex:1;min-width:120px;accent-color:var(--brass)}
+.vbody{display:grid;grid-template-columns:1.6fr 1fr}
+@media (max-width:760px){.vbody{grid-template-columns:1fr}}
+#td-vcv{width:100%;height:440px;display:block;background:var(--bg)}
+@media (max-width:760px){#td-vcv{height:320px}}
+pre{margin:0;max-height:440px;overflow:auto;font:400 13px/1.6 "JetBrains Mono",Consolas,monospace;border-left:1px solid var(--line)}
+pre div{padding:0 10px;white-space:pre}pre div.cur{background:var(--brass);color:var(--on-accent)}
+.info{padding:8px 10px;color:var(--mute);font-size:14px;border-top:1px solid var(--line)}
+dialog{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;max-width:min(620px,calc(100vw - 32px));max-height:calc(100vh - 32px);overflow:auto;padding:16px 18px}
+fieldset{border:1px solid var(--line);border-radius:5px;margin:0 0 10px;padding:6px 10px 10px}legend{color:var(--mute);font-size:14px}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+#td-dxf-layers{display:grid;gap:4px;max-height:220px;overflow:auto;margin:6px 0 10px}
+footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html">RomDuch</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html" aria-current="true">TauDrive</a><a href="cv.html" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <nav class="subnav" aria-label="TauDrive"><a href="#sec-td-draw" data-i18n>Dessin</a><a href="#sec-td-job" data-i18n>Job</a><a href="#sec-td-viewer" data-i18n>Visualiseur de job</a><a href="tauconvert.html">TauConvert</a></nav>
+  <h1>TauDrive</h1>
+  <p class="tag" data-i18n>Dessin et job de gravure pour laser Cielle</p>
+  <p class="lead" data-i18n>Version web de TauDrive : dessine ta gravure (texte, rectangles, ellipses, segments, DXF), règle le cadre en négatif, l'offset, l'épaisseur de trait et le hachurage, puis génère le job : un fichier ISO par passe et le CLJOB qui les enchaîne. Tout est calculé dans ton navigateur.</p>
+</header>
+
+<section id="sec-td-draw">
+  <h2 data-i18n>Dessine ta gravure</h2>
+  <div class="app">
+    <div class="tools" role="toolbar" aria-label="Outils de dessin" data-i18n-attr="aria-label">
+      <button type="button" data-td="undo" title="Annuler (Ctrl+Z)" aria-label="Annuler (Ctrl+Z)" data-i18n-attr="title,aria-label">↶</button>
+      <button type="button" data-td="redo" title="Refaire (Ctrl+Y)" aria-label="Refaire (Ctrl+Y)" data-i18n-attr="title,aria-label">↷</button>
+      <span class="sep"></span>
+      <button type="button" data-td="rect" data-i18n>▭ Rectangle</button>
+      <button type="button" data-td="ellipse" data-i18n>◯ Ellipse</button>
+      <button type="button" data-td="text" data-i18n>T Texte</button>
+      <button type="button" data-td="line" data-i18n>／ Segment</button>
+      <button type="button" data-td="code" data-i18n>▦ DataMatrix</button>
+      <button type="button" data-td="dxf" data-i18n>Importer un dessin…</button>
+      <button type="button" data-td="coupon" data-i18n>Coupon d'essai…</button>
+      <span class="sep"></span>
+      <button type="button" data-td="dup" title="Dupliquer (Ctrl+D)" data-i18n-attr="title" data-i18n>Dupliquer</button>
+      <button type="button" data-td="center" data-i18n>Centrer</button>
+      <button type="button" data-td="up" title="Monter" aria-label="Monter" data-i18n-attr="title,aria-label">▲</button>
+      <button type="button" data-td="down" title="Descendre" aria-label="Descendre" data-i18n-attr="title,aria-label">▼</button>
+      <button type="button" data-td="del" title="Supprimer (Suppr)" data-i18n-attr="title" data-i18n>Supprimer</button>
+      <span class="sep"></span>
+      <button type="button" data-td="fit" data-i18n>Ajuster la vue</button>
+      <button type="button" data-td="nouveau" data-i18n>Nouveau</button>
+      <button type="button" data-td="open" data-i18n>Ouvrir…</button>
+      <button type="button" data-td="saveFile" data-i18n>Enregistrer (.json)</button>
+      <input type="file" id="td-dxf-file" accept=".dxf,.svg,.pdf,.ai,.eps,.ps" hidden><input type="file" id="td-open-file" accept=".json" hidden>
+    </div>
+    <div class="work">
+      <div class="stage">
+        <canvas id="td-cv" tabindex="0" aria-label="Plan de travail : glisser pour déplacer, molette pour zoomer, poignées pour redimensionner et tourner" data-i18n-attr="aria-label"></canvas>
+        <div class="statusbar"><span id="td-pos">X 0  Y 0</span><span id="td-status"></span></div>
+      </div>
+      <div class="side">
+        <h3 style="margin-top:4px" data-i18n>Formes</h3>
+        <ul id="td-list"></ul>
+        <div id="td-props"></div>
+      </div>
+    </div>
+  </div>
+  <p class="muted small" data-i18n>Souris : cliquer pour sélectionner, glisser pour déplacer (Maj : sans pas de 0,1 mm), poignée carrée pour redimensionner, poignée ronde pour tourner, glisser le fond pour se déplacer, molette pour zoomer. Clavier : flèches, Suppr, Ctrl+Z / Ctrl+Y, Ctrl+D.</p>
+</section>
+
+<section id="sec-td-job">
+  <h2 data-i18n>Génère ton job</h2>
+  <div class="gbox">
+    <div class="fields" id="td-job-fields"></div>
+    <div class="addbar" style="margin-top:12px"><button type="button" class="primary" id="td-gen" data-i18n>Générer le job</button></div>
+    <div id="td-job-out"></div>
+  </div>
+</section>
+
+<section id="sec-td-viewer">
+  <h2 data-i18n>Visualise ton job</h2>
+  <div class="viewer">
+    <div class="vtop">
+      <select id="td-vsel" aria-label="Passe affichée" data-i18n-attr="aria-label"></select>
+      <button class="primary" id="td-vplay" type="button" data-i18n>Lire</button>
+      <input type="range" id="td-vpos" min="0" max="1000" value="1000" aria-label="Avancement" data-i18n-attr="aria-label">
+      <select id="td-vspeed" aria-label="Vitesse" data-i18n-attr="aria-label"><option value="0.5">×0,5</option><option value="1" selected>×1</option><option value="3">×3</option><option value="10">×10</option></select>
+      <label class="small"><input type="checkbox" id="td-vrapid" checked> <span data-i18n>déplacements à vide</span></label>
+      <button type="button" id="td-vopen" data-i18n>Ouvrir des .ISO…</button><input type="file" id="td-viso-file" accept=".iso,.ISO,.nc,.txt" multiple hidden>
+    </div>
+    <div class="vbody"><canvas id="td-vcv"></canvas><pre id="td-vcode" aria-label="Code ISO" data-i18n-attr="aria-label"></pre></div>
+    <div class="info" id="td-vstats"></div>
+  </div>
+</section>
+
+<dialog id="td-dxf-dlg">
+  <form method="dialog">
+    <h3 style="margin-top:0" id="td-dxf-title">Importer un dessin</h3>
+    <p class="small muted" data-i18n>Calques à importer (les calques éteints, gelés et Defpoints sont déjà écartés) :</p>
+    <div id="td-dxf-layers"></div>
+    <div class="fields">
+      <label><span data-i18n>Unités du fichier</span><select id="td-dxf-units"><option value="1">mm</option><option value="10">cm</option><option value="1000">m</option><option value="25.4" data-i18n>pouce</option></select></label>
+      <label><span data-i18n>Échelle</span><input type="number" id="td-dxf-scale" value="1" step="any"></label>
+      <label class="chk wide"><input type="checkbox" id="td-dxf-center" checked> <span data-i18n>Centrer sur l'origine</span></label>
+      <label class="chk wide"><input type="checkbox" id="td-dxf-split"> <span data-i18n>Un tracé par contour (sinon, un seul tracé)</span></label>
+    </div>
+    <p class="small muted" id="td-dxf-info"></p>
+    <div class="addbar"><button type="button" class="primary" id="td-dxf-ok" data-i18n>Importer</button><button type="button" id="td-dxf-cancel" data-i18n>Annuler</button></div>
+  </form>
+</dialog>
+
+<dialog id="td-coupon-dlg">
+  <form method="dialog">
+    <h3 style="margin-top:0" data-i18n>Coupon d'essai</h3>
+    <p class="small muted" data-i18n>Une grille de cases : un paramètre varie en X, un autre en Y, et chaque ligne et colonne porte sa valeur gravée. C'est la façon de valider une process sur une chute.</p>
+    <div id="td-coupon-form"></div>
+    <div class="addbar"><button type="button" class="primary" id="td-coupon-ok" data-i18n>Créer le coupon</button><button type="button" id="td-coupon-cancel" data-i18n>Annuler</button></div>
+  </form>
+</dialog>
+
+<footer><p>RomDuch · <span data-i18n>TauDrive web ne pilote pas la machine : il écrit des fichiers. Vérifie toujours le job avant gravure.</span></p>
+<p><a href="index.html" data-i18n>Accueil</a> · <a href="neodrive.html">NeoDrive</a> · <a href="outils.html" data-i18n>Éditeur d'outils</a> · <a href="coupe.html" data-i18n>Données de coupe</a> · <a href="cv.html" data-i18n>CV</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/opentype.js/1.3.4/opentype.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+<script src="stockage.js" defer></script>
+<script src="vecteurs.js" defer></script>
+<script src="datamatrix.js" defer></script>
+<script src="taudrive.js" defer></script>
+</body>
+</html>

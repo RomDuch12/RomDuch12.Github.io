@@ -45,6 +45,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .chips button{font-weight:500;font-size:14px;padding:4px 10px}
 .chips button[aria-pressed="true"]{background:var(--brass);border-color:var(--brass);color:var(--on-accent)}
+.chips.quick{margin-top:6px}.chips.quick .sep{width:1px;background:var(--line);margin:0 4px}.chips button:disabled{opacity:.45;cursor:default}
 .search{display:flex;gap:6px;flex-wrap:wrap}.search input{flex:1 1 220px;background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:7px 9px}
 .facets{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px 12px;margin-top:10px}
 .facets label{display:grid;gap:2px;font-size:14px;color:var(--mute)}
@@ -63,7 +64,8 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <body>
 <main>
 <header>
-  <div class="top"><a href="index.html" data-i18n>← RomDuch · Génère ton SimPL</a><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <div class="top topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html">RomDuch</a><a href="neodrive.html" aria-current="true">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="cv.html" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <nav class="subnav" aria-label="NeoDrive"><a href="neodrive.html#sec-gen" data-i18n>Génère ton SimPL</a><a href="neodrive.html#sec-viewer" data-i18n>Visualiseur</a><a href="outils.html" aria-current="page" data-i18n>Éditeur d'outils</a><a href="coupe.html" data-i18n>Données de coupe</a><a href="neodrive.html#sec-videos" data-i18n>Vidéo</a></nav>
   <h1 data-i18n>Éditeur d'outils</h1>
   <p class="lead" data-i18n>Crée ta bibliothèque <em>tools.json</em> : choisis tes outils dans le catalogue DATRON hors ligne, ajuste rotation et avances, puis enregistre ou exporte. Le fichier reste chez toi.</p>
 </header>
@@ -79,6 +81,7 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <section class="box" aria-labelledby="t-cat">
   <h3 id="t-cat"><span data-i18n>Outils DATRON</span> <small style="font-weight:400;color:var(--mute)" id="cat-count"></small></h3>
   <div class="chips" id="chips" role="group" data-i18n-attr="aria-label" aria-label="Catégories d'outils"></div>
+  <div class="chips quick" id="quick" role="group" data-i18n-attr="aria-label" aria-label="Filtres rapides"></div>
   <form class="search" id="f-search" role="search" style="margin-top:10px">
     <input type="search" id="q" data-i18n-attr="placeholder,aria-label" placeholder="Référence, famille, filetage (ex. 0068432A, équilibrée, M5)" aria-label="Rechercher dans le catalogue DATRON">
   </form>
@@ -103,10 +106,11 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <div id="list"></div>
 
 <footer><p data-i18n>Vc = π·D·n / 1000 ; fz = avance / (n · dents). Vérifiez toujours les valeurs en simulation avant usinage.</p>
-<p><a href="index.html" data-i18n>Générateur SimPL</a> · <a href="coupe.html" data-i18n>Données de coupe</a> · <a href="cv.html" data-i18n>CV</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
+<p><a href="index.html" data-i18n>Accueil</a> · <a href="neodrive.html">NeoDrive</a> · <a href="taudrive.html">TauDrive</a> · <a href="coupe.html" data-i18n>Données de coupe</a> · <a href="cv.html" data-i18n>CV</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
 </main>
 
 <script src="stockage.js" defer></script>
+<script src="outils-format.js" defer></script>
 <script src="coupe.js" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {   // après stockage.js et coupe.js (chargés en différé)
@@ -133,7 +137,9 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
     $('lib-count').textContent = `– ${t('{n} outil(s)', { n })}${source ? ` · ${source}` : ''}${dirty ? ` · ${t('modifiée')}` : ''}`;
     const B = [];
     B.push(`<button type="button" data-l="imp">${t('Importer un tools.json…')}</button>`);
+    B.push(`<button type="button" data-l="demo">${t('Set de démarrage (démo)')}</button>`);
     if (n) B.push(`<button type="button" data-l="exp">${t('Exporter tools.json')}</button>`);
+    if (n) B.push(`<button type="button" data-l="expb">${t('Exporter au format NeoDrive bureau')}</button>`);
     if (ST()) {
       B.push(`<button type="button" class="primary" data-l="save"${dirty ? '' : ' disabled'}>${dirty ? t('Enregistrer les modifications') : t('Enregistré dans ce navigateur')}</button>`);
       if (dirty) B.push(`<button type="button" data-l="undo">${t('Annuler les modifications')}</button>`);
@@ -145,12 +151,24 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
     $('lib-actions').querySelectorAll('[data-l]').forEach(b => b.onclick = ACTIONS[b.dataset.l]);
   }
   function setLib(j, src) {
+    j = window.OutilsFormat ? OutilsFormat.normaliser(j) : j;
     if (!j || !Array.isArray(j.tools)) throw new Error(t('clé « tools » absente'));
     lib = { ...j, tools: j.tools.map(o => ({ ...o, feeds: { ...(o.feeds || {}) } })) };
     source = src; dirty = false; render(); status(t('{n} outil(s) chargé(s) – {src}.', { n: lib.tools.length, src }));
   }
   const ACTIONS = {
     imp: () => $('f-imp').click(),
+    demo: () => {
+      if (lib.tools.length && !confirm(t('Remplacer la bibliothèque affichée par le set de démarrage ({n} outils) ?', { n: 23 }))) return;
+      fetch('tools-demo.json', { cache: 'no-cache' }).then(r => r.json()).then(j => { setLib(j, t('set de démarrage')); setDirty(true); })
+        .catch(err => status(t('erreur : {e}', { e: err.message })));
+    },
+    expb: () => {
+      const a = document.createElement('a'); a.download = 'tools.json';
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(OutilsFormat.versBureau({ tools: outilsSansFold() }), null, 2)], { type: 'application/json' }));
+      document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      status(t('tools.json exporté (téléchargement).'));
+    },
     exp: () => {
       const clean = { ...lib, tools: outilsSansFold() };
       clean._info = clean._info || "Bibliothèque d'outils pour le générateur SimPL de RomDuch.";
@@ -263,6 +281,8 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
   /* =================== catalogue DATRON hors ligne =================== */
   let CAT = [], CATS = {}, cat = 'fraise';
   const FV = {};                                                    // valeurs des filtres
+  const QF = { d: null, z: null };                                  // filtres rapides : Ø de coupe (Cyl) et nombre de dents
+  const QUICK_D = [8, 6, 4, 3, 2], QUICK_Z = [1, 2, 3], SANS_CYL = ['conique', 'chanfrein', 'filetage'];
   const typeFil = x => /^PG/i.test(x.filetage || '') ? 'PG' : /branch/i.test(x.filetage || '') ? 'BR' : /^M/i.test(x.filetage || '') ? 'M' : '';
   const tailles = x => { const m = [...String(x.filetage || '').matchAll(/(?:M|PG)\s*(\d+(?:[.,]\d+)?)/gi)].map(v => parseFloat(v[1].replace(',', '.'))); return m.length ? [Math.min(...m), Math.max(...m)] : null; };
   const TAILLES_M = [1, 1.1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.5, 3, 3.5, 4, 5, 6, 8, 10, 12, 14, 16];
@@ -304,6 +324,19 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
     $('chips').innerHTML = Object.entries(CATS).map(([k, l]) => `<button type="button" data-cat="${k}" aria-pressed="${k === cat}">${esc(t(l))} <small>(${CAT.filter(x => x.categorie === k).length})</small></button>`).join('');
     $('chips').querySelectorAll('[data-cat]').forEach(b => b.onclick = () => { cat = b.dataset.cat; Object.keys(FV).forEach(k => delete FV[k]); renderChips(); renderFacets(); filtrer(); });
   }
+  function renderQuick() {
+    const base = sousEns(), okQ = (x, d, z) => (d === null || x.D1 === d) && (z === null || x.dents === z);
+    const btn = (kind, v, label) => { const n = SANS_CYL.includes(cat) && kind === 'd' ? CAT.filter(x => x.categorie === 'fraise' && okQ(x, v, QF.z)).length
+      : base.filter(x => okQ(x, kind === 'd' ? v : QF.d, kind === 'z' ? v : QF.z)).length;
+      return `<button type="button" data-q="${kind}" data-v="${v}" aria-pressed="${QF[kind] === v}"${n || QF[kind] === v ? '' : ' disabled'}>${label} <small>(${n})</small></button>`; };
+    $('quick').innerHTML = QUICK_D.map(d => btn('d', d, `Cyl${d}`)).join('') + '<span class="sep"></span>'
+      + QUICK_Z.map(z => btn('z', z, t(z === 1 ? '{n} dent' : '{n} dents', { n: z }))).join('');
+    $('quick').querySelectorAll('[data-q]').forEach(b => b.onclick = () => {
+      const k = b.dataset.q, v = +b.dataset.v; QF[k] = QF[k] === v ? null : v;
+      if (k === 'd' && QF.d !== null && SANS_CYL.includes(cat)) { cat = 'fraise'; Object.keys(FV).forEach(x => delete FV[x]); renderChips(); renderFacets(); }
+      filtrer();
+    });
+  }
   function renderFacets() {
     const base = sousEns();
     $('facets').innerHTML = FACETS[cat].map(f => {
@@ -324,6 +357,8 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
     $('facets').querySelectorAll('[data-f]').forEach(el => el.addEventListener('input', () => { if (el.value === '') delete FV[el.dataset.f]; else FV[el.dataset.f] = el.value; filtrer(); }));
   }
   function passe(x) {
+    if (QF.d !== null && x.D1 !== QF.d) return false;
+    if (QF.z !== null && x.dents !== QF.z) return false;
     for (const f of FACETS[cat]) {
       const v = FV[f.k]; if (v === undefined || v === '') continue;
       const g = f.get(x);
@@ -345,6 +380,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
     return p.ok ? nf(p.rpm) : '';
   }
   function filtrer() {
+    renderQuick();
     const res = sousEns().filter(passe), max = 100, cols = COLS[cat];
     $('cat-head').innerHTML = `<th>${t('Référence')}</th><th>${t('Famille')}</th><th>Ø D1</th>${cols.map(c => `<th>${esc(c[1])}</th>`).join('')}<th>${t('Prix €')}</th>`
       + (cat === 'fraise' ? `<th title="${esc(t('Rotation proposée (modèle ou guide)'))}">n</th>` : '') + '<th></th>';
@@ -388,7 +424,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
   }
   $('f-search').onsubmit = e => { e.preventDefault(); filtrer(); };
   $('q').addEventListener('input', filtrer);
-  $('b-reset').onclick = () => { Object.keys(FV).forEach(k => delete FV[k]); $('q').value = ''; renderFacets(); filtrer(); };
+  $('b-reset').onclick = () => { Object.keys(FV).forEach(k => delete FV[k]); QF.d = QF.z = null; $('q').value = ''; renderFacets(); filtrer(); };
 
   /* =================== données de coupe DATRON =================== */
   $('p-broche').innerHTML = C.BROCHES.map(b => `<option${b === '2 kW neo' ? ' selected' : ''}>${b}</option>`).join('');

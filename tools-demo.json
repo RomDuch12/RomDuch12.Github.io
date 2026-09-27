@@ -1,0 +1,478 @@
+{
+ "_info": "Set de démarrage NeoDrive pour démo rapide : fraises 1 dent Ø8-6-3-2-1,5 (rotation et avances estimées par le modèle du site, broche 2 kW neo, aluminium), pointes à graver 90-45-30-20° (troncatures disponibles au catalogue) et fraises à fileter M3 à M10 (valeurs génériques de démonstration). Toujours valider en simulation avant usinage.",
+ "_unites": "diamètres et longueurs en mm, vitesses d'avance en mm/min, rpm en tr/min",
+ "tools": [
+  {
+   "id": "demo_cyl8",
+   "name": "Cyl 8 z1L14",
+   "type": "fraise",
+   "articleNr": "0068080E",
+   "vendor": "DATRON",
+   "diameter": 8,
+   "fluteLength": 14,
+   "flutes": 1,
+   "tipAngle": 0,
+   "rpm": 32100,
+   "feeds": {
+    "roughing": 6250,
+    "finishing": 5690,
+    "plunge": 1560,
+    "ramp": 6250,
+    "approach": 5000
+   },
+   "notes": "estimation du modèle (2 kW neo, aluminium) – à valider"
+  },
+  {
+   "id": "demo_cyl6",
+   "name": "Cyl 6 z1L14",
+   "type": "fraise",
+   "articleNr": "0068460E",
+   "vendor": "DATRON",
+   "diameter": 6,
+   "fluteLength": 14,
+   "flutes": 1,
+   "tipAngle": 0,
+   "rpm": 33100,
+   "feeds": {
+    "roughing": 4710,
+    "finishing": 3990,
+    "plunge": 1180,
+    "ramp": 4710,
+    "approach": 5000
+   },
+   "notes": "estimation du modèle (2 kW neo, aluminium) – à valider"
+  },
+  {
+   "id": "demo_cyl3",
+   "name": "Cyl 3 z1L10",
+   "type": "fraise",
+   "articleNr": "0068030E",
+   "vendor": "DATRON",
+   "diameter": 3,
+   "fluteLength": 10,
+   "flutes": 1,
+   "tipAngle": 0,
+   "rpm": 35900,
+   "feeds": {
+    "roughing": 2610,
+    "finishing": 2020,
+    "plunge": 650,
+    "ramp": 2610,
+    "approach": 5000
+   },
+   "notes": "estimation du modèle (2 kW neo, aluminium) – à valider"
+  },
+  {
+   "id": "demo_cyl2",
+   "name": "Cyl 2 z1L8",
+   "type": "fraise",
+   "articleNr": "0068020E",
+   "vendor": "DATRON",
+   "diameter": 2,
+   "fluteLength": 8,
+   "flutes": 1,
+   "tipAngle": 0,
+   "rpm": 37700,
+   "feeds": {
+    "roughing": 1860,
+    "finishing": 1370,
+    "plunge": 470,
+    "ramp": 1860,
+    "approach": 5000
+   },
+   "notes": "estimation du modèle (2 kW neo, aluminium) – à valider"
+  },
+  {
+   "id": "demo_cyl1_5",
+   "name": "Cyl 1.5 z1L5",
+   "type": "fraise",
+   "articleNr": "0068015E",
+   "vendor": "DATRON",
+   "diameter": 1.5,
+   "fluteLength": 5,
+   "flutes": 1,
+   "tipAngle": 0,
+   "rpm": 39300,
+   "feeds": {
+    "roughing": 1590,
+    "finishing": 1220,
+    "plunge": 400,
+    "ramp": 1590,
+    "approach": 5000
+   },
+   "notes": "estimation du modèle (2 kW neo, aluminium) – à valider"
+  },
+  {
+   "id": "demo_con90_01",
+   "name": "Con 90° 0.1",
+   "type": "gravure",
+   "articleNr": "0068277",
+   "vendor": "DATRON",
+   "diameter": 4,
+   "tipDiameter": 0.1,
+   "tipAngle": 90,
+   "flutes": 1,
+   "rpm": 30000,
+   "feeds": {
+    "roughing": 800,
+    "finishing": 800,
+    "plunge": 200,
+    "ramp": 400,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_con90_02",
+   "name": "Con 90° 0.2",
+   "type": "gravure",
+   "articleNr": "0068514A",
+   "vendor": "DATRON",
+   "diameter": 6,
+   "tipDiameter": 0.2,
+   "tipAngle": 90,
+   "flutes": 1,
+   "rpm": 30000,
+   "feeds": {
+    "roughing": 800,
+    "finishing": 800,
+    "plunge": 200,
+    "ramp": 400,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_con45_01",
+   "name": "Con 45° 0.1",
+   "type": "gravure",
+   "articleNr": "0068280A",
+   "vendor": "DATRON",
+   "diameter": 3,
+   "tipDiameter": 0.1,
+   "tipAngle": 45,
+   "flutes": 1,
+   "rpm": 30000,
+   "feeds": {
+    "roughing": 800,
+    "finishing": 800,
+    "plunge": 200,
+    "ramp": 400,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_con45_02",
+   "name": "Con 45° 0.2",
+   "type": "gravure",
+   "articleNr": "0068521A",
+   "vendor": "DATRON",
+   "diameter": 4,
+   "tipDiameter": 0.2,
+   "tipAngle": 45,
+   "flutes": 1,
+   "rpm": 30000,
+   "feeds": {
+    "roughing": 800,
+    "finishing": 800,
+    "plunge": 200,
+    "ramp": 400,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_con30_01",
+   "name": "Con 30° 0.1",
+   "type": "gravure",
+   "articleNr": "0068283",
+   "vendor": "DATRON",
+   "diameter": 6,
+   "tipDiameter": 0.1,
+   "tipAngle": 30,
+   "flutes": 1,
+   "rpm": 30000,
+   "feeds": {
+    "roughing": 800,
+    "finishing": 800,
+    "plunge": 200,
+    "ramp": 400,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_con30_02",
+   "name": "Con 30° 0.2",
+   "type": "gravure",
+   "articleNr": "0068283D",
+   "vendor": "DATRON",
+   "diameter": 6,
+   "tipDiameter": 0.2,
+   "tipAngle": 30,
+   "flutes": 1,
+   "rpm": 30000,
+   "feeds": {
+    "roughing": 800,
+    "finishing": 800,
+    "plunge": 200,
+    "ramp": 400,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_con30_04",
+   "name": "Con 30° 0.4",
+   "type": "gravure",
+   "articleNr": "0068283F",
+   "vendor": "DATRON",
+   "diameter": 6,
+   "tipDiameter": 0.4,
+   "tipAngle": 30,
+   "flutes": 1,
+   "rpm": 30000,
+   "feeds": {
+    "roughing": 800,
+    "finishing": 800,
+    "plunge": 200,
+    "ramp": 400,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_con30_06",
+   "name": "Con 30° 0.6",
+   "type": "gravure",
+   "articleNr": "0068283G",
+   "vendor": "DATRON",
+   "diameter": 6,
+   "tipDiameter": 0.6,
+   "tipAngle": 30,
+   "flutes": 1,
+   "rpm": 30000,
+   "feeds": {
+    "roughing": 800,
+    "finishing": 800,
+    "plunge": 200,
+    "ramp": 400,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_con20_005",
+   "name": "Con 20° 0.05",
+   "type": "gravure",
+   "articleNr": "0068284B",
+   "vendor": "DATRON",
+   "diameter": 6,
+   "tipDiameter": 0.05,
+   "tipAngle": 20,
+   "flutes": 1,
+   "rpm": 30000,
+   "feeds": {
+    "roughing": 800,
+    "finishing": 800,
+    "plunge": 200,
+    "ramp": 400,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_con20_01",
+   "name": "Con 20° 0.1",
+   "type": "gravure",
+   "articleNr": "0068284C",
+   "vendor": "DATRON",
+   "diameter": 6,
+   "tipDiameter": 0.1,
+   "tipAngle": 20,
+   "flutes": 1,
+   "rpm": 30000,
+   "feeds": {
+    "roughing": 800,
+    "finishing": 800,
+    "plunge": 200,
+    "ramp": 400,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_con20_02",
+   "name": "Con 20° 0.2",
+   "type": "gravure",
+   "articleNr": "0068284D",
+   "vendor": "DATRON",
+   "diameter": 6,
+   "tipDiameter": 0.2,
+   "tipAngle": 20,
+   "flutes": 1,
+   "rpm": 30000,
+   "feeds": {
+    "roughing": 800,
+    "finishing": 800,
+    "plunge": 200,
+    "ramp": 400,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_con20_04",
+   "name": "Con 20° 0.4",
+   "type": "gravure",
+   "articleNr": "0068284F",
+   "vendor": "DATRON",
+   "diameter": 6,
+   "tipDiameter": 0.4,
+   "tipAngle": 20,
+   "flutes": 1,
+   "rpm": 30000,
+   "feeds": {
+    "roughing": 800,
+    "finishing": 800,
+    "plunge": 200,
+    "ramp": 400,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_thr_m3",
+   "name": "Thr M3",
+   "type": "filetage",
+   "articleNr": "00680030E",
+   "vendor": "DATRON",
+   "diameter": 2.1,
+   "fluteLength": 8,
+   "flutes": 4,
+   "tipAngle": 0,
+   "thread": "M3",
+   "pitch": 0.5,
+   "rpm": 25000,
+   "feeds": {
+    "roughing": 300,
+    "finishing": 300,
+    "plunge": 150,
+    "ramp": 200,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_thr_m4",
+   "name": "Thr M4",
+   "type": "filetage",
+   "articleNr": "00680040E",
+   "vendor": "DATRON",
+   "diameter": 2.8,
+   "fluteLength": 11,
+   "flutes": 4,
+   "tipAngle": 0,
+   "thread": "M4",
+   "pitch": 0.7,
+   "rpm": 24000,
+   "feeds": {
+    "roughing": 350,
+    "finishing": 350,
+    "plunge": 150,
+    "ramp": 200,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_thr_m5",
+   "name": "Thr M5",
+   "type": "filetage",
+   "articleNr": "00680050E",
+   "vendor": "DATRON",
+   "diameter": 3.5,
+   "fluteLength": 10,
+   "flutes": 4,
+   "tipAngle": 0,
+   "thread": "M5",
+   "pitch": 0.8,
+   "rpm": 22000,
+   "feeds": {
+    "roughing": 400,
+    "finishing": 400,
+    "plunge": 150,
+    "ramp": 200,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_thr_m6",
+   "name": "Thr M6",
+   "type": "filetage",
+   "articleNr": "00680060E",
+   "vendor": "DATRON",
+   "diameter": 4.2,
+   "fluteLength": 12,
+   "flutes": 4,
+   "tipAngle": 0,
+   "thread": "M6",
+   "pitch": 1,
+   "rpm": 20000,
+   "feeds": {
+    "roughing": 450,
+    "finishing": 450,
+    "plunge": 150,
+    "ramp": 200,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_thr_m8",
+   "name": "Thr M8",
+   "type": "filetage",
+   "articleNr": "00680080E",
+   "vendor": "DATRON",
+   "diameter": 5.6,
+   "fluteLength": 16,
+   "flutes": 4,
+   "tipAngle": 0,
+   "thread": "M8",
+   "pitch": 1.25,
+   "rpm": 18000,
+   "feeds": {
+    "roughing": 500,
+    "finishing": 500,
+    "plunge": 150,
+    "ramp": 200,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  },
+  {
+   "id": "demo_thr_m10",
+   "name": "Thr M10",
+   "type": "filetage",
+   "articleNr": "00680100E",
+   "vendor": "DATRON",
+   "diameter": 7,
+   "fluteLength": 21,
+   "flutes": 4,
+   "tipAngle": 0,
+   "thread": "M10",
+   "pitch": 1.5,
+   "rpm": 16000,
+   "feeds": {
+    "roughing": 550,
+    "finishing": 550,
+    "plunge": 150,
+    "ramp": 200,
+    "approach": 3000
+   },
+   "notes": "valeurs génériques de démonstration – à valider"
+  }
+ ]
+}

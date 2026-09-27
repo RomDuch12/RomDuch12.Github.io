@@ -1,11 +1,11 @@
 /* Stockage local (localStorage) avec consentement explicite.
    Seules données conservées, et uniquement si l'utilisateur accepte :
-   - son tools.json, - ses opérations favorites, - ses DXF importés, - son thème, - les données de coupe lues dans son guide Datron.
+   - son tools.json, - ses opérations favorites, - ses DXF importés, - ses dessins et process TauDrive, - son thème, - les données de coupe lues dans son guide Datron.
    Rien n'est envoyé à un serveur ; tout reste dans ce navigateur. */
 (function () {
   'use strict';
   const P = 'romduch.';
-  const KEYS = ['tools', 'favoris', 'dxf', 'theme', 'coupe', 'lang'];
+  const KEYS = ['tools', 'favoris', 'dxf', 'theme', 'coupe', 'lang', 'taudrive'];
   const ls = (() => { try { const s = window.localStorage; s.setItem(P + 't', '1'); s.removeItem(P + 't'); return s; } catch (e) { return null; } })();
   const ss = (() => { try { return window.sessionStorage; } catch (e) { return null; } })();
 
@@ -44,7 +44,7 @@
       b.id = 'consent'; b.setAttribute('role', 'dialog'); b.setAttribute('aria-label', (window.t || (x => x))('Stockage local'));
       const T = window.t || (x => x);
       b.innerHTML = `<p><strong>${T('Mémoriser vos réglages dans ce navigateur ?')}</strong><br>
-        ${T('Uniquement votre <em>tools.json</em>, vos opérations favorites, vos DXF importés, votre thème, votre langue et les données de coupe lues dans votre guide DATRON, stockés localement (localStorage). Aucun traceur, aucune donnée envoyée. Vous pourrez tout effacer à tout moment.')}</p>
+        ${T('Uniquement votre <em>tools.json</em>, vos opérations favorites, vos DXF importés, vos dessins et process TauDrive, votre thème, votre langue et les données de coupe lues dans votre guide DATRON, stockés localement (localStorage). Aucun traceur, aucune donnée envoyée. Vous pourrez tout effacer à tout moment.')}</p>
         <div><button type="button" class="primary" data-c="oui">${T('Accepter')}</button><button type="button" data-c="non">${T('Refuser')}</button></div>`;
       b.querySelectorAll('[data-c]').forEach(x => x.onclick = () => { this.setConsent(x.dataset.c); b.remove(); });
       document.body.append(b);

@@ -34,7 +34,7 @@
   const OPS = {
     thread: {
       label: 'Taraudage', tool: 'filetage', prefix: 'Taraudage',
-      fields: [PTS, P('thread', 'Filetage', 'select', 'M5', ['M3', 'M4', 'M5', 'M6', 'M8']), P('depth', 'Profondeur (mm)', 'number', 6),
+      fields: [PTS, P('thread', 'Filetage', 'select', 'M5', ['M3', 'M4', 'M5', 'M6', 'M8', 'M10']), P('depth', 'Profondeur (mm)', 'number', 6),
         P('dir', 'Sens', 'select', 'RightHandThread', ['RightHandThread', 'LeftHandThread']), P('finishing', 'Finition (mm)', 'number', 0.1)],
       body: o => parsePoints(o.points).flatMap(([x, y]) => [
         `SafeRapid X=${num(x)} Y=${num(y)} Z=5`,
@@ -492,11 +492,14 @@
     toolBox.innerHTML = `<h3>${tr('Bibliothèque d\'outils')}</h3>
       <p style="margin:0 0 8px;color:var(--mute)">${TOOLS.length ? tr('{n} outil(s)', { n: TOOLS.length }) : tr('Bibliothèque vide')} – ${tr('source')} : ${esc(toolSource)}${msg ? ' – ' + esc(msg) : ''}.</p>
       <div class="addbar"><a class="btnlink" href="outils.html">${tr('Éditer mes outils / catalogue DATRON')}</a>
+      <button type="button" id="gt-demo">${tr('Set de démarrage (démo)')}</button>
       <label><button type="button" id="gt-load">${tr('Charger un tools.json…')}</button><input type="file" id="gt-file" accept=".json,application/json" hidden></label></div>`;
     toolBox.querySelector('#gt-load').onclick = () => toolBox.querySelector('#gt-file').click();
+    toolBox.querySelector('#gt-demo').onclick = () => fetch('tools-demo.json', { cache: 'no-cache' }).then(r => r.json())
+      .then(j => { setTools(j.tools, tr('set de démarrage')); renderTools(); renderOps(); }).catch(err => renderTools(tr('erreur : {e}', { e: err.message })));
     toolBox.querySelector('#gt-file').onchange = e => {
       const f = e.target.files[0]; if (!f) return;
-      f.text().then(t => { const j = JSON.parse(t); if (!Array.isArray(j.tools)) throw new Error(tr('clé « tools » absente'));
+      f.text().then(t => { const j = window.OutilsFormat ? OutilsFormat.normaliser(JSON.parse(t)) : JSON.parse(t); if (!Array.isArray(j.tools)) throw new Error(tr('clé « tools » absente'));
         setTools(j.tools, f.name);
         const saved = ST() && ST().set('tools', j);
         renderTools(saved ? tr('enregistré dans ce navigateur') : ''); renderOps(); })

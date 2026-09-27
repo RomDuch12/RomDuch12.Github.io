@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TauConvert – RomDuch</title>
+<meta name="description" content="TauConvert – conversion de dessins vectoriels AI, PDF, EPS, SVG et DXF vers DXF, SVG, EPS ou PDF, en ligne dans le navigateur ou avec le programme Windows.">
+<script src="i18n.js"></script>
+<script src="theme.js"></script>
+<link rel="stylesheet" href="themes.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Barlow,"Segoe UI",Roboto,"Noto Sans SC","Microsoft YaHei",Arial,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 18px 70px}
+header{display:grid;gap:6px;padding:10px 0 22px;border-bottom:2px solid var(--brass);margin-bottom:10px}
+h1{font:700 clamp(2.2rem,6vw,3.6rem)/1 "Barlow Condensed",Arial Narrow,sans-serif;margin:6px 0 0}
+.tag{font:600 1.2rem "Barlow Condensed",sans-serif;color:var(--brass);margin:0}
+.lead{max-width:75ch;margin:6px 0 0;color:var(--mute)}
+h2{font:700 1.8rem/1.1 "Barlow Condensed",sans-serif;margin:40px 0 12px}
+a{color:var(--ink);text-decoration-color:var(--brass);text-underline-offset:3px}
+select,button,input{font:600 15px Barlow,sans-serif}
+select,button,.btn{max-width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 12px;border-radius:5px;cursor:pointer;text-decoration:none;display:inline-block}
+button.primary,.btn.primary{background:var(--brass);border-color:var(--brass);color:var(--on-accent)}
+button:disabled{opacity:.5;cursor:default}
+:focus-visible{outline:3px solid var(--brass-l);outline-offset:2px}
+.muted{color:var(--mute)}.small{font-size:14px}.bad{color:var(--warn)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px 16px}
+.drop{display:block;border:2px dashed var(--line);border-radius:6px;padding:22px;text-align:center;color:var(--mute);cursor:pointer}
+.drop.over{border-color:var(--brass);color:var(--ink)}
+.conv{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:14px;margin-top:14px}
+@media (max-width:800px){.conv{grid-template-columns:1fr}}
+#tc-cv{width:100%;height:380px;display:block;background:var(--bg);border:1px solid var(--line);border-radius:5px}
+#tc-files{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:4px}
+#tc-files li{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline;padding:6px 8px;border:1px solid var(--line);border-radius:5px;cursor:pointer}
+#tc-files li.on{border-color:var(--brass);box-shadow:inset 3px 0 0 var(--brass)}
+#tc-files small{color:var(--mute)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
+.row label{display:inline-flex;gap:6px;align-items:center;font-size:15px}
+.row input[type=number]{width:7em;font:400 15px Barlow,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:5px 7px}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:10px;margin:10px 0}
+.feat div{border-left:3px solid var(--brass);padding:4px 10px}
+footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html">RomDuch</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html" aria-current="true">TauDrive</a><a href="cv.html" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <nav class="subnav" aria-label="TauDrive"><a href="taudrive.html#sec-td-draw" data-i18n>Dessin</a><a href="taudrive.html#sec-td-job" data-i18n>Job</a><a href="taudrive.html#sec-td-viewer" data-i18n>Visualiseur de job</a><a href="tauconvert.html" aria-current="page">TauConvert</a></nav>
+  <h1>TauConvert</h1>
+  <p class="tag" data-i18n>Conversion de dessins vectoriels</p>
+  <p class="lead" data-i18n>Convertis tes dessins AI, PDF, EPS, SVG et DXF en DXF, SVG, EPS ou PDF : en ligne, dans ton navigateur, ou avec le programme Windows et son menu contextuel.</p>
+</header>
+
+<section id="sec-tc-online">
+  <h2 data-i18n>Convertir en ligne</h2>
+  <div class="box">
+    <label class="drop" id="tc-drop"><input type="file" id="tc-file" accept=".dxf,.svg,.pdf,.ai,.eps,.ps" multiple hidden><span data-i18n>Dépose tes fichiers ici ou clique pour les choisir (DXF, SVG, PDF, AI, EPS).</span></label>
+    <div class="conv">
+      <div><canvas id="tc-cv"></canvas><p class="small muted" id="tc-info"></p></div>
+      <div>
+        <ul id="tc-files"></ul>
+        <div class="row"><label><span data-i18n>Échelle</span> <input type="number" id="tc-scale" value="1" step="any" min="0"></label>
+          <label><input type="checkbox" id="tc-join" checked> <span data-i18n>Raccorder les tracés</span></label></div>
+        <div class="row" id="tc-out">
+          <button type="button" data-f="dxf" class="primary">DXF</button><button type="button" data-f="svg" class="primary">SVG</button>
+          <button type="button" data-f="eps" class="primary">EPS</button><button type="button" data-f="pdf" class="primary">PDF</button>
+          <button type="button" id="tc-taudrive" data-i18n>Ouvrir dans TauDrive</button>
+        </div>
+        <p class="small muted" data-i18n>Tout se passe dans ton navigateur : rien n'est envoyé. Les textes non vectorisés des PDF ne sont pas repris ; l'EPS est lu pour les tracés simples (moveto, lineto, curveto). Pour les fichiers complexes, CorelDRAW compris, utilise TauConvert pour Windows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sec-tc-download">
+  <h2 data-i18n>TauConvert pour Windows</h2>
+  <div class="box">
+    <p data-i18n>La version réduite de TauDrive : conversion et menu contextuel seulement, sans gravure ni pilotage de machine.</p>
+    <div class="feat">
+      <div data-i18n><b>7 formats en entrée</b> : DXF, SVG, PDF, AI, EPS, PS et CorelDRAW (avec Inkscape ou LibreOffice).</div>
+      <div data-i18n><b>5 formats en sortie</b> : DXF, EPS, AI, SVG et PDF.</div>
+      <div data-i18n><b>Clic droit dans Windows</b> : « Convertir en… » sur un ou plusieurs fichiers ; pose et retrait sans résidu.</div>
+      <div data-i18n><b>Texte et cotations DXF</b> rendus en contours, calques éteints ou gelés écartés.</div>
+    </div>
+    <div class="row"><a class="btn primary" id="tc-dl" href="https://github.com/RomDuch12/RomDuch12.Github.io/releases/latest/download/TauConvert-1.0.0-win64.zip" data-i18n>Télécharger TauConvert 1.0.0 (Windows 64 bits, .zip)</a>
+      <a class="btn" href="https://github.com/RomDuch12/RomDuch12.Github.io/releases" target="_blank" rel="noopener" data-i18n>Toutes les versions</a></div>
+    <p class="small muted" data-i18n>Décompresse l'archive, puis lance TauConvert.exe. Aucune installation, aucun droit administrateur. Windows peut afficher un avertissement SmartScreen : le programme n'est pas signé.</p>
+  </div>
+</section>
+
+<footer><p>RomDuch · <a href="index.html" data-i18n>Accueil</a> · <a href="taudrive.html">TauDrive</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
+</main>
+<script src="stockage.js" defer></script>
+<script src="vecteurs.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const $ = id => document.getElementById(id), V = window.Vecteurs, tr = (s, v) => (window.t ? t(s, v) : s);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const nf = (n, d = 2) => (window.I18N ? I18N.fmt(+(+n).toFixed(d)) : (+n).toFixed(d));
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  let files = [], cur = -1;
+  const polys = f => { const k = +$('tc-scale').value || 1, u = f.unitScale || 1; let p = f.items.map(i => i.poly.map(([x, y]) => [x * k * u, y * k * u])); return $('tc-join').checked ? V.join(p) : p; };
+  function add(list) {
+    Promise.all([...list].map(f => V.read(f).then(r => r, e => ({ name: f.name, error: e.message })))).then(rs => {
+      files = files.concat(rs); if (cur < 0 || !files[cur] || files[cur].error) cur = files.findIndex(f => !f.error); render();
+    });
+  }
+  function render() {
+    $('tc-files').innerHTML = files.map((f, i) => `<li class="${i === cur ? 'on' : ''}" data-i="${i}"><b>${esc(f.name)}</b>` + (f.error ? ` <small class="bad">${esc(f.error)}</small>`
+      : ` <small>${esc(f.format)} · ${tr('{n} tracé(s)', { n: f.items.length })}</small>`) + '</li>').join('');
+    $('tc-files').querySelectorAll('li').forEach(li => li.onclick = () => { cur = +li.dataset.i; render(); });
+    const ok = cur >= 0 && files[cur] && !files[cur].error;
+    document.querySelectorAll('#tc-out button').forEach(b => { b.disabled = !ok; });
+    draw();
+  }
+  function draw() {
+    const cv = $('tc-cv'), r = cv.getBoundingClientRect(), d = devicePixelRatio || 1, x = cv.getContext('2d');
+    cv.width = r.width * d; cv.height = r.height * d; x.setTransform(d, 0, 0, d, 0, 0); x.clearRect(0, 0, r.width, r.height);
+    const f = files[cur]; if (!f || f.error) { $('tc-info').textContent = ''; return; }
+    const p = polys(f), b = V.bounds(p); if (!b) { $('tc-info').textContent = tr('Aucun tracé exploitable.'); return; }
+    const k = Math.min((r.width - 20) / ((b[2] - b[0]) || 1), (r.height - 20) / ((b[3] - b[1]) || 1)), ox = (r.width - (b[2] - b[0]) * k) / 2, oy = (r.height - (b[3] - b[1]) * k) / 2;
+    x.strokeStyle = css('--ink'); x.lineWidth = 1; x.beginPath();
+    for (const q of p) q.forEach(([a, c], i) => { const X = ox + (a - b[0]) * k, Y = r.height - oy - (c - b[1]) * k; i ? x.lineTo(X, Y) : x.moveTo(X, Y); });
+    x.stroke();
+    const n = p.filter(V.closed).length;
+    $('tc-info').textContent = tr('{w} × {h} mm · {n} tracé(s), dont {c} fermé(s)', { w: nf(b[2] - b[0]), h: nf(b[3] - b[1]), n: p.length, c: n })
+      + (f.ignored && f.ignored.length ? ' · ' + tr('Entités ignorées : {l}', { l: f.ignored.join(', ') }) : '');
+  }
+  function download(name, text, type) {
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; document.body.append(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  }
+  document.querySelectorAll('#tc-out [data-f]').forEach(b => b.onclick = () => {
+    const f = files[cur], p = polys(f), k = b.dataset.f;
+    const W = { dxf: [V.toDXF, 'application/dxf'], svg: [V.toSVG, 'image/svg+xml'], eps: [V.toEPS, 'application/postscript'], pdf: [V.toPDF, 'application/pdf'] }[k];
+    download(`${f.name}.${k}`, W[0](p), W[1]);
+  });
+  $('tc-taudrive').onclick = () => {
+    const f = files[cur], k = (+$('tc-scale').value || 1) * (f.unitScale || 1);
+    try { sessionStorage.setItem('taudrive-import', JSON.stringify({ name: f.name, format: f.format, unitScale: 1, ignored: f.ignored || [],
+      items: f.items.map(i => ({ layer: i.layer, poly: i.poly.map(([x, y]) => [+(x * k).toFixed(5), +(y * k).toFixed(5)]) })) })); location.href = 'taudrive.html#sec-td-draw'; }
+    catch (e) { alert(tr('Dessin trop lourd pour être transmis : exporte-le en DXF puis importe-le dans TauDrive.')); }
+  };
+  $('tc-file').onchange = e => { add(e.target.files); e.target.value = ''; };
+  const dz = $('tc-drop');
+  ['dragenter', 'dragover'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove('over'); }));
+  dz.addEventListener('drop', e => add(e.dataTransfer.files));
+  $('tc-scale').oninput = draw; $('tc-join').onchange = draw; addEventListener('resize', draw);
+  render();
+});
+</script>
+</body>
+</html>
