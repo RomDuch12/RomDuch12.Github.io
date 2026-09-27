@@ -333,18 +333,18 @@
   function toSVG(polys, margin = 1) {
     const b = bounds(polys) || [0, 0, 1, 1], x0 = b[0] - margin, y1 = b[3] + margin, w = b[2] - b[0] + 2 * margin, h = b[3] - b[1] + 2 * margin;
     const d = polys.map(p => 'M' + p.map(([x, y], i) => (i && closed(p) && i === p.length - 1 ? 'Z' : `${i ? 'L' : ''}${f(x - x0)} ${f(y1 - y)}`)).join(' ')).join(' ');
-    return `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="${f(w)}mm" height="${f(h)}mm" viewBox="0 0 ${f(w)} ${f(h)}">\n<path d="${d}" fill="none" stroke="#000" stroke-width="0.1"/>\n</svg>\n`;
+    return `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="${f(w)}mm" height="${f(h)}mm" viewBox="0 0 ${f(w)} ${f(h)}">\n<path d="${d}" fill="none" stroke="#000" stroke-width="1" vector-effect="non-scaling-stroke"/>\n</svg>\n`;
   }
   function toEPS(polys, margin = 1) {
     const b = bounds(polys) || [0, 0, 1, 1], k = 72 / 25.4, x0 = b[0] - margin, y0 = b[1] - margin, w = (b[2] - b[0] + 2 * margin) * k, h = (b[3] - b[1] + 2 * margin) * k;
     const L = ['%!PS-Adobe-3.0 EPSF-3.0', `%%BoundingBox: 0 0 ${Math.ceil(w)} ${Math.ceil(h)}`, `%%HiResBoundingBox: 0 0 ${f(w)} ${f(h)}`, '%%Creator: TauConvert web (RomDuch)', '%%EndComments',
-      '0.283 setlinewidth 1 setlinejoin 1 setlinecap'];
+      '0 setlinewidth 1 setlinejoin 1 setlinecap'];
     for (const p of polys) { L.push('newpath ' + p.map(([x, y], i) => (i && closed(p) && i === p.length - 1 ? 'closepath' : `${f((x - x0) * k)} ${f((y - y0) * k)} ${i ? 'lineto' : 'moveto'}`)).join(' ') + ' stroke'); }
     L.push('showpage', '%%EOF'); return L.join('\n') + '\n';
   }
   function toPDF(polys, margin = 1) {
     const b = bounds(polys) || [0, 0, 1, 1], k = 72 / 25.4, x0 = b[0] - margin, y0 = b[1] - margin, w = (b[2] - b[0] + 2 * margin) * k, h = (b[3] - b[1] + 2 * margin) * k;
-    const s = ['0.283 w 1 j 1 J 0 G'];
+    const s = ['0 w 1 j 1 J 0 G'];
     for (const p of polys) s.push(p.map(([x, y], i) => (i && closed(p) && i === p.length - 1 ? 'h' : `${f((x - x0) * k)} ${f((y - y0) * k)} ${i ? 'l' : 'm'}`)).join(' ') + ' S');
     const content = s.join('\n');
     const objs = ['<< /Type /Catalog /Pages 2 0 R >>', '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
@@ -356,5 +356,23 @@
     out += `xref\n0 ${objs.length + 1}\n0000000000 65535 f \n` + off.map(v => String(v).padStart(10, '0') + ' 00000 n \n').join('') + `trailer\n<< /Size ${objs.length + 1} /Root 1 0 R /Info 5 0 R >>\nstartxref\n${x}\n%%EOF\n`;
     return out;
   }
-  window.Vecteurs = { read, readDXF, readSVG, readPDF, readEPS, join, bounds, closed, toDXF, toSVG, toEPS, toPDF, circle };
+  /* PNG à la résolution demandée (px/mm), fond blanc, traits noirs ; densité inscrite (bloc pHYs) pour garder la cote */
+  function crc32(buf) { let c, crc = 0xFFFFFFFF; for (let n = 0; n < buf.length; n++) { c = (crc ^ buf[n]) & 0xFF; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; crc = (crc >>> 8) ^ c; } return (crc ^ 0xFFFFFFFF) >>> 0; }
+  async function toPNG(polys, { pxmm = 20, margin = 1, fill = false, line = 1 } = {}) {
+    const b = bounds(polys) || [0, 0, 1, 1], w = Math.ceil((b[2] - b[0] + 2 * margin) * pxmm), h = Math.ceil((b[3] - b[1] + 2 * margin) * pxmm);
+    if (w * h > 120e6) throw new Error(tr('Image trop grande ({w} × {h} px) : baisse la résolution.', { w, h }));
+    const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+    const x = cv.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, w, h);
+    x.beginPath();
+    for (const p of polys) p.forEach(([a, c], i) => { const X = (a - b[0] + margin) * pxmm, Y = h - (c - b[1] + margin) * pxmm; i ? x.lineTo(X, Y) : x.moveTo(X, Y); });
+    if (fill) { x.fillStyle = '#000'; x.fill('evenodd'); }
+    x.strokeStyle = '#000'; x.lineWidth = line; x.lineJoin = 'round'; x.lineCap = 'round'; x.stroke();
+    const blob = await new Promise(ok => cv.toBlob(ok, 'image/png'));
+    const src = new Uint8Array(await blob.arrayBuffer()), ppm = Math.round(pxmm * 1000);
+    const chunk = new Uint8Array(21), dv = new DataView(chunk.buffer);
+    dv.setUint32(0, 9); chunk.set([112, 72, 89, 115], 4); dv.setUint32(8, ppm); dv.setUint32(12, ppm); chunk[16] = 1; dv.setUint32(17, crc32(chunk.subarray(4, 17)));
+    const out = new Uint8Array(src.length + 21); out.set(src.subarray(0, 33)); out.set(chunk, 33); out.set(src.subarray(33), 54);   // après IHDR
+    return new Blob([out], { type: 'image/png' });
+  }
+  window.Vecteurs = { read, readDXF, readSVG, readPDF, readEPS, join, bounds, closed, toDXF, toSVG, toEPS, toPDF, toPNG, circle };
 })();

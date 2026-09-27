@@ -7,6 +7,7 @@
 <meta name="description" content="NeoDrive web – générateur de programmes SimPL pour Datron à partir d'opérations de base, et visualiseur de trajectoires.">
 <script src="i18n.js"></script>
 <script src="theme.js"></script>
+<script src="simpl-editeur.js"></script>
 <link rel="stylesheet" href="themes.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400&display=swap">
 <script>
@@ -14,15 +15,14 @@
 const CONFIG = {
   nom: "RomDuch",
   /* Vidéos : { titre, youtube: "ID de la vidéo" } ou { titre, mp4: "videos/fichier.mp4" } ;
-     vertical: true pour un Short ; masque: true pour la cacher sans la supprimer */
+     vertical: true pour un Short ; ecran: "desktop" ou "mobile" pour ne l'afficher que sur un format ; masque: true pour la cacher */
   videos: [
-    { titre: "Démo NeoDrive – 2 gravures en 60 s", youtube: "trOm5kLQ-AI", masque: true },   // masquée temporairement
-    { titre: "Démo NeoDrive – format Short", youtube: "3QQsX1AAxw8", vertical: true }
+    { titre: "Démo NeoDrive – 2 gravures en 60 s", youtube: "trOm5kLQ-AI", ecran: "desktop" },
+    { titre: "Démo NeoDrive – format Short", youtube: "3QQsX1AAxw8", vertical: true, ecran: "mobile" }
   ],
   /* Programmes du visualiseur : { titre, url: "programmes/fichier.simpl" } (chargé à la demande)
      ou { titre, code: `...` } (export SimPL collé entre les backticks). Le premier est affiché par défaut. */
   programmes: [
-    { titre: "Calendreta – programme NeoDrive (SimPL)", url: "programmes/calendreta.simpl" },
     { titre: "Démo générique : contour + perçages + poche", code: `// Démo : contour + perçages + poche
 X=0 Y=0 Z=5
 X=5 Y=5 Z=5
@@ -90,9 +90,11 @@ h2{font:700 1.8rem/1.1 "Barlow Condensed",sans-serif;margin:44px 0 14px}
 @media (max-width:760px){.vbody{grid-template-columns:1fr}}
 canvas{width:100%;height:420px;display:block;background:var(--bg)}
 @media (max-width:760px){canvas{height:320px}}
-pre{margin:0;max-height:420px;overflow:auto;font:400 13px/1.6 "JetBrains Mono",Consolas,monospace;border-left:1px solid var(--line)}
-pre div{padding:0 10px;white-space:pre}
-pre div.cur{background:var(--brass);color:var(--on-accent)}
+#code{border-left:1px solid var(--line);height:420px;min-width:0}
+@media (max-width:760px){#code{height:360px;border-left:0;border-top:1px solid var(--line)}}
+.vid.only-desktop,.vid.only-mobile{max-width:none}
+@media (max-width:760px){.only-desktop{display:none!important}.vid.vertical{max-width:420px;margin:0 auto}}
+@media (min-width:761px){.only-mobile{display:none!important}.vids{grid-template-columns:1fr}}
 select,button,input[type=range]{font:600 15px Barlow,sans-serif}
 select,button{max-width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 12px;border-radius:5px;cursor:pointer}
 button.primary{background:var(--brass);border-color:var(--brass);color:var(--on-accent)}
@@ -130,11 +132,13 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}
 .nav a{color:var(--ink);font-weight:600;text-decoration-color:var(--brass);text-underline-offset:3px}
 footer a{color:var(--mute)}
 </style>
+<link rel="stylesheet" href="site.css">
+<script src="ui.js" defer></script>
 </head>
 <body>
 <main>
 <header>
-  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html">RomDuch</a><a href="neodrive.html" aria-current="true">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="cv.html" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html">RomDuch</a><a href="neodrive.html" aria-current="true">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
   <nav class="subnav" aria-label="NeoDrive"><a href="#sec-gen" data-i18n>Génère ton SimPL</a><a href="#sec-viewer" data-i18n>Visualiseur</a><a href="outils.html" data-i18n>Éditeur d'outils</a><a href="coupe.html" data-i18n>Données de coupe</a><a href="#sec-videos" data-i18n>Vidéo</a></nav>
   <h1>NeoDrive</h1>
   <p class="tag" data-i18n>Générateur et visualiseur SimPL pour Datron</p>
@@ -156,7 +160,7 @@ footer a{color:var(--mute)}
       <select id="speed" aria-label="Vitesse" data-i18n-attr="aria-label"><option value="0.5">×0,5</option><option value="1" selected>×1</option><option value="3">×3</option></select>
       <label><button id="load" type="button" data-i18n>Ouvrir un fichier…</button><input type="file" id="file" accept=".simpl,.txt,.nc,.mcr,*/*" hidden></label>
     </div>
-    <div class="vbody"><canvas id="cv"></canvas><pre id="code" aria-label="Code du programme" data-i18n-attr="aria-label"></pre></div>
+    <div class="vbody"><canvas id="cv"></canvas><div id="code" aria-label="Code du programme" data-i18n-attr="aria-label"></div></div>
     <div class="info"><span class="leg"><i style="background:var(--brass)"></i><span data-i18n>Usinage (Z ≤ 0)</span></span><span class="leg"><i style="background:var(--rapid)"></i><span data-i18n>Hors matière</span></span><span id="stats"></span></div>
   </div>
 </section>
@@ -183,7 +187,7 @@ if(videos.length){
   $('videos').innerHTML=videos.map(v=>{
     const m=v.youtube?`<iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}?rel=0" title="${esc(t(v.titre))}" allow="encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe>`
       :`<video src="${esc(v.mp4)}" controls preload="metadata" playsinline></video>`;
-    return `<div class="vid${v.vertical?' vertical':''}"><div class="ratio">${m}</div><p>${esc(t(v.titre))}</p></div>`;}).join('');
+    return `<div class="vid${v.vertical?' vertical':''}${v.ecran?' only-'+v.ecran:''}"><div class="ratio">${m}</div><p>${esc(t(v.titre))}</p></div>`;}).join('');
 }
 
 /* ---------- Lecteur de programmes ---------- */
@@ -224,21 +228,22 @@ function parse(src){
   return {lines,pts};
 }
 
-const cv=$('cv'), ctx=cv.getContext('2d'), pre=$('code');
-let prog=null, segs=[], total=0, prog01=1, playing=false, last=0, curLine=-1;
+const cv=$('cv'), ctx=cv.getContext('2d');
+let prog=null, segs=[], total=0, prog01=1, playing=false, last=0, curLine=-1, ed=null, pendingSrc='';
+if(window.SimplEditor) SimplEditor.create($('code'),{value:'',onChange:v=>{ const keep=prog01; build(v); prog01=keep; $('pos').value=keep*1000; draw(); }})
+  .then(e=>{ ed=e; ed.setValue(pendingSrc); curLine=-1; draw(); });
 const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 
-function load(src){
+function build(src){
   prog=parse(src); segs=[]; total=0;
   for(let i=1;i<prog.pts.length;i++){const a=prog.pts[i-1],b=prog.pts[i];
     const L=Math.hypot(b.x-a.x,b.y-a.y,b.z-a.z); if(L===0) continue;
     segs.push({a,b,L,s:total,cut:a.z<=0&&b.z<=0}); total+=L;}
-  pre.innerHTML=prog.lines.map((l,i)=>`<div data-l="${i}">${esc(l)||' '}</div>`).join('');
   const zs=prog.pts.map(p=>p.z);
   $('stats').textContent=prog.pts.length?t('{n} positions · longueur {l} mm · Z min {z} mm',{n:I18N.fmt(prog.pts.length),l:I18N.fmt(Math.round(total)),z:Math.min(...zs).toFixed(2)})
     :t('Aucun déplacement reconnu dans ce fichier.');
-  curLine=-1; prog01=1; $('pos').value=1000; stop(); draw();
 }
+function load(src){ build(src); pendingSrc=src; if(ed) ed.setValue(src); curLine=-1; prog01=1; $('pos').value=1000; stop(); draw(); }
 function fit(){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1; cv.width=r.width*d; cv.height=r.height*d; ctx.setTransform(d,0,0,d,0,0); return r;}
 function draw(){
   const r=fit(); ctx.clearRect(0,0,r.width,r.height); if(!prog||!prog.pts.length) return;
@@ -261,8 +266,7 @@ function draw(){
   ctx.beginPath(); ctx.arc(X(tool.x),Y(tool.y),5,0,7); ctx.fill();
   ctx.fillStyle=css('--mute'); ctx.font='13px Barlow,sans-serif';
   ctx.fillText(`X ${tool.x.toFixed(2)}  Y ${tool.y.toFixed(2)}  Z ${tool.z.toFixed(2)}`,10,r.height-10);
-  if(line!==curLine){ pre.querySelector('.cur')?.classList.remove('cur'); const el=pre.querySelector(`[data-l="${line}"]`);
-    if(el){el.classList.add('cur'); if(playing) pre.scrollTop=el.offsetTop-pre.clientHeight/2;} curLine=line; }
+  if(line!==curLine){ if(ed) ed.mark(line, playing); curLine=line; }
 }
 function tick(t){ if(!playing) return; const dt=(t-last)/1000; last=t;
   const dur=Math.max(6,Math.min(40,total/15))/(+$('speed').value);
@@ -283,14 +287,25 @@ function pick(i){ const p=CONFIG.programmes[i]; $('prog').value=i;
     .catch(()=>{ if(demo){ pick(CONFIG.programmes.indexOf(demo)); }
       $('stats').textContent=t('« {p} » indisponible : démo générique affichée.',{p:t(p.titre)}); });
 }
-$('prog').onchange=e=>pick(+e.target.value);
+$('prog').onchange=e=>{ if(e.target.value!=='gen') pick(+e.target.value); };
 $('load').onclick=()=>$('file').click();
 $('file').onchange=e=>{const f=e.target.files[0]; if(!f) return; f.text().then(load);};
 addEventListener('resize',draw);
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
 if(CONFIG.programmes.length) pick(0);
 /* point d'entrée pour le générateur : affiche un programme généré */
-window.simplViewer={show(src){ load(src); document.getElementById('sec-viewer').scrollIntoView({behavior:'smooth'}); }};
+/* programme généré : ajouté à la liste et affiché automatiquement */
+let genSrc=null;
+function setGenerated(src){
+  genSrc=src;
+  if(!$('prog').querySelector('option[value="gen"]')) $('prog').insertAdjacentHTML('afterbegin',`<option value="gen">${esc(t('Programme généré'))}</option>`);
+  $('prog').value='gen'; load(src);
+}
+$('prog').addEventListener('change',e=>{ if(e.target.value==='gen'&&genSrc) load(genSrc); },true);
+window.simplViewer={
+  show(src){ setGenerated(src); document.getElementById('sec-viewer').scrollIntoView({behavior:'smooth'}); },
+  generated(src){ if(src&&src!==genSrc) setGenerated(src); }
+};
 })();
 </script>
 <script src="stockage.js" defer></script>

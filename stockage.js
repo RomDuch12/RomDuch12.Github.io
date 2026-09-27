@@ -34,6 +34,20 @@
       catch (e) { alert((window.t || (x => x))("Stockage local plein ou indisponible : l'élément n'a pas été enregistré.")); return false; }
     },
     taille() { try { return KEYS.reduce((s, k) => s + ((ls && ls.getItem(P + k)) || '').length, 0); } catch (e) { return 0; } },
+    /* nettoyage : toutes les données du site dans ce navigateur (local et session), consentement compris */
+    inventaire() {
+      const out = [];
+      for (const st of [ls, ss]) { if (!st) continue; for (let i = 0; i < st.length; i++) { const k = st.key(i); if (k && (k.startsWith(P) || k.startsWith('i18n-') || k === 'taudrive-import')) out.push([st, k, (st.getItem(k) || '').length]); } }
+      return out;
+    },
+    nettoyer() {
+      const T = window.t || (x => x), inv = this.inventaire();
+      if (!inv.length) { alert(T('Aucune donnée enregistrée par ce site dans ce navigateur.')); return; }
+      const ko = Math.max(1, Math.round(inv.reduce((s, x) => s + x[2], 0) / 1024));
+      if (!confirm(T('Effacer toutes les données enregistrées par ce site dans ce navigateur ({n} éléments, {k} ko) : outils, favoris, DXF, dessins TauDrive, guide DATRON lu, thème, langue et consentement ?', { n: inv.length, k: ko }))) return;
+      inv.forEach(([st, k]) => { try { st.removeItem(k); } catch (e) { /* */ } });
+      alert(T('Données effacées.')); location.reload();
+    },
 
     /* ----- bannière de consentement ----- */
     banniere(force) {
@@ -60,5 +74,8 @@
   document.addEventListener('DOMContentLoaded', () => {
     Stockage.banniere();
     document.querySelectorAll('[data-stockage-gerer]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); Stockage.banniere(true); }));
+    const T = window.t || (x => x), foot = document.querySelector('footer p:last-child');
+    if (foot && !document.querySelector('[data-stockage-effacer]')) foot.insertAdjacentHTML('beforeend', ` · <button type="button" class="datawipe" data-stockage-effacer>${T('Effacer mes données enregistrées')}</button>`);
+    document.querySelectorAll('[data-stockage-effacer]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); Stockage.nettoyer(); }));
   });
 })();

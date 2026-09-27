@@ -1,175 +1,485 @@
 ref,categorie,famille,filetage,D1,D2,D3,L1,L2,L3,angle,R,dents,pas,prepercage,longueur_utile,prix_eur,groupe_prix,designation_de,page_catalogue
-0068803A,Fraise 1 dent,Fraise 1 dent 4-IN-1,,3,6,,40,5,,,,1,,,,38.68,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068803E,Fraise 1 dent,Fraise 1 dent 4-IN-1,,3,6,2.8,50,9,13,,,1,,,,40.56,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
-0068803K,Fraise 1 dent,Fraise 1 dent 4-IN-1,,3,6,,45,9,,,,1,,,,39.95,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068803L,Fraise 1 dent,Fraise 1 dent 4-IN-1,,3,6,2.8,50,9,16,,,1,,,,41.2,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
-0068803X,Fraise 1 dent,Fraise 1 dent 4-IN-1,,3,6,,50,13,,,,1,,,,42.44,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068804A,Fraise 1 dent,Fraise 1 dent 4-IN-1,,4,6,,40,5,,,,1,,,,39.95,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068804E,Fraise 1 dent,Fraise 1 dent 4-IN-1,,4,6,3.7,50,9,16,,,1,,,,41.8,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
-0068804K,Fraise 1 dent,Fraise 1 dent 4-IN-1,,4,6,,45,9,,,,1,,,,41.2,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068804L,Fraise 1 dent,Fraise 1 dent 4-IN-1,,4,6,3.7,55,9,21,,,1,,,,42.44,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
-0068804X,Fraise 1 dent,Fraise 1 dent 4-IN-1,,4,6,,55,16,,,,1,,,,43.69,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068805A,Fraise 1 dent,Fraise 1 dent 4-IN-1,,5,6,,45,7,,,,1,,,,42.44,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068805E,Fraise 1 dent,Fraise 1 dent 4-IN-1,,5,6,4.6,60,11,21,,,1,,,,44.32,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
-0068805K,Fraise 1 dent,Fraise 1 dent 4-IN-1,,5,6,,50,11,,,,1,,,,43.69,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068805L,Fraise 1 dent,Fraise 1 dent 4-IN-1,,5,6,4.6,60,11,26,,,1,,,,44.96,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
-0068805X,Fraise 1 dent,Fraise 1 dent 4-IN-1,,5,6,,55,16,,,,1,,,,46.2,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068806A,Fraise 1 dent,Fraise 1 dent 4-IN-1,,6,6,,45,7,,,,1,,,,44.96,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068806E,Fraise 1 dent,Fraise 1 dent 4-IN-1,,6,6,5.5,60,13,26,,,1,,,,48.7,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
-0068806K,Fraise 1 dent,Fraise 1 dent 4-IN-1,,6,6,,50,13,,,,1,,,,46.82,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068806L,Fraise 1 dent,Fraise 1 dent 4-IN-1,,6,6,5.5,65,13,31,,,1,,,,50.58,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
-0068806X,Fraise 1 dent,Fraise 1 dent 4-IN-1,,6,6,,55,21,,,,1,,,,52.46,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068808A,Fraise 1 dent,Fraise 1 dent 4-IN-1,,8,8,,45,9,,,,1,,,,55.15,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068808E,Fraise 1 dent,Fraise 1 dent 4-IN-1,,8,8,7.4,65,17,31,,,1,,,,60.55,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
-0068808K,Fraise 1 dent,Fraise 1 dent 4-IN-1,,8,8,,55,17,,,,1,,,,57.84,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068808L,Fraise 1 dent,Fraise 1 dent 4-IN-1,,8,8,7.4,75,17,41,,,1,,,,63.23,RG2,"Einschneider – gewuchtet, Planschn.,pol., Freischliff; min",
-0068808X,Fraise 1 dent,Fraise 1 dent 4-IN-1,,8,8,,65,26,,,,1,,,,65.94,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068810A,Fraise 1 dent,Fraise 1 dent 4-IN-1,,10,10,,50,11,,,,1,,,,67.28,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068810E,Fraise 1 dent,Fraise 1 dent 4-IN-1,,10,10,9.2,75,21,41,,,1,,,,74.02,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
-0068810K,Fraise 1 dent,Fraise 1 dent 4-IN-1,,10,10,,60,21,,,,1,,,,70.64,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068810L,Fraise 1 dent,Fraise 1 dent 4-IN-1,,10,10,9.2,85,21,51,,,1,,,,77.38,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
-0068810X,Fraise 1 dent,Fraise 1 dent 4-IN-1,,10,10,,70,32,,,,1,,,,80.77,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068812A,Fraise 1 dent,Fraise 1 dent 4-IN-1,,12,12,,55,14,,,,1,,,,94.24,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068812E,Fraise 1 dent,Fraise 1 dent 4-IN-1,,12,12,11,85,26,51,,,1,,,,102.34,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
-0068812K,Fraise 1 dent,Fraise 1 dent 4-IN-1,,12,12,,65,26,,,,1,,,,98.29,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0068812L,Fraise 1 dent,Fraise 1 dent 4-IN-1,,12,12,11,95,26,61,,,1,,,,106.37,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
-0068812X,Fraise 1 dent,Fraise 1 dent 4-IN-1,,12,12,,75,36,,,,1,,,,110.42,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
-0078310E,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,1,6,,50,4,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
-0078320E,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,2,6,,50,7,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
-0078320L,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,2,6,,50,11,,,,1,,,,44.04,RG2,Einschneider – mit polierter Schneide,
-0078330E,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,3,6,,50,8,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
-0078330L,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,3,6,,50,12,,,,1,,,,44.04,RG2,Einschneider – mit polierter Schneide,
-0078334E,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,4,6,,50,10,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
-0078334L,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,4,6,,60,22,,,,1,,,,44.04,RG2,Einschneider – mit polierter Schneide,
-0078335E,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,5,6,,50,12,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
-0078335L,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,5,6,,60,22,,,,1,,,,44.04,RG2,Einschneider – mit polierter Schneide,
-0078360E,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,6,6,,50,14,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
-0078360L,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,6,6,,60,22,,,,1,,,,44.04,RG2,Einschneider – mit polierter Schneide,
-0078338E,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,8,8,,60,22,,,,1,,,,61.58,RG2,Einschneider – mit polierter Schneide,
-0078338L,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,8,8,,70,32,,,,1,,,,68.66,RG2,Einschneider – mit polierter Schneide,
-0078339E,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,10,10,,75,32,,,,1,,,,79.99,RG2,Einschneider – mit polierter Schneide,
-0068492E,Fraise 1 dent,Fraise 1 dent avec dépouille,,2,6,1.8,50,7,14,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068492K,Fraise 1 dent,Fraise 1 dent avec dépouille,,2,6,1.8,50,4,12,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068493D,Fraise 1 dent,Fraise 1 dent avec dépouille,,3,6,2.7,50,4,17,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068493E,Fraise 1 dent,Fraise 1 dent avec dépouille,,3,6,2.7,50,8,14,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068493F,Fraise 1 dent,Fraise 1 dent avec dépouille,,3,6,2.7,50,4,21,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068493K,Fraise 1 dent,Fraise 1 dent avec dépouille,,3,6,2.7,50,4,14,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068493L,Fraise 1 dent,Fraise 1 dent avec dépouille,,3,6,2.7,50,8,21,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068493S,Fraise 1 dent,Fraise 1 dent avec dépouille,,3,6,2.7,50,8,17,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068494D,Fraise 1 dent,Fraise 1 dent avec dépouille,,4,6,3.6,50,5,21,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068494E,Fraise 1 dent,Fraise 1 dent avec dépouille,,4,6,3.6,50,10,18,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068494K,Fraise 1 dent,Fraise 1 dent avec dépouille,,4,6,3.6,50,5,18,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068494S,Fraise 1 dent,Fraise 1 dent avec dépouille,,4,6,3.6,50,10,21,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068495E,Fraise 1 dent,Fraise 1 dent avec dépouille,,5,6,4.4,50,12,22,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068495K,Fraise 1 dent,Fraise 1 dent avec dépouille,,5,6,4.4,60,5,22,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068496E,Fraise 1 dent,Fraise 1 dent avec dépouille,,6,6,5.3,50,14,24,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068496F,Fraise 1 dent,Fraise 1 dent avec dépouille,,6,6,5.3,60,5,30,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068496K,Fraise 1 dent,Fraise 1 dent avec dépouille,,6,6,5.3,60,5,24,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068496L,Fraise 1 dent,Fraise 1 dent avec dépouille,,6,6,5.3,60,14,30,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
-0068471E,Fraise 1 dent,Fraise 1 dent hélice à gauche,,1.5,6,,50,7,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
-0068472E,Fraise 1 dent,Fraise 1 dent hélice à gauche,,2,6,,50,7,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
-0068473E,Fraise 1 dent,Fraise 1 dent hélice à gauche,,3,6,,50,8,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
-0068474E,Fraise 1 dent,Fraise 1 dent hélice à gauche,,4,6,,50,10,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
-0068475E,Fraise 1 dent,Fraise 1 dent hélice à gauche,,5,6,,50,12,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
-0068476E,Fraise 1 dent,Fraise 1 dent hélice à gauche,,6,6,,50,14,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
-0068476L,Fraise 1 dent,Fraise 1 dent hélice à gauche,,6,6,,60,20,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
-0068003E,Fraise 1 dent,Fraise 1 dent standard,,0.3,3,,38,1,,,,1,,,,16.52,RG2,Einschneider,
-0068004E,Fraise 1 dent,Fraise 1 dent standard,,0.4,3,,38,1,,,,1,,,,16.52,RG1,Einschneider,
-0068005E,Fraise 1 dent,Fraise 1 dent standard,,0.5,3,,38,1.5,,,,1,,,,16.52,RG1,Einschneider,
-0068006E,Fraise 1 dent,Fraise 1 dent standard,,0.6,3,,38,2.5,,,,1,,,,16.52,RG2,Einschneider,
-0068606E,Fraise 1 dent,Fraise 1 dent standard,,0.6,3.175,,38,3,,,,1,,,,13.15,RG1,Einschneider,
-0068008E,Fraise 1 dent,Fraise 1 dent standard,,0.8,3,,38,3,,,,1,,,,16.52,RG1,Einschneider,
-0068608E,Fraise 1 dent,Fraise 1 dent standard,,0.8,3.175,,38,3,,,,1,,,,13.15,RG1,Einschneider,
-0068010E,Fraise 1 dent,Fraise 1 dent standard,,1,3,,38,4,,,,1,,,,16.52,RG1,Einschneider,
-0068410E,Fraise 1 dent,Fraise 1 dent standard,,1,6,,50,4,,,,1,,,,30.93,RG2,Einschneider,
-0068610E,Fraise 1 dent,Fraise 1 dent standard,,1,3.175,,38,3,,,,1,,,,13.15,RG1,Einschneider,
-0068612E,Fraise 1 dent,Fraise 1 dent standard,,1.2,3.175,,38,4,,,,1,,,,13.15,RG1,Einschneider,
-0068015E,Fraise 1 dent,Fraise 1 dent standard,,1.5,3,,38,5,,,,1,,,,16.52,RG1,Einschneider,
-0068415A,Fraise 1 dent,Fraise 1 dent standard,,1.5,6,,50,3,,,,1,,,,29.54,RG2,Einschneider,
-0068415E,Fraise 1 dent,Fraise 1 dent standard,,1.5,6,,50,7,,,,1,,,,30.93,RG2,Einschneider,
-0068415Y,Fraise 1 dent,Fraise 1 dent standard,,1.5,4,,40,5,,,,1,,,,27.03,RG2,Einschneider,
-0068615E,Fraise 1 dent,Fraise 1 dent standard,,1.5,3.175,,38,4,,,,1,,,,13.15,RG1,Einschneider,
-0078415E,Fraise 1 dent,Fraise 1 dent standard,,1.5,6,,58,7,,,,1,,,,29.54,RG2,Einschneider,
-0068016E,Fraise 1 dent,Fraise 1 dent standard,,1.6,3,,38,5,,,,1,,,,16.52,RG1,Einschneider,
-0068020E,Fraise 1 dent,Fraise 1 dent standard,,2,3,,40,8,,,,1,,,,16.52,RG1,Einschneider,
-0068020G,Fraise 1 dent,Fraise 1 dent standard,,2,3,,40,6,,,,1,,,,15.78,RG2,Einschneider,
-0068020L,Fraise 1 dent,Fraise 1 dent standard,,2,3,,40,10,,,,1,,,,16.52,RG1,Einschneider,
-0068020W,Fraise 1 dent,Fraise 1 dent standard,,2,3,,65,15,,,,1,,,,37.44,RG2,Einschneider,
-0068432A,Fraise 1 dent,Fraise 1 dent standard,,2,6,,50,5,,,,1,,,,29.54,RG2,Einschneider,
-0068432E,Fraise 1 dent,Fraise 1 dent standard,,2,6,,50,7,,,,1,,,,29.54,RG2,Einschneider,
-0068432L,Fraise 1 dent,Fraise 1 dent standard,,2,6,,50,11,,,,1,,,,29.54,RG2,Einschneider,
-0068432Y,Fraise 1 dent,Fraise 1 dent standard,,2,4,,40,8,,,,1,,,,27.03,RG2,Einschneider,
-0068620E,Fraise 1 dent,Fraise 1 dent standard,,2,3.175,,38,8,,,,1,,,,13.15,RG1,Einschneider,
-0068620F,Fraise 1 dent,Fraise 1 dent standard,,2,3.175,,40,11.5,,,,1,,,,15.78,RG1,Einschneider,
-0068620G,Fraise 1 dent,Fraise 1 dent standard,,2,3.175,,40,5,,,,1,,,,15.78,RG1,Einschneider,
-0078420E,Fraise 1 dent,Fraise 1 dent standard,,2,6,,58,7,,,,1,,,,29.54,RG2,Einschneider,
-0068024A,Fraise 1 dent,Fraise 1 dent standard,,2.4,3,,40,5.5,,,,1,,,,16.52,RG2,Einschneider,
-0068024E,Fraise 1 dent,Fraise 1 dent standard,,2.4,3,,40,8,,,,1,,,,16.52,RG1,Einschneider,
-0068024L,Fraise 1 dent,Fraise 1 dent standard,,2.4,3,,40,10,,,,1,,,,16.52,RG2,Einschneider,
-0068624E,Fraise 1 dent,Fraise 1 dent standard,,2.4,3.175,,38,8,,,,1,,,,13.15,RG1,Einschneider,
-0078424E,Fraise 1 dent,Fraise 1 dent standard,,2.4,6,,50,8,,,,1,,,,29.54,RG2,Einschneider,
-0068425A,Fraise 1 dent,Fraise 1 dent standard,,2.5,6,,50,5,,,,1,,,,29.54,RG2,Einschneider,
-0078425E,Fraise 1 dent,Fraise 1 dent standard,,2.5,6,,58,8,,,,1,,,,29.54,RG2,Einschneider,
-0068030E,Fraise 1 dent,Fraise 1 dent standard,,3,3,,40,10,,,,1,,,,16.52,RG1,Einschneider,
-0068030W,Fraise 1 dent,Fraise 1 dent standard,,3,3,,65,15,,,,1,,,,37.44,RG2,Einschneider,
-0068030Y,Fraise 1 dent,Fraise 1 dent standard,,3,3,,65,10,,,,1,,,,31.79,RG2,Einschneider,
-0068030Z,Fraise 1 dent,Fraise 1 dent standard,,3,3,,40,10.5,,,,1,,,,16.52,RG1,Einschneider,
-0068430A,Fraise 1 dent,Fraise 1 dent standard,,3,6,,50,5,,,,1,,,,29.54,RG2,Einschneider,
-0068430E,Fraise 1 dent,Fraise 1 dent standard,,3,6,,50,8,,,,1,,,,29.54,RG2,Einschneider,
-0068430L,Fraise 1 dent,Fraise 1 dent standard,,3,6,,50,12,,,,1,,,,29.54,RG2,Einschneider,
-0068430S,Fraise 1 dent,Fraise 1 dent standard,,3,6,,50,10,,,,1,,,,29.54,RG2,Einschneider,
-0068430Y,Fraise 1 dent,Fraise 1 dent standard,,3,4,,40,10,,,,1,,,,27.03,RG2,Einschneider,
-0068630E,Fraise 1 dent,Fraise 1 dent standard,,3,3.175,,38,9,,,,1,,,,13.15,RG1,Einschneider,
-0068630F,Fraise 1 dent,Fraise 1 dent standard,,3,3.175,,40,11.5,,,,1,,,,15.78,RG1,Einschneider,
-0078430E,Fraise 1 dent,Fraise 1 dent standard,,3,6,,58,8,,,,1,,,,29.54,RG2,Einschneider,
-0078430S,Fraise 1 dent,Fraise 1 dent standard,,3,6,,58,10,,,,1,,,,29.54,RG2,Einschneider,
-0078435E,Fraise 1 dent,Fraise 1 dent standard,,3.5,6,,58,10,,,,1,,,,29.54,RG2,Einschneider,
-0068434A,Fraise 1 dent,Fraise 1 dent standard,,4,6,,50,5,,,,1,,,,29.54,RG2,Einschneider,
-0068434B,Fraise 1 dent,Fraise 1 dent standard,,4,6,,50,7,,,,1,,,,29.54,RG2,Einschneider,
-0068434E,Fraise 1 dent,Fraise 1 dent standard,,4,6,,50,10,,,,1,,,,29.54,RG2,Einschneider,
-0068434F,Fraise 1 dent,Fraise 1 dent standard,,4,6,,58,20,,,,1,,,,31.54,RG2,Einschneider,
-0068434L,Fraise 1 dent,Fraise 1 dent standard,,4,6,,50,12,,,,1,,,,29.54,RG2,Einschneider,
-0068434S,Fraise 1 dent,Fraise 1 dent standard,,4,6,,60,14,,,,1,,,,31.54,RG2,Einschneider,
-0068434Y,Fraise 1 dent,Fraise 1 dent standard,,4,4,,40,10,,,,1,,,,27.03,RG2,Einschneider,
-0068434Z,Fraise 1 dent,Fraise 1 dent standard,,4,6,,45,14,,,,1,,,,29.54,RG2,Einschneider,
-0078440E,Fraise 1 dent,Fraise 1 dent standard,,4,6,,58,10,,,,1,,,,29.54,RG2,Einschneider,
-0078440L,Fraise 1 dent,Fraise 1 dent standard,,4,6,,58,18,,,,1,,,,31.54,RG2,Einschneider,
-0068435B,Fraise 1 dent,Fraise 1 dent standard,,5,6,,50,8,,,,1,,,,29.54,RG2,Einschneider,
-0068435E,Fraise 1 dent,Fraise 1 dent standard,,5,6,,50,12,,,,1,,,,29.54,RG2,Einschneider,
-0068435L,Fraise 1 dent,Fraise 1 dent standard,,5,6,,58,22,,,,1,,,,31.54,RG2,Einschneider,
-0068460A,Fraise 1 dent,Fraise 1 dent standard,,6,6,,58,25,,,,1,,,,39.43,RG2,Einschneider,
-0068460B,Fraise 1 dent,Fraise 1 dent standard,,6,6,,65,30,,,,1,,,,39.43,RG2,Einschneider,
-0068460C,Fraise 1 dent,Fraise 1 dent standard,,6,6,,50,8,,,,1,,,,29.54,RG2,Einschneider,
-0068460E,Fraise 1 dent,Fraise 1 dent standard,,6,6,,50,14,,,,1,,,,29.54,RG2,Einschneider,
-0068460L,Fraise 1 dent,Fraise 1 dent standard,,6,6,,60,20,,,,1,,,,29.54,RG2,Einschneider,
-0068079E,Fraise 1 dent,Fraise 1 dent standard,,7,8,,60,14,,,,1,,,,37.21,RG2,Einschneider,
-0068080A,Fraise 1 dent,Fraise 1 dent standard,,8,8,,60,25,,,,1,,,,52.45,RG2,Einschneider,
-0068080B,Fraise 1 dent,Fraise 1 dent standard,,8,8,,80,32,,,,1,,,,65.13,RG2,Einschneider,
-0068080E,Fraise 1 dent,Fraise 1 dent standard,,8,8,,60,14,,,,1,,,,37.21,RG2,Einschneider,
-0068080L,Fraise 1 dent,Fraise 1 dent standard,,8,8,,60,20,,,,1,,,,41.66,RG2,Einschneider,
-0068470E,Fraise 1 dent,Fraise 1 dent standard,,10,10,,60,20,,,,1,,,,45.29,RG2,Einschneider,
-0068470L,Fraise 1 dent,Fraise 1 dent standard,,10,10,,100,40,,,,1,,,,86.55,RG2,Einschneider,
-0068085E,Fraise 1 dent,Fraise 1 dent équilibrée,,5,6,4.8,50,8.75,13.5,,,1,,,,39.97,RG2,Einschneider – gewuchtet,
-0068085S,Fraise 1 dent,Fraise 1 dent équilibrée,,5,8,4.8,50,8.75,13.5,,,1,,,,54.93,RG2,Einschneider – gewuchtet,
-0068086E,Fraise 1 dent,Fraise 1 dent équilibrée,,6,6,5.5,50,10.5,16.5,,,1,,,,41.41,RG2,Einschneider – gewuchtet,
-0068086L,Fraise 1 dent,Fraise 1 dent équilibrée,,6,6,5.5,50,16,23.5,,,1,,,,42.85,RG2,Einschneider – gewuchtet,
-0068086S,Fraise 1 dent,Fraise 1 dent équilibrée,,6,8,5.5,50,10.5,16.5,,,1,,,,56.33,RG2,Einschneider – gewuchtet,
-0068086X,Fraise 1 dent,Fraise 1 dent équilibrée,,6,6,5.5,55,21,27,,,1,,,,49.67,RG2,Einschneider – gewuchtet,
-0068080D,Fraise 1 dent,Fraise 1 dent équilibrée,,8,8,7.4,70,14,43,,,1,,,,55.49,RG2,Einschneider – gewuchtet,
-0068088E,Fraise 1 dent,Fraise 1 dent équilibrée,,8,8,7.4,60,14,26,,,1,,,,50.67,RG2,Einschneider – gewuchtet,
-0068088K,Fraise 1 dent,Fraise 1 dent équilibrée,,8,8,7.4,50,8,12.5,,,1,,,,48.98,RG2,Einschneider – gewuchtet,
-0068088L,Fraise 1 dent,Fraise 1 dent équilibrée,,8,8,7.4,60,26,34,,,1,,,,58.03,RG2,Einschneider – gewuchtet,
-0068088S,Fraise 1 dent,Fraise 1 dent équilibrée,,8,8,7.4,60,21,31,,,1,,,,55.06,RG2,Einschneider – gewuchtet,
-0068088X,Fraise 1 dent,Fraise 1 dent équilibrée,,8,8,7.4,70,31,42,,,1,,,,63.86,RG2,Einschneider – gewuchtet,
-0068090E,Fraise 1 dent,Fraise 1 dent équilibrée,,10,10,9.2,60,17.5,27.5,,,1,,,,63.86,RG2,Einschneider – gewuchtet,
-0068090K,Fraise 1 dent,Fraise 1 dent équilibrée,,10,10,9.2,50,10,15.6,,,1,,,,62.43,RG2,Einschneider – gewuchtet,
-0068090L,Fraise 1 dent,Fraise 1 dent équilibrée,,10,10,9.2,60,26,34,,,1,,,,66.96,RG2,Einschneider – gewuchtet,
-0068090M,Fraise 1 dent,Fraise 1 dent équilibrée,,10,10,9.2,85,26,34,,,1,,,,89.46,RG2,Einschneider – gewuchtet,
-0068090S,Fraise 1 dent,Fraise 1 dent équilibrée,,10,10,9.2,80,17.5,52,,,1,,,,74.32,RG2,Einschneider – gewuchtet,
-0068090X,Fraise 1 dent,Fraise 1 dent équilibrée,,10,10,9.2,70,32.5,42.5,,,1,,,,69.93,RG2,Einschneider – gewuchtet,
-0068092E,Fraise 1 dent,Fraise 1 dent équilibrée,,12,12,11,70,21,33,,,1,,,,122.31,RG2,Einschneider – gewuchtet,
-0068092K,Fraise 1 dent,Fraise 1 dent équilibrée,,12,12,11,60,12,19,,,1,,,,106.46,RG2,Einschneider – gewuchtet,
-0068092L,Fraise 1 dent,Fraise 1 dent équilibrée,,12,12,11,70,31.5,42,,,1,,,,129.38,RG2,Einschneider – gewuchtet,
+0068803A,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,3,6,,40,5,,,,1,,,,38.68,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068803E,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,3,6,2.8,50,9,13,,,1,,,,40.56,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068803K,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,3,6,,45,9,,,,1,,,,39.95,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068803L,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,3,6,2.8,50,9,16,,,1,,,,41.2,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068803X,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,3,6,,50,13,,,,1,,,,42.44,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068804A,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,4,6,,40,5,,,,1,,,,39.95,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068804E,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,4,6,3.7,50,9,16,,,1,,,,41.8,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068804K,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,4,6,,45,9,,,,1,,,,41.2,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068804L,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,4,6,3.7,55,9,21,,,1,,,,42.44,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068804X,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,4,6,,55,16,,,,1,,,,43.69,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068805A,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,5,6,,45,7,,,,1,,,,42.44,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068805E,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,5,6,4.6,60,11,21,,,1,,,,44.32,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068805K,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,5,6,,50,11,,,,1,,,,43.69,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068805L,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,5,6,4.6,60,11,26,,,1,,,,44.96,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068805X,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,5,6,,55,16,,,,1,,,,46.2,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068806A,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,6,6,,45,7,,,,1,,,,44.96,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068806E,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,6,6,5.5,60,13,26,,,1,,,,48.7,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068806K,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,6,6,,50,13,,,,1,,,,46.82,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068806L,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,6,6,5.5,65,13,31,,,1,,,,50.58,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068806X,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,6,6,,55,21,,,,1,,,,52.46,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068808A,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,8,8,,45,9,,,,1,,,,55.15,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068808E,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,8,8,7.4,65,17,31,,,1,,,,60.55,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068808K,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,8,8,,55,17,,,,1,,,,57.84,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068808L,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,8,8,7.4,75,17,41,,,1,,,,63.23,RG2,"Einschneider – gewuchtet, Planschn.,pol., Freischliff; min",
+0068808X,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,8,8,,65,26,,,,1,,,,65.94,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068810A,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,10,10,,50,11,,,,1,,,,67.28,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068810E,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,10,10,9.2,75,21,41,,,1,,,,74.02,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068810K,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,10,10,,60,21,,,,1,,,,70.64,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068810L,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,10,10,9.2,85,21,51,,,1,,,,77.38,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068810X,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,10,10,,70,32,,,,1,,,,80.77,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068812A,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,12,12,,55,14,,,,1,,,,94.24,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068812E,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,12,12,11,85,26,51,,,1,,,,102.34,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068812K,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,12,12,,65,26,,,,1,,,,98.29,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068812L,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,12,12,11,95,26,61,,,1,,,,106.37,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068812X,Fraise droite (1 à 8 dents),Fraise 1 dent 4-IN-1,,12,12,,75,36,,,,1,,,,110.42,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0078310E,Fraise droite (1 à 8 dents),Fraise 1 dent arête polie (acrylique),,1,6,,50,4,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
+0078320E,Fraise droite (1 à 8 dents),Fraise 1 dent arête polie (acrylique),,2,6,,50,7,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
+0078320L,Fraise droite (1 à 8 dents),Fraise 1 dent arête polie (acrylique),,2,6,,50,11,,,,1,,,,44.04,RG2,Einschneider – mit polierter Schneide,
+0078330E,Fraise droite (1 à 8 dents),Fraise 1 dent arête polie (acrylique),,3,6,,50,8,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
+0078330L,Fraise droite (1 à 8 dents),Fraise 1 dent arête polie (acrylique),,3,6,,50,12,,,,1,,,,44.04,RG2,Einschneider – mit polierter Schneide,
+0078334E,Fraise droite (1 à 8 dents),Fraise 1 dent arête polie (acrylique),,4,6,,50,10,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
+0078334L,Fraise droite (1 à 8 dents),Fraise 1 dent arête polie (acrylique),,4,6,,60,22,,,,1,,,,44.04,RG2,Einschneider – mit polierter Schneide,
+0078335E,Fraise droite (1 à 8 dents),Fraise 1 dent arête polie (acrylique),,5,6,,50,12,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
+0078335L,Fraise droite (1 à 8 dents),Fraise 1 dent arête polie (acrylique),,5,6,,60,22,,,,1,,,,44.04,RG2,Einschneider – mit polierter Schneide,
+0078360E,Fraise droite (1 à 8 dents),Fraise 1 dent arête polie (acrylique),,6,6,,50,14,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
+0078360L,Fraise droite (1 à 8 dents),Fraise 1 dent arête polie (acrylique),,6,6,,60,22,,,,1,,,,44.04,RG2,Einschneider – mit polierter Schneide,
+0078338E,Fraise droite (1 à 8 dents),Fraise 1 dent arête polie (acrylique),,8,8,,60,22,,,,1,,,,61.58,RG2,Einschneider – mit polierter Schneide,
+0078338L,Fraise droite (1 à 8 dents),Fraise 1 dent arête polie (acrylique),,8,8,,70,32,,,,1,,,,68.66,RG2,Einschneider – mit polierter Schneide,
+0078339E,Fraise droite (1 à 8 dents),Fraise 1 dent arête polie (acrylique),,10,10,,75,32,,,,1,,,,79.99,RG2,Einschneider – mit polierter Schneide,
+0068492E,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,2,6,1.8,50,7,14,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068492K,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,2,6,1.8,50,4,12,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068493D,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,3,6,2.7,50,4,17,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068493E,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,3,6,2.7,50,8,14,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068493F,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,3,6,2.7,50,4,21,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068493K,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,3,6,2.7,50,4,14,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068493L,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,3,6,2.7,50,8,21,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068493S,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,3,6,2.7,50,8,17,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068494D,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,4,6,3.6,50,5,21,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068494E,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,4,6,3.6,50,10,18,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068494K,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,4,6,3.6,50,5,18,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068494S,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,4,6,3.6,50,10,21,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068495E,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,5,6,4.4,50,12,22,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068495K,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,5,6,4.4,60,5,22,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068496E,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,6,6,5.3,50,14,24,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068496F,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,6,6,5.3,60,5,30,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068496K,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,6,6,5.3,60,5,24,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068496L,Fraise droite (1 à 8 dents),Fraise 1 dent avec dépouille,,6,6,5.3,60,14,30,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068471E,Fraise droite (1 à 8 dents),Fraise 1 dent hélice à gauche,,1.5,6,,50,7,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
+0068472E,Fraise droite (1 à 8 dents),Fraise 1 dent hélice à gauche,,2,6,,50,7,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
+0068473E,Fraise droite (1 à 8 dents),Fraise 1 dent hélice à gauche,,3,6,,50,8,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
+0068474E,Fraise droite (1 à 8 dents),Fraise 1 dent hélice à gauche,,4,6,,50,10,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
+0068475E,Fraise droite (1 à 8 dents),Fraise 1 dent hélice à gauche,,5,6,,50,12,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
+0068476E,Fraise droite (1 à 8 dents),Fraise 1 dent hélice à gauche,,6,6,,50,14,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
+0068476L,Fraise droite (1 à 8 dents),Fraise 1 dent hélice à gauche,,6,6,,60,20,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
+0068003E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,0.3,3,,38,1,,,,1,,,,16.52,RG2,Einschneider,
+0068004E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,0.4,3,,38,1,,,,1,,,,16.52,RG1,Einschneider,
+0068005E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,0.5,3,,38,1.5,,,,1,,,,16.52,RG1,Einschneider,
+0068006E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,0.6,3,,38,2.5,,,,1,,,,16.52,RG2,Einschneider,
+0068606E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,0.6,3.175,,38,3,,,,1,,,,13.15,RG1,Einschneider,
+0068008E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,0.8,3,,38,3,,,,1,,,,16.52,RG1,Einschneider,
+0068608E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,0.8,3.175,,38,3,,,,1,,,,13.15,RG1,Einschneider,
+0068010E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,1,3,,38,4,,,,1,,,,16.52,RG1,Einschneider,
+0068410E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,1,6,,50,4,,,,1,,,,30.93,RG2,Einschneider,
+0068610E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,1,3.175,,38,3,,,,1,,,,13.15,RG1,Einschneider,
+0068612E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,1.2,3.175,,38,4,,,,1,,,,13.15,RG1,Einschneider,
+0068015E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,1.5,3,,38,5,,,,1,,,,16.52,RG1,Einschneider,
+0068415A,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,1.5,6,,50,3,,,,1,,,,29.54,RG2,Einschneider,
+0068415E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,1.5,6,,50,7,,,,1,,,,30.93,RG2,Einschneider,
+0068415Y,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,1.5,4,,40,5,,,,1,,,,27.03,RG2,Einschneider,
+0068615E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,1.5,3.175,,38,4,,,,1,,,,13.15,RG1,Einschneider,
+0078415E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,1.5,6,,58,7,,,,1,,,,29.54,RG2,Einschneider,
+0068016E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,1.6,3,,38,5,,,,1,,,,16.52,RG1,Einschneider,
+0068020E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2,3,,40,8,,,,1,,,,16.52,RG1,Einschneider,
+0068020G,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2,3,,40,6,,,,1,,,,15.78,RG2,Einschneider,
+0068020L,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2,3,,40,10,,,,1,,,,16.52,RG1,Einschneider,
+0068020W,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2,3,,65,15,,,,1,,,,37.44,RG2,Einschneider,
+0068432A,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2,6,,50,5,,,,1,,,,29.54,RG2,Einschneider,
+0068432E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2,6,,50,7,,,,1,,,,29.54,RG2,Einschneider,
+0068432L,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2,6,,50,11,,,,1,,,,29.54,RG2,Einschneider,
+0068432Y,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2,4,,40,8,,,,1,,,,27.03,RG2,Einschneider,
+0068620E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2,3.175,,38,8,,,,1,,,,13.15,RG1,Einschneider,
+0068620F,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2,3.175,,40,11.5,,,,1,,,,15.78,RG1,Einschneider,
+0068620G,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2,3.175,,40,5,,,,1,,,,15.78,RG1,Einschneider,
+0078420E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2,6,,58,7,,,,1,,,,29.54,RG2,Einschneider,
+0068024A,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2.4,3,,40,5.5,,,,1,,,,16.52,RG2,Einschneider,
+0068024E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2.4,3,,40,8,,,,1,,,,16.52,RG1,Einschneider,
+0068024L,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2.4,3,,40,10,,,,1,,,,16.52,RG2,Einschneider,
+0068624E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2.4,3.175,,38,8,,,,1,,,,13.15,RG1,Einschneider,
+0078424E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2.4,6,,50,8,,,,1,,,,29.54,RG2,Einschneider,
+0068425A,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2.5,6,,50,5,,,,1,,,,29.54,RG2,Einschneider,
+0078425E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,2.5,6,,58,8,,,,1,,,,29.54,RG2,Einschneider,
+0068030E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,3,3,,40,10,,,,1,,,,16.52,RG1,Einschneider,
+0068030W,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,3,3,,65,15,,,,1,,,,37.44,RG2,Einschneider,
+0068030Y,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,3,3,,65,10,,,,1,,,,31.79,RG2,Einschneider,
+0068030Z,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,3,3,,40,10.5,,,,1,,,,16.52,RG1,Einschneider,
+0068430A,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,3,6,,50,5,,,,1,,,,29.54,RG2,Einschneider,
+0068430E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,3,6,,50,8,,,,1,,,,29.54,RG2,Einschneider,
+0068430L,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,3,6,,50,12,,,,1,,,,29.54,RG2,Einschneider,
+0068430S,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,3,6,,50,10,,,,1,,,,29.54,RG2,Einschneider,
+0068430Y,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,3,4,,40,10,,,,1,,,,27.03,RG2,Einschneider,
+0068630E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,3,3.175,,38,9,,,,1,,,,13.15,RG1,Einschneider,
+0068630F,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,3,3.175,,40,11.5,,,,1,,,,15.78,RG1,Einschneider,
+0078430E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,3,6,,58,8,,,,1,,,,29.54,RG2,Einschneider,
+0078430S,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,3,6,,58,10,,,,1,,,,29.54,RG2,Einschneider,
+0078435E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,3.5,6,,58,10,,,,1,,,,29.54,RG2,Einschneider,
+0068434A,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,4,6,,50,5,,,,1,,,,29.54,RG2,Einschneider,
+0068434B,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,4,6,,50,7,,,,1,,,,29.54,RG2,Einschneider,
+0068434E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,4,6,,50,10,,,,1,,,,29.54,RG2,Einschneider,
+0068434F,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,4,6,,58,20,,,,1,,,,31.54,RG2,Einschneider,
+0068434L,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,4,6,,50,12,,,,1,,,,29.54,RG2,Einschneider,
+0068434S,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,4,6,,60,14,,,,1,,,,31.54,RG2,Einschneider,
+0068434Y,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,4,4,,40,10,,,,1,,,,27.03,RG2,Einschneider,
+0068434Z,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,4,6,,45,14,,,,1,,,,29.54,RG2,Einschneider,
+0078440E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,4,6,,58,10,,,,1,,,,29.54,RG2,Einschneider,
+0078440L,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,4,6,,58,18,,,,1,,,,31.54,RG2,Einschneider,
+0068435B,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,5,6,,50,8,,,,1,,,,29.54,RG2,Einschneider,
+0068435E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,5,6,,50,12,,,,1,,,,29.54,RG2,Einschneider,
+0068435L,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,5,6,,58,22,,,,1,,,,31.54,RG2,Einschneider,
+0068460A,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,6,6,,58,25,,,,1,,,,39.43,RG2,Einschneider,
+0068460B,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,6,6,,65,30,,,,1,,,,39.43,RG2,Einschneider,
+0068460C,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,6,6,,50,8,,,,1,,,,29.54,RG2,Einschneider,
+0068460E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,6,6,,50,14,,,,1,,,,29.54,RG2,Einschneider,
+0068460L,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,6,6,,60,20,,,,1,,,,29.54,RG2,Einschneider,
+0068079E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,7,8,,60,14,,,,1,,,,37.21,RG2,Einschneider,
+0068080A,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,8,8,,60,25,,,,1,,,,52.45,RG2,Einschneider,
+0068080B,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,8,8,,80,32,,,,1,,,,65.13,RG2,Einschneider,
+0068080E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,8,8,,60,14,,,,1,,,,37.21,RG2,Einschneider,
+0068080L,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,8,8,,60,20,,,,1,,,,41.66,RG2,Einschneider,
+0068470E,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,10,10,,60,20,,,,1,,,,45.29,RG2,Einschneider,
+0068470L,Fraise droite (1 à 8 dents),Fraise 1 dent standard,,10,10,,100,40,,,,1,,,,86.55,RG2,Einschneider,
+0068085E,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,5,6,4.8,50,8.75,13.5,,,1,,,,39.97,RG2,Einschneider – gewuchtet,
+0068085S,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,5,8,4.8,50,8.75,13.5,,,1,,,,54.93,RG2,Einschneider – gewuchtet,
+0068086E,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,6,6,5.5,50,10.5,16.5,,,1,,,,41.41,RG2,Einschneider – gewuchtet,
+0068086L,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,6,6,5.5,50,16,23.5,,,1,,,,42.85,RG2,Einschneider – gewuchtet,
+0068086S,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,6,8,5.5,50,10.5,16.5,,,1,,,,56.33,RG2,Einschneider – gewuchtet,
+0068086X,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,6,6,5.5,55,21,27,,,1,,,,49.67,RG2,Einschneider – gewuchtet,
+0068080D,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,8,8,7.4,70,14,43,,,1,,,,55.49,RG2,Einschneider – gewuchtet,
+0068088E,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,8,8,7.4,60,14,26,,,1,,,,50.67,RG2,Einschneider – gewuchtet,
+0068088K,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,8,8,7.4,50,8,12.5,,,1,,,,48.98,RG2,Einschneider – gewuchtet,
+0068088L,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,8,8,7.4,60,26,34,,,1,,,,58.03,RG2,Einschneider – gewuchtet,
+0068088S,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,8,8,7.4,60,21,31,,,1,,,,55.06,RG2,Einschneider – gewuchtet,
+0068088X,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,8,8,7.4,70,31,42,,,1,,,,63.86,RG2,Einschneider – gewuchtet,
+0068090E,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,10,10,9.2,60,17.5,27.5,,,1,,,,63.86,RG2,Einschneider – gewuchtet,
+0068090K,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,10,10,9.2,50,10,15.6,,,1,,,,62.43,RG2,Einschneider – gewuchtet,
+0068090L,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,10,10,9.2,60,26,34,,,1,,,,66.96,RG2,Einschneider – gewuchtet,
+0068090M,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,10,10,9.2,85,26,34,,,1,,,,89.46,RG2,Einschneider – gewuchtet,
+0068090S,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,10,10,9.2,80,17.5,52,,,1,,,,74.32,RG2,Einschneider – gewuchtet,
+0068090X,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,10,10,9.2,70,32.5,42.5,,,1,,,,69.93,RG2,Einschneider – gewuchtet,
+0068092E,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,12,12,11,70,21,33,,,1,,,,122.31,RG2,Einschneider – gewuchtet,
+0068092K,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,12,12,11,60,12,19,,,1,,,,106.46,RG2,Einschneider – gewuchtet,
+0068092L,Fraise droite (1 à 8 dents),Fraise 1 dent équilibrée,,12,12,11,70,31.5,42,,,1,,,,129.38,RG2,Einschneider – gewuchtet,
+00680010,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.1,3,,38,0.2,,,,2,,,,103.01,RG2,Zweischneider,24
+00680020,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.2,3,,39,0.4,,,,2,,,,41.69,RG2,Zweischneider,24
+00680025,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.25,3,,39,0.4,,,,2,,,,41.69,RG2,Zweischneider,24
+0068003,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.3,3,,39,0.9,,,,2,,,,37.16,RG2,Zweischneider,24
+0068004,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.4,3,,38,2.5,,,,2,,,,23.75,RG2,Zweischneider,24
+0068004K,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.4,3,,38,0.6,,,,2,,,,30.1,RG2,Zweischneider,24
+0068604,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.4,3.175,,38,2.5,,,,2,,,,23.75,RG2,Zweischneider,25
+0068005,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.5,3,,38,2.5,,,,2,,,,23.75,RG2,Zweischneider,24
+0068005K,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.5,3,,38,1,,,,2,,,,27.26,RG1,Zweischneider,24
+0068605,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.5,3.175,,38,3,,,,2,,,,23.04,RG2,Zweischneider,25
+0068006,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.6,3,,38,3,,,,2,,,,18.52,RG1,Zweischneider,24
+0068006K,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.6,3,,38,1,,,,2,,,,27.26,RG2,Zweischneider,24
+0068606,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.6,3.175,,38,3,,,,2,,,,15.26,RG1,Zweischneider,25
+0068008,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.8,3,,38,4,,,,2,,,,18.52,RG1,Zweischneider,24
+0068608,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.8,3.175,,38,5,,,,2,,,,15.26,RG1,Zweischneider,25
+0068009,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.9,3,,38,5,,,,2,,,,18.52,RG1,Zweischneider,24
+0068609,Fraise droite (1 à 8 dents),Fraise 2 dents,,0.9,3.175,,38,5,,,,2,,,,15.26,RG1,Zweischneider,25
+0068010,Fraise droite (1 à 8 dents),Fraise 2 dents,,1,3,,38,5,,,,2,,,,18.52,RG1,Zweischneider,24
+0068010K,Fraise droite (1 à 8 dents),Fraise 2 dents,,1,3,,38,3,,,,2,,,,18.52,RG1,Zweischneider,24
+0068010L,Fraise droite (1 à 8 dents),Fraise 2 dents,,1,3,,40,8,,,,2,,,,35.89,RG2,Zweischneider,24
+0068010S,Fraise droite (1 à 8 dents),Fraise 2 dents,,1,3,,38,2.3,,,,2,,,,18.52,RG1,Zweischneider,24
+0068610,Fraise droite (1 à 8 dents),Fraise 2 dents,,1,3.175,,38,4,,,,2,,,,15.26,RG1,Zweischneider,25
+0068610K,Fraise droite (1 à 8 dents),Fraise 2 dents,,1,3.175,,38,3,,,,2,,,,15.26,RG1,Zweischneider,25
+0068012,Fraise droite (1 à 8 dents),Fraise 2 dents,,1.2,3,,38,5,,,,2,,,,18.52,RG1,Zweischneider,24
+0068012K,Fraise droite (1 à 8 dents),Fraise 2 dents,,1.2,3,,38,3,,,,2,,,,18.52,RG1,Zweischneider,24
+0068012S,Fraise droite (1 à 8 dents),Fraise 2 dents,,1.2,3,,38,2.3,,,,2,,,,18.52,RG1,Zweischneider,24
+0068612,Fraise droite (1 à 8 dents),Fraise 2 dents,,1.2,3.175,,38,5,,,,2,,,,15.26,RG1,Zweischneider,25
+0068613,Fraise droite (1 à 8 dents),Fraise 2 dents,,1.3,3.175,,38,5,,,,2,,,,15.26,RG1,Zweischneider,25
+0068015,Fraise droite (1 à 8 dents),Fraise 2 dents,,1.5,3,,38,5,,,,2,,,,18.52,RG1,Zweischneider,24
+0068015S,Fraise droite (1 à 8 dents),Fraise 2 dents,,1.5,3,,38,10,,,,2,,,,18.52,RG2,Zweischneider,24
+0068615,Fraise droite (1 à 8 dents),Fraise 2 dents,,1.5,3.175,,38,6,,,,2,,,,15.26,RG1,Zweischneider,25
+0068016,Fraise droite (1 à 8 dents),Fraise 2 dents,,1.6,3,,38,6,,,,2,,,,18.52,RG1,Zweischneider,24
+0068616,Fraise droite (1 à 8 dents),Fraise 2 dents,,1.6,3.175,,38,6,,,,2,,,,15.26,RG1,Zweischneider,25
+0068617,Fraise droite (1 à 8 dents),Fraise 2 dents,,1.7,3.175,,38,6,,,,2,,,,15.26,RG1,Zweischneider,25
+0068618,Fraise droite (1 à 8 dents),Fraise 2 dents,,1.8,3.175,,38,6,,,,2,,,,15.26,RG1,Zweischneider,25
+0068020,Fraise droite (1 à 8 dents),Fraise 2 dents,,2,3,,38,9,,,,2,,,,18.52,RG1,Zweischneider,24
+0068020K,Fraise droite (1 à 8 dents),Fraise 2 dents,,2,3,,38,4,,,,2,,,,18.52,RG1,Zweischneider,24
+0068620,Fraise droite (1 à 8 dents),Fraise 2 dents,,2,3.175,,38,8,,,,2,,,,15.26,RG1,Zweischneider,25
+0068620K,Fraise droite (1 à 8 dents),Fraise 2 dents,,2,3.175,,38,4,,,,2,,,,15.26,RG1,Zweischneider,25
+0068024,Fraise droite (1 à 8 dents),Fraise 2 dents,,2.4,3,,40,8,,,,2,,,,18.52,RG1,Zweischneider,24
+0068024K,Fraise droite (1 à 8 dents),Fraise 2 dents,,2.4,3,,38,5,,,,2,,,,18.52,RG1,Zweischneider,24
+0068624,Fraise droite (1 à 8 dents),Fraise 2 dents,,2.4,3.175,,38,8,,,,2,,,,15.26,RG1,Zweischneider,25
+0068624K,Fraise droite (1 à 8 dents),Fraise 2 dents,,2.4,3.175,,38,5,,,,2,,,,15.26,RG1,Zweischneider,25
+0068625,Fraise droite (1 à 8 dents),Fraise 2 dents,,2.5,3.175,,38,8,,,,2,,,,15.26,RG1,Zweischneider,25
+0068030A,Fraise droite (1 à 8 dents),Fraise 2 dents,,3,3,,40,10,,,,2,,,,22.89,RG1,Zweischneider,24
+0068030K,Fraise droite (1 à 8 dents),Fraise 2 dents,,3,3,,40,6,,,,2,,,,18.52,RG1,Zweischneider,24
+0068030L,Fraise droite (1 à 8 dents),Fraise 2 dents,,3,3,,40,12,,,,2,,,,22.89,RG2,Zweischneider,24
+0068030X,Fraise droite (1 à 8 dents),Fraise 2 dents,,3,3,,60,25,,,,2,,,,29.67,RG2,Zweischneider,24
+0068430,Fraise droite (1 à 8 dents),Fraise 2 dents,,3,6,,50,7,,,,2,,,,33.35,RG2,Zweischneider,25
+0068430G,Fraise droite (1 à 8 dents),Fraise 2 dents,,3,6,,50,11,,,,2,,,,33.35,RG2,Zweischneider,25
+0068430K,Fraise droite (1 à 8 dents),Fraise 2 dents,,3,6,,40,6,,,,2,,,,33.35,RG2,Zweischneider,25
+0068630,Fraise droite (1 à 8 dents),Fraise 2 dents,,3,3.175,,38,10,,,,2,,,,15.26,RG1,Zweischneider,25
+0068630K,Fraise droite (1 à 8 dents),Fraise 2 dents,,3,3.175,,38,6,,,,2,,,,15.26,RG1,Zweischneider,25
+0068434,Fraise droite (1 à 8 dents),Fraise 2 dents,,4,6,,50,8,,,,2,,,,33.35,RG2,Zweischneider,25
+0068434K,Fraise droite (1 à 8 dents),Fraise 2 dents,,4,6,,40,6,,,,2,,,,33.35,RG2,Zweischneider,25
+0068435,Fraise droite (1 à 8 dents),Fraise 2 dents,,5,6,,50,10,,,,2,,,,33.35,RG2,Zweischneider,25
+0068435A,Fraise droite (1 à 8 dents),Fraise 2 dents,,5,6,,50,8,,,,2,,,,33.35,RG2,Zweischneider,25
+0068435K,Fraise droite (1 à 8 dents),Fraise 2 dents,,5,6,,40,6,,,,2,,,,33.35,RG2,Zweischneider,25
+0068460,Fraise droite (1 à 8 dents),Fraise 2 dents,,6,6,,50,18,,,,2,,,,33.35,RG2,Zweischneider,25
+0068460G,Fraise droite (1 à 8 dents),Fraise 2 dents,,6,6,,58,20,,,,2,,,,33.35,RG2,Zweischneider,25
+0068460K,Fraise droite (1 à 8 dents),Fraise 2 dents,,6,6,,50,10,,,,2,,,,33.35,RG2,Zweischneider,25
+0068460W,Fraise droite (1 à 8 dents),Fraise 2 dents,,6,6,,75,40,,,,2,,,,65.3,RG2,Zweischneider,25
+0068460X,Fraise droite (1 à 8 dents),Fraise 2 dents,,6,6,,75,30,,,,2,,,,53.41,RG2,Zweischneider,25
+0068460Y,Fraise droite (1 à 8 dents),Fraise 2 dents,,6,6,,40,6,,,,2,,,,33.35,RG2,Zweischneider,25
+0068460Z,Fraise droite (1 à 8 dents),Fraise 2 dents,,6,6,,100,40,,,,2,,,,67.27,RG2,Zweischneider,25
+0068081,Fraise droite (1 à 8 dents),Fraise 2 dents,,8,8,,63,16,,,,2,,,,38.33,RG2,Zweischneider,25
+0068081L,Fraise droite (1 à 8 dents),Fraise 2 dents,,8,8,,60,32,,,,2,,,,63.92,RG2,Zweischneider,25
+0068082,Fraise droite (1 à 8 dents),Fraise 2 dents,,8,8,,100,40,,,,2,,,,68.63,RG2,Zweischneider,25
+0068083,Fraise droite (1 à 8 dents),Fraise 2 dents,,10,10,,100,40,,,,2,,,,82.47,RG2,Zweischneider,25
+0068100,Fraise droite (1 à 8 dents),Fraise 2 dents,,10,10,,40,10,,,,2,,,,58.59,RG2,Zweischneider,25
+0068100A,Fraise droite (1 à 8 dents),Fraise 2 dents,,10,10,,72,25,,,,2,,,,63.92,RG2,Zweischneider,25
+0068100L,Fraise droite (1 à 8 dents),Fraise 2 dents,,10,10,,72,32,,,,2,,,,71.02,RG2,Zweischneider,25
+0078812B,Fraise droite (1 à 8 dents),Fraise 2 dents,,12,12,,60,30,,,,2,,,,94.51,RG2,Zweischneider,25
+0078812L,Fraise droite (1 à 8 dents),Fraise 2 dents,,12,12,,60,20,,,,2,,,,94.51,RG2,Zweischneider,25
+0068876,Fraise droite (1 à 8 dents),Fraise 2 dents UGV Fire,,6,6,,60,22,,,,2,,,,38.0,RG2,Zweischneider – HSC-Fire,29
+0068876K,Fraise droite (1 à 8 dents),Fraise 2 dents UGV Fire,,6,6,,50,17,,,,2,,,,34.89,RG2,Zweischneider – HSC-Fire,29
+0068876L,Fraise droite (1 à 8 dents),Fraise 2 dents UGV Fire,,6,6,,70,32,,,,2,,,,48.75,RG2,Zweischneider – HSC-Fire,29
+0068876S,Fraise droite (1 à 8 dents),Fraise 2 dents UGV Fire,,6,6,,50,12,,,,2,,,,33.35,RG2,Zweischneider – HSC-Fire,29
+0068878,Fraise droite (1 à 8 dents),Fraise 2 dents UGV Fire,,8,8,,60,22,,,,2,,,,49.15,RG2,Zweischneider – HSC-Fire,29
+0068878K,Fraise droite (1 à 8 dents),Fraise 2 dents UGV Fire,,8,8,,50,17,,,,2,,,,46.11,RG2,Zweischneider – HSC-Fire,29
+0068878L,Fraise droite (1 à 8 dents),Fraise 2 dents UGV Fire,,8,8,,70,32,,,,2,,,,59.21,RG2,Zweischneider – HSC-Fire,29
+0068878S,Fraise droite (1 à 8 dents),Fraise 2 dents UGV Fire,,8,8,,50,12,,,,2,,,,43.97,RG2,Zweischneider – HSC-Fire,29
+0068870,Fraise droite (1 à 8 dents),Fraise 2 dents UGV Fire,,10,10,,60,22,,,,2,,,,59.21,RG2,Zweischneider – HSC-Fire,29
+0068870K,Fraise droite (1 à 8 dents),Fraise 2 dents UGV Fire,,10,10,,50,17,,,,2,,,,52.05,RG2,Zweischneider – HSC-Fire,29
+0068870L,Fraise droite (1 à 8 dents),Fraise 2 dents UGV Fire,,10,10,,70,32,,,,2,,,,65.14,RG2,Zweischneider – HSC-Fire,29
+0068870S,Fraise droite (1 à 8 dents),Fraise 2 dents UGV Fire,,10,10,,50,12,,,,2,,,,49.61,RG2,Zweischneider – HSC-Fire,29
+0068815,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,1.5,3.175,,40,6,,,,2,,,,25.58,RG2,Zweischneider – HSC+,28
+0068815A,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,1.5,3,,40,6,,,,2,,,,25.58,RG2,Zweischneider – HSC+,28
+0068866,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,1.9,6,,50,6,,,,2,,,,34.89,RG2,Zweischneider – HSC+,28
+0068820,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,2,3.175,,40,6,,,,2,,,,25.58,RG2,Zweischneider – HSC+,28
+0068820A,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,2,3,,40,6,,,,2,,,,25.58,RG2,Zweischneider – HSC+,28
+0068862,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,2,6,,50,6,,,,2,,,,34.89,RG2,Zweischneider – HSC+,28
+0068862K,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,2,6,,50,4,,,,2,,,,34.89,RG2,Zweischneider – HSC+,28
+0068824,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,2.4,3.175,,40,6,,,,2,,,,25.58,RG2,Zweischneider – HSC+,28
+0068867,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,2.4,6,,50,5,,,,2,,,,34.89,RG2,Zweischneider – HSC+,28
+0068830,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,3,3.175,,40,10,,,,2,,,,25.58,RG2,Zweischneider – HSC+,28
+0068830A,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,3,3,,40,10,,,,2,,,,25.58,RG2,Zweischneider – HSC+,28
+0068830K,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,3,3.175,,40,6,,,,2,,,,25.58,RG2,Zweischneider – HSC+,28
+0068863,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,3,6,,50,10,,,,2,,,,34.89,RG2,Zweischneider – HSC+,28
+0068863K,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,3,6,,50,6,,,,2,,,,34.89,RG2,Zweischneider – HSC+,28
+0068864,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,4,6,,50,8,,,,2,,,,34.89,RG2,Zweischneider – HSC+,28
+0068865,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,5,6,,50,10,,,,2,,,,34.89,RG2,Zweischneider – HSC+,28
+0068860,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,6,6,,58,12,,,,2,,,,34.89,RG2,Zweischneider – HSC+,28
+0068860K,Fraise droite (1 à 8 dents),Fraise 2 dents UGV+,,6,6,,50,7,,,,2,,,,34.89,RG2,Zweischneider – HSC+,28
+00781005,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,0.5,3,0.45,40,0.75,4,,,2,,,,,,,26
+00781006,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,0.6,3,0.55,40,0.9,4,,,2,,,,,,,26
+00781007,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,0.7,3,0.65,38,1.05,4,,,2,,,,,,,26
+00781008,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,0.8,3,0.75,38,1.2,6,,,2,,,,,,,26
+00781009,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,0.9,3,0.85,38,1.3,6,,,2,,,,,,,26
+00781010,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,1,3,0.95,38,1.5,6,,,2,,,,,,,26
+00781011,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,1,3,0.95,38,1.5,9,,,2,,,,,,,26
+00781012,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,1.2,3,1.15,38,1.8,9,,,2,,,,,,,26
+00781015,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,1.5,3,1.45,38,2.2,9,,,2,,,,,,,26
+00781020,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,2,3,1.95,38,3,12,,,2,,,,,,,26
+00781025,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,2.5,3,2.4,40,3.5,15,,,2,,,,54.98,RG2,Zweischneider – mit Freischliff,26
+00781034,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,4,6,3.8,50,8,16,,,2,,,,44.53,RG2,Zweischneider – mit Freischliff,26
+00781036,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,6,6,5.7,60,20,33,,,2,,,,44.53,RG2,Zweischneider – mit Freischliff,26
+0078806,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,6,6,5.7,60,10,22,,,2,,,,38.57,RG2,Zweischneider – abgesetzt,26
+0078808,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,8,8,7.7,60,10,24,,,2,,,,41.54,RG2,Zweischneider – abgesetzt,26
+0078810,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,10,10,9.7,50,10,20,,,2,,,,62.54,RG2,Zweischneider,26
+0078810L,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,10,10,9.8,70,17,35,,,2,,,,68.03,RG2,Zweischneider,26
+0078812,Fraise droite (1 à 8 dents),Fraise 2 dents détalonnée,,12,12,11.7,50,10,20,,,2,,,,78.52,RG2,Zweischneider,26
+0068033,Fraise droite (1 à 8 dents),Fraise 2 dents pour contournage,,3,6,,57,8,,,,2,,,,34.05,RG2,Zweischneider – Konturfräser,27
+0068034,Fraise droite (1 à 8 dents),Fraise 2 dents pour contournage,,4,6,,57,11,,,,2,,,,34.05,RG2,Zweischneider – Konturfräser,27
+0068035,Fraise droite (1 à 8 dents),Fraise 2 dents pour contournage,,5,6,,57,13,,,,2,,,,34.05,RG2,Zweischneider – Konturfräser,27
+0068036,Fraise droite (1 à 8 dents),Fraise 2 dents pour contournage,,6,6,,57,13,,,,2,,,,34.05,RG2,Zweischneider – Konturfräser,27
+0068040,Fraise droite (1 à 8 dents),Fraise 2 dents pour contournage,,8,8,,60,20,,,,2,,,,55.39,RG2,Zweischneider – Konturfräser,27
+0068041,Fraise droite (1 à 8 dents),Fraise 2 dents pour contournage,,8,8,,60,25,,,,2,,,,56.93,RG2,Zweischneider – Konturfräser,27
+0068042,Fraise droite (1 à 8 dents),Fraise 2 dents pour contournage,,10,10,,70,25,,,,2,,,,63.31,RG2,Zweischneider – Konturfräser,27
+0068043,Fraise droite (1 à 8 dents),Fraise 2 dents pour contournage,,12,12,,70,25,,,,2,,,,69.7,RG2,Zweischneider – Konturfräser,27
+0078009K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,0.9,3,,38,1.8,,,,2,,,,,,,31
+0078009S,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,0.9,3,,38,1.1,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078010K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1,3,,38,2,,,,2,,,,,,,31
+0078010S,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1,3,,38,1.2,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078011K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.1,3,,38,2.2,,,,2,,,,,,,31
+0078011S,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.1,3,,38,1.2,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078012K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.2,3,,38,2.4,,,,2,,,,,,,31
+0078012S,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.2,3,,38,1.2,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078013K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.3,3,,38,2.6,,,,2,,,,,,,31
+0078013S,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.3,3,,38,1.2,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078014K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.4,3,,38,2.8,,,,2,,,,,,,31
+0078014S,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.4,3,,38,1.4,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078015K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.5,3,,38,3,,,,2,,,,,,,31
+0078015S,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.5,3,,38,1.4,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078016K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.6,3,,38,3.2,,,,2,,,,,,,31
+0078016S,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.6,3,,38,1.4,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078017K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.7,3,,38,3.4,,,,2,,,,,,,31
+0078017S,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.7,3,,38,1.4,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078018K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.8,3,,38,3.6,,,,2,,,,,,,31
+0078018S,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.8,3,,38,1.5,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078019K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.9,3,,38,4,,,,2,,,,,,,31
+0078019S,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,1.9,3,,38,1.5,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078020K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,2,3,,38,6,,,,2,,,,,,,31
+0078020S,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,2,3,,38,1.8,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078021K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,2.1,3,,38,5,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078022K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,2.2,3,,38,5,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078023K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,2.3,3,,38,5,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078024K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,2.4,3,,38,5,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078025K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,2.5,3,,38,7,,,,2,,,,,,,31
+0078025S,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,2.5,3,,38,2,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0078030K,Fraise droite (1 à 8 dents),Fraise 2 dents pour l'acier (X.CEED),,3,3,,38,7,,,,2,,,,33.35,RG2,Zweischneider – für die Stahlbearbeitung,31
+0068906,Fraise droite (1 à 8 dents),Fraise 2 dents à lubrification centre-outil,,6,6,,60,22,,,,2,,,,84.64,RG2,Zweischneider – Innenkühlung,30
+0068906K,Fraise droite (1 à 8 dents),Fraise 2 dents à lubrification centre-outil,,6,6,,60,14,,,,2,,,,82.66,RG2,Zweischneider – Innenkühlung,30
+0068906L,Fraise droite (1 à 8 dents),Fraise 2 dents à lubrification centre-outil,,6,6,5.6,60,22,32,,,2,,,,96.8,RG2,Zweischneider mit FreischlifInnenkühlung,30
+0068908,Fraise droite (1 à 8 dents),Fraise 2 dents à lubrification centre-outil,,8,8,,60,22,,,,2,,,,109.41,RG2,Zweischneider – Innenkühlung,30
+0068908K,Fraise droite (1 à 8 dents),Fraise 2 dents à lubrification centre-outil,,8,8,,60,16,,,,2,,,,106.37,RG2,Zweischneider – Innenkühlung,30
+0068908L,Fraise droite (1 à 8 dents),Fraise 2 dents à lubrification centre-outil,,8,8,7.4,60,22,32,,,2,,,,136.18,RG2,Zweischneider mit FreischlifInnenkühlung,30
+0068910,Fraise droite (1 à 8 dents),Fraise 2 dents à lubrification centre-outil,,10,10,,70,32,,,,2,,,,130.72,RG2,Zweischneider – Innenkühlung,30
+0068910K,Fraise droite (1 à 8 dents),Fraise 2 dents à lubrification centre-outil,,10,10,,70,26,,,,2,,,,129.19,RG2,Zweischneider – Innenkühlung,30
+0068910L,Fraise droite (1 à 8 dents),Fraise 2 dents à lubrification centre-outil,,10,10,9.2,70,32,38,,,2,,,,146.84,RG2,Zweischneider mit FreischlifInnenkühlung,30
+0068912,Fraise droite (1 à 8 dents),Fraise 2 dents à lubrification centre-outil,,12,12,,80,32,,,,2,,,,167.23,RG2,Zweischneider – Innenkühlung,30
+0068912K,Fraise droite (1 à 8 dents),Fraise 2 dents à lubrification centre-outil,,12,12,,80,26,,,,2,,,,165.72,RG2,Zweischneider – Innenkühlung,30
+0068912L,Fraise droite (1 à 8 dents),Fraise 2 dents à lubrification centre-outil,,12,12,11.2,80,32,48,,,2,,,,181.84,RG2,Zweischneider mit FreischlifInnenkühlung,30
+0068033A,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée,,3,6,2.8,58,8,12,,,3,,,,37.16,RG2,Dreischneider – mit Freischliff,34
+0068034A,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée,,4,6,3.8,58,11,16,,,3,,,,37.16,RG2,Dreischneider – mit Freischliff,34
+0068035A,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée,,5,6,4.8,58,13,19,,,3,,,,37.16,RG2,Dreischneider – mit Freischliff,34
+0068036A,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée,,6,6,5.7,58,13,19,,,3,,,,37.16,RG2,Dreischneider – mit Freischliff,34
+0068040A,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée,,8,8,7.8,63,19,27,,,3,,,,58.43,RG2,Dreischneider – mit Freischliff,34
+0068042A,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée,,10,10,9.8,72,22,32,,,3,,,,66.51,RG2,Dreischneider – mit Freischliff,34
+0068043A,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée,,12,12,11.8,83,26,38,,,3,,,,72.89,RG2,Dreischneider – mit Freischliff,34
+00680530,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée pour mousse,,3,6,2.7,75,12,41,,,3,,,,73.06,RG2,"Dreischneider – mit Freischliff, für Schaumstoff",35
+0068053K,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée pour mousse,,3,6,2.7,50,6,22,,,3,,,,49.31,RG2,"Dreischneider – mit Freischliff, für Schaumstoff",35
+00680540,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée pour mousse,,4,6,3.6,75,15,41,,,3,,,,73.06,RG2,"Dreischneider – mit Freischliff, für Schaumstoff",35
+0068054K,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée pour mousse,,4,6,3.6,50,8,22,,,3,,,,49.31,RG2,"Dreischneider – mit Freischliff, für Schaumstoff",35
+00680550,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée pour mousse,,5,6,4.5,75,20,41,,,3,,,,73.06,RG2,"Dreischneider – mit Freischliff, für Schaumstoff",35
+0068055K,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée pour mousse,,5,6,4.5,50,12,22,,,3,,,,49.31,RG2,"Dreischneider – mit Freischliff, für Schaumstoff",35
+00680560,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée pour mousse,,6,6,5.5,75,27,42,,,3,,,,73.06,RG2,"Dreischneider – mit Freischliff, für Schaumstoff",35
+0068056A,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée pour mousse,,6,6,5.5,100,27,71,,,3,,,,87.33,RG2,"Dreischneider – mit Freischliff, für Schaumstoff",35
+0068056K,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée pour mousse,,6,6,5.5,50,12,22,,,3,,,,49.31,RG2,"Dreischneider – mit Freischliff, für Schaumstoff",35
+00680580,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée pour mousse,,8,8,7.5,75,28,42,,,3,,,,101.8,RG2,"Dreischneider – mit Freischliff, für Schaumstoff",35
+0068058A,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée pour mousse,,8,8,7.5,100,42,71,,,3,,,,108.95,RG2,"Dreischneider – mit Freischliff, für Schaumstoff",35
+0068058K,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée pour mousse,,8,8,7.5,50,16,25,,,3,,,,83.54,RG2,"Dreischneider – mit Freischliff, für Schaumstoff",35
+00680510,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée pour mousse,,10,10,9.5,115,52,82,,,3,,,,162.06,RG2,"Dreischneider – mit Freischliff, für Schaumstoff",35
+0068051K,Fraise droite (1 à 8 dents),Fraise 3 dents détalonnée pour mousse,,10,10,9.5,60,20,30,,,3,,,,121.59,RG2,"Dreischneider – mit Freischliff, für Schaumstoff",35
+00685610,Fraise droite (1 à 8 dents),Fraise 3 dents finition du cuivre,,1,6,,50,2.2,,,,3,,,,38.0,RG2,Dreischneider – Kupfer-Schlichtfräser,33
+00685615,Fraise droite (1 à 8 dents),Fraise 3 dents finition du cuivre,,1.5,6,,50,3.2,,,,3,,,,38.0,RG2,Dreischneider – Kupfer-Schlichtfräser,33
+00685620,Fraise droite (1 à 8 dents),Fraise 3 dents finition du cuivre,,2,6,,50,4.2,,,,3,,,,38.0,RG2,Dreischneider – Kupfer-Schlichtfräser,33
+00685630,Fraise droite (1 à 8 dents),Fraise 3 dents finition du cuivre,,3,6,,50,6,,,,3,,,,38.0,RG2,Dreischneider – Kupfer-Schlichtfräser,33
+00685640,Fraise droite (1 à 8 dents),Fraise 3 dents finition du cuivre,,4,6,,50,8,,,,3,,,,38.0,RG2,Dreischneider – Kupfer-Schlichtfräser,33
+00685660,Fraise droite (1 à 8 dents),Fraise 3 dents finition du cuivre,,6,6,,50,11,,,,3,,,,38.0,RG2,Dreischneider – Kupfer-Schlichtfräser,33
+00685680,Fraise droite (1 à 8 dents),Fraise 3 dents finition du cuivre,,8,8,,50,16,,,,3,,,,56.0,RG2,Dreischneider – Kupfer-Schlichtfräser,33
+0068551,Fraise droite (1 à 8 dents),Fraise 3 dents revêtue X.CEED,,1.75,3,,40,3,,,,3,,,,21.75,RG2,Dreischneider,36
+0068552,Fraise droite (1 à 8 dents),Fraise 3 dents revêtue X.CEED,,2,6,,50,6,,,,3,,,,33.35,RG2,Dreischneider,36
+0068553,Fraise droite (1 à 8 dents),Fraise 3 dents revêtue X.CEED,,3,6,,50,6,,,,3,,,,33.35,RG2,Dreischneider,36
+0068554,Fraise droite (1 à 8 dents),Fraise 3 dents revêtue X.CEED,,4,6,,50,8,,,,3,,,,33.35,RG2,Dreischneider,36
+0068555,Fraise droite (1 à 8 dents),Fraise 3 dents revêtue X.CEED,,5,6,,50,10,,,,3,,,,33.35,RG2,Dreischneider,36
+0068556,Fraise droite (1 à 8 dents),Fraise 3 dents revêtue X.CEED,,6,6,,50,10,,,,3,,,,33.35,RG2,Dreischneider,36
+00685903,Fraise droite (1 à 8 dents),Fraise 3 dents ébauche du cuivre,,3,6,,50,6,,,,3,,,,46.91,RG2,Dreischneider – Kupfer-Schruppfräser,32
+00685906,Fraise droite (1 à 8 dents),Fraise 3 dents ébauche du cuivre,,6,6,,50,12,,,,3,,,,46.91,RG2,Dreischneider – Kupfer-Schruppfräser,32
+00685908,Fraise droite (1 à 8 dents),Fraise 3 dents ébauche du cuivre,,8,8,,50,16,,,,3,,,,65.74,RG2,Dreischneider – Kupfer-Schruppfräser,32
+00685910,Fraise droite (1 à 8 dents),Fraise 3 dents ébauche du cuivre,,10,10,,60,22,,,,3,,,,80.52,RG2,Dreischneider – Kupfer-Schruppfräser,32
+0078402,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,2,6,,50,7,,,,4,,,,,,,37
+00784025,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,2.5,6,,50,8,,,,4,,,,,,,37
+0078403,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,3,6,,57,8,,,,4,,,,,,,37
+0078403A,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,3,6,,57,19,,,,4,,,,,,,37
+00784035,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,3.5,6,,57,10,,,,4,,,,,,,37
+0078404,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,4,6,,57,11,,,,4,,,,,,,37
+0078404A,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,4,6,,57,19,,,,4,,,,43.1,RG2,Vierschneider,37
+0078404B,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,4,6,,75,25,,,,4,,,,47.62,RG2,Vierschneider,37
+00784045,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,4.5,6,,57,11,,,,4,,,,34.05,RG2,Vierschneider,37
+0078405,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,5,6,,57,13,,,,4,,,,34.05,RG2,Vierschneider,37
+0078405A,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,5,6,,75,30,,,,4,,,,47.62,RG2,Vierschneider,37
+00784055,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,5.5,6,,57,13,,,,4,,,,34.05,RG2,Vierschneider,37
+0078406,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,6,6,,57,13,,,,4,,,,34.05,RG2,Vierschneider,37
+0078406A,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,6,6,,75,30,,,,4,,,,47.62,RG2,Vierschneider,37
+0078406B,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,6,6,,100,40,,,,4,,,,50.73,RG2,Vierschneider,37
+00784065,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,6.5,8,,63,16,,,,4,,,,49.61,RG2,Vierschneider,37
+0078407,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,7,8,,63,16,,,,4,,,,49.61,RG2,Vierschneider,37
+0078408,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,8,8,,63,19,,,,4,,,,49.61,RG2,Vierschneider,37
+0078408A,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,8,8,,75,30,,,,4,,,,57.69,RG2,Vierschneider,37
+0078409,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,9,10,,72,19,,,,4,,,,65.58,RG2,Vierschneider,37
+0078410,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,10,10,,72,22,,,,4,,,,65.58,RG2,Vierschneider,37
+0078410A,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,10,10,,75,30,,,,4,,,,76.85,RG2,Vierschneider,37
+0078410B,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,10,10,,100,40,,,,4,,,,92.82,RG2,Vierschneider,37
+0078412,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,12,12,,83,26,,,,4,,,,86.44,RG2,Vierschneider,37
+0078412A,Fraise droite (1 à 8 dents),Fraise 4 dents revêtue ALCRONA,,12,12,,100,45,,,,4,,,,115.21,RG2,Vierschneider,37
+00781203,Fraise droite (1 à 8 dents),Fraise diamant CFK / FR4,,3,6,2.8,50,5,10,,,1,,,,379.3,RG61,Diamant-Fräser – für CFK/GFK,40
+00781204,Fraise droite (1 à 8 dents),Fraise diamant CFK / FR4,,4,6,3.8,50,6,6,,,2,,,,458.14,RG61,Diamant-Fräser – für CFK/GFK,40
+00781206,Fraise droite (1 à 8 dents),Fraise diamant CFK / FR4,,6,6,5.6,50,10,14,,,2,,,,472.04,RG61,Diamant-Fräser – für CFK/GFK,40
+00781208,Fraise droite (1 à 8 dents),Fraise diamant CFK / FR4,,8,8,7.2,50,12,16,,,2,,,,669.68,RG61,Diamant-Fräser – für CFK/GFK,40
+00781210,Fraise droite (1 à 8 dents),Fraise diamant CFK / FR4,,10,10,9.2,60,8,17,,,2,,,,697.94,RG61,Diamant-Fräser – für CFK/GFK,40
+0068106,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,0.6,3,,38,3,,,,8,,,,16.38,RG1,Microverzahnte Fräser,38
+00686506,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,0.6,3.175,,38,3,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+0068107,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,0.7,3,,38,3.5,,,,8,,,,16.38,RG1,Microverzahnte Fräser,38
+0068108,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,0.8,3,,38,5,,,,8,,,,16.38,RG1,Microverzahnte Fräser,38
+00686508,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,0.8,3.175,,38,5,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+0068110,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,1,3,,38,5,,,,8,,,,16.38,RG1,Microverzahnte Fräser,38
+00686510,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,1,3.175,,38,5,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+0068111,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,1.1,3,,38,5,,,,8,,,,16.38,RG2,Microverzahnte Fräser,38
+00686511,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,1.1,3.175,,38,7,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+0068112,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,1.2,3,,38,5,,,,8,,,,16.38,RG1,Microverzahnte Fräser,38
+00686512,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,1.2,3.175,,38,7,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+00686513,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,1.3,3.175,,38,7,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+00686514,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,1.4,3.175,,38,7,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+0068115,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,1.5,3,,38,8,,,,8,,,,16.38,RG1,Microverzahnte Fräser,38
+00686515,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,1.5,3.175,,38,7,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+00686516,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,1.6,3.175,,38,8.5,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+00686517,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,1.7,3.175,,38,8.5,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+00686518,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,1.8,3.175,,38,8.5,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+00686519,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,1.9,3.175,,38,8.5,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+0068120,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,2,3,,38,8,,,,8,,,,16.38,RG1,Microverzahnte Fräser,38
+00686520,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,2,3.175,,38,8,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+00686521,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,2.1,3.175,,38,9,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+00686522,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,2.2,3.175,,38,9,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+00686523,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,2.3,3.175,,38,9,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+0068124,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,2.4,3,,38,8,,,,8,,,,16.38,RG1,Microverzahnte Fräser,38
+00686524,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,2.4,3.175,,38,9,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+0068130,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,3,3,,38,12,,,,8,,,,16.38,RG1,Microverzahnte Fräser,38
+00686530,Fraise droite (1 à 8 dents),Fraise microdentée FR4 / CFK,,3,3.175,,38,10,,,,8,,,,13.57,RG1,Microverzahnte Fräser,38
+006T106,Fraise droite (1 à 8 dents),Fraise microdentée revêtue (X.CEED / diamant),,0.6,3,,40,3,,,,8,,,,20.06,RG2,Microverzahnte Fräser – beschichtet,39
+006T107,Fraise droite (1 à 8 dents),Fraise microdentée revêtue (X.CEED / diamant),,0.7,3,,40,3.5,,,,8,,,,20.06,RG2,Microverzahnte Fräser – beschichtet,39
+006T110,Fraise droite (1 à 8 dents),Fraise microdentée revêtue (X.CEED / diamant),,1,3,,40,5,,,,8,,,,20.06,RG2,Microverzahnte Fräser – beschichtet,39
+006T115,Fraise droite (1 à 8 dents),Fraise microdentée revêtue (X.CEED / diamant),,1.5,3,,40,8,,,,8,,,,20.06,RG2,Microverzahnte Fräser – beschichtet,39
+006T120,Fraise droite (1 à 8 dents),Fraise microdentée revêtue (X.CEED / diamant),,2,3,,40,8,,,,8,,,,20.06,RG2,Microverzahnte Fräser – beschichtet,39
+0073126B,Fraise droite (1 à 8 dents),Fraise microdentée revêtue (X.CEED / diamant),,2,3.175,,38,9,,,,8,,,,,,,39
+006T124,Fraise droite (1 à 8 dents),Fraise microdentée revêtue (X.CEED / diamant),,2.4,3,,40,8,,,,8,,,,20.06,RG2,Microverzahnte Fräser – beschichtet,39
+0073126C,Fraise droite (1 à 8 dents),Fraise microdentée revêtue (X.CEED / diamant),,2.4,3.175,,38,9,,,,8,,,,,,,39
+006T130,Fraise droite (1 à 8 dents),Fraise microdentée revêtue (X.CEED / diamant),,3,3,,40,12,,,,8,,,,20.06,RG2,Microverzahnte Fräser – beschichtet,39
+0073126D,Fraise droite (1 à 8 dents),Fraise microdentée revêtue (X.CEED / diamant),,3,3.175,,38,9,,,,8,,,,,,,39
+0068164,Fraise droite (1 à 8 dents),Fraise microdentée revêtue (X.CEED / diamant),,4,6,,50,16,,,,8,,,,59.35,RG2,Microverzahnte Fräser – beschichtet,39
+0068165,Fraise droite (1 à 8 dents),Fraise microdentée revêtue (X.CEED / diamant),,5,6,,50,22,,,,8,,,,59.35,RG2,Microverzahnte Fräser – beschichtet,39
+0068166S,Fraise droite (1 à 8 dents),Fraise microdentée revêtue (X.CEED / diamant),,6,6,,50,12,,,,8,,,,59.35,RG2,Microverzahnte Fräser – beschichtet,39
+0068812G,Fraise à surfacer,Fraise à surfacer 1 dent étagée rayonnée,,12,6,,45,5,,,,1,,,,114.27,RG2,Einschneider – abgesetzt,42
+0068814E,Fraise à surfacer,Fraise à surfacer 1 dent étagée rayonnée,,14,8,,45,5,,,,1,,,,139.95,RG2,"Einschneider – abgesetzt,",42
+0068820E,Fraise à surfacer,Fraise à surfacer 1 dent étagée rayonnée,,20,10,,50,7,,,,1,,,,191.31,RG2,"Einschneider – abgesetzt,",42
+0068824E,Fraise à surfacer,Fraise à surfacer 1 dent étagée rayonnée,,24,12,,60,8.5,,,,1,,,,255.51,RG2,Einschneider – abgesetzt,42
+0068441,Fraise à surfacer,Fraise à surfacer 2 dents étagée,,8,6,,50,10,,,,2,,,,52.75,RG2,Zweischneider – abgesetzt,43
+0068440,Fraise à surfacer,Fraise à surfacer 2 dents étagée,,10,6,,50,10,,,,2,,,,74.06,RG2,Zweischneider – abgesetzt,43
+0068442G,Fraise à surfacer,Fraise à surfacer 2 dents étagée,,12,6,,50,6,,,,2,,,,88.4,RG2,Zweischneider – abgesetzt,43
+0078812A,Fraise à surfacer,Fraise à surfacer 2 dents étagée,,12,10,,50,10,,,,2,,,,74.77,RG2,Zweischneider – abgesetzt,43
+0068442A,Fraise à surfacer,Fraise à surfacer 2 dents étagée,,14,6,,50,6,,,,2,,,,140.15,RG2,Zweischneider – abgesetzt,43
+0068443G,Fraise à surfacer,Fraise à surfacer 2 dents étagée,,14,8,,50,6,,,,2,,,,124.94,RG2,Zweischneider – abgesetzt,43
+0078814,Fraise à surfacer,Fraise à surfacer 2 dents étagée,,14,12,,50,10,,,,2,,,,105.22,RG2,Zweischneider – abgesetzt,43
+0078814A,Fraise à surfacer,Fraise à surfacer 2 dents étagée,,14,10,,50,10,,,,2,,,,105.22,RG2,Zweischneider – abgesetzt,43
+0078816,Fraise à surfacer,Fraise à surfacer 2 dents étagée,,16,12,,50,10,,,,2,,,,120.43,RG2,Zweischneider – abgesetzt,43
+0078816A,Fraise à surfacer,Fraise à surfacer 2 dents étagée,,16,10,,50,10,,,,2,,,,120.43,RG2,Zweischneider – abgesetzt,43
+0078816B,Fraise à surfacer,Fraise à surfacer 2 dents étagée,,16,10,,82,12,,,,2,,,,311.58,RG2,Zweischneider – abgesetzt,43
+0078818,Fraise à surfacer,Fraise à surfacer 2 dents étagée,,18,12,,50,10,,,,2,,,,150.87,RG2,Zweischneider – abgesetzt,43
+0078818A,Fraise à surfacer,Fraise à surfacer 2 dents étagée,,18,10,,50,10,,,,2,,,,150.87,RG2,Zweischneider – abgesetzt,43
+0068444G,Fraise à surfacer,Fraise à surfacer 2 dents étagée,,20,8,,50,8,,,,2,,,,160.0,RG2,Zweischneider – abgesetzt,43
+0078820,Fraise à surfacer,Fraise à surfacer 2 dents étagée,,20,12,,50,10,,,,2,,,,166.08,RG2,Zweischneider – abgesetzt,43
+0078820A,Fraise à surfacer,Fraise à surfacer 2 dents étagée,,20,10,,50,10,,,,2,,,,166.08,RG2,Zweischneider – abgesetzt,43
+0068442,Fraise à surfacer,Fraise à surfacer 2 dents étagée rayonnée,,12,6,,50,6,,,0.5,2,,,,88.4,RG2,"Zweischneider – abgesetzt, mit Eckenradius",44
+0068442N,Fraise à surfacer,Fraise à surfacer 2 dents étagée rayonnée,,12,8,,50,6,,,0.5,2,,,,88.4,RG2,"Zweischneider – abgesetzt, mit Eckenradius",44
+0068443,Fraise à surfacer,Fraise à surfacer 2 dents étagée rayonnée,,14,8,,50,6,,,0.5,2,,,,124.94,RG2,"Zweischneider – abgesetzt, mit Eckenradius",44
+0068444,Fraise à surfacer,Fraise à surfacer 2 dents étagée rayonnée,,20,8,,50,8,,,0.5,2,,,,160.0,RG2,"Zweischneider – abgesetzt, mit Eckenradius",44
+0078440,Fraise à surfacer,Fraise à surfacer 2 dents étagée rayonnée polie (acrylique),,10,6,,50,6,,,1,2,,,,101.32,RG2,"Zweischneider – abgesetzt, mit Eckenradius und polierter",45
+0078442,Fraise à surfacer,Fraise à surfacer 2 dents étagée rayonnée polie (acrylique),,12,6,,50,6,,,1,2,,,,122.46,RG2,"Zweischneider – abgesetzt, mit Eckenradius und polierter",45
+0078444,Fraise à surfacer,Fraise à surfacer 2 dents étagée rayonnée polie (acrylique),,14,8,,50,6,,,1,2,,,,176.82,RG2,"Zweischneider – abgesetzt, mit Eckenradius und polierter",45
+0078446,Fraise à surfacer,Fraise à surfacer 2 dents étagée rayonnée polie (acrylique),,16,8,,50,6,,,1,2,,,,216.22,RG2,"Zweischneider – abgesetzt, mit Eckenradius und polierter",45
 0068171E,Fraise boule,Fraise boule 1 dent,,1,3,,40,4,,,0.5,1,,,,41.41,RG2,Stirnradiusfräser – eine Schneide,48
 0068172E,Fraise boule,Fraise boule 1 dent,,2,6,,50,7,,,1,1,,,,41.41,RG2,Stirnradiusfräser – eine Schneide,48
 0068173E,Fraise boule,Fraise boule 1 dent,,3,6,,50,8,,,1.5,1,,,,41.41,RG2,Stirnradiusfräser – eine Schneide,48

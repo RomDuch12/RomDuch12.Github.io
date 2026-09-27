@@ -10,6 +10,7 @@
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const num = (v, d = 3) => { const x = Number(v); return Number.isFinite(x) ? String(+x.toFixed(d)) : '0'; };
   const q = s => String(s).replace(/"/g, "'");                      // chaînes SimPL
+  const sansAccents = s => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[«»]/g, '"').replace(/[’‘]/g, "'").replace(/"/g, "'");
   const ident = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9_]/g, '_');
   const el = (tag, attrs = {}, html = '') => { const e = document.createElement(tag); Object.assign(e, attrs); if (html) e.innerHTML = html; return e; };
 
@@ -130,8 +131,25 @@
     },
     dialog: {
       label: 'Message opérateur', dialog: true, prefix: 'Message',
+      fields: [P('message', 'Message', 'text', "Continuer l'usinage ?"),
+        P('kind', 'Type de message', 'select', 'question Oui / Non', ['question Oui / Non', 'information seule']),
+        P('park', 'Aller en position de parking', 'select', 'oui', ['oui', 'non'], o => o.kind !== 'information seule'),
+        P('toolBefore', 'Monter un outil avant la question', 'select', 'non', ['non', 'oui'], o => o.kind !== 'information seule'),
+        P('toolArt', 'Outil à monter', 'toolsel', '', null, o => o.kind !== 'information seule' && o.toolBefore === 'oui'),
+        P('stop', 'Si « Non »', 'select', 'arrêter la suite', ['arrêter la suite', 'continuer quand même'], o => o.kind !== 'information seule')]
+    },
+    flip: {
+      label: 'Retournement pièce', dialog: true, prefix: 'Retournement',
       fields: [P('message', 'Message', 'text', "Retourner la pièce, palper l'origine, puis continuer ?"),
-        P('stop', 'Si « Non »', 'select', 'arrêter la suite', ['arrêter la suite', 'continuer quand même'])]
+        P('toolBefore', 'Monter un outil avant la question', 'select', 'non', ['non', 'oui']),
+        P('toolArt', 'Outil laissé en broche', 'toolsel', '', null, o => o.toolBefore === 'oui'),
+        P('park', 'Aller en position de parking', 'select', 'oui', ['oui', 'non']),
+        P('sprayOff', 'Couper l\'arrosage', 'select', 'oui', ['oui', 'non']), P('spindleOff', 'Couper la broche', 'select', 'oui', ['oui', 'non']),
+        P('stop', 'Si « Non »', 'select', 'arrêter la suite', ['arrêter la suite', 'continuer quand même']),
+        P('probe', 'Palper le brut retourné', 'select', 'oui', ['oui', 'non']),
+        P('dimX', 'Dimension X (mm)', 'number', 100, null, o => o.probe === 'oui'), P('dimY', 'Dimension Y (mm)', 'number', 60, null, o => o.probe === 'oui'),
+        P('zOff', 'Décalage Z des palpages X/Y (mm)', 'number', -2, null, o => o.probe === 'oui'),
+        P('skipZ', 'Palper aussi Z', 'select', 'oui', ['oui', 'non'], o => o.probe === 'oui')]
     },
     trace: {
       label: 'Tracé (DXF, rectangle, cercle, segment)', tool: 'gravure', prefix: 'Trace', trace: true,
@@ -364,11 +382,22 @@
       const def = OPS[o.type];
       if (def.inline) { mainLines.push(...def.main(o)); return; }
       if (def.dialog) {
-        const name = uniq(`${def.prefix}_${state.ops.indexOf(o) + 1}`);
-        programs.push(`program ${name} returns DialogResult`, '    SpraySystem Off', '    Spindle Off', '    MoveToParkPosition',
-          `    result = Dialog message="${q(o.message)}" Yes=true No=true`, '    return result', 'endprogram', '');
+        const msg = sansAccents(o.message || '');
+        if (o.type === 'dialog' && o.kind === 'information seule') { mainLines.push('Dialog (', `    caption="Information"`, `    message="${msg}"`, ')'); return; }
+        const name = uniq(`${def.prefix}_${state.ops.indexOf(o) + 1}`), tb = o.toolBefore === 'oui' ? toolById(o.toolArt) : null;
+        if (o.toolBefore === 'oui' && !tb) warn.push(tr('{op} : aucun outil choisi.', { op: tr(def.label) }));
+        programs.push(`# ${tr(def.label)}`, `program ${name} returns DialogResult`,
+          ...(tb ? [`    Tool type="${q(tb.articleNr)}"  skipRestoring    #${tb.name}`] : []),
+          ...(o.type === 'dialog' ? (o.park !== 'non' ? ['    SpraySystem Off', '    Spindle Off', '    MoveToParkPosition'] : [])
+            : [...(o.sprayOff !== 'non' ? ['    SpraySystem Off'] : []), ...(o.spindleOff !== 'non' ? ['    Spindle Off'] : []), ...(o.park !== 'non' ? ['    MoveToParkPosition'] : [])]),
+          `    result = Dialog message="${msg}" Yes=true No=true`, '    return result', 'endprogram', '');
         mainLines.push(`result = ${name}`);
         if (o.stop === 'arrêter la suite') { mainLines.push('if result == DialogResult.Yes'); openIfs++; }
+        if (o.type === 'flip' && o.probe === 'oui') {         // palpage du brut retourné : même programme que « Palpage rectangle »
+          const pn = uniq(OPS.probe.name(o));
+          programs.push(`# ${tr('Palpage rectangle')}`, `program ${pn}`, `    BeginBlock name="${pn}"`, ...OPS.probe.body({ ...o, ox: 0, oy: 0, oz: 0 }).map(x => '    ' + x), '    EndBlock', 'endprogram', '');
+          mainLines.push(pn);
+        }
         return;
       }
       const t = def.tool ? toolById(o.tool) : null;
@@ -458,6 +487,8 @@
       return `<label class="wide">${esc(tr(f.label))}<select data-k="${f.k}" id="${id}"><option value="">— ${tr('choisir')} —</option>${lib.map(d =>
         `<option value="${esc(d.nom)}"${d.nom === val ? ' selected' : ''}>${esc(d.nom)} (${Math.max(1, Math.round(d.texte.length / 1024))} ko)</option>`).join('')}</select></label>`;
     }
+    if (f.type === 'toolsel') return `<label>${esc(tr(f.label))}<select data-k="${f.k}" id="${id}"><option value="">— ${tr('choisir')} —</option>${TOOLS.map(t =>
+      `<option value="${esc(t.id)}"${t.id === val ? ' selected' : ''}>${esc(t.name)}</option>`).join('')}</select></label>`;
     if (f.type === 'text') return `<label class="wide">${esc(tr(f.label))}<input type="text" data-k="${f.k}" id="${id}" value="${esc(val)}"></label>`;
     return `<label>${esc(tr(f.label))}<input type="number" step="any" data-k="${f.k}" id="${id}" value="${esc(val)}"></label>`;
   }
@@ -480,7 +511,7 @@
       <label>${tr('Brut Z (mm)')}<input type="number" step="any" data-h="bz" value="${H.bz}"></label>
       <label>${tr('Origine')}<select data-h="origin"><option value="centre"${H.origin === 'centre' ? ' selected' : ''}>${tr('centre, dessus de pièce')}</option><option value="coin"${H.origin === 'coin' ? ' selected' : ''}>${tr('coin avant gauche, dessus')}</option></select></label>
     </div>`;
-    headBox.querySelectorAll('[data-h]').forEach(i => i.addEventListener('input', () => { H[i.dataset.h] = i.value; }));
+    headBox.querySelectorAll('[data-h]').forEach(i => i.addEventListener('input', () => { H[i.dataset.h] = i.value; auto(); }));
   }
 
   let toolSource = '';
@@ -515,6 +546,7 @@
   }
 
   function renderOps() {
+    auto();
     opsBox.innerHTML = state.ops.length ? '' : `<p class="gbox" style="margin:0;color:var(--mute)">${TOOLS.length ? tr('Aucune opération : ajoutez-en ci-dessous.') : tr('Aucune opération : ajoutez-en ci-dessous, après avoir créé vos outils dans l\'<a href="outils.html">éditeur d\'outils</a> (catalogue DATRON).')}</p>`;
     state.ops.forEach((o, idx) => {
       const def = OPS[o.type], box = el('div', { className: 'gbox op' });
@@ -527,9 +559,10 @@
         <button type="button" data-a="up" aria-label="${tr('Monter')}">▲</button><button type="button" data-a="down" aria-label="${tr('Descendre')}">▼</button>
         <button type="button" data-a="del">${tr('Supprimer')}</button></div>
         <div id="opf${idx}"${o.collapsed ? ' hidden' : ''}>
-        <div class="fields">${tools}${def.fields.map((f, k) => fieldHTML(f, o, `op${idx}_${k}`)).join('')}</div>
-        ${def.trace && o.source === 'DXF' && o.dxfName ? `<p style="margin:6px 0 0;color:var(--mute)">${tr('DXF chargé')} : ${esc(o.dxfName)}</p>` : ''}</div>`;
+        <div class="${def.trace ? 'opgrid' : ''}"><div class="fields">${tools}${def.fields.map((f, k) => fieldHTML(f, o, `op${idx}_${k}`)).join('')}</div>
+        ${def.trace ? `<figure class="thumb"><canvas width="220" height="160" aria-label="${esc(tr('Aperçu du tracé'))}"></canvas><figcaption></figcaption></figure>` : ''}</div></div>`;
       box.querySelector('[data-a=toggle]').onclick = () => { o.collapsed = !o.collapsed; renderOps(); };
+      if (def.trace && !o.collapsed) drawThumb(box.querySelector('.thumb'), o);
       const fav = box.querySelector('[data-a=fav]');
       if (fav) fav.onclick = () => {
         const nom = prompt(tr('Nom de l\'opération favorite :'), resume ? `${tr(def.label)} – ${resume}` : tr(def.label));
@@ -545,13 +578,39 @@
         else if (k === 'lib') i.addEventListener('change', () => { const d = (ST() ? ST().get('dxf', []) : []).find(x => x.nom === i.value);
           o.lib = i.value; if (d) { o.dxfText = d.texte; o.dxfName = d.nom; } renderOps(); });
         else if (k === 'source') i.addEventListener('change', () => { o.source = i.value; renderOps(); });
-        else i.addEventListener('input', () => { o[k] = i.value; });
+        else if (i.tagName === 'SELECT' && OPS[o.type].fields.some(f => f.when)) i.addEventListener('change', () => { o[k] = i.value; renderOps(); });
+        else i.addEventListener('input', () => { o[k] = i.value; if (def.trace) drawThumb(box.querySelector('.thumb'), o); auto(); });
       });
       box.querySelector('[data-a=up]').onclick = () => { if (idx > 0) { state.ops.splice(idx - 1, 0, state.ops.splice(idx, 1)[0]); renderOps(); } };
       box.querySelector('[data-a=down]').onclick = () => { if (idx < state.ops.length - 1) { state.ops.splice(idx + 1, 0, state.ops.splice(idx, 1)[0]); renderOps(); } };
       box.querySelector('[data-a=del]').onclick = () => { state.ops.splice(idx, 1); renderOps(); };
       opsBox.append(box);
     });
+  }
+
+  /* miniature : tracé tel qu'il sera usiné, dans le cadre du brut */
+  function drawThumb(fig, o) {
+    if (!fig) return;
+    const cv = fig.querySelector('canvas'), cap = fig.querySelector('figcaption'), x = cv.getContext('2d'), css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+    const W = cv.width, H = cv.height; x.clearRect(0, 0, W, H);
+    let paths = [];
+    try { paths = o.source === 'DXF' && !o.dxfText ? [] : tracePaths(o); } catch (e) { paths = []; }
+    const pts = []; const flat = paths.map(p => { const l = [[p.x0, p.y0]]; let c = [p.x0, p.y0];
+      p.segs.forEach(g => { if (g.cx === undefined) l.push([g.x, g.y]); else { const r = Math.hypot(c[0] - g.cx, c[1] - g.cy); let a0 = Math.atan2(c[1] - g.cy, c[0] - g.cx), a1 = Math.atan2(g.y - g.cy, g.x - g.cx);
+        let sw = g.ccw ? a1 - a0 : a0 - a1; while (sw <= 1e-9) sw += 2 * Math.PI; const n = Math.max(6, Math.ceil(sw / 0.2));
+        for (let k = 1; k <= n; k++) { const a = a0 + (g.ccw ? 1 : -1) * sw * k / n; l.push([g.cx + r * Math.cos(a), g.cy + r * Math.sin(a)]); } } c = [g.x, g.y]; });
+      l.forEach(q => pts.push(q)); return l; });
+    const H0 = state.head, bx = +H0.bx || 100, by = +H0.by || 60, [bx0, by0] = H0.origin === 'coin' ? [0, 0] : [-bx / 2, -by / 2];
+    const xs = pts.map(p => p[0]).concat([bx0, bx0 + bx]), ys = pts.map(p => p[1]).concat([by0, by0 + by]);
+    const X0 = Math.min(...xs), X1 = Math.max(...xs), Y0 = Math.min(...ys), Y1 = Math.max(...ys), k = Math.min((W - 16) / ((X1 - X0) || 1), (H - 16) / ((Y1 - Y0) || 1));
+    const ox = (W - (X1 - X0) * k) / 2, oy = (H - (Y1 - Y0) * k) / 2, SX = v => ox + (v - X0) * k, SY = v => H - oy - (v - Y0) * k;
+    x.fillStyle = css('--card'); x.strokeStyle = css('--line'); x.fillRect(SX(bx0), SY(by0 + by), bx * k, by * k); x.strokeRect(SX(bx0), SY(by0 + by), bx * k, by * k);
+    x.strokeStyle = css('--brass'); x.lineWidth = 1.2; x.beginPath();
+    flat.forEach(l => l.forEach(([a, b], i) => (i ? x.lineTo(SX(a), SY(b)) : x.moveTo(SX(a), SY(b))))); x.stroke();
+    if (!pts.length) { cap.textContent = o.source === 'DXF' ? tr('Aucun DXF chargé') : tr('Aucun tracé exploitable.'); return; }
+    const w = Math.max(...pts.map(p => p[0])) - Math.min(...pts.map(p => p[0])), h = Math.max(...pts.map(p => p[1])) - Math.min(...pts.map(p => p[1]));
+    const sort = pts.some(p => p[0] < bx0 - 1e-6 || p[0] > bx0 + bx + 1e-6 || p[1] < by0 - 1e-6 || p[1] > by0 + by + 1e-6);
+    cap.innerHTML = `${o.source === 'DXF' ? esc(o.dxfName || '') + ' · ' : ''}${tr('{n} tracé(s)', { n: paths.length })} · ${(+w).toFixed(2)} × ${(+h).toFixed(2)} mm${sort ? ` · <b style="color:var(--warn)">${tr('hors du brut')}</b>` : ''}`;
   }
 
   function addOp(o) { state.ops.push(o); renderOps(); opsBox.lastChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
@@ -578,14 +637,21 @@
     if (g) g.onclick = e => { e.preventDefault(); window.Stockage && window.Stockage.banniere(true); };
   }
 
+  let runGen = null, autoT = 0;
+  const auto = () => { clearTimeout(autoT); autoT = setTimeout(() => runGen && state.ops.length && runGen(), 500); };
   function renderOut() {
     outBox.innerHTML = `<h3>${tr('Programme SimPL')}</h3>
       <div class="addbar" style="margin-bottom:8px"><button type="button" class="primary" id="g-gen">${tr('Générer')}</button>
       <button type="button" id="g-view">${tr('Voir dans le visualiseur')}</button><button type="button" id="g-dl">${tr('Télécharger .simpl')}</button></div>
       <p class="warn" id="g-warn" role="status"></p>
-      <textarea class="genout" id="g-out" spellcheck="false" aria-label="${tr('Programme SimPL généré')}"></textarea>`;
-    const out = outBox.querySelector('#g-out'), w = outBox.querySelector('#g-warn');
-    const run = () => { const r = generate(state); out.value = r.code; w.innerHTML = r.warn.map(esc).join('<br>'); return r.code; };
+      <div class="genout" id="g-out" aria-label="${tr('Programme SimPL généré')}"></div>`;
+    const w = outBox.querySelector('#g-warn'); let ed = null, pending = '';
+    const out = { get value() { return ed ? ed.getValue() : pending; }, set value(v) { pending = v; if (ed) ed.setValue(v); } };
+    if (window.SimplEditor) SimplEditor.create(outBox.querySelector('#g-out'), { value: pending, onChange: v => { pending = v; window.simplViewer && window.simplViewer.generated(v); } })
+      .then(e => { ed = e; ed.setValue(pending); }).catch(() => { outBox.querySelector('#g-out').innerHTML = '<textarea class="genout" spellcheck="false"></textarea>'; });
+    const run = () => { const r = generate(state); out.value = r.code; w.innerHTML = r.warn.map(esc).join('<br>');
+      if (state.ops.length && window.simplViewer) window.simplViewer.generated(r.code); return r.code; };
+    runGen = run;
     outBox.querySelector('#g-gen').onclick = run;
     outBox.querySelector('#g-view').onclick = () => { const c = out.value || run(); window.simplViewer && window.simplViewer.show(c); };
     outBox.querySelector('#g-dl').onclick = () => {

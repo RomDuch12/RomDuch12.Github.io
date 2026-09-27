@@ -60,11 +60,13 @@ table.cat button{padding:2px 9px;font-size:13px}
 #p-mat{width:22em;max-width:100%}
 footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
 </style>
+<link rel="stylesheet" href="site.css">
+<script src="ui.js" defer></script>
 </head>
 <body>
 <main>
 <header>
-  <div class="top topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html">RomDuch</a><a href="neodrive.html" aria-current="true">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="cv.html" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <div class="top topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html">RomDuch</a><a href="neodrive.html" aria-current="true">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
   <nav class="subnav" aria-label="NeoDrive"><a href="neodrive.html#sec-gen" data-i18n>Génère ton SimPL</a><a href="neodrive.html#sec-viewer" data-i18n>Visualiseur</a><a href="outils.html" aria-current="page" data-i18n>Éditeur d'outils</a><a href="coupe.html" data-i18n>Données de coupe</a><a href="neodrive.html#sec-videos" data-i18n>Vidéo</a></nav>
   <h1 data-i18n>Éditeur d'outils</h1>
   <p class="lead" data-i18n>Crée ta bibliothèque <em>tools.json</em> : choisis tes outils dans le catalogue DATRON hors ligne, ajuste rotation et avances, puis enregistre ou exporte. Le fichier reste chez toi.</p>
@@ -282,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
   let CAT = [], CATS = {}, cat = 'fraise';
   const FV = {};                                                    // valeurs des filtres
   const QF = { d: null, z: null };                                  // filtres rapides : Ø de coupe (Cyl) et nombre de dents
-  const QUICK_D = [8, 6, 4, 3, 2], QUICK_Z = [1, 2, 3], SANS_CYL = ['conique', 'chanfrein', 'filetage'];
+  const QUICK_D = [8, 6, 4, 3, 2], QUICK_Z = [1, 2, 3, 4], SANS_CYL = ['conique', 'chanfrein', 'filetage'];
   const typeFil = x => /^PG/i.test(x.filetage || '') ? 'PG' : /branch/i.test(x.filetage || '') ? 'BR' : /^M/i.test(x.filetage || '') ? 'M' : '';
   const tailles = x => { const m = [...String(x.filetage || '').matchAll(/(?:M|PG)\s*(\d+(?:[.,]\d+)?)/gi)].map(v => parseFloat(v[1].replace(',', '.'))); return m.length ? [Math.min(...m), Math.max(...m)] : null; };
   const TAILLES_M = [1, 1.1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.5, 3, 3.5, 4, 5, 6, 8, 10, 12, 14, 16];
@@ -297,7 +299,8 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
   const DENTS = F('dents', t('Dents'), 'select');
   const D1 = F('D1', t('Ø de coupe'), 'select', null, { fmt: v => `Ø${nf(v)}` });
   const FACETS = {
-    fraise: [FAM, D1, L2MIN, QUEUE, PRIX],
+    fraise: [DENTS, FAM, D1, L2MIN, QUEUE, PRIX],
+    surfacage: [DENTS, D1, F('R', t('Rayon de coin'), 'select', null, { fmt: v => `R${nf(v)}` }), FAM, QUEUE, PRIX],
     boule: [D1, F('R', t('Rayon'), 'select', null, { fmt: v => `R${nf(v)}` }), L2MIN, DENTS, FAM, QUEUE, PRIX],
     torique: [D1, F('R', t('Rayon de coin'), 'select', null, { fmt: v => `R${nf(v)}` }), L2MIN, DENTS, FAM, QUEUE, PRIX],
     filetage: [F('typeFil', t('Type de filetage'), 'select', typeFil, { txt: v => ({ M: t('Métrique (M)'), PG: t('Pas du gaz (PG)'), BR: t('Raccord métrique') }[v] || v) }),
@@ -311,12 +314,12 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
     rayon: [F('R', t('Rayon'), 'select', null, { fmt: v => `R${nf(v)}` }), F('dmax', t('Ø maxi'), 'select', dMax, { fmt: v => `Ø${nf(v)}` }), DENTS, FAM, QUEUE, PRIX]
   };
   const COLS = {   // colonnes spécifiques du tableau
-    fraise: [['L2', 'L2'], ['D2', t('Queue')]], boule: [['R', 'R'], ['L2', 'L2'], ['dents', 'Z']], torique: [['R', 'R'], ['L2', 'L2'], ['dents', 'Z']],
+    fraise: [['L2', 'L2'], ['dents', 'Z'], ['D2', t('Queue')]], surfacage: [['L2', 'L2'], ['R', 'R'], ['dents', 'Z'], ['D2', t('Queue')]], boule: [['R', 'R'], ['L2', 'L2'], ['dents', 'Z']], torique: [['R', 'R'], ['L2', 'L2'], ['dents', 'Z']],
     filetage: [['filetage', t('Filetage')], ['pas', t('Pas')], ['L3', 'L3'], ['dents', 'Z']], chanfrein: [['angle', t('Angle')], ['D3', 'D3'], ['dents', 'Z']],
     foret: [['L2', 'L2'], ['angle', t('Angle')], ['D2', t('Queue')]], conique: [['angle', t('Angle')], ['D2', t('Queue')], ['L1', 'L1']],
     rayon: [['R', 'R'], ['D3', 'D3'], ['dents', 'Z']]
   };
-  const TYPE_DE = { fraise: 'fraise', boule: 'boule', torique: 'torique', filetage: 'filetage', chanfrein: 'chanfrein', foret: 'foret', conique: 'gravure', rayon: 'rayon' };
+  const TYPE_DE = { fraise: 'fraise', surfacage: 'surfacage', boule: 'boule', torique: 'torique', filetage: 'filetage', chanfrein: 'chanfrein', foret: 'foret', conique: 'gravure', rayon: 'rayon' };
   const sousEns = () => CAT.filter(x => x.categorie === cat);
   const uniques = (arr, get) => [...new Set(arr.map(get).filter(v => v !== undefined && v !== null && v !== ''))].sort((a, b) => (typeof a === 'number' && typeof b === 'number') ? a - b : String(a).localeCompare(String(b)));
 
@@ -375,7 +378,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
     return true;
   }
   function rpmPropose(x) {
-    if (x.categorie !== 'fraise' || !C) return '';
+    if (x.categorie !== 'fraise' || (x.dents || 1) !== 1 || !C) return '';          // modèle établi pour les fraises 1 dent
     const p = C.proposer({ type: 'fraise', articleNr: x.ref, diameter: x.D1, fluteLength: x.L2, flutes: x.dents || 1 }, { broche: $('p-broche').value, matiere: $('p-mat').value });
     return p.ok ? nf(p.rpm) : '';
   }
@@ -395,7 +398,9 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
   const nomOutil = x => {
     const f = t(x.famille);
     switch (x.categorie) {
-      case 'fraise': return `${t('Fraise 1 dent')} Ø${nf(x.D1)} L${nf(x.L2)}${/standard/.test(x.famille) ? '' : ` (${f.replace(t('Fraise 1 dent') + ' ', '')})`}`;
+      case 'fraise': return /^Fraise 1 dent/.test(x.famille) ? `${t('Fraise 1 dent')} Ø${nf(x.D1)} L${nf(x.L2)}${/standard/.test(x.famille) ? '' : ` (${f.replace(t('Fraise 1 dent') + ' ', '')})`}`
+        : `${f} Ø${nf(x.D1)} L${nf(x.L2)}`;
+      case 'surfacage': return `${f} Ø${nf(x.D1)}${x.R ? ` R${nf(x.R)}` : ''}`;
       case 'boule': case 'torique': return `${f} Ø${nf(x.D1)} R${nf(x.R)}`;
       case 'filetage': return `${t('Fraise à fileter')} ${x.filetage || ''} Ø${nf(x.D1)}`.replace(/\s+/g, ' ');
       case 'foret': return `${t('Foret')} Ø${nf(x.D1)} L${nf(x.L2)}`;
@@ -416,7 +421,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
     if (x.prix_eur !== undefined) o.prix_eur = x.prix_eur;
     Object.keys(o).forEach(k => o[k] === undefined && delete o[k]);
     lib.tools.unshift(o);
-    const prop = o.type === 'fraise' ? appliquer(o) : null;
+    const prop = o.type === 'fraise' && (o.flutes || 1) === 1 ? appliquer(o) : null;
     setDirty(true); render();
     $('st-cat').textContent = prop
       ? t('{ref} ajouté à votre bibliothèque ({rpm} tr/min, ébauche {v} mm/min – {src}).', { ref, rpm: nf(prop.rpm), v: nf(prop.feeds.roughing), src: prop.source })
@@ -439,7 +444,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
     return p;
   }
   $('b-prop-all').onclick = () => {
-    const fr = lib.tools.filter(o => o.type === 'fraise');
+    const fr = lib.tools.filter(o => o.type === 'fraise' && (o.flutes || 1) === 1);
     if (!fr.length) { $('st-prop').textContent = t('Aucune fraise dans la bibliothèque.'); return; }
     if (!confirm(t('Remplacer la rotation et les avances de {n} fraise(s) par les propositions DATRON ({b}) ?', { n: fr.length, b: $('p-broche').value }))) return;
     const res = fr.map(appliquer).filter(Boolean), guide = res.filter(p => p.coupe.source === 'guide').length;

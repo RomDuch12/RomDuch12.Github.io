@@ -75,11 +75,13 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
 #td-dxf-layers{display:grid;gap:4px;max-height:220px;overflow:auto;margin:6px 0 10px}
 footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
 </style>
+<link rel="stylesheet" href="site.css">
+<script src="ui.js" defer></script>
 </head>
 <body>
 <main>
 <header>
-  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html">RomDuch</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html" aria-current="true">TauDrive</a><a href="cv.html" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html">RomDuch</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html" aria-current="true">TauDrive</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
   <nav class="subnav" aria-label="TauDrive"><a href="#sec-td-draw" data-i18n>Dessin</a><a href="#sec-td-job" data-i18n>Job</a><a href="#sec-td-viewer" data-i18n>Visualiseur de job</a><a href="tauconvert.html">TauConvert</a></nav>
   <h1>TauDrive</h1>
   <p class="tag" data-i18n>Dessin et job de gravure pour laser Cielle</p>
@@ -93,11 +95,11 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
       <button type="button" data-td="undo" title="Annuler (Ctrl+Z)" aria-label="Annuler (Ctrl+Z)" data-i18n-attr="title,aria-label">↶</button>
       <button type="button" data-td="redo" title="Refaire (Ctrl+Y)" aria-label="Refaire (Ctrl+Y)" data-i18n-attr="title,aria-label">↷</button>
       <span class="sep"></span>
-      <button type="button" data-td="rect" data-i18n>▭ Rectangle</button>
-      <button type="button" data-td="ellipse" data-i18n>◯ Ellipse</button>
-      <button type="button" data-td="text" data-i18n>T Texte</button>
-      <button type="button" data-td="line" data-i18n>／ Segment</button>
-      <button type="button" data-td="code" data-i18n>▦ DataMatrix</button>
+      <button type="button" data-td="rect" data-i18n>Rectangle</button>
+      <button type="button" data-td="ellipse" data-i18n>Ellipse</button>
+      <button type="button" data-td="text" data-i18n>Texte</button>
+      <button type="button" data-td="line" data-i18n>Segment</button>
+      <button type="button" data-td="code" data-i18n>DataMatrix</button>
       <button type="button" data-td="dxf" data-i18n>Importer un dessin…</button>
       <button type="button" data-td="coupon" data-i18n>Coupon d'essai…</button>
       <span class="sep"></span>

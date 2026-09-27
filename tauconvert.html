@@ -43,15 +43,17 @@ button:disabled{opacity:.5;cursor:default}
 .feat div{border-left:3px solid var(--brass);padding:4px 10px}
 footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
 </style>
+<link rel="stylesheet" href="site.css">
+<script src="ui.js" defer></script>
 </head>
 <body>
 <main>
 <header>
-  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html">RomDuch</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html" aria-current="true">TauDrive</a><a href="cv.html" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html">RomDuch</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html" aria-current="true">TauDrive</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
   <nav class="subnav" aria-label="TauDrive"><a href="taudrive.html#sec-td-draw" data-i18n>Dessin</a><a href="taudrive.html#sec-td-job" data-i18n>Job</a><a href="taudrive.html#sec-td-viewer" data-i18n>Visualiseur de job</a><a href="tauconvert.html" aria-current="page">TauConvert</a></nav>
   <h1>TauConvert</h1>
   <p class="tag" data-i18n>Conversion de dessins vectoriels</p>
-  <p class="lead" data-i18n>Convertis tes dessins AI, PDF, EPS, SVG et DXF en DXF, SVG, EPS ou PDF : en ligne, dans ton navigateur, ou avec le programme Windows et son menu contextuel.</p>
+  <p class="lead" data-i18n>Convertis tes dessins AI, PDF, EPS, SVG et DXF en DXF, SVG, EPS, PDF ou PNG : en ligne, dans ton navigateur, ou avec le programme Windows et son menu contextuel.</p>
 </header>
 
 <section id="sec-tc-online">
@@ -64,9 +66,11 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
         <ul id="tc-files"></ul>
         <div class="row"><label><span data-i18n>Échelle</span> <input type="number" id="tc-scale" value="1" step="any" min="0"></label>
           <label><input type="checkbox" id="tc-join" checked> <span data-i18n>Raccorder les tracés</span></label></div>
+        <div class="row"><label><span data-i18n>Résolution PNG</span> <select id="tc-dpi"><option value="11.811">300 dpi</option><option value="23.622" selected>600 dpi</option><option value="47.244">1200 dpi</option><option value="94.488">2400 dpi</option></select></label>
+          <label><input type="checkbox" id="tc-fill"> <span data-i18n>Remplir les contours fermés (PNG)</span></label></div>
         <div class="row" id="tc-out">
           <button type="button" data-f="dxf" class="primary">DXF</button><button type="button" data-f="svg" class="primary">SVG</button>
-          <button type="button" data-f="eps" class="primary">EPS</button><button type="button" data-f="pdf" class="primary">PDF</button>
+          <button type="button" data-f="eps" class="primary">EPS</button><button type="button" data-f="pdf" class="primary">PDF</button><button type="button" data-f="png" class="primary">PNG</button>
           <button type="button" id="tc-taudrive" data-i18n>Ouvrir dans TauDrive</button>
         </div>
         <p class="small muted" data-i18n>Tout se passe dans ton navigateur : rien n'est envoyé. Les textes non vectorisés des PDF ne sont pas repris ; l'EPS est lu pour les tracés simples (moveto, lineto, curveto). Pour les fichiers complexes, CorelDRAW compris, utilise TauConvert pour Windows.</p>
@@ -135,6 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   document.querySelectorAll('#tc-out [data-f]').forEach(b => b.onclick = () => {
     const f = files[cur], p = polys(f), k = b.dataset.f;
+    if (k === 'png') { V.toPNG(p, { pxmm: +$('tc-dpi').value, fill: $('tc-fill').checked }).then(bl => { const a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = `${f.name}.png`;
+      document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }).catch(e => alert(e.message)); return; }
     const W = { dxf: [V.toDXF, 'application/dxf'], svg: [V.toSVG, 'image/svg+xml'], eps: [V.toEPS, 'application/postscript'], pdf: [V.toPDF, 'application/pdf'] }[k];
     download(`${f.name}.${k}`, W[0](p), W[1]);
   });
