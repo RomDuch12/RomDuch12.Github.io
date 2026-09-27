@@ -6,6 +6,7 @@
   if (!root) return;
 
   /* ---------- utilitaires ---------- */
+  const tr = (x, v) => (window.t ? window.t(x, v) : x);                  // traduction (i18n.js)
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const num = (v, d = 3) => { const x = Number(v); return Number.isFinite(x) ? String(+x.toFixed(d)) : '0'; };
   const q = s => String(s).replace(/"/g, "'");                      // chaînes SimPL
@@ -52,7 +53,7 @@
       body: o => parsePoints(o.points).flatMap(([x, y]) => [
         `SafeRapid X=${num(x)} Y=${num(y)} Z=5`,
         `DrillMilling (diameter=${num(o.diameter)} depth=${num(o.depth)} infeedZ=${num(o.infeedZ)} ${STROKE} finishingXY=${num(o.finishingXY)} finishingZ=${num(o.finishingZ)} infeedFinishingZ=${num(o.infeedFinishingZ)})`]),
-      check: (o, t) => t && t.diameter >= o.diameter ? `Perçage-fraisage : l'outil Ø${t.diameter} doit être plus petit que le trou Ø${o.diameter}.` : ''
+      check: (o, t) => t && t.diameter >= o.diameter ? tr('Perçage-fraisage : l\'outil Ø{a} doit être plus petit que le trou Ø{b}.', { a: t.diameter, b: o.diameter }) : ''
     },
     rectface: {
       label: 'Surfaçage rectangle', tool: 'surfacage', prefix: 'Surfacage_Rectangle',
@@ -97,8 +98,8 @@
         P('cornerRadius', 'Rayon des coins (mm)', 'number', 3), P('depth', 'Profondeur (mm)', 'number', 2), P('infeedZ', 'Passe Z (mm)', 'number', 0.5),
         P('stepover', 'Recouvrement (% du Ø outil)', 'number', 40), P('finishingXY', 'Finition XY (mm)', 'number', 0.1)],
       seq: (o, t, name) => pocketSequence(name, o, t, 'rect'),
-      check: (o, t) => t && t.diameter >= Math.min(o.widthX, o.widthY) ? `Poche rectangle : l'outil Ø${t.diameter} est trop gros pour la poche.`
-        : (t && +o.cornerRadius < t.diameter / 2 ? `Poche rectangle : rayon de coin (${o.cornerRadius}) < rayon outil (${t.diameter / 2}) : les coins seront arrondis au rayon de l'outil.` : '')
+      check: (o, t) => t && t.diameter >= Math.min(o.widthX, o.widthY) ? tr('Poche rectangle : l\'outil Ø{a} est trop gros pour la poche.', { a: t.diameter })
+        : (t && +o.cornerRadius < t.diameter / 2 ? tr('Poche rectangle : rayon de coin ({r}) < rayon outil ({ro}) : les coins seront arrondis au rayon de l\'outil.', { r: o.cornerRadius, ro: t.diameter / 2 }) : '')
     },
     pocketcircle: {
       label: 'Poche cercle', tool: 'fraise', prefix: 'Poche_Cercle',
@@ -106,7 +107,7 @@
         P('depth', 'Profondeur (mm)', 'number', 2), P('infeedZ', 'Passe Z (mm)', 'number', 0.5),
         P('stepover', 'Recouvrement (% du Ø outil)', 'number', 40), P('finishingXY', 'Finition XY (mm)', 'number', 0.1)],
       seq: (o, t, name) => pocketSequence(name, o, t, 'circle'),
-      check: (o, t) => t && t.diameter >= o.diameter ? `Poche cercle : l'outil Ø${t.diameter} est trop gros pour la poche Ø${o.diameter}.` : ''
+      check: (o, t) => t && t.diameter >= o.diameter ? tr('Poche cercle : l\'outil Ø{a} est trop gros pour la poche Ø{b}.', { a: t.diameter, b: o.diameter }) : ''
     },
     probe: {
       label: 'Palpage rectangle', tool: null, prefix: 'Palpage',
@@ -351,8 +352,8 @@
     const fd = t.feeds || {};
     const feeds = ['finishing', 'approach', 'plunge', 'ramp', 'roughing'].filter(k => fd[k] !== undefined).map(k => `${k}=${fd[k]}`).join(' ');
     return [`Tool type="${q(t.articleNr)}"  skipRestoring    #${t.name}`,
-      t.rpm ? `Rpm = ${t.rpm}` : '# Rpm à renseigner (rotation non définie pour cet outil)', 'Spindle On',
-      feeds ? `SetFeedTechnology (${feeds})` : '# SetFeedTechnology à renseigner (avances non définies pour cet outil)'];
+      t.rpm ? `Rpm = ${t.rpm}` : '# ' + tr('Rpm à renseigner (rotation non définie pour cet outil)'), 'Spindle On',
+      feeds ? `SetFeedTechnology (${feeds})` : '# ' + tr('SetFeedTechnology à renseigner (avances non définies pour cet outil)')];
   }
 
   function generate(state) {
@@ -371,18 +372,18 @@
         return;
       }
       const t = def.tool ? toolById(o.tool) : null;
-      if (def.tool && !t) { warn.push(`${def.label} : aucun outil choisi.`); return; }
+      if (def.tool && !t) { warn.push(tr('{op} : aucun outil choisi.', { op: tr(def.label) })); return; }
       if (def.check) { const w = def.check(o, t); if (w) warn.push(w); }
       if (t && !used.has(t.id) && (!t.rpm || !Object.values(t.feeds || {}).some(v => v !== undefined && v !== null && v !== '')))
-        warn.push(`Outil « ${t.name} » : rotation ou avances non renseignées, à compléter dans l'éditeur d'outils.`);
+        warn.push(tr('Outil « {n} » : rotation ou avances non renseignées, à compléter dans l\'éditeur d\'outils.', { n: t.name }));
       if (t) used.set(t.id, t);
       const name = uniq(def.name ? def.name(o) : def.prefix);
       let body;
       if (def.trace) {
-        if (o.source === 'DXF' && !o.dxfText) { warn.push(`${def.label} : aucun fichier DXF chargé.`); return; }
+        if (o.source === 'DXF' && !o.dxfText) { warn.push(tr('{op} : aucun fichier DXF chargé.', { op: tr(def.label) })); return; }
         const seqName = ident(`${name}_${t.id}`).toUpperCase();
         const seq = traceSequence(seqName, o);
-        if (!seq.count) { warn.push(`${def.label} : aucun tracé exploitable${o.source === 'DXF' ? ` dans « ${o.dxfName} »` : ''}.`); return; }
+        if (!seq.count) { warn.push(o.source === 'DXF' ? tr('{op} : aucun tracé exploitable dans « {f} ».', { op: tr(def.label), f: o.dxfName }) : tr('{op} : aucun tracé exploitable.', { op: tr(def.label) })); return; }
         seqs.push({ name: seqName, lines: seq.lines });
         body = [seqName];
       } else if (def.seq) {
@@ -390,9 +391,9 @@
         seqs.push({ name: seqName, lines: def.seq(o, t, seqName) });
         body = [seqName];
       } else body = def.body(o);
-      if (!body.length) { warn.push(`${def.label} : aucune position valide.`); return; }
-      if (t && (+o.depth || 0) > (t.fluteLength || Infinity)) warn.push(`${def.label} : profondeur ${o.depth} mm supérieure à la longueur de coupe de « ${t.name} ».`);
-      programs.push(`# ${def.label}${t ? ' – outil ' + t.name : ''}`, `program ${name}`, `    BeginBlock name="${name}"`, '    SafeZHeightForWorkpiece=0.2',
+      if (!body.length) { warn.push(tr('{op} : aucune position valide.', { op: tr(def.label) })); return; }
+      if (t && (+o.depth || 0) > (t.fluteLength || Infinity)) warn.push(tr('{op} : profondeur {d} mm supérieure à la longueur de coupe de « {n} ».', { op: tr(def.label), d: o.depth, n: t.name }));
+      programs.push(`# ${tr(def.label)}${t ? ' – ' + tr('outil') + ' ' + t.name : ''}`, `program ${name}`, `    BeginBlock name="${name}"`, '    SafeZHeightForWorkpiece=0.2',
         ...(t ? ['    SpraySystem On', ...toolBlock(t).map(s => '    ' + s)] : []), ...body.map(s => '    ' + s), '    EndBlock', 'endprogram', '');
       mainLines.push(name);
     });
@@ -435,12 +436,12 @@
 
   /* ---------- état et interface ---------- */
   const state = {
-    head: { module: 'CamGeneratedModule', author: 'NeoDrive web', comment: 'Merci de vérifier le programme avant usinage', bx: 100, by: 60, bz: 20, origin: 'centre' },
+    head: { module: 'CamGeneratedModule', author: 'NeoDrive web', comment: tr('Merci de vérifier le programme avant usinage'), bx: 100, by: 60, bz: 20, origin: 'centre' },
     ops: []
   };
   const newOp = type => {
     const def = OPS[type], o = { type };
-    def.fields.forEach(f => { o[f.k] = f.def; });
+    def.fields.forEach(f => { o[f.k] = f.type === 'text' ? tr(f.def) : f.def; });
     if (def.tool) { const t = TOOLS.find(x => x.type === def.tool) || TOOLS[0]; o.tool = t ? t.id : ''; }
     return o;
   };
@@ -448,17 +449,17 @@
   function fieldHTML(f, o, id) {
     if (f.when && !f.when(o)) return '';
     const val = o[f.k];
-    if (f.type === 'select') return `<label>${esc(f.label)}<select data-k="${f.k}" id="${id}">${f.opts.map(v => `<option${v === val ? ' selected' : ''}>${esc(v)}</option>`).join('')}</select></label>`;
-    if (f.type === 'points') return `<label class="wide">${esc(f.label)}<textarea data-k="${f.k}" id="${id}" spellcheck="false">${esc(val)}</textarea></label>`;
-    if (f.type === 'file') return `<label class="wide">${esc(f.label)}${ST() ? ' <small>(enregistré dans vos DXF)</small>' : ''}<input type="file" data-k="${f.k}" id="${id}" accept=".dxf"></label>`;
+    if (f.type === 'select') return `<label>${esc(tr(f.label))}<select data-k="${f.k}" id="${id}">${f.opts.map(v => `<option value="${esc(v)}"${v === val ? ' selected' : ''}>${esc(tr(v))}</option>`).join('')}</select></label>`;
+    if (f.type === 'points') return `<label class="wide">${esc(tr(f.label))}<textarea data-k="${f.k}" id="${id}" spellcheck="false">${esc(val)}</textarea></label>`;
+    if (f.type === 'file') return `<label class="wide">${esc(tr(f.label))}${ST() ? ` <small>(${tr('enregistré dans vos DXF')})</small>` : ''}<input type="file" data-k="${f.k}" id="${id}" accept=".dxf"></label>`;
     if (f.type === 'dxflib') {
       const lib = ST() ? ST().get('dxf', []) : [];
       if (!lib.length) return '';
-      return `<label class="wide">${esc(f.label)}<select data-k="${f.k}" id="${id}"><option value="">— choisir —</option>${lib.map(d =>
+      return `<label class="wide">${esc(tr(f.label))}<select data-k="${f.k}" id="${id}"><option value="">— ${tr('choisir')} —</option>${lib.map(d =>
         `<option value="${esc(d.nom)}"${d.nom === val ? ' selected' : ''}>${esc(d.nom)} (${Math.max(1, Math.round(d.texte.length / 1024))} ko)</option>`).join('')}</select></label>`;
     }
-    if (f.type === 'text') return `<label class="wide">${esc(f.label)}<input type="text" data-k="${f.k}" id="${id}" value="${esc(val)}"></label>`;
-    return `<label>${esc(f.label)}<input type="number" step="any" data-k="${f.k}" id="${id}" value="${esc(val)}"></label>`;
+    if (f.type === 'text') return `<label class="wide">${esc(tr(f.label))}<input type="text" data-k="${f.k}" id="${id}" value="${esc(val)}"></label>`;
+    return `<label>${esc(tr(f.label))}<input type="number" step="any" data-k="${f.k}" id="${id}" value="${esc(val)}"></label>`;
   }
 
   const headBox = el('div', { className: 'gbox' });
@@ -470,36 +471,36 @@
 
   function renderHead() {
     const H = state.head;
-    headBox.innerHTML = `<h3>En-tête du programme et brut</h3><div class="fields">
-      <label>Module<input data-h="module" value="${esc(H.module)}"></label>
-      <label>Auteur (Author)<input data-h="author" value="${esc(H.author)}"></label>
-      <label class="wide">Commentaire (Comment)<input data-h="comment" value="${esc(H.comment)}"></label>
-      <label>Brut X (mm)<input type="number" step="any" data-h="bx" value="${H.bx}"></label>
-      <label>Brut Y (mm)<input type="number" step="any" data-h="by" value="${H.by}"></label>
-      <label>Brut Z (mm)<input type="number" step="any" data-h="bz" value="${H.bz}"></label>
-      <label>Origine<select data-h="origin"><option value="centre"${H.origin === 'centre' ? ' selected' : ''}>centre, dessus de pièce</option><option value="coin"${H.origin === 'coin' ? ' selected' : ''}>coin avant gauche, dessus</option></select></label>
+    headBox.innerHTML = `<h3>${tr('En-tête du programme et brut')}</h3><div class="fields">
+      <label>${tr('Module')}<input data-h="module" value="${esc(H.module)}"></label>
+      <label>${tr('Auteur (Author)')}<input data-h="author" value="${esc(H.author)}"></label>
+      <label class="wide">${tr('Commentaire (Comment)')}<input data-h="comment" value="${esc(H.comment)}"></label>
+      <label>${tr('Brut X (mm)')}<input type="number" step="any" data-h="bx" value="${H.bx}"></label>
+      <label>${tr('Brut Y (mm)')}<input type="number" step="any" data-h="by" value="${H.by}"></label>
+      <label>${tr('Brut Z (mm)')}<input type="number" step="any" data-h="bz" value="${H.bz}"></label>
+      <label>${tr('Origine')}<select data-h="origin"><option value="centre"${H.origin === 'centre' ? ' selected' : ''}>${tr('centre, dessus de pièce')}</option><option value="coin"${H.origin === 'coin' ? ' selected' : ''}>${tr('coin avant gauche, dessus')}</option></select></label>
     </div>`;
     headBox.querySelectorAll('[data-h]').forEach(i => i.addEventListener('input', () => { H[i.dataset.h] = i.value; }));
   }
 
-  let toolSource = 'tools.json générique du site';
+  let toolSource = '';
   function setTools(list, source) {
     TOOLS = list; toolSource = source;
     state.ops.forEach(o => { if (OPS[o.type].tool && !toolById(o.tool)) { const t = TOOLS.find(x => x.type === OPS[o.type].tool) || TOOLS[0]; o.tool = t ? t.id : ''; } });
   }
   function renderTools(msg) {
-    toolBox.innerHTML = `<h3>Bibliothèque d'outils</h3>
-      <p style="margin:0 0 8px;color:var(--mute)">${TOOLS.length ? `${TOOLS.length} outil(s)` : 'Bibliothèque vide'} – source : ${esc(toolSource)}${msg ? ' – ' + esc(msg) : ''}.</p>
-      <div class="addbar"><a class="btnlink" href="outils.html">Éditer mes outils / catalogue Datron</a>
-      <label><button type="button" id="gt-load">Charger un tools.json…</button><input type="file" id="gt-file" accept=".json,application/json" hidden></label></div>`;
+    toolBox.innerHTML = `<h3>${tr('Bibliothèque d\'outils')}</h3>
+      <p style="margin:0 0 8px;color:var(--mute)">${TOOLS.length ? tr('{n} outil(s)', { n: TOOLS.length }) : tr('Bibliothèque vide')} – ${tr('source')} : ${esc(toolSource)}${msg ? ' – ' + esc(msg) : ''}.</p>
+      <div class="addbar"><a class="btnlink" href="outils.html">${tr('Éditer mes outils / catalogue DATRON')}</a>
+      <label><button type="button" id="gt-load">${tr('Charger un tools.json…')}</button><input type="file" id="gt-file" accept=".json,application/json" hidden></label></div>`;
     toolBox.querySelector('#gt-load').onclick = () => toolBox.querySelector('#gt-file').click();
     toolBox.querySelector('#gt-file').onchange = e => {
       const f = e.target.files[0]; if (!f) return;
-      f.text().then(t => { const j = JSON.parse(t); if (!Array.isArray(j.tools)) throw new Error('clé « tools » absente');
+      f.text().then(t => { const j = JSON.parse(t); if (!Array.isArray(j.tools)) throw new Error(tr('clé « tools » absente'));
         setTools(j.tools, f.name);
         const saved = ST() && ST().set('tools', j);
-        renderTools(saved ? 'enregistré dans ce navigateur' : ''); renderOps(); })
-        .catch(err => renderTools('erreur : ' + err.message));
+        renderTools(saved ? tr('enregistré dans ce navigateur') : ''); renderOps(); })
+        .catch(err => renderTools(tr('erreur : {e}', { e: err.message })));
     };
   }
 
@@ -511,24 +512,24 @@
   }
 
   function renderOps() {
-    opsBox.innerHTML = state.ops.length ? '' : `<p class="gbox" style="margin:0;color:var(--mute)">Aucune opération : ajoutez-en ci-dessous${TOOLS.length ? '' : ", après avoir créé vos outils dans l'<a href=\"outils.html\">éditeur d'outils</a> (catalogue DATRON)"}.</p>`;
+    opsBox.innerHTML = state.ops.length ? '' : `<p class="gbox" style="margin:0;color:var(--mute)">${TOOLS.length ? tr('Aucune opération : ajoutez-en ci-dessous.') : tr('Aucune opération : ajoutez-en ci-dessous, après avoir créé vos outils dans l\'<a href="outils.html">éditeur d\'outils</a> (catalogue DATRON).')}</p>`;
     state.ops.forEach((o, idx) => {
       const def = OPS[o.type], box = el('div', { className: 'gbox op' });
-      const tools = def.tool ? `<label>Outil<select data-k="tool">${TOOLS.map(t => `<option value="${esc(t.id)}"${t.id === o.tool ? ' selected' : ''}>${esc(t.name)}</option>`).join('')}</select></label>` : '';
+      const tools = def.tool ? `<label>${tr('Outil')}<select data-k="tool">${TOOLS.map(t => `<option value="${esc(t.id)}"${t.id === o.tool ? ' selected' : ''}>${esc(t.name)}</option>`).join('')}</select></label>` : '';
       const t = def.tool ? toolById(o.tool) : null;
-      const resume = [t && t.name, def.trace && (o.source === 'DXF' ? o.dxfName : o.source)].filter(Boolean).join(' · ');
-      box.innerHTML = `<div class="ophead"><h3>${idx + 1}. ${esc(def.label)}${o.collapsed && resume ? `<small> – ${esc(resume)}</small>` : ''}</h3>
-        ${ST() ? '<button type="button" data-a="fav" title="Enregistrer comme opération favorite">☆ Favori</button>' : ''}
-        <button type="button" data-a="toggle" aria-expanded="${!o.collapsed}" aria-controls="opf${idx}">${o.collapsed ? 'Afficher' : 'Masquer'}</button>
-        <button type="button" data-a="up" aria-label="Monter">▲</button><button type="button" data-a="down" aria-label="Descendre">▼</button>
-        <button type="button" data-a="del" aria-label="Supprimer">Supprimer</button></div>
+      const resume = [t && t.name, def.trace && (o.source === 'DXF' ? o.dxfName : tr(o.source))].filter(Boolean).join(' · ');
+      box.innerHTML = `<div class="ophead"><h3>${idx + 1}. ${esc(tr(def.label))}${o.collapsed && resume ? `<small> – ${esc(resume)}</small>` : ''}</h3>
+        ${ST() ? `<button type="button" data-a="fav" title="${tr('Enregistrer comme opération favorite')}">☆ ${tr('Favori')}</button>` : ''}
+        <button type="button" data-a="toggle" aria-expanded="${!o.collapsed}" aria-controls="opf${idx}">${o.collapsed ? tr('Afficher') : tr('Masquer')}</button>
+        <button type="button" data-a="up" aria-label="${tr('Monter')}">▲</button><button type="button" data-a="down" aria-label="${tr('Descendre')}">▼</button>
+        <button type="button" data-a="del">${tr('Supprimer')}</button></div>
         <div id="opf${idx}"${o.collapsed ? ' hidden' : ''}>
         <div class="fields">${tools}${def.fields.map((f, k) => fieldHTML(f, o, `op${idx}_${k}`)).join('')}</div>
-        ${def.trace && o.source === 'DXF' && o.dxfName ? `<p style="margin:6px 0 0;color:var(--mute)">DXF chargé : ${esc(o.dxfName)}</p>` : ''}</div>`;
+        ${def.trace && o.source === 'DXF' && o.dxfName ? `<p style="margin:6px 0 0;color:var(--mute)">${tr('DXF chargé')} : ${esc(o.dxfName)}</p>` : ''}</div>`;
       box.querySelector('[data-a=toggle]').onclick = () => { o.collapsed = !o.collapsed; renderOps(); };
       const fav = box.querySelector('[data-a=fav]');
       if (fav) fav.onclick = () => {
-        const nom = prompt("Nom de l'opération favorite :", resume ? `${def.label} – ${resume}` : def.label);
+        const nom = prompt(tr('Nom de l\'opération favorite :'), resume ? `${tr(def.label)} – ${resume}` : tr(def.label));
         if (!nom) return;
         const copie = JSON.parse(JSON.stringify(o)); delete copie.dxfText; delete copie.collapsed;
         const favs = ST().get('favoris', []).filter(x => x.nom !== nom);
@@ -554,12 +555,12 @@
 
   function renderAdd() {
     const favs = ST() ? ST().get('favoris', []) : [];
-    addBox.innerHTML = `<h3>Ajouter une opération</h3><div class="addbar">${Object.entries(OPS).map(([k, d]) => `<button type="button" data-add="${k}">+ ${esc(d.label)}</button>`).join('')}</div>
-      ${ST() ? `<h3 style="margin-top:12px">Mes favoris</h3>${favs.length ? `<div class="addbar">${favs.map((f, i) =>
-        `<span class="favchip"><button type="button" data-fav="${i}">★ ${esc(f.nom)}</button><button type="button" data-favdel="${i}" aria-label="Retirer ${esc(f.nom)} des favoris">✕</button></span>`).join('')}</div>`
-        : '<p style="margin:0;color:var(--mute)">Aucun favori : utilisez « ☆ Favori » sur une opération.</p>'}`
-        : '<p style="margin:10px 0 0;color:var(--mute)">Favoris et DXF enregistrés : <a href="#" data-gerer>activer le stockage local</a>.</p>'}
-      <div class="addbar" style="margin-top:8px"><button type="button" data-all="1">Tout replier</button><button type="button" data-all="0">Tout déplier</button></div>`;
+    addBox.innerHTML = `<h3>${tr('Ajouter une opération')}</h3><div class="addbar">${Object.entries(OPS).map(([k, d]) => `<button type="button" data-add="${k}">+ ${esc(tr(d.label))}</button>`).join('')}</div>
+      ${ST() ? `<h3 style="margin-top:12px">${tr('Mes favoris')}</h3>${favs.length ? `<div class="addbar">${favs.map((f, i) =>
+        `<span class="favchip"><button type="button" data-fav="${i}">★ ${esc(f.nom)}</button><button type="button" data-favdel="${i}" aria-label="${esc(tr('Retirer {n} des favoris', { n: f.nom }))}">✕</button></span>`).join('')}</div>`
+        : `<p style="margin:0;color:var(--mute)">${tr('Aucun favori : utilisez « ☆ Favori » sur une opération.')}</p>`}`
+        : `<p style="margin:10px 0 0;color:var(--mute)">${tr('Favoris et DXF enregistrés : <a href="#" data-gerer>activer le stockage local</a>.')}</p>`}
+      <div class="addbar" style="margin-top:8px"><button type="button" data-all="1">${tr('Tout replier')}</button><button type="button" data-all="0">${tr('Tout déplier')}</button></div>`;
     addBox.querySelectorAll('[data-all]').forEach(b => b.onclick = () => { state.ops.forEach(o => { o.collapsed = b.dataset.all === '1'; }); renderOps(); });
     addBox.querySelectorAll('[data-add]').forEach(b => b.onclick = () => addOp(newOp(b.dataset.add)));
     addBox.querySelectorAll('[data-fav]').forEach(b => b.onclick = () => {
@@ -575,11 +576,11 @@
   }
 
   function renderOut() {
-    outBox.innerHTML = `<h3>Programme SimPL</h3>
-      <div class="addbar" style="margin-bottom:8px"><button type="button" class="primary" id="g-gen">Générer</button>
-      <button type="button" id="g-view">Voir dans le visualiseur</button><button type="button" id="g-dl">Télécharger .simpl</button></div>
+    outBox.innerHTML = `<h3>${tr('Programme SimPL')}</h3>
+      <div class="addbar" style="margin-bottom:8px"><button type="button" class="primary" id="g-gen">${tr('Générer')}</button>
+      <button type="button" id="g-view">${tr('Voir dans le visualiseur')}</button><button type="button" id="g-dl">${tr('Télécharger .simpl')}</button></div>
       <p class="warn" id="g-warn" role="status"></p>
-      <textarea class="genout" id="g-out" spellcheck="false" aria-label="Programme SimPL généré"></textarea>`;
+      <textarea class="genout" id="g-out" spellcheck="false" aria-label="${tr('Programme SimPL généré')}"></textarea>`;
     const out = outBox.querySelector('#g-out'), w = outBox.querySelector('#g-warn');
     const run = () => { const r = generate(state); out.value = r.code; w.innerHTML = r.warn.map(esc).join('<br>'); return r.code; };
     outBox.querySelector('#g-gen').onclick = run;
@@ -599,8 +600,8 @@
 
   // priorité : tools.json enregistré dans ce navigateur, sinon tools.json du site
   const saved = ST() && ST().get('tools');
-  if (saved && Array.isArray(saved.tools) && saved.tools.length) { setTools(saved.tools, 'mon tools.json (ce navigateur)'); init(); }
+  if (saved && Array.isArray(saved.tools) && saved.tools.length) { setTools(saved.tools, tr('mon tools.json (ce navigateur)')); init(); }
   else fetch('tools.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(j => { setTools(j.tools || [], 'tools.json générique du site'); init(); })
-    .catch(() => { setTools([], 'aucune'); init(); renderTools('tools.json introuvable : chargez votre fichier'); });
+    .then(j => { setTools(j.tools || [], tr('tools.json du site')); init(); })
+    .catch(() => { setTools([], tr('aucune')); init(); renderTools(tr('tools.json introuvable : chargez votre fichier')); });
 })();

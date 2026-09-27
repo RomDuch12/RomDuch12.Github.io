@@ -3,15 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Éditeur d'outils – RomDuch</title>
-<meta name="description" content="Éditeur de bibliothèque d'outils (tools.json) pour le générateur SimPL : recherche dans le catalogue Datron, édition des avances, export.">
+<script src="i18n.js"></script>
 <script src="theme.js"></script>
+<title>Éditeur d'outils – RomDuch</title>
+<meta name="description" content="Éditeur de bibliothèque d'outils (tools.json) pour le générateur SimPL : catalogue DATRON hors ligne, filtres par catégorie, édition des avances, export.">
 <link rel="stylesheet" href="themes.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400&display=swap">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Barlow,"Segoe UI",Roboto,Arial,sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Barlow,"Segoe UI",Roboto,"Noto Sans SC","Microsoft YaHei",Arial,sans-serif}
 main{max-width:980px;margin:0 auto;padding:28px 18px 90px}
 header{padding:10px 0 20px;border-bottom:2px solid var(--brass);margin-bottom:24px}
 h1{font:700 clamp(2rem,5vw,3rem)/1 "Barlow Condensed",Arial Narrow,sans-serif;margin:6px 0}
@@ -24,6 +25,7 @@ a{color:var(--ink);text-decoration-color:var(--brass);text-underline-offset:3px}
 select,button,input,textarea{font:400 15px Barlow,sans-serif;color:var(--ink);max-width:100%}
 button{border:1px solid var(--line);background:var(--card);padding:7px 12px;border-radius:5px;cursor:pointer;font-weight:600}
 button.primary{background:var(--brass);border-color:var(--brass);color:var(--on-accent)}
+button.danger{color:var(--warn)}
 button:disabled{opacity:.5;cursor:not-allowed}
 :focus-visible{outline:3px solid var(--brass-l);outline-offset:2px}
 .fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px 12px}
@@ -42,421 +44,390 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .status{color:var(--mute);font-size:14px;margin:8px 0 0}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .chips button{font-weight:500;font-size:14px;padding:4px 10px}
+.chips button[aria-pressed="true"]{background:var(--brass);border-color:var(--brass);color:var(--on-accent)}
 .search{display:flex;gap:6px;flex-wrap:wrap}.search input{flex:1 1 220px;background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:7px 9px}
-.top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}.themebtn{padding:4px 10px;font-size:14px}
-.auto{margin:0 0 12px;border:1px dashed var(--line);border-radius:5px;padding:8px 12px}
-.auto summary{cursor:pointer;font-weight:600}
-.steps{margin:8px 0;padding-left:1.3em;color:var(--mute);font-size:15px}
-.bookmarklet{display:inline-block;background:var(--brass);color:var(--on-accent);padding:2px 10px;border-radius:5px;text-decoration:none;font-weight:700;cursor:grab}
-#paste{flex:1 1 260px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:6px 8px;font:400 14px "JetBrains Mono",monospace;min-height:42px}
-.filled{outline:2px solid var(--brass-l);outline-offset:1px}
+.facets{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px 12px;margin-top:10px}
+.facets label{display:grid;gap:2px;font-size:14px;color:var(--mute)}
+.facets select,.facets input{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:5px 7px;min-width:0}
+.top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}.top .prefs{display:flex;flex-wrap:wrap;gap:8px}
 .scroll{overflow-x:auto;max-height:420px;overflow-y:auto;margin-top:8px;border:1px solid var(--line);border-radius:5px}
 table.cat{border-collapse:collapse;width:100%;font-size:14px}table.cat th,table.cat td{padding:4px 8px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
 table.cat th{position:sticky;top:0;background:var(--card);color:var(--mute);font-weight:600}table.cat td.n{text-align:right;font-family:"JetBrains Mono",monospace}
 table.cat button{padding:2px 9px;font-size:13px}
-#f-search select{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:7px 8px}
+.bar label{display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px;max-width:100%;min-width:0}
+.bar label select{min-width:0;max-width:100%;width:auto}
+#p-mat{width:22em;max-width:100%}
 footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
 </style>
 </head>
 <body>
 <main>
 <header>
-  <div class="top"><a href="index.html">← RomDuch · Génère ton SimPL</a><span data-theme-select></span></div>
-  <h1>Éditeur d'outils</h1>
-  <p class="lead">Construisez votre <em>tools.json</em> pour le générateur : cherchez l'outil dans le catalogue Datron, reportez ses cotes, puis réglez rotation et avances. Le fichier reste chez vous (export, ou stockage local si vous l'acceptez).</p>
+  <div class="top"><a href="index.html" data-i18n>← RomDuch · Génère ton SimPL</a><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <h1 data-i18n>Éditeur d'outils</h1>
+  <p class="lead" data-i18n>Crée ta bibliothèque <em>tools.json</em> : choisis tes outils dans le catalogue DATRON hors ligne, ajuste rotation et avances, puis enregistre ou exporte. Le fichier reste chez toi.</p>
 </header>
 
 <section class="box" aria-labelledby="t-src">
-  <h3 id="t-src">Ma bibliothèque</h3>
-  <div class="bar">
-    <button type="button" id="b-site">Partir du tools.json générique</button>
-    <label><button type="button" id="b-imp">Importer un tools.json…</button><input type="file" id="f-imp" accept=".json,application/json" hidden></label>
-    <button type="button" id="b-exp">Exporter tools.json</button>
-    <button type="button" class="primary" id="b-save">Enregistrer dans ce navigateur</button>
-  </div>
+  <h3 id="t-src"><span data-i18n>Ma bibliothèque</span> <small id="lib-count" style="font-weight:400;color:var(--mute)"></small></h3>
+  <div class="bar" id="lib-actions"></div>
+  <input type="file" id="f-imp" accept=".json,application/json" hidden>
   <p class="status" id="st" role="status"></p>
 </section>
 
-<h2>Catalogue Datron</h2>
+<h2 data-i18n>Catalogue DATRON</h2>
 <section class="box" aria-labelledby="t-cat">
-  <h3 id="t-cat">Outils DATRON <small style="font-weight:400;color:var(--mute)" id="cat-count"></small></h3>
-  <form class="search" id="f-search" role="search">
-    <input type="search" id="q" placeholder="Référence, Ø, filetage ou famille (ex. 0068432A, 3, M5, 90°)" aria-label="Rechercher dans le catalogue Datron">
-    <select id="cat-cat" aria-label="Catégorie"><option value="">toutes les catégories</option></select>
-    <select id="cat-fam" aria-label="Famille"><option value="">toutes les familles</option></select>
-    <select id="cat-d" aria-label="Diamètre"><option value="">tous les Ø</option></select>
+  <h3 id="t-cat"><span data-i18n>Outils DATRON</span> <small style="font-weight:400;color:var(--mute)" id="cat-count"></small></h3>
+  <div class="chips" id="chips" role="group" data-i18n-attr="aria-label" aria-label="Catégories d'outils"></div>
+  <form class="search" id="f-search" role="search" style="margin-top:10px">
+    <input type="search" id="q" data-i18n-attr="placeholder,aria-label" placeholder="Référence, famille, filetage (ex. 0068432A, équilibrée, M5)" aria-label="Rechercher dans le catalogue DATRON">
   </form>
-  <div class="chips" id="chips" aria-label="Filtres rapides"></div>
-  <div class="scroll"><table class="cat" id="cat-table"><thead><tr><th>Référence</th><th>Famille</th><th>Ø D1</th><th>L2</th><th title="Angle, rayon ou filetage">Spécif.</th><th>Queue</th><th>L1</th>
-    <th>Prix €</th><th title="Rotation proposée (fraises 1 dent : modèle ou guide ; autres : vide)">n</th><th></th></tr></thead><tbody></tbody></table></div>
+  <div class="facets" id="facets"></div>
+  <div class="bar" style="margin-top:8px"><button type="button" id="b-reset" data-i18n>Réinitialiser les filtres</button></div>
+  <div class="scroll"><table class="cat" id="cat-table"><thead><tr id="cat-head"></tr></thead><tbody></tbody></table></div>
   <p class="status" id="st-cat" role="status"></p>
-  <p class="status">Catalogue hors ligne (602 outils) : <a href="catalogue-datron.csv">catalogue-datron.csv</a>, lisible sur
-    <a href="https://github.com/RomDuch12/RomDuch12.Github.io/blob/main/catalogue-datron.csv" target="_blank" rel="noopener">GitHub</a> ·
-    <a href="catalogue-datron.json">catalogue-datron.json</a>. Cotes d'après le catalogue outils DATRON FR et le guide de coupe ; prix : liste DATRON (DE, avril 2026, € HT indicatif).
-    Aucune avance n'est publiée : « Ajouter » calcule rotation et avances des fraises 1 dent (modèle, ou valeurs exactes si votre guide est chargé)
-    et laisse les autres outils sans avances, à compléter.</p>
+  <p class="status" data-i18n>Catalogue hors ligne : <a href="catalogue-datron.csv">catalogue-datron.csv</a> (lisible sur <a href="https://github.com/RomDuch12/RomDuch12.Github.io/blob/main/catalogue-datron.csv" target="_blank" rel="noopener">GitHub</a>) · <a href="catalogue-datron.json">catalogue-datron.json</a>. Cotes d'après le catalogue outils DATRON FR et le guide de coupe ; prix : liste DATRON (DE, avril 2026, € HT indicatif). Aucune avance n'est publiée : « Ajouter » calcule rotation et avances des fraises 1 dent (modèle, ou valeurs exactes si votre guide est chargé) et laisse les autres outils sans avances, à compléter.</p>
 </section>
 
-<section class="box" aria-labelledby="t-add">
-  <h3 id="t-add">Ajouter un outil du catalogue</h3>
-  <details class="auto" open>
-    <summary>Remplissage automatique depuis une fiche Datron</summary>
-    <ol class="steps">
-      <li>Glissez ce bouton dans votre barre de favoris : <a class="bookmarklet" id="bm" href="#">→ RDsimPl</a> (une seule fois).</li>
-      <li>Ouvrez la fiche de l'outil sur le webshop (recherche ci-dessus), puis cliquez sur le favori « → RDsimPl » : la fiche est copiée.</li>
-      <li>Collez-la ici (Ctrl+V) : référence, désignation, type, D1, L2 et nombre de dents sont remplis. Le texte copié à la main depuis la fiche fonctionne aussi.</li>
-    </ol>
-    <div class="bar">
-      <textarea id="paste" rows="2" placeholder="Collez ici la fiche Datron (Ctrl+V)" aria-label="Fiche Datron à analyser"></textarea>
-      <button type="button" id="b-paste">Coller depuis le presse-papiers</button>
-    </div>
-    <p class="status" id="st-auto" role="status"></p>
-  </details>
-  <form id="f-add">
-    <div class="fields">
-      <label>Référence Datron<input name="articleNr" required placeholder="0068432A" autocomplete="off"></label>
-      <label class="wide">Désignation<input name="name" required placeholder="Fraise 1 dent Ø2 L4"></label>
-      <label>Type<select name="type" id="add-type"></select></label>
-      <label>Ø de coupe D1 (mm)<input name="diameter" type="number" step="any" min="0" required></label>
-      <label>Longueur de coupe L2 (mm)<input name="fluteLength" type="number" step="any" min="0"></label>
-      <label>Nombre de dents<input name="flutes" type="number" step="1" min="1" value="1"></label>
-      <label>Angle de pointe (°)<input name="tipAngle" type="number" step="any" min="0" value="0"></label>
-      <label>Ø de pointe (mm)<input name="tipDiameter" type="number" step="any" min="0"></label>
-    </div>
-    <div class="bar" style="margin-top:10px">
-      <button type="submit" class="primary">Ajouter à ma bibliothèque</button>
-      <button type="button" id="b-fiche">Voir la fiche sur le webshop</button>
-      <span class="status" style="margin:0">Rotation et avances pré-remplies d'après un outil du même type, à ajuster.</span>
-    </div>
-  </form>
-</section>
-
-<h2>Outils et avances <small id="count" style="font:400 1rem Barlow;color:var(--mute)"></small></h2>
-<div class="bar" style="margin-bottom:10px">
-  <label style="font-size:14px;color:var(--mute)">Filtrer <select id="filtre"><option value="">tous les types</option></select></label>
-  <button type="button" id="b-fold">Tout replier</button><button type="button" id="b-unfold">Tout déplier</button>
-  <button type="button" id="b-new">+ Outil vierge</button>
-</div>
-<div class="box" id="prop-box"><h3>Données de coupe Datron <small style="font-weight:400;color:var(--mute)">fraises 1 dent, aluminium – <a href="coupe.html">détails et calculateur</a></small></h3>
-  <div class="bar"><label style="font-size:14px;color:var(--mute)">Broche <select id="p-broche"></select></label>
-  <label style="font-size:14px;color:var(--mute)">Matière <select id="p-mat"></select></label>
-  <button type="button" class="primary" id="b-prop-all">Proposer pour toutes les fraises</button></div>
+<h2><span data-i18n>Outils et avances</span></h2>
+<div class="box" id="prop-box"><h3><span data-i18n>Données de coupe DATRON</span> <small style="font-weight:400;color:var(--mute)" data-i18n>fraises 1 dent, aluminium – <a href="coupe.html">détails et calculateur</a></small></h3>
+  <div class="bar"><label style="font-size:14px;color:var(--mute)"><span data-i18n>Broche</span> <select id="p-broche"></select></label>
+  <label style="font-size:14px;color:var(--mute)"><span data-i18n>Matière</span> <select id="p-mat"></select></label>
+  <button type="button" class="primary" id="b-prop-all" data-i18n>Proposer pour toutes les fraises</button></div>
   <p class="status" id="st-prop" role="status"></p></div>
+<div class="bar" style="margin-bottom:10px">
+  <label style="font-size:14px;color:var(--mute)"><span data-i18n>Filtrer</span> <select id="filtre"></select></label>
+  <button type="button" id="b-fold" data-i18n>Tout replier</button><button type="button" id="b-unfold" data-i18n>Tout déplier</button>
+  <button type="button" id="b-new" data-i18n>+ Outil vierge</button>
+</div>
 <div id="list"></div>
 
-<footer><p>Les références « GEN-… » du fichier générique sont fictives : remplacez-les par celles de votre magasin d'outils avant usinage. Vc = π·D·n / 1000 ; fz = avance / (n · dents).</p>
-<p><a href="index.html">Retour au générateur</a> · <a href="coupe.html">Données de coupe</a> · <a href="cv.html">CV</a> · <a href="#" data-stockage-gerer>Gérer le stockage local</a></p></footer>
+<footer><p data-i18n>Vc = π·D·n / 1000 ; fz = avance / (n · dents). Vérifiez toujours les valeurs en simulation avant usinage.</p>
+<p><a href="index.html" data-i18n>Générateur SimPL</a> · <a href="coupe.html" data-i18n>Données de coupe</a> · <a href="cv.html" data-i18n>CV</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
 </main>
 
 <script src="stockage.js" defer></script>
 <script src="coupe.js" defer></script>
 <script>
-document.addEventListener('DOMContentLoaded', function () {   // après stockage.js (chargé en différé)
+document.addEventListener('DOMContentLoaded', function () {   // après stockage.js et coupe.js (chargés en différé)
   'use strict';
   const $ = id => document.getElementById(id);
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const TYPES = { surfacage: 'Surfaçage', fraise: 'Fraise', gravure: 'Gravure (conique)', foret: 'Foret', filetage: 'Filetage (fraise à fileter)', chanfrein: 'Chanfrein / lamage', rayon: 'Rayon extérieur (fraise à rayonner)' };
+  const nf = v => (v === undefined || v === null || v === '') ? '' : I18N.fmt(v, { maximumFractionDigits: 3 });
+  const TYPES = { surfacage: t('Surfaçage'), fraise: t('Fraise'), boule: t('Fraise boule'), torique: t('Fraise torique'), gravure: t('Gravure (conique)'), foret: t('Foret'),
+    filetage: t('Filetage (fraise à fileter)'), chanfrein: t('Chanfrein / lamage'), rayon: t('Rayon extérieur (fraise à rayonner)') };
   const FEEDS = ['roughing', 'finishing', 'plunge', 'ramp', 'approach'];
-  const FEED_LBL = { roughing: 'Ébauche', finishing: 'Finition', plunge: 'Plongée', ramp: 'Rampe', approach: 'Approche' };
+  const FEED_LBL = { roughing: t('Ébauche'), finishing: t('Finition'), plunge: t('Plongée'), ramp: t('Rampe'), approach: t('Approche') };
   const SHOP = q => `https://webshop.datron.de/search?search=${encodeURIComponent(q)}`;
   const ST = () => (window.Stockage && window.Stockage.actif()) ? window.Stockage : null;
+  const C = window.Coupe;
 
-  let lib = { tools: [] }, generic = [], dirty = false, source = '';
+  let lib = { tools: [] }, dirty = false, source = '';
   const status = m => { $('st').textContent = m; };
+  function setDirty(v) { dirty = v; renderLibBar(); }
 
-  /* ---------- rendu ---------- */
+  /* =================== ma bibliothèque =================== */
+  const outilsSansFold = () => lib.tools.map(({ _fold, ...o }) => o);
+  function renderLibBar() {
+    const n = lib.tools.length, saved = ST() && ST().get('tools');
+    $('lib-count').textContent = `– ${t('{n} outil(s)', { n })}${source ? ` · ${source}` : ''}${dirty ? ` · ${t('modifiée')}` : ''}`;
+    const B = [];
+    B.push(`<button type="button" data-l="imp">${t('Importer un tools.json…')}</button>`);
+    if (n) B.push(`<button type="button" data-l="exp">${t('Exporter tools.json')}</button>`);
+    if (ST()) {
+      B.push(`<button type="button" class="primary" data-l="save"${dirty ? '' : ' disabled'}>${dirty ? t('Enregistrer les modifications') : t('Enregistré dans ce navigateur')}</button>`);
+      if (dirty) B.push(`<button type="button" data-l="undo">${t('Annuler les modifications')}</button>`);
+    } else if (window.Stockage && window.Stockage.disponible) {
+      B.push(`<button type="button" data-l="consent">${t('Activer le stockage local pour enregistrer')}</button>`);
+    }
+    if (n) B.push(`<button type="button" class="danger" data-l="clear">${t('Vider la bibliothèque')}</button>`);
+    $('lib-actions').innerHTML = B.join('');
+    $('lib-actions').querySelectorAll('[data-l]').forEach(b => b.onclick = ACTIONS[b.dataset.l]);
+  }
+  function setLib(j, src) {
+    if (!j || !Array.isArray(j.tools)) throw new Error(t('clé « tools » absente'));
+    lib = { ...j, tools: j.tools.map(o => ({ ...o, feeds: { ...(o.feeds || {}) } })) };
+    source = src; dirty = false; render(); status(t('{n} outil(s) chargé(s) – {src}.', { n: lib.tools.length, src }));
+  }
+  const ACTIONS = {
+    imp: () => $('f-imp').click(),
+    exp: () => {
+      const clean = { ...lib, tools: outilsSansFold() };
+      clean._info = clean._info || "Bibliothèque d'outils pour le générateur SimPL de RomDuch.";
+      const a = document.createElement('a'); a.download = 'tools.json';
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(clean, null, 2)], { type: 'application/json' }));
+      document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      status(t('tools.json exporté (téléchargement).'));
+    },
+    save: () => {
+      const bad = lib.tools.flatMap(alerts).filter(a => a.grave).map(a => a.txt);
+      if (bad.length && !confirm(`${t('Certains outils sont incomplets :')}\n- ${[...new Set(bad)].join('\n- ')}\n\n${t('Enregistrer quand même ?')}`)) return;
+      if (ST() && ST().set('tools', { ...lib, tools: outilsSansFold() })) {
+        source = t('ce navigateur'); setDirty(false);
+        status(t('Enregistré dans ce navigateur ({n} outils) : le générateur l\'utilisera automatiquement.', { n: lib.tools.length }));
+      }
+    },
+    undo: () => {
+      if (!confirm(t('Revenir à la dernière version enregistrée ?'))) return;
+      const saved = ST() && ST().get('tools');
+      setLib(saved && Array.isArray(saved.tools) ? saved : { tools: [] }, saved ? t('ce navigateur') : t('bibliothèque vide'));
+    },
+    consent: () => window.Stockage && window.Stockage.banniere(true),
+    clear: () => { if (confirm(t('Retirer les {n} outil(s) de la bibliothèque ?', { n: lib.tools.length }))) { lib.tools = []; setDirty(true); render(); } }
+  };
+  $('f-imp').onchange = e => { const f = e.target.files[0]; if (!f) return;
+    f.text().then(x => { setLib(JSON.parse(x), f.name); setDirty(true); }).catch(err => status(t('Fichier invalide : {e}', { e: err.message }))); e.target.value = ''; };
+
+  /* =================== liste des outils =================== */
   function uid(base) {
     let id = String(base || 'OUTIL').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9_]/g, '_').toUpperCase() || 'OUTIL', k = 1, out = id;
-    while (lib.tools.some(t => t.id === out)) out = `${id}_${++k}`;
+    while (lib.tools.some(o => o.id === out)) out = `${id}_${++k}`;
     return out;
   }
-  function calc(t) {
-    const n = +t.rpm, d = +t.diameter, z = +t.flutes || 1, f = t.feeds || {};
-    const out = [];
-    if (n && d) out.push(`Vc <b>${(Math.PI * d * n / 1000).toFixed(0)}</b> m/min`);
-    if (n && f.roughing) out.push(`fz ébauche <b>${(f.roughing / (n * z)).toFixed(4)}</b> mm/dent`);
-    if (n && f.finishing) out.push(`fz finition <b>${(f.finishing / (n * z)).toFixed(4)}</b> mm/dent`);
+  function calc(o) {
+    const n = +o.rpm, d = +o.diameter, z = +o.flutes || 1, f = o.feeds || {}, out = [];
+    if (n && d) out.push(`Vc <b>${nf(Math.round(Math.PI * d * n / 1000))}</b> m/min`);
+    if (n && f.roughing) out.push(`${t('fz ébauche')} <b>${(f.roughing / (n * z)).toFixed(4)}</b> ${t('mm/dent')}`);
+    if (n && f.finishing) out.push(`${t('fz finition')} <b>${(f.finishing / (n * z)).toFixed(4)}</b> ${t('mm/dent')}`);
     return out.join(' · ');
   }
-  function alerts(t) {
-    const a = [];
-    if (!t.id) a.push('Identifiant manquant.');
-    if (lib.tools.filter(x => x.id === t.id).length > 1) a.push(`Identifiant « ${t.id} » en double.`);
-    if (!t.articleNr) a.push('Référence manquante : la machine ne pourra pas appeler l\'outil.');
-    else if (/^GEN-/.test(t.articleNr)) a.push('Référence générique fictive : à remplacer par la référence de votre magasin d\'outils.');
-    if (+t.rpm > 40000) a.push('Rotation supérieure à 40 000 tr/min : vérifiez la limite de votre broche.');
-    if (!t.rpm || !Object.values(t.feeds || {}).some(v => v !== undefined && v !== null && v !== ''))
-      a.push('Rotation ou avances vides (aucune recommandation disponible) : à renseigner avant usinage.');
-    if (!(+t.diameter > 0)) a.push('Diamètre manquant.');
+  function alerts(o) {
+    const a = [], A = (txt, grave) => a.push({ txt, grave });
+    if (!o.id) A(t('Identifiant manquant.'), true);
+    if (lib.tools.filter(x => x.id === o.id).length > 1) A(t('Identifiant « {id} » en double.', { id: o.id }), true);
+    if (!o.articleNr) A(t('Référence manquante : la machine ne pourra pas appeler l\'outil.'), true);
+    if (+o.rpm > 40000) A(t('Rotation supérieure à 40 000 tr/min : vérifiez la limite de votre broche.'));
+    if (!o.rpm || !Object.values(o.feeds || {}).some(v => v !== undefined && v !== null && v !== ''))
+      A(t('Rotation ou avances vides (aucune recommandation disponible) : à renseigner avant usinage.'));
+    if (!(+o.diameter > 0)) A(t('Diamètre manquant.'), true);
     return a;
   }
-  function field(t, k, label, type = 'number', extra = '') {
-    const v = k.startsWith('feeds.') ? (t.feeds || {})[k.slice(6)] : t[k];
+  function field(o, k, label, type = 'number', extra = '') {
+    const v = k.startsWith('feeds.') ? (o.feeds || {})[k.slice(6)] : o[k];
     return `<label${type === 'text' && k === 'name' ? ' class="wide"' : ''}>${esc(label)}<input data-k="${k}" type="${type}"${type === 'number' ? ' step="any" min="0"' : ''} value="${esc(v ?? '')}"${extra}></label>`;
   }
   function render() {
-    const filtre = $('filtre').value;
-    const list = $('list');
-    const visibles = lib.tools.map((t, i) => [t, i]).filter(([t]) => !filtre || t.type === filtre);
-    $('count').textContent = `(${lib.tools.length} outil${lib.tools.length > 1 ? 's' : ''}${filtre ? `, ${visibles.length} affiché(s)` : ''})`;
-    list.innerHTML = visibles.length ? '' : '<p class="status">Aucun outil. Ajoutez-en depuis le catalogue ou partez du fichier générique.</p>';
-    visibles.forEach(([t, i]) => {
+    const filtre = $('filtre').value, list = $('list');
+    const visibles = lib.tools.map((o, i) => [o, i]).filter(([o]) => !filtre || o.type === filtre);
+    list.innerHTML = visibles.length ? '' : `<p class="status">${t('Aucun outil : ajoutez-en depuis le catalogue DATRON ci-dessus.')}</p>`;
+    visibles.forEach(([o, i]) => {
       const box = document.createElement('div');
       box.className = 'box tool';
-      const al = alerts(t);
-      box.innerHTML = `<div class="thead"><h3>${esc(t.name || '(sans nom)')} <small>${esc(TYPES[t.type] || t.type || '')} · ${esc(t.articleNr || '—')}</small></h3>
-        ${t.articleNr && !/^GEN-/.test(t.articleNr) ? '<button type="button" data-a="shop">Fiche webshop</button>' : ''}
-        <button type="button" data-a="fold" aria-expanded="${!t._fold}">${t._fold ? 'Afficher' : 'Masquer'}</button>
-        ${t.type === 'fraise' ? '<button type="button" data-a="prop" title="Rotation et avances selon le guide Datron">Proposer (Datron)</button>' : ''}
-        <button type="button" data-a="dup">Dupliquer</button><button type="button" data-a="del">Supprimer</button></div>
-        <div${t._fold ? ' hidden' : ''}>
+      const al = alerts(o);
+      box.innerHTML = `<div class="thead"><h3>${esc(o.name || t('(sans nom)'))} <small>${esc(TYPES[o.type] || o.type || '')} · ${esc(o.articleNr || '—')}</small></h3>
+        ${o.articleNr ? `<button type="button" data-a="shop">${t('Fiche webshop')}</button>` : ''}
+        <button type="button" data-a="fold" aria-expanded="${!o._fold}">${o._fold ? t('Afficher') : t('Masquer')}</button>
+        ${o.type === 'fraise' ? `<button type="button" data-a="prop">${t('Proposer (DATRON)')}</button>` : ''}
+        <button type="button" data-a="dup">${t('Dupliquer')}</button><button type="button" data-a="del">${t('Supprimer')}</button></div>
+        <div${o._fold ? ' hidden' : ''}>
           <div class="fields">
-            ${field(t, 'name', 'Désignation', 'text')}${field(t, 'id', 'Identifiant', 'text')}
-            <label>Type<select data-k="type">${Object.entries(TYPES).map(([k, l]) => `<option value="${k}"${k === t.type ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select></label>
-            ${field(t, 'articleNr', 'Référence', 'text')}${field(t, 'vendor', 'Fabricant', 'text')}
-            ${field(t, 'diameter', 'Ø de coupe (mm)')}${field(t, 'fluteLength', 'Longueur de coupe (mm)')}${field(t, 'flutes', 'Dents', 'number', ' step="1"')}
-            ${field(t, 'tipAngle', 'Angle de pointe (°)')}${field(t, 'tipDiameter', 'Ø de pointe (mm)')}
-            ${field(t, 'rpm', 'Rotation (tr/min)')}
-            ${FEEDS.map(f => field(t, 'feeds.' + f, `${FEED_LBL[f]} (mm/min)`)).join('')}
+            ${field(o, 'name', t('Désignation'), 'text')}${field(o, 'id', t('Identifiant'), 'text')}
+            <label>${t('Type')}<select data-k="type">${Object.entries(TYPES).map(([k, l]) => `<option value="${k}"${k === o.type ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select></label>
+            ${field(o, 'articleNr', t('Référence'), 'text')}${field(o, 'vendor', t('Fabricant'), 'text')}
+            ${field(o, 'diameter', t('Ø de coupe (mm)'))}${field(o, 'fluteLength', t('Longueur de coupe (mm)'))}${field(o, 'flutes', t('Dents'), 'number', ' step="1"')}
+            ${field(o, 'tipAngle', t('Angle de pointe (°)'))}${field(o, 'tipDiameter', t('Ø de pointe (mm)'))}${field(o, 'radius', t('Rayon (mm)'))}
+            ${field(o, 'rpm', t('Rotation (tr/min)'))}
+            ${FEEDS.map(f => field(o, 'feeds.' + f, `${FEED_LBL[f]} (mm/min)`)).join('')}
           </div>
-          <p class="calc" data-calc>${calc(t)}</p>
-          ${t.coupe ? `<p class="calc">Datron (${esc(t.coupe.broche)}, ${t.coupe.source === 'guide' ? 'guide' : 'modèle'}) : rainurage ap ${t.coupe.rainurage.ap} × ae ${t.coupe.rainurage.ae} mm · latéral ap ${t.coupe.lateral.ap} × ae ${t.coupe.lateral.ae} mm</p>` : ''}
-          ${al.map(a => `<p class="alert">${esc(a)}</p>`).join('')}
+          <p class="calc" data-calc>${calc(o)}</p>
+          ${o.thread ? `<p class="calc">${t('Filetage')} : ${esc(o.thread)}${o.pitch ? ` · ${t('pas')} ${nf(o.pitch)}` : ''}</p>` : ''}
+          ${o.prix_eur !== undefined ? `<p class="calc">${t('Prix liste DATRON')} : ${nf(o.prix_eur)} €</p>` : ''}
+          ${o.coupe ? `<p class="calc">DATRON (${esc(o.coupe.broche)}, ${o.coupe.source === 'guide' ? t('guide') : t('modèle')}) : ${t('rainurage')} ap ${nf(o.coupe.rainurage.ap)} × ae ${nf(o.coupe.rainurage.ae)} mm · ${t('latéral')} ap ${nf(o.coupe.lateral.ap)} × ae ${nf(o.coupe.lateral.ae)} mm</p>` : ''}
+          ${al.map(a => `<p class="alert">${esc(a.txt)}</p>`).join('')}
         </div>`;
       box.querySelectorAll('[data-k]').forEach(inp => inp.addEventListener(inp.tagName === 'SELECT' ? 'change' : 'input', () => {
         const k = inp.dataset.k, num = inp.type === 'number', v = num ? (inp.value === '' ? undefined : Number(inp.value)) : inp.value;
-        if (k.startsWith('feeds.')) { t.feeds = t.feeds || {}; t.feeds[k.slice(6)] = v; } else t[k] = v;
-        dirty = true; status('Modifications non enregistrées.');
-        box.querySelector('[data-calc]').innerHTML = calc(t);
+        if (k.startsWith('feeds.')) { o.feeds = o.feeds || {}; o.feeds[k.slice(6)] = v; } else o[k] = v;
+        setDirty(true);
+        box.querySelector('[data-calc]').innerHTML = calc(o);
         if (k === 'type') render();
       }));
       box.querySelectorAll('[data-k="name"],[data-k="id"],[data-k="articleNr"]').forEach(inp => inp.addEventListener('change', render));
-      box.querySelector('[data-a=fold]').onclick = () => { t._fold = !t._fold; render(); };
-      const pb = box.querySelector('[data-a=prop]'); if (pb) pb.onclick = () => { appliquer(t); render(); };
-      box.querySelector('[data-a=dup]').onclick = () => { const c = JSON.parse(JSON.stringify(t)); c.id = uid(t.id + '_copie'); c.name = t.name + ' (copie)'; delete c._fold;
-        lib.tools.splice(i + 1, 0, c); dirty = true; render(); };
-      box.querySelector('[data-a=del]').onclick = () => { if (confirm(`Supprimer « ${t.name} » ?`)) { lib.tools.splice(i, 1); dirty = true; render(); } };
-      const sh = box.querySelector('[data-a=shop]'); if (sh) sh.onclick = () => window.open(SHOP(t.articleNr), '_blank', 'noopener');
+      box.querySelector('[data-a=fold]').onclick = () => { o._fold = !o._fold; render(); };
+      const pb = box.querySelector('[data-a=prop]'); if (pb) pb.onclick = () => { appliquer(o); render(); };
+      box.querySelector('[data-a=dup]').onclick = () => { const c = JSON.parse(JSON.stringify(o)); c.id = uid(o.id + '_copie'); c.name = `${o.name} (${t('copie')})`; delete c._fold;
+        lib.tools.splice(i + 1, 0, c); setDirty(true); render(); };
+      box.querySelector('[data-a=del]').onclick = () => { if (confirm(t('Supprimer « {n} » ?', { n: o.name }))) { lib.tools.splice(i, 1); setDirty(true); render(); } };
+      const sh = box.querySelector('[data-a=shop]'); if (sh) sh.onclick = () => window.open(SHOP(o.articleNr), '_blank', 'noopener');
       list.append(box);
     });
-    $('b-save').disabled = !ST();
-    $('b-save').title = ST() ? '' : 'Acceptez le stockage local pour enregistrer (lien en bas de page)';
+    renderLibBar();
   }
+  $('filtre').innerHTML = `<option value="">${t('tous les types')}</option>` + Object.entries(TYPES).map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join('');
+  $('filtre').onchange = render;
+  $('b-new').onclick = () => { lib.tools.unshift({ id: uid('NOUVEL_OUTIL'), name: t('Nouvel outil'), type: 'fraise', articleNr: '', vendor: '', diameter: 2, fluteLength: 6, flutes: 1, tipAngle: 0, feeds: {} });
+    setDirty(true); render(); };
+  $('b-fold').onclick = () => { lib.tools.forEach(o => { o._fold = true; }); render(); };
+  $('b-unfold').onclick = () => { lib.tools.forEach(o => { o._fold = false; }); render(); };
 
-  /* ---------- sources ---------- */
-  function setLib(j, src) {
-    if (!j || !Array.isArray(j.tools)) throw new Error('clé « tools » absente');
-    lib = { ...j, tools: j.tools.map(t => ({ ...t, feeds: { ...(t.feeds || {}) } })) };
-    source = src; dirty = false; render(); status(`${lib.tools.length} outil(s) chargé(s) – ${src}.`);
-  }
-  function exporter() {
-    const clean = { ...lib, tools: lib.tools.map(({ _fold, ...t }) => t) };
-    clean._info = clean._info || "Bibliothèque d'outils pour le générateur SimPL de RomDuch.";
-    const a = document.createElement('a');
-    a.download = 'tools.json';
-    a.href = URL.createObjectURL(new Blob([JSON.stringify(clean, null, 2)], { type: 'application/json' }));
-    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-    return clean;
-  }
-
-  $('b-site').onclick = () => { if (dirty && !confirm('Remplacer la bibliothèque en cours ?')) return;
-    fetch('tools.json', { cache: 'no-cache' }).then(r => r.json()).then(j => setLib(j, 'tools.json générique du site')).catch(e => status('Erreur : ' + e.message)); };
-  $('b-imp').onclick = () => $('f-imp').click();
-  $('f-imp').onchange = e => { const f = e.target.files[0]; if (!f) return;
-    f.text().then(t => setLib(JSON.parse(t), f.name)).catch(err => status('Fichier invalide : ' + err.message)); e.target.value = ''; };
-  $('b-exp').onclick = () => { exporter(); status('tools.json exporté (téléchargement).'); };
-  $('b-save').onclick = () => {
-    const bad = lib.tools.flatMap(alerts).filter(a => /manquant|double/.test(a));
-    if (bad.length && !confirm(`Certains outils sont incomplets :\n- ${[...new Set(bad)].join('\n- ')}\n\nEnregistrer quand même ?`)) return;
-    const clean = { ...lib, tools: lib.tools.map(({ _fold, ...t }) => t) };
-    if (ST() && ST().set('tools', clean)) { dirty = false; status(`Enregistré dans ce navigateur (${lib.tools.length} outils) : le générateur l'utilisera automatiquement.`); }
+  /* =================== catalogue DATRON hors ligne =================== */
+  let CAT = [], CATS = {}, cat = 'fraise';
+  const FV = {};                                                    // valeurs des filtres
+  const typeFil = x => /^PG/i.test(x.filetage || '') ? 'PG' : /branch/i.test(x.filetage || '') ? 'BR' : /^M/i.test(x.filetage || '') ? 'M' : '';
+  const tailles = x => { const m = [...String(x.filetage || '').matchAll(/(?:M|PG)\s*(\d+(?:[.,]\d+)?)/gi)].map(v => parseFloat(v[1].replace(',', '.'))); return m.length ? [Math.min(...m), Math.max(...m)] : null; };
+  const TAILLES_M = [1, 1.1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.5, 3, 3.5, 4, 5, 6, 8, 10, 12, 14, 16];
+  const dMax = x => x.D3 || x.D1;
+  const profUtile = x => x.longueur_utile ?? x.L3 ?? x.L2;
+  // f(k, libellé, type, lecture) : select = valeurs distinctes ; min / max = seuils ; range = de… à…
+  const F = (k, label, kind, get, extra = {}) => ({ k, label, kind, get: get || (x => x[k]), ...extra });
+  const FAM = F('famille', t('Famille'), 'select', x => x.famille, { txt: v => t(v) });
+  const QUEUE = F('D2', t('Ø de queue'), 'select', null, { fmt: v => `Ø${nf(v)}` });
+  const PRIX = F('prix', t('Prix maxi (€)'), 'max', x => x.prix_eur);
+  const L2MIN = F('L2min', t('Longueur de coupe mini (mm)'), 'min', x => x.L2);
+  const DENTS = F('dents', t('Dents'), 'select');
+  const D1 = F('D1', t('Ø de coupe'), 'select', null, { fmt: v => `Ø${nf(v)}` });
+  const FACETS = {
+    fraise: [FAM, D1, L2MIN, QUEUE, PRIX],
+    boule: [D1, F('R', t('Rayon'), 'select', null, { fmt: v => `R${nf(v)}` }), L2MIN, DENTS, FAM, QUEUE, PRIX],
+    torique: [D1, F('R', t('Rayon de coin'), 'select', null, { fmt: v => `R${nf(v)}` }), L2MIN, DENTS, FAM, QUEUE, PRIX],
+    filetage: [F('typeFil', t('Type de filetage'), 'select', typeFil, { txt: v => ({ M: t('Métrique (M)'), PG: t('Pas du gaz (PG)'), BR: t('Raccord métrique') }[v] || v) }),
+      F('taille', t('Taille (M)'), 'taille'), F('pas', t('Pas (mm)'), 'select', null, { fmt: v => nf(v) }),
+      F('D1', t('Ø de la fraise'), 'select', null, { fmt: v => `Ø${nf(v)}` }), F('prof', t('Profondeur utile mini (mm)'), 'min', profUtile), DENTS, FAM, PRIX],
+    chanfrein: [F('angle', t('Angle'), 'select', null, { fmt: v => `${v}°` }), F('dmax', t('Ø maxi'), 'select', dMax, { fmt: v => `Ø${nf(v)}` }),
+      F('D1', t('Ø de pointe / petit Ø'), 'select', null, { fmt: v => `Ø${nf(v)}` }), DENTS, FAM, QUEUE, PRIX],
+    foret: [F('dmin', t('Ø à partir de'), 'min', x => x.D1), F('dmaxi', t('Ø jusqu\'à'), 'max', x => x.D1), F('angle', t('Angle de pointe'), 'select', null, { fmt: v => `${v}°` }),
+      L2MIN, QUEUE, PRIX],
+    conique: [F('angle', t('Angle'), 'select', null, { fmt: v => `${v}°` }), F('D1', t('Ø de troncature (pointe)'), 'select', null, { fmt: v => `Ø${nf(v)}` }), FAM, QUEUE, PRIX],
+    rayon: [F('R', t('Rayon'), 'select', null, { fmt: v => `R${nf(v)}` }), F('dmax', t('Ø maxi'), 'select', dMax, { fmt: v => `Ø${nf(v)}` }), DENTS, FAM, QUEUE, PRIX]
   };
+  const COLS = {   // colonnes spécifiques du tableau
+    fraise: [['L2', 'L2'], ['D2', t('Queue')]], boule: [['R', 'R'], ['L2', 'L2'], ['dents', 'Z']], torique: [['R', 'R'], ['L2', 'L2'], ['dents', 'Z']],
+    filetage: [['filetage', t('Filetage')], ['pas', t('Pas')], ['L3', 'L3'], ['dents', 'Z']], chanfrein: [['angle', t('Angle')], ['D3', 'D3'], ['dents', 'Z']],
+    foret: [['L2', 'L2'], ['angle', t('Angle')], ['D2', t('Queue')]], conique: [['angle', t('Angle')], ['D2', t('Queue')], ['L1', 'L1']],
+    rayon: [['R', 'R'], ['D3', 'D3'], ['dents', 'Z']]
+  };
+  const TYPE_DE = { fraise: 'fraise', boule: 'boule', torique: 'torique', filetage: 'filetage', chanfrein: 'chanfrein', foret: 'foret', conique: 'gravure', rayon: 'rayon' };
+  const sousEns = () => CAT.filter(x => x.categorie === cat);
+  const uniques = (arr, get) => [...new Set(arr.map(get).filter(v => v !== undefined && v !== null && v !== ''))].sort((a, b) => (typeof a === 'number' && typeof b === 'number') ? a - b : String(a).localeCompare(String(b)));
 
-  /* ---------- catalogue ---------- */
-  /* ---------- catalogue hors ligne des outils Datron ---------- */
-  let CAT = [], CATS = {};
-  const nf = v => String(v).replace('.', ',');
-  const TYPE_DE = { fraise: 'fraise', filetage: 'filetage', chanfrein: 'chanfrein', foret: 'foret', conique: 'gravure', rayon: 'rayon' };
-  const CHIPS = [['Fraises 1 dent', { cat: 'fraise' }], ['Filetage', { cat: 'filetage' }], ['Chanfrein', { cat: 'chanfrein' }], ['Forets', { cat: 'foret' }],
-    ['Coniques', { cat: 'conique' }], ['Rayon ext.', { cat: 'rayon' }], ['Ø1', { d: 1 }], ['Ø2', { d: 2 }], ['Ø3', { d: 3 }], ['Ø4', { d: 4 }], ['Ø6', { d: 6 }], ['Tout', {}]];
-  const specif = x => x.categorie === 'filetage' ? (x.filetage || '') : x.categorie === 'rayon' ? `R${nf(x.R)}` : x.angle ? `${x.angle}°` : '';
+  function renderChips() {
+    $('chips').innerHTML = Object.entries(CATS).map(([k, l]) => `<button type="button" data-cat="${k}" aria-pressed="${k === cat}">${esc(t(l))} <small>(${CAT.filter(x => x.categorie === k).length})</small></button>`).join('');
+    $('chips').querySelectorAll('[data-cat]').forEach(b => b.onclick = () => { cat = b.dataset.cat; Object.keys(FV).forEach(k => delete FV[k]); renderChips(); renderFacets(); filtrer(); });
+  }
+  function renderFacets() {
+    const base = sousEns();
+    $('facets').innerHTML = FACETS[cat].map(f => {
+      const val = FV[f.k] ?? '';
+      if (f.kind === 'select') {
+        const opts = uniques(base, f.get);
+        if (opts.length < 2) return '';                            // filtre inutile : une seule valeur
+        return `<label>${esc(f.label)}<select data-f="${f.k}"><option value="">${t('tous')}</option>${opts.map(v =>
+          `<option value="${esc(v)}"${String(v) === String(val) ? ' selected' : ''}>${esc(f.txt ? f.txt(v) : f.fmt ? f.fmt(v) : v)}</option>`).join('')}</select></label>`;
+      }
+      if (f.kind === 'taille') {
+        const opts = TAILLES_M.filter(s => base.some(x => typeFil(x) === 'M' && (r => r && r[0] <= s && s <= r[1])(tailles(x))));
+        return `<label>${esc(f.label)}<select data-f="${f.k}"><option value="">${t('toutes')}</option>${opts.map(s =>
+          `<option value="${s}"${String(s) === String(val) ? ' selected' : ''}>M${nf(s)}</option>`).join('')}</select></label>`;
+      }
+      return `<label>${esc(f.label)}<input type="number" step="any" min="0" data-f="${f.k}" value="${esc(val)}" inputmode="decimal"></label>`;
+    }).join('');
+    $('facets').querySelectorAll('[data-f]').forEach(el => el.addEventListener('input', () => { if (el.value === '') delete FV[el.dataset.f]; else FV[el.dataset.f] = el.value; filtrer(); }));
+  }
+  function passe(x) {
+    for (const f of FACETS[cat]) {
+      const v = FV[f.k]; if (v === undefined || v === '') continue;
+      const g = f.get(x);
+      if (f.kind === 'select' && String(g) !== String(v)) return false;
+      if (f.kind === 'min' && !(g >= +v)) return false;
+      if (f.kind === 'max' && !(g <= +v)) return false;
+      if (f.kind === 'taille') { const r = tailles(x); if (typeFil(x) !== 'M' || !r || +v < r[0] || +v > r[1]) return false; }
+    }
+    const q = $('q').value.trim().toLowerCase();
+    if (q) {
+      const hay = [x.ref, x.famille, t(x.famille), x.filetage, x.designation_de].filter(Boolean).join(' ').toLowerCase().replace(/\s+/g, '');
+      if (!hay.includes(q.replace(/\s+/g, ''))) return false;
+    }
+    return true;
+  }
+  function rpmPropose(x) {
+    if (x.categorie !== 'fraise' || !C) return '';
+    const p = C.proposer({ type: 'fraise', articleNr: x.ref, diameter: x.D1, fluteLength: x.L2, flutes: x.dents || 1 }, { broche: $('p-broche').value, matiere: $('p-mat').value });
+    return p.ok ? nf(p.rpm) : '';
+  }
+  function filtrer() {
+    const res = sousEns().filter(passe), max = 100, cols = COLS[cat];
+    $('cat-head').innerHTML = `<th>${t('Référence')}</th><th>${t('Famille')}</th><th>Ø D1</th>${cols.map(c => `<th>${esc(c[1])}</th>`).join('')}<th>${t('Prix €')}</th>`
+      + (cat === 'fraise' ? `<th title="${esc(t('Rotation proposée (modèle ou guide)'))}">n</th>` : '') + '<th></th>';
+    $('cat-table').tBodies[0].innerHTML = res.slice(0, max).map(x => `<tr><td><b>${esc(x.ref)}</b></td><td>${esc(t(x.famille))}</td><td class="n">${nf(x.D1)}</td>
+      ${cols.map(c => `<td class="n">${c[0] === 'angle' && x.angle ? x.angle + '°' : c[0] === 'filetage' ? esc(x.filetage || '') : nf(x[c[0]])}</td>`).join('')}
+      <td class="n">${x.prix_eur !== undefined ? I18N.fmt(x.prix_eur, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : ''}</td>
+      ${cat === 'fraise' ? `<td class="n">${rpmPropose(x)}</td>` : ''}
+      <td><button type="button" data-ref="${esc(x.ref)}">${t('Ajouter')}</button> <a href="${SHOP(x.ref)}" target="_blank" rel="noopener" title="${esc(t('Fiche sur le webshop DATRON'))}">${t('fiche')}</a></td></tr>`).join('');
+    $('st-cat').textContent = res.length ? t('{n} outil(s)', { n: res.length }) + (res.length > max ? ` – ${t('{m} premiers affichés, affinez les filtres', { m: max })}` : '') + '.' : t('Aucun outil ne correspond.');
+    $('cat-table').querySelectorAll('[data-ref]').forEach(bt => bt.onclick = () => ajouter(bt.dataset.ref));
+  }
   const nomOutil = x => {
+    const f = t(x.famille);
     switch (x.categorie) {
-      case 'fraise': return `Fraise 1 dent Ø${nf(x.D1)} L${nf(x.L2)}${/standard/.test(x.famille) ? '' : ` (${x.famille.replace('Fraise 1 dent ', '')})`}`;
-      case 'filetage': return `Fraise à fileter ${x.filetage || ''} Ø${nf(x.D1)}`.replace(/\s+/g, ' ');
-      case 'foret': return `Foret Ø${nf(x.D1)} L${nf(x.L2)}`;
-      case 'conique': return `${x.famille} ${x.angle}° Ø${nf(x.D1)}`;
-      case 'chanfrein': return `${x.famille} ${x.angle}° Ø${nf(x.D3 || x.D1)}`;
-      case 'rayon': return `${x.famille} R${nf(x.R)}`;
-      default: return `${x.famille} ${x.ref}`;
+      case 'fraise': return `${t('Fraise 1 dent')} Ø${nf(x.D1)} L${nf(x.L2)}${/standard/.test(x.famille) ? '' : ` (${f.replace(t('Fraise 1 dent') + ' ', '')})`}`;
+      case 'boule': case 'torique': return `${f} Ø${nf(x.D1)} R${nf(x.R)}`;
+      case 'filetage': return `${t('Fraise à fileter')} ${x.filetage || ''} Ø${nf(x.D1)}`.replace(/\s+/g, ' ');
+      case 'foret': return `${t('Foret')} Ø${nf(x.D1)} L${nf(x.L2)}`;
+      case 'conique': return `${f} ${x.angle}° Ø${nf(x.D1)}`;
+      case 'chanfrein': return `${f} ${x.angle}° Ø${nf(dMax(x))}`;
+      case 'rayon': return `${f} R${nf(x.R)}`;
+      default: return `${f} ${x.ref}`;
     }
   };
-  function rpmPropose(x) {
-    if (x.categorie !== 'fraise' || !window.Coupe) return '';
-    const p = window.Coupe.proposer({ type: 'fraise', articleNr: x.ref, diameter: x.D1, fluteLength: x.L2, flutes: x.dents || 1 },
-      { broche: $('p-broche').value || '2 kW neo', matiere: $('p-mat').value || 'alu' });
-    return p.ok ? p.rpm : '';
-  }
-  function filtrerCat() {
-    const q = $('q').value.trim().toLowerCase().replace(',', '.'), cat = $('cat-cat').value, fam = $('cat-fam').value, d = $('cat-d').value;
-    const res = CAT.filter(x => (!cat || x.categorie === cat) && (!fam || x.famille === fam) && (!d || String(x.D1) === d)
-      && (!q || x.ref.toLowerCase().includes(q) || x.famille.toLowerCase().includes(q) || String(x.D1) === q || `ø${x.D1}` === q
-          || (x.filetage || '').toLowerCase().replace(/\s/g, '').includes(q.replace(/\s/g, '')) || specif(x).toLowerCase() === q));
-    const max = 80;
-    $('cat-table').tBodies[0].innerHTML = res.slice(0, max).map(x => `<tr><td><b>${esc(x.ref)}</b></td><td>${esc(x.famille)}</td>
-      <td class="n">${nf(x.D1)}</td><td class="n">${x.L2 !== undefined ? nf(x.L2) : ''}</td><td>${esc(specif(x))}</td><td class="n">${nf(x.D2)}</td>
-      <td class="n">${x.L1 !== undefined ? nf(x.L1) : ''}</td><td class="n">${x.prix_eur !== undefined ? x.prix_eur.toFixed(2).replace('.', ',') : ''}</td>
-      <td class="n">${rpmPropose(x)}</td>
-      <td><button type="button" data-ref="${esc(x.ref)}">Ajouter</button> <a href="${SHOP(x.ref)}" target="_blank" rel="noopener" title="Fiche sur le webshop Datron">fiche</a></td></tr>`).join('');
-    $('st-cat').textContent = res.length ? `${res.length} outil(s)${res.length > max ? ` – ${max} premiers affichés, affinez la recherche` : ''}.` : 'Aucun outil ne correspond.';
-    $('cat-table').querySelectorAll('[data-ref]').forEach(bt => bt.onclick = () => ajouterDuCatalogue(bt.dataset.ref));
-  }
-  function ajouterDuCatalogue(ref) {
+  function ajouter(ref) {
     const x = CAT.find(c => c.ref === ref); if (!x) return;
-    const type = TYPE_DE[x.categorie] || 'fraise';
-    const t = { id: lib.tools.some(o => o.id === ref) ? uid(ref) : ref, name: nomOutil(x), type, articleNr: ref, vendor: 'DATRON',
-      diameter: x.categorie === 'conique' && x.famille.startsWith('Pointe') ? x.D2 : (x.categorie === 'chanfrein' ? (x.D3 || x.D1) : x.D1),
+    const o = { id: lib.tools.some(v => v.id === ref) ? uid(ref) : ref, name: nomOutil(x), type: TYPE_DE[x.categorie] || 'fraise', articleNr: ref, vendor: 'DATRON',
+      diameter: x.categorie === 'conique' && x.famille.startsWith('Pointe') ? x.D2 : (x.categorie === 'chanfrein' ? dMax(x) : x.D1),
       fluteLength: x.L2, flutes: x.dents || undefined, tipAngle: x.angle || 0, feeds: {} };
-    if (x.categorie === 'conique') t.tipDiameter = x.D1;
-    if (x.categorie === 'rayon') t.radius = x.R;
-    if (x.categorie === 'filetage') { t.thread = x.filetage; if (x.pas) t.pitch = x.pas; }
-    if (x.prix_eur !== undefined) t.prix_eur = x.prix_eur;
-    Object.keys(t).forEach(k => t[k] === undefined && delete t[k]);
-    lib.tools.unshift(t);
-    const prop = t.type === 'fraise' ? appliquer(t) : null;      // fraises 1 dent : modèle ou guide ; autres : avances vides
-    dirty = true; render();
-    $('st-cat').textContent = `${ref} ajouté en tête de votre bibliothèque` + (prop ? ` (${prop.rpm} tr/min, ébauche ${prop.feeds.roughing} mm/min – ${prop.source})`
-      : ' : rotation et avances laissées vides (aucune recommandation disponible), à compléter') + '. Pensez à enregistrer ou exporter.';
+    if (x.categorie === 'conique') o.tipDiameter = x.D1;
+    if (x.R !== undefined) o.radius = x.R;
+    if (x.categorie === 'filetage') { o.thread = x.filetage; if (x.pas) o.pitch = x.pas; }
+    if (x.prix_eur !== undefined) o.prix_eur = x.prix_eur;
+    Object.keys(o).forEach(k => o[k] === undefined && delete o[k]);
+    lib.tools.unshift(o);
+    const prop = o.type === 'fraise' ? appliquer(o) : null;
+    setDirty(true); render();
+    $('st-cat').textContent = prop
+      ? t('{ref} ajouté à votre bibliothèque ({rpm} tr/min, ébauche {v} mm/min – {src}).', { ref, rpm: nf(prop.rpm), v: nf(prop.feeds.roughing), src: prop.source })
+      : t('{ref} ajouté à votre bibliothèque : rotation et avances laissées vides (aucune recommandation disponible), à compléter.', { ref });
   }
-  $('chips').innerHTML = CHIPS.map(([l], i) => `<button type="button" data-chip="${i}">${esc(l)}</button>`).join('');
-  $('chips').querySelectorAll('[data-chip]').forEach(bt => bt.onclick = () => {
-    const f = CHIPS[+bt.dataset.chip][1], tout = !Object.keys(f).length;
-    if ('cat' in f || tout) { $('cat-cat').value = f.cat || ''; $('cat-fam').value = ''; }
-    if ('d' in f || tout) $('cat-d').value = f.d !== undefined ? String(f.d) : '';
-    if (tout) $('q').value = '';
-    majFamilles(); filtrerCat();
-  });
-  function majFamilles() {
-    const cat = $('cat-cat').value, cur = $('cat-fam').value;
-    const fams = [...new Set(CAT.filter(x => !cat || x.categorie === cat).map(x => x.famille))];
-    $('cat-fam').innerHTML = '<option value="">toutes les familles</option>' + fams.map(f => `<option${f === cur ? ' selected' : ''}>${esc(f)}</option>`).join('');
-  }
-  $('f-search').onsubmit = e => { e.preventDefault(); filtrerCat(); };
-  $('cat-cat').addEventListener('input', () => { majFamilles(); filtrerCat(); });
-  ['q', 'cat-fam', 'cat-d'].forEach(id => $(id).addEventListener('input', filtrerCat));
-  fetch('catalogue-datron.json', { cache: 'no-cache' }).then(r => r.json()).then(j => {
-    CAT = j.outils || []; CATS = j.categories || {};
-    $('cat-count').textContent = `– ${CAT.length} références hors ligne`;
-    $('cat-cat').innerHTML = '<option value="">toutes les catégories</option>' + Object.entries(CATS).map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join('');
-    $('cat-d').innerHTML = '<option value="">tous les Ø</option>' + [...new Set(CAT.map(x => x.D1))].sort((a, b) => a - b).map(d => `<option value="${d}">Ø${nf(d)}</option>`).join('');
-    $('cat-cat').value = 'fraise'; majFamilles(); filtrerCat();
-  }).catch(() => { $('st-cat').textContent = 'Catalogue introuvable.'; });
-  $('add-type').innerHTML = Object.entries(TYPES).map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join('');
-  $('filtre').innerHTML = '<option value="">tous les types</option>' + Object.entries(TYPES).map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join('');
-  $('filtre').onchange = render;
-  $('b-fiche').onclick = () => { const r = $('f-add').articleNr.value.trim(); if (r) window.open(SHOP(r), '_blank', 'noopener'); else $('f-add').articleNr.focus(); };
-  $('f-add').onsubmit = e => {
-    e.preventDefault();
-    const f = e.target, n = k => f[k].value === '' ? undefined : Number(f[k].value);
-    const type = f.type.value;
-    const ref = generic.concat(lib.tools).find(t => t.type === type) || {};
-    const t = { id: uid(f.articleNr.value.trim() || f.name.value), name: f.name.value.trim(), type, articleNr: f.articleNr.value.trim().toUpperCase(),
-      vendor: 'DATRON', diameter: n('diameter'), tipAngle: n('tipAngle') ?? 0, tipDiameter: n('tipDiameter'), fluteLength: n('fluteLength'),
-      flutes: n('flutes') ?? 1, rpm: ref.rpm ?? 20000, feeds: { ...(ref.feeds || { roughing: 500, finishing: 700, plunge: 100, ramp: 200, approach: 6000 }) } };
-    if (t.tipDiameter === undefined) delete t.tipDiameter;
-    lib.tools.unshift(t); dirty = true; render(); f.reset(); status(`« ${t.name} » ajouté en tête de liste : réglez rotation et avances.`);
-  };
-  /* ---------- remplissage automatique depuis une fiche Datron ---------- */
-  // favori (bookmarklet) : lit les données structurées schema.org/Product de la fiche et les copie
-  const BM = `(()=>{const L=[...document.querySelectorAll('script[type="application/ld+json"]')].flatMap(s=>{try{const j=JSON.parse(s.textContent);return Array.isArray(j)?j:[j]}catch(e){return[]}});
-const p=L.find(x=>x&&x['@type']==='Product');if(!p){alert('RDsimPl : ouvrez une fiche produit du webshop Datron.');return}
-const d=JSON.stringify({romduch:'datron',sku:p.sku,name:p.name,description:p.description,url:location.href});
-const ok=()=>alert('RDsimPl : fiche '+p.sku+' copiée. Collez-la dans l\\'éditeur d\\'outils.');
-navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(d).then(ok,()=>prompt('Copiez ce texte :',d)):prompt('Copiez ce texte :',d)})()`;
-  $('bm').href = 'javascript:' + encodeURIComponent(BM.replace(/\n/g, ''));
-  $('bm').onclick = e => { e.preventDefault(); alert('Glissez ce bouton dans votre barre de favoris, puis utilisez-le sur une fiche du webshop Datron.'); };
+  $('f-search').onsubmit = e => { e.preventDefault(); filtrer(); };
+  $('q').addEventListener('input', filtrer);
+  $('b-reset').onclick = () => { Object.keys(FV).forEach(k => delete FV[k]); $('q').value = ''; renderFacets(); filtrer(); };
 
-  function parseDatron(txt) {
-    const o = {};
-    try { const j = JSON.parse(txt); if (j && j.romduch === 'datron') { o.sku = j.sku; o.titre = j.name; o.url = j.url; txt = `${j.name || ''} ${j.description || ''}`; } } catch (e) { /* texte brut */ }
-    const t = String(txt).replace(/\/n/g, ' ').replace(/\s+/g, ' ');
-    const num = re => { const m = t.match(re); return m ? parseFloat(m[1].replace(',', '.')) : undefined; };
-    o.sku = (o.sku || (t.match(/\b(0[0-9A-Z]\d{5}[A-Z])\b/i) || [])[1] || '').toUpperCase();
-    o.d1 = num(/\(D1\)\s*[=:]\s*([\d.,]+)/i) ?? num(/\bD1\b\s*[=:]?\s*([\d.,]+)\s*mm/i);
-    o.d2 = num(/\(D2\)\s*[=:]\s*([\d.,]+)/i);
-    o.l1 = num(/\(L1\)\s*[=:]\s*([\d.,]+)/i);
-    o.l2 = num(/\(L2\)\s*[=:]\s*([\d.,]+)/i) ?? num(/\bL2\b\s*[=:]?\s*([\d.,]+)\s*mm/i);
-    const words = { ein: 1, zwei: 2, drei: 3, vier: 4 };
-    const fl = t.match(/mit\s+(\d+)\s+Schneide/i) || t.match(/\b(ein|zwei|drei|vier)schneider/i);
-    o.flutes = fl ? (words[String(fl[1]).toLowerCase()] || +fl[1]) : undefined;
-    o.tipAngle = num(/Spitzenwinkel\s*(?:\([^)]*\))?\s*[=:]\s*([\d.,]+)/i) ?? num(/(\d+(?:[.,]\d+)?)\s*°/);
-    o.tipDiameter = num(/Spitzen(?:durchmesser|breite)\s*(?:\([^)]*\))?\s*[=:]\s*([\d.,]+)/i);
-    o.type = /gravier/i.test(t) ? 'gravure' : /gewinde/i.test(t) ? 'filetage' : /bohr/i.test(t) ? 'foret' : /planfr|fly ?cut/i.test(t) ? 'surfacage' : 'fraise';
-    if (!o.titre && o.sku) { const m = t.match(new RegExp('([A-Za-zÄÖÜäöüß-]+)\\s+' + o.sku, 'i')); if (m) o.titre = m[1]; }
-    if (o.d1 === undefined && o.type === 'gravure') o.d1 = o.d2;          // graveur : Ø utile = queue
-    return o;
-  }
-  function remplir(txt) {
-    const o = parseDatron(txt), f = $('f-add'), filled = [];
-    const put = (k, v, lbl) => { if (v === undefined || v === '' || Number.isNaN(v)) return; f.elements[k].value = v; f.elements[k].classList.add('filled'); filled.push(lbl); };
-    f.querySelectorAll('.filled').forEach(x => x.classList.remove('filled'));
-    if (!o.sku && o.d1 === undefined) { $('st-auto').textContent = 'Aucune donnée Datron reconnue dans le texte collé.'; return; }
-    f.reset();                                                     // pas de reste d'une fiche précédente
-    put('articleNr', o.sku, 'référence');
-    const famille = (o.titre || '').replace(o.sku, '').trim();
-    const cotes = o.type === 'gravure'
-      ? [o.tipAngle !== undefined && `${o.tipAngle}°`, o.tipDiameter !== undefined && `pointe ${o.tipDiameter}`]
-      : [o.d1 !== undefined && `Ø${o.d1}`, o.l2 !== undefined && `L${o.l2}`];
-    put('name', [famille || TYPES[o.type], ...cotes].filter(Boolean).join(' '), 'désignation');
-    put('type', o.type, 'type'); put('diameter', o.d1, 'D1'); put('fluteLength', o.l2, 'L2'); put('flutes', o.flutes, 'dents');
-    if (o.type === 'gravure' || o.type === 'foret') put('tipAngle', o.tipAngle, 'angle'); put('tipDiameter', o.tipDiameter, 'Ø pointe');
-    $('st-auto').textContent = `Rempli : ${filled.join(', ')}${o.d2 ? ` (queue Ø${o.d2}, longueur ${o.l1 ?? '?'} mm)` : ''}. Vérifiez, puis « Ajouter à ma bibliothèque ».`;
-  }
-  $('paste').addEventListener('paste', e => { const t = (e.clipboardData || window.clipboardData).getData('text'); if (t) { e.preventDefault(); $('paste').value = t; remplir(t); } });
-  $('paste').addEventListener('change', () => remplir($('paste').value));
-  $('b-paste').onclick = () => {
-    if (!navigator.clipboard || !navigator.clipboard.readText) { $('st-auto').textContent = 'Lecture du presse-papiers non autorisée : collez avec Ctrl+V dans la zone.'; return; }
-    navigator.clipboard.readText().then(t => { $('paste').value = t; remplir(t); }, () => { $('st-auto').textContent = 'Accès au presse-papiers refusé : collez avec Ctrl+V dans la zone.'; });
-  };
-
-  /* ---------- proposition des données de coupe Datron ---------- */
-  const C = window.Coupe;
+  /* =================== données de coupe DATRON =================== */
   $('p-broche').innerHTML = C.BROCHES.map(b => `<option${b === '2 kW neo' ? ' selected' : ''}>${b}</option>`).join('');
   $('p-mat').innerHTML = Object.entries(C.MATIERES).map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join('');
-  function appliquer(t) {
-    const p = C.proposer(t, { broche: $('p-broche').value, matiere: $('p-mat').value });
-    if (!p.ok) { $('st-prop').textContent = `${t.name} : ${p.raison}`; return false; }
-    t.rpm = p.rpm; t.feeds = { ...(t.feeds || {}), ...p.feeds }; t.coupe = p.coupe;
-    dirty = true;
-    $('st-prop').textContent = `${t.name} : ${p.rpm} tr/min, ébauche ${p.feeds.roughing}, finition ${p.feeds.finishing} mm/min – source : ${p.source}. ${p.notes.join(' ')}`;
+  ['p-broche', 'p-mat'].forEach(id => $(id).addEventListener('change', () => { if (cat === 'fraise') filtrer(); }));
+  function appliquer(o) {
+    const p = C.proposer(o, { broche: $('p-broche').value, matiere: $('p-mat').value });
+    if (!p.ok) { $('st-prop').textContent = `${o.name} : ${p.raison}`; return false; }
+    o.rpm = p.rpm; o.feeds = { ...(o.feeds || {}), ...p.feeds }; o.coupe = p.coupe;
+    setDirty(true);
+    $('st-prop').textContent = t('{n} : {rpm} tr/min, ébauche {r}, finition {f} mm/min – source : {src}.', { n: o.name, rpm: nf(p.rpm), r: nf(p.feeds.roughing), f: nf(p.feeds.finishing), src: p.source }) + ' ' + p.notes.join(' ');
     return p;
   }
   $('b-prop-all').onclick = () => {
-    const fr = lib.tools.filter(t => t.type === 'fraise');
-    if (!fr.length) { $('st-prop').textContent = 'Aucune fraise dans la bibliothèque.'; return; }
-    if (!confirm(`Remplacer la rotation et les avances de ${fr.length} fraise(s) par les propositions Datron (${$('p-broche').value}) ?`)) return;
-    const res = fr.map(appliquer).filter(Boolean);
-    const guide = res.filter(p => p.coupe.source === 'guide').length;
+    const fr = lib.tools.filter(o => o.type === 'fraise');
+    if (!fr.length) { $('st-prop').textContent = t('Aucune fraise dans la bibliothèque.'); return; }
+    if (!confirm(t('Remplacer la rotation et les avances de {n} fraise(s) par les propositions DATRON ({b}) ?', { n: fr.length, b: $('p-broche').value }))) return;
+    const res = fr.map(appliquer).filter(Boolean), guide = res.filter(p => p.coupe.source === 'guide').length;
     render();
-    $('st-prop').textContent = `${res.length} fraise(s) mises à jour (${guide} depuis le guide chargé, ${res.length - guide} par le modèle). Vérifiez, puis enregistrez ou exportez.`;
+    $('st-prop').textContent = t('{n} fraise(s) mises à jour ({g} depuis le guide chargé, {m} par le modèle). Vérifiez, puis enregistrez ou exportez.', { n: res.length, g: guide, m: res.length - guide });
   };
   $('st-prop').textContent = C.guideCharge()
-    ? `Guide Datron chargé (${C.nbRefs()} références) : valeurs exactes pour les références reconnues.`
-    : 'Valeurs du modèle. Pour les valeurs exactes de vos références, chargez votre guide Datron sur la page « détails et calculateur ».';
+    ? t('Guide DATRON chargé ({n} références) : valeurs exactes pour les références reconnues.', { n: C.nbRefs() })
+    : t('Valeurs du modèle. Pour les valeurs exactes de vos références, chargez votre guide DATRON sur la page « détails et calculateur ».');
 
-  $('b-new').onclick = () => { lib.tools.unshift({ id: uid('NOUVEL_OUTIL'), name: 'Nouvel outil', type: 'fraise', articleNr: '', vendor: '', diameter: 2, fluteLength: 6, flutes: 1, tipAngle: 0, rpm: 20000,
-    feeds: { roughing: 500, finishing: 700, plunge: 100, ramp: 200, approach: 6000 } }); dirty = true; render(); };
-  $('b-fold').onclick = () => { lib.tools.forEach(t => { t._fold = true; }); render(); };
-  $('b-unfold').onclick = () => { lib.tools.forEach(t => { t._fold = false; }); render(); };
   addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
-  document.addEventListener('stockage-change', render);
+  document.addEventListener('stockage-change', () => render());
 
-  /* ---------- démarrage : ma bibliothèque enregistrée, sinon le fichier générique ---------- */
-  fetch('tools.json', { cache: 'no-cache' }).then(r => r.json()).then(j => { generic = j.tools || []; }).catch(() => {}).finally(() => {
-    const saved = ST() && ST().get('tools');
-    if (saved && Array.isArray(saved.tools)) setLib(saved, 'mon tools.json (ce navigateur)');
-    else fetch('tools.json', { cache: 'no-cache' }).then(r => r.json()).then(j => setLib(j, 'tools.json générique du site')).catch(() => { render(); status('tools.json du site introuvable : importez votre fichier.'); });
-  });
+  /* =================== démarrage =================== */
+  fetch('catalogue-datron.json', { cache: 'no-cache' }).then(r => r.json()).then(j => {
+    CAT = j.outils || []; CATS = j.categories || {};
+    $('cat-count').textContent = `– ${t('{n} références hors ligne', { n: nf(CAT.length) })}`;
+    renderChips(); renderFacets(); filtrer();
+  }).catch(() => { $('st-cat').textContent = t('Catalogue introuvable.'); });
+
+  const saved = ST() && ST().get('tools');
+  if (saved && Array.isArray(saved.tools)) setLib(saved, t('ce navigateur'));
+  else fetch('tools.json', { cache: 'no-cache' }).then(r => r.json()).then(j => setLib(j, t('tools.json du site')))
+    .catch(() => { render(); status(t('tools.json du site introuvable : importez votre fichier.')); });
 });
 </script>
 </body>

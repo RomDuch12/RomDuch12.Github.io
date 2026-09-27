@@ -31,12 +31,13 @@
 
   window.Themes = { liste: THEMES, choisir, actuel: () => root.dataset.theme || 'auto' };
   document.addEventListener('DOMContentLoaded', () => {
-    const opt = ([v, l]) => `<option value="${v}">${l}</option>`;
+    const T = window.t || (x => x);
+    const opt = ([v, l]) => `<option value="${v}">${T(l)}</option>`;
     document.querySelectorAll('[data-theme-select]').forEach(host => {
       host.classList.add('themesel');
-      host.innerHTML = `<label>Thème <select aria-label="Thème de couleurs"><option value="auto">Automatique (système)</option>
-        <optgroup label="Sombres (15)">${THEMES.sombres.map(opt).join('')}</optgroup>
-        <optgroup label="Clairs (5)">${THEMES.clairs.map(opt).join('')}</optgroup></select></label>`;
+      host.innerHTML = `<label>${T('Thème')} <select aria-label="${T('Thème de couleurs')}"><option value="auto">${T('Automatique (système)')}</option>
+        <optgroup label="${T('Sombres (15)')}">${THEMES.sombres.map(opt).join('')}</optgroup>
+        <optgroup label="${T('Clairs (5)')}">${THEMES.clairs.map(opt).join('')}</optgroup></select></label>`;
       const s = host.querySelector('select');
       s.value = root.dataset.theme || 'auto';
       s.addEventListener('change', () => choisir(s.value));

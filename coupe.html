@@ -3,18 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Données de coupe Datron – RomDuch</title>
-<meta name="description" content="Données de coupe des fraises 1 dent DATRON dans l'aluminium : synthèse du DATRON High-Speed Cutting Guide, calculateur de rotation et d'avances, lecture locale du guide pour les valeurs exactes.">
+<script src="i18n.js"></script>
 <script src="theme.js"></script>
+<title>Données de coupe DATRON – RomDuch</title>
+<meta name="description" content="Données de coupe des fraises 1 dent DATRON dans l'aluminium : synthèse du DATRON High-Speed Cutting Guide, calculateur de rotation et d'avances, lecture locale du guide pour les valeurs exactes.">
 <link rel="stylesheet" href="themes.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400&display=swap">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Barlow,"Segoe UI",Roboto,Arial,sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Barlow,"Segoe UI",Roboto,"Noto Sans SC","Microsoft YaHei",Arial,sans-serif}
 main{max-width:980px;margin:0 auto;padding:28px 18px 80px}
 header{padding:10px 0 20px;border-bottom:2px solid var(--brass);margin-bottom:10px}
-.top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}.top .prefs{display:flex;flex-wrap:wrap;gap:8px}
 h1{font:700 clamp(2rem,5vw,3rem)/1 "Barlow Condensed",Arial Narrow,sans-serif;margin:8px 0 4px}
 h2{font:700 1.6rem/1.1 "Barlow Condensed",sans-serif;margin:34px 0 12px}
 h3{margin:0 0 8px;font:600 1.1rem Barlow,sans-serif}
@@ -46,74 +47,66 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <body>
 <main>
 <header>
-  <div class="top"><a href="index.html">← RomDuch · Génère ton SimPL</a><span data-theme-select></span></div>
-  <h1>Données de coupe Datron</h1>
-  <p class="lead">Fraises carbure 1 dent DATRON dans l'aluminium : synthèse du <a id="lien-guide" href="#" target="_blank" rel="noopener">DATRON High-Speed Cutting Guide</a>,
-    calculateur de rotation et d'avances, et lecture de votre exemplaire du guide pour les valeurs exactes de chaque référence.
-    Les boutons « Proposer » de l'<a href="outils.html">éditeur d'outils</a> utilisent ces calculs.</p>
+  <div class="top"><a href="index.html" data-i18n>← RomDuch · Génère ton SimPL</a><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <h1 data-i18n>Données de coupe DATRON</h1>
+  <p class="lead" data-i18n>Fraises carbure 1 dent DATRON dans l'aluminium : synthèse du <a class="lien-guide" href="#" target="_blank" rel="noopener">DATRON High-Speed Cutting Guide</a>, calculateur de rotation et d'avances, et lecture de votre exemplaire du guide pour les valeurs exactes de chaque référence. Les boutons « Proposer » de l'<a href="outils.html">éditeur d'outils</a> utilisent ces calculs.</p>
 </header>
 
-<h2>Ce que dit le guide</h2>
+<h2 data-i18n>Ce que dit le guide</h2>
 <div class="grid">
-  <div class="cell"><h3>Domaine couvert</h3><ul>
+  <div class="cell"><h3 data-i18n>Domaine couvert</h3><ul data-i18n>
     <li>Fraises 1 dent carbure DATRON (standard, équilibrées, 4-IN-1, avec dépouille, hélice à gauche, polies pour acrylique).</li>
     <li>Valeurs établies pour de l'aluminium de résistance 200 à 400 N/mm² (attention à la teneur en silicium pour l'état de surface).</li>
     <li>Tableaux par puissance de broche : 1,8 · 2 · 2 neo · 3 · 4 · 8 kW.</li></ul></div>
-  <div class="cell"><h3>Stratégies</h3><ul>
+  <div class="cell"><h3 data-i18n>Stratégies</h3><ul data-i18n>
     <li><b>Rainurage (plein)</b> : ae = Ø, faible profondeur ap.</li>
     <li><b>Fraisage latéral (partiel)</b> : grande profondeur ap, faible largeur ae.</li>
     <li>Rampe et hélice en pleine matière : angle de plongée 3 à 5°, hélice d'environ 1,4 × Ø.</li>
     <li>Poche : recouvrement d'environ 60 à 70 % ; trochoïdal : engagement partiel.</li>
     <li>Surépaisseur de finition : environ 0,05 à 0,1 mm.</li></ul></div>
-  <div class="cell"><h3>Adapter à la matière</h3><ul>
+  <div class="cell"><h3 data-i18n>Adapter à la matière</h3><ul data-i18n>
     <li>Résistance &lt; 200 N/mm² : rotation réduite d'environ 20 %, mêmes ap et ae, avance correspondante.</li>
     <li>Résistance &gt; 400 N/mm² : ap et ae réduits d'environ 10 à 20 %, même rotation et même avance.</li>
     <li>Laiton, cuivre, bronze, plastiques, bois : usinables, mais sans valeurs chiffrées dans le guide.</li></ul></div>
-  <div class="cell"><h3>Bonnes pratiques</h3><ul>
+  <div class="cell"><h3 data-i18n>Bonnes pratiques</h3><ul data-i18n>
     <li>Vérifier le cas d'usage (plein ou partiel) avant de reprendre une valeur.</li>
     <li>Ø ≥ 5 mm avec longueur de coupe &gt; 4 × Ø : réduire les paramètres d'environ 20 % ou choisir une fraise équilibrée.</li>
     <li>Sortie d'outil la plus courte possible ; pinces et porte-outils en bon état.</li>
     <li>Refroidissement micro-pulvérisation bien réglé (réglage de base conseillé : 3 bar liquide, 2 bar air).</li></ul></div>
 </div>
-<p class="note">Synthèse rédigée par RomDuch. Le guide complet (72 pages, tableaux par référence) est à consulter chez DATRON :
-  <a id="lien-guide2" href="#" target="_blank" rel="noopener">télécharger le guide officiel (PDF, 15,6 Mo)</a>.</p>
+<p class="note" data-i18n>Synthèse indépendante. Le guide complet (72 pages, tableaux par référence) est à consulter chez DATRON : <a class="lien-guide" href="#" target="_blank" rel="noopener">télécharger le guide officiel (PDF, 15,6 Mo)</a>.</p>
 
-<h2>Calculateur</h2>
+<h2 data-i18n>Calculateur</h2>
 <section class="box" aria-labelledby="t-calc">
-  <h3 id="t-calc">Fraise 1 dent</h3>
+  <h3 id="t-calc" data-i18n>Fraise 1 dent</h3>
   <form id="f-calc" class="fields" onsubmit="return false">
-    <label>Broche<select name="broche"></select></label>
-    <label>Matière<select name="matiere"></select></label>
-    <label>Référence DATRON (optionnel)<input name="ref" placeholder="0068432A" autocomplete="off"></label>
-    <label>Ø de coupe D1 (mm)<input name="D" type="number" step="any" min="0.1" value="3"></label>
-    <label>Longueur de coupe L2 (mm)<input name="L2" type="number" step="any" min="0.1" value="8"></label>
-    <label>Nombre de dents<input name="Z" type="number" step="1" min="1" value="1"></label>
+    <label><span data-i18n>Broche</span><select name="broche"></select></label>
+    <label><span data-i18n>Matière</span><select name="matiere"></select></label>
+    <label><span data-i18n>Référence DATRON (optionnel)</span><input name="ref" placeholder="0068432A" autocomplete="off"></label>
+    <label><span data-i18n>Ø de coupe D1 (mm)</span><input name="D" type="number" step="any" min="0.1" value="3"></label>
+    <label><span data-i18n>Longueur de coupe L2 (mm)</span><input name="L2" type="number" step="any" min="0.1" value="8"></label>
+    <label><span data-i18n>Nombre de dents</span><input name="Z" type="number" step="1" min="1" value="1"></label>
   </form>
   <div class="res" id="res" aria-live="polite"></div>
 </section>
 
-<h2>Valeurs exactes par référence</h2>
+<h2 data-i18n>Valeurs exactes par référence</h2>
 <section class="box" aria-labelledby="t-guide">
-  <h3 id="t-guide">Lire mon exemplaire du guide <span class="badge" id="etat-guide">non chargé</span></h3>
-  <p class="note" style="margin-top:0">Téléchargez le guide sur le site DATRON, puis sélectionnez le fichier : il est lu dans votre navigateur (pdf.js), rien n'est envoyé.
-    Les valeurs des tableaux sont alors utilisées pour votre référence, dans le calculateur et dans l'éditeur d'outils.
-    Avec le stockage local accepté, elles restent disponibles aux prochaines visites.</p>
-  <label><button type="button" class="primary" id="b-guide">Choisir le PDF du guide…</button><input type="file" id="f-guide" accept="application/pdf,.pdf" hidden></label>
+  <h3 id="t-guide"><span data-i18n>Lire mon exemplaire du guide</span> <span class="badge" id="etat-guide"></span></h3>
+  <p class="note" style="margin-top:0" data-i18n>Téléchargez le guide sur le site DATRON, puis sélectionnez le fichier : il est lu dans votre navigateur (pdf.js), rien n'est envoyé. Les valeurs des tableaux sont alors utilisées pour votre référence, dans le calculateur et dans l'éditeur d'outils. Avec le stockage local accepté, elles restent disponibles aux prochaines visites.</p>
+  <label><button type="button" class="primary" id="b-guide" data-i18n>Choisir le PDF du guide…</button><input type="file" id="f-guide" accept="application/pdf,.pdf" hidden></label>
   <p class="note" id="st-guide" role="status"></p>
 </section>
 
-<h2>Le modèle</h2>
+<h2 data-i18n>Le modèle</h2>
 <section class="box">
-  <p style="margin-top:0">Sans le guide chargé, les valeurs viennent d'un modèle ajusté par RomDuch sur les tableaux du guide (environ 1 440 lignes) :
-    chaque grandeur vaut <code>exp(c0 + c1·ln D1 + c2·ln(L2/D1))</code>, par broche et par stratégie, la rotation étant plafonnée à la valeur maximale observée.
-    La plongée (25 % de l'ébauche) et la rampe (= ébauche) sont des estimations RomDuch.</p>
-  <p class="note">Précision constatée par rapport aux tableaux : rotation à environ 5 % près ; avance à environ 20–28 % près en écart médian
-    (les valeurs du guide sont arrondies et varient d'une référence à l'autre). Ce sont des valeurs de départ : validez en simulation puis à l'essai.</p>
-  <div class="scroll"><table id="coef"><thead><tr><th>Broche</th><th>Stratégie</th><th>n (c0, c1, c2) · n max</th><th>fz</th><th>ap</th><th>ae</th><th>Ø couverts</th></tr></thead><tbody></tbody></table></div>
+  <p style="margin-top:0" data-i18n>Sans le guide chargé, les valeurs viennent d'un modèle ajusté sur les tableaux du guide (environ 1 440 lignes) : chaque grandeur vaut <code>exp(c0 + c1·ln D1 + c2·ln(L2/D1))</code>, par broche et par stratégie, la rotation étant plafonnée à la valeur maximale observée. La plongée (25 % de l'ébauche) et la rampe (= ébauche) sont des estimations.</p>
+  <p class="note" data-i18n>Précision constatée par rapport aux tableaux : rotation à environ 5 % près ; avance à environ 20–28 % près en écart médian (les valeurs du guide sont arrondies et varient d'une référence à l'autre). Ce sont des valeurs de départ : validez en simulation puis à l'essai.</p>
+  <div class="scroll"><table id="coef"><thead><tr><th data-i18n>Broche</th><th data-i18n>Stratégie</th><th data-i18n>n (c0, c1, c2) · n max</th><th>fz</th><th>ap</th><th>ae</th><th data-i18n>Ø couverts</th></tr></thead><tbody></tbody></table></div>
 </section>
 
-<footer><p><a href="index.html">Générateur SimPL</a> · <a href="outils.html">Éditeur d'outils</a> · <a href="cv.html">CV</a> · <a href="#" data-stockage-gerer>Gérer le stockage local</a></p>
-<p>DATRON est une marque de DATRON AG. Page indépendante, sans lien avec DATRON ; en cas de doute, les documents DATRON font foi.</p></footer>
+<footer><p><a href="index.html" data-i18n>Générateur SimPL</a> · <a href="outils.html" data-i18n>Éditeur d'outils</a> · <a href="cv.html" data-i18n>CV</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p>
+<p data-i18n>DATRON est une marque de DATRON AG. Page indépendante, sans lien avec DATRON ; en cas de doute, les documents DATRON font foi.</p></footer>
 </main>
 <script src="stockage.js" defer></script>
 <script src="coupe.js" defer></script>
@@ -122,52 +115,56 @@ document.addEventListener('DOMContentLoaded', function () {
   'use strict';
   const C = window.Coupe, $ = id => document.getElementById(id);
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  ['lien-guide', 'lien-guide2'].forEach(id => { $(id).href = C.GUIDE_URL; });
+  const nf = (v, d = 3) => I18N.fmt(v, { maximumFractionDigits: d });
+  document.querySelectorAll('.lien-guide').forEach(a => { a.href = C.GUIDE_URL; });
   const f = $('f-calc');
   f.broche.innerHTML = C.BROCHES.map(b => `<option${b === '2 kW neo' ? ' selected' : ''}>${b}</option>`).join('');
   f.matiere.innerHTML = Object.entries(C.MATIERES).map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join('');
 
   function carte(titre, r) {
-    if (!r) return `<div class="cell"><h3>${titre}</h3><p>Renseignez le diamètre.</p></div>`;
-    const lignes = [['Rotation n', `${r.n.toLocaleString('fr-FR')} tr/min`], ['Vitesse de coupe Vc', `${r.vc} m/min`], ['Avance par dent fz', `${r.fz} mm`],
-      ['Avance Vf', `${r.vf.toLocaleString('fr-FR')} mm/min`], ['Profondeur ap', `${r.ap} mm`], ['Largeur ae', `${r.ae} mm`]];
-    return `<div class="cell"><h3>${titre} <span class="badge">${r.source === 'guide' ? 'guide' : 'modèle'}</span></h3>
+    if (!r) return `<div class="cell"><h3>${titre}</h3><p>${t('Renseignez le diamètre.')}</p></div>`;
+    const lignes = [[t('Rotation n'), `${nf(r.n)} ${t('tr/min')}`], [t('Vitesse de coupe Vc'), `${nf(r.vc)} m/min`], [t('Avance par dent fz'), `${nf(r.fz, 4)} mm`],
+      [t('Avance Vf'), `${nf(r.vf)} mm/min`], [t('Profondeur ap'), `${nf(r.ap)} mm`], [t('Largeur ae'), `${nf(r.ae)} mm`]];
+    return `<div class="cell"><h3>${titre} <span class="badge">${r.source === 'guide' ? t('guide') : t('modèle')}</span></h3>
       <table>${lignes.map(([k, v]) => `<tr><th>${k}</th><td class="v">${v}</td></tr>`).join('')}</table>
       ${(r.notes || []).map(n => `<p class="warn">${esc(n)}</p>`).join('')}</div>`;
   }
   function maj() {
     const p = { broche: f.broche.value, matiere: f.matiere.value, D: f.D.value, L2: f.L2.value, Z: f.Z.value };
     const ref = f.ref.value.trim().toUpperCase(), ex = C.exact(ref);
-    if (ex && ex.D1) { if (!f.D.value || document.activeElement === f.ref) { f.D.value = ex.D1; if (ex.L2) f.L2.value = ex.L2; p.D = ex.D1; p.L2 = ex.L2 || p.L2; } }
-    const tool = { type: 'fraise', articleNr: ref, diameter: +p.D, fluteLength: +p.L2, flutes: +p.Z };
-    const prop = C.proposer(tool, p);
+    if (ex && ex.D1 && document.activeElement === f.ref) { f.D.value = ex.D1; if (ex.L2) f.L2.value = ex.L2; p.D = ex.D1; p.L2 = ex.L2 || p.L2; }
+    const prop = C.proposer({ type: 'fraise', articleNr: ref, diameter: +p.D, fluteLength: +p.L2, flutes: +p.Z }, p);
     const exRow = s => ex && ex.rows.find(x => x.broche === p.broche && x.strat === s);
-    const res = s => { const r = exRow(s); if (!r) return C.calc({ ...p, strat: s });
-      const c = C.calc({ ...p, strat: s }); return { ...r, q: 0, source: 'guide', notes: c ? c.notes.filter(n => /matière|essai|vibrations/.test(n)) : [] }; };
-    $('res').innerHTML = carte('Rainurage (plein)', res('plein')) + carte('Fraisage latéral (partiel)', res('partiel'))
-      + (prop.ok ? `<div class="cell"><h3>Pour tools.json</h3><table>
+    const res = s => {
+      const r = exRow(s), c = C.calc({ ...p, strat: s });
+      if (!r) return c;
+      return { ...r, source: 'guide', notes: c ? c.notes.filter((n, i) => ['autre', 'vib'].includes(c.codes[i])) : [] };
+    };
+    $('res').innerHTML = carte(t('Rainurage (plein)'), res('plein')) + carte(t('Fraisage latéral (partiel)'), res('partiel'))
+      + (prop.ok ? `<div class="cell"><h3>${t('Pour tools.json')}</h3><table>
         <tr><th>rpm</th><td class="v">${prop.rpm}</td></tr><tr><th>roughing</th><td class="v">${prop.feeds.roughing}</td></tr>
         <tr><th>finishing</th><td class="v">${prop.feeds.finishing}</td></tr><tr><th>plunge</th><td class="v">${prop.feeds.plunge}</td></tr>
-        <tr><th>ramp</th><td class="v">${prop.feeds.ramp}</td></tr></table><p class="note">Source : ${esc(prop.source)}. Ébauche = rainurage, finition = latéral.</p></div>` : '')
-      + (ref && !ex && C.guideCharge() ? '<p class="warn">Référence absente du guide chargé : valeurs du modèle.</p>' : '');
+        <tr><th>ramp</th><td class="v">${prop.feeds.ramp}</td></tr></table><p class="note">${t('Source')} : ${esc(prop.source)}. ${t('Ébauche = rainurage, finition = latéral.')}</p></div>` : '')
+      + (ref && !ex && C.guideCharge() ? `<p class="warn">${t('Référence absente du guide chargé : valeurs du modèle.')}</p>` : '');
   }
   f.addEventListener('input', maj); maj();
 
-  function etat() { $('etat-guide').textContent = C.guideCharge() ? `${C.nbRefs()} références` : 'non chargé'; }
+  function etat() { $('etat-guide').textContent = C.guideCharge() ? t('{n} références', { n: C.nbRefs() }) : t('non chargé'); }
   $('b-guide').onclick = () => $('f-guide').click();
   $('f-guide').onchange = async e => {
     const file = e.target.files[0]; if (!file) return;
     try { const nb = await C.chargerGuide(file, m => { $('st-guide').textContent = m; });
-      $('st-guide').textContent = `${nb} références lues dans le guide${window.Stockage && window.Stockage.actif() ? ' et mémorisées dans ce navigateur' : ''}.`; etat(); maj(); }
-    catch (err) { $('st-guide').textContent = 'Lecture impossible : ' + err.message; }
+      $('st-guide').textContent = window.Stockage && window.Stockage.actif() ? t('{n} références lues dans le guide et mémorisées dans ce navigateur.', { n: nb }) : t('{n} références lues dans le guide.', { n: nb });
+      etat(); maj(); }
+    catch (err) { $('st-guide').textContent = t('Lecture impossible : {e}', { e: err.message }); }
     e.target.value = '';
   };
   etat();
 
   const c3 = a => a.map(x => x.toFixed(3)).join(' · ');
   $('coef').tBodies[0].innerHTML = C.BROCHES.flatMap(b => ['plein', 'partiel'].map(s => { const m = C.MODEL[b][s];
-    return `<tr><td>${b}</td><td>${s === 'plein' ? 'rainurage' : 'latéral'}</td><td><code>${c3(m.n)} · ${m.n_max}</code></td><td><code>${c3(m.fz)}</code></td>
-      <td><code>${c3(m.ap)}</code></td><td><code>${c3(m.ae)}</code></td><td>${m.d[0]}–${m.d[1]}</td></tr>`; })).join('');
+    return `<tr><td>${b}</td><td>${s === 'plein' ? t('rainurage') : t('latéral')}</td><td><code>${c3(m.n)} · ${m.n_max}</code></td><td><code>${c3(m.fz)}</code></td>
+      <td><code>${c3(m.ap)}</code></td><td><code>${c3(m.ae)}</code></td><td>${nf(m.d[0])}–${nf(m.d[1])}</td></tr>`; })).join('');
 });
 </script>
 </body>

@@ -170,6 +170,104 @@ ref,categorie,famille,filetage,D1,D2,D3,L1,L2,L3,angle,R,dents,pas,prepercage,lo
 0068092E,Fraise 1 dent,Fraise 1 dent équilibrée,,12,12,11,70,21,33,,,1,,,,122.31,RG2,Einschneider – gewuchtet,
 0068092K,Fraise 1 dent,Fraise 1 dent équilibrée,,12,12,11,60,12,19,,,1,,,,106.46,RG2,Einschneider – gewuchtet,
 0068092L,Fraise 1 dent,Fraise 1 dent équilibrée,,12,12,11,70,31.5,42,,,1,,,,129.38,RG2,Einschneider – gewuchtet,
+0068171E,Fraise boule,Fraise boule 1 dent,,1,3,,40,4,,,0.5,1,,,,41.41,RG2,Stirnradiusfräser – eine Schneide,48
+0068172E,Fraise boule,Fraise boule 1 dent,,2,6,,50,7,,,1,1,,,,41.41,RG2,Stirnradiusfräser – eine Schneide,48
+0068173E,Fraise boule,Fraise boule 1 dent,,3,6,,50,8,,,1.5,1,,,,41.41,RG2,Stirnradiusfräser – eine Schneide,48
+0068174E,Fraise boule,Fraise boule 1 dent,,4,6,,50,10,,,2,1,,,,41.41,RG2,Stirnradiusfräser – eine Schneide,48
+0068175E,Fraise boule,Fraise boule 1 dent,,5,6,,50,12,,,2.5,1,,,,41.41,RG2,Stirnradiusfräser – eine Schneide,48
+0068176E,Fraise boule,Fraise boule 1 dent,,6,6,,50,14,,,3,1,,,,41.41,RG2,Stirnradiusfräser – eine Schneide,48
+0068178E,Fraise boule,Fraise boule 1 dent,,8,8,,60,14,,,4,1,,,,52.09,RG2,Stirnradiusfräser – eine Schneide,48
+0068179E,Fraise boule,Fraise boule 1 dent,,10,10,,60,20,,,5,1,,,,66.96,RG2,Stirnradiusfräser – eine Schneide,48
+0068191E,Fraise boule,Fraise boule 1 dent polie pour verre acrylique,,1,6,0.9,50,4,12,,0.5,1,,,,65.46,RG2,"Stirnradiusfräser – eine Schneide, poliert",49
+0068191S,Fraise boule,Fraise boule 1 dent polie pour verre acrylique,,1.5,6,1.4,50,5,12,,0.75,1,,,,65.46,RG2,"Stirnradiusfräser – eine Schneide, poliert",49
+0068192E,Fraise boule,Fraise boule 1 dent polie pour verre acrylique,,2,6,1.8,50,6,20,,1,1,,,,65.46,RG2,"Stirnradiusfräser – eine Schneide, poliert",49
+0068192S,Fraise boule,Fraise boule 1 dent polie pour verre acrylique,,2.5,6,2.3,50,7,20,,1.25,1,,,,65.46,RG2,"Stirnradiusfräser – eine Schneide, poliert",49
+0068193E,Fraise boule,Fraise boule 1 dent polie pour verre acrylique,,3,6,2.8,50,8,21,,1.5,1,,,,65.46,RG2,"Stirnradiusfräser – eine Schneide, poliert",49
+0068194E,Fraise boule,Fraise boule 1 dent polie pour verre acrylique,,4,6,3.8,50,10,21,,2,1,,,,65.46,RG2,"Stirnradiusfräser – eine Schneide, poliert",49
+0068195E,Fraise boule,Fraise boule 1 dent polie pour verre acrylique,,5,6,4.8,50,12,22,,2.5,1,,,,65.46,RG2,"Stirnradiusfräser – eine Schneide, poliert",49
+0068196E,Fraise boule,Fraise boule 1 dent polie pour verre acrylique,,6,6,5.8,50,14,22,,3,1,,,,65.46,RG2,"Stirnradiusfräser – eine Schneide, poliert",49
+00684003,Fraise boule,Fraise boule 2 dents,,0.3,3,,40,0.5,,,0.15,2,,,,61.6,RG2,Stirnradiusfräser – zwei Schneiden,50
+00684005,Fraise boule,Fraise boule 2 dents,,0.5,3,,39,0.8,,,0.25,2,,,,45.35,RG2,Stirnradiusfräser – zwei Schneiden,50
+00684007,Fraise boule,Fraise boule 2 dents,,0.7,3,,39,2.1,,,0.35,2,,,,45.35,RG2,Stirnradiusfräser – zwei Schneiden,50
+0068400,Fraise boule,Fraise boule 2 dents,,1,3,,38,3,,,0.5,2,,,,31.94,RG2,Stirnradiusfräser – zwei Schneiden,50
+0068403,Fraise boule,Fraise boule 2 dents,,3,6,,50,4,,,1.5,2,,,,37.87,RG2,Stirnradiusfräser – zwei Schneiden,50
+0068404,Fraise boule,Fraise boule 2 dents,,4,6,,50,5,,,2,2,,,,37.87,RG2,Stirnradiusfräser – zwei Schneiden,50
+0068405,Fraise boule,Fraise boule 2 dents,,5,6,,50,5,,,2.5,2,,,,37.87,RG2,Stirnradiusfräser – zwei Schneiden,50
+0068406,Fraise boule,Fraise boule 2 dents,,6,6,,50,10,,,3,2,,,,37.87,RG2,Stirnradiusfräser – zwei Schneiden,50
+0068408,Fraise boule,Fraise boule 2 dents,,8,8,,50,12,,,4,2,,,,50.37,RG2,Stirnradiusfräser – zwei Schneiden,50
+00782004,Fraise boule,Fraise boule 2 dents détalonnée,,0.4,3,0.35,39,0.6,2,,0.2,2,,,,,,,51
+00782005,Fraise boule,Fraise boule 2 dents détalonnée,,0.5,3,0.45,39,0.75,4,,0.25,2,,,,,,,51
+00782006,Fraise boule,Fraise boule 2 dents détalonnée,,0.6,3,0.55,39,0.9,4,,0.3,2,,,,,,,51
+00782008,Fraise boule,Fraise boule 2 dents détalonnée,,0.8,3,0.75,39,1.2,6,,0.4,2,,,,,,,51
+00782010,Fraise boule,Fraise boule 2 dents détalonnée,,1,3,0.95,39,1.5,6,,0.5,2,,,,,,,51
+00782011,Fraise boule,Fraise boule 2 dents détalonnée,,1,3,0.95,39,1.5,9,,0.5,2,,,,,,,51
+00782012,Fraise boule,Fraise boule 2 dents détalonnée,,1.2,3,1.15,39,1.8,9,,0.6,2,,,,,,,51
+00782015,Fraise boule,Fraise boule 2 dents détalonnée,,1.5,3,1.45,39,2.2,9,,0.75,2,,,,,,,51
+00782020,Fraise boule,Fraise boule 2 dents détalonnée,,2,3,1.95,39,3,12,,1,2,,,,,,,51
+0078502,Fraise boule,Fraise boule 2 dents détalonnée,,2,6,1.8,75,5,20,,1,2,,,,42.25,RG2,"Stirnradiusfräser – zwei Schneiden, mit Freischliff",51
+0078503,Fraise boule,Fraise boule 2 dents détalonnée,,3,6,2.8,75,6,20,,1.5,2,,,,42.25,RG2,"Stirnradiusfräser – zwei Schneiden, mit Freischliff",51
+0078504,Fraise boule,Fraise boule 2 dents détalonnée,,4,6,3.8,75,8,20,,2,2,,,,42.25,RG2,"Stirnradiusfräser – zwei Schneiden, mit Freischliff",51
+0078505,Fraise boule,Fraise boule 2 dents détalonnée,,5,6,4.8,100,20,40,,2.5,2,,,,48.17,RG2,"Stirnradiusfräser – zwei Schneiden, mit Freischliff",51
+0078506,Fraise boule,Fraise boule 2 dents détalonnée,,6,6,5.8,100,20,40,,3,2,,,,48.17,RG2,"Stirnradiusfräser – zwei Schneiden, mit Freischliff",51
+0078508,Fraise boule,Fraise boule 2 dents détalonnée,,8,8,7.8,100,20,40,,4,2,,,,58.28,RG2,"Stirnradiusfräser – zwei Schneiden, mit Freischliff",51
+0078510,Fraise boule,Fraise boule 2 dents détalonnée,,10,10,9.8,100,20,40,,5,2,,,,75.93,RG2,"Stirnradiusfräser – zwei Schneiden, mit Freischliff",51
+0078512,Fraise boule,Fraise boule 2 dents détalonnée,,12,12,11.7,100,20,40,,6,2,,,,108.82,RG2,"Stirnradiusfräser – zwei Schneiden, mit Freischliff",51
+00684004,Fraise boule,Fraise boule 2 dents revêtue ALCRONA,,0.4,3,,39,1.2,,,0.2,2,,,,45.35,RG2,Stirnradiusfräser – zwei Schneiden,52
+00684010,Fraise boule,Fraise boule 2 dents revêtue ALCRONA,,0.5,3,,39,1.5,,,0.25,2,,,,45.35,RG2,Stirnradiusfräser – zwei Schneiden,52
+00684006,Fraise boule,Fraise boule 2 dents revêtue ALCRONA,,0.6,3,,39,1.8,,,0.3,2,,,,45.35,RG2,Stirnradiusfräser – zwei Schneiden,52
+00684008,Fraise boule,Fraise boule 2 dents revêtue ALCRONA,,0.8,3,,38,2.4,,,0.4,2,,,,45.35,RG2,Stirnradiusfräser – zwei Schneiden,52
+00684015,Fraise boule,Fraise boule 2 dents revêtue ALCRONA,,1.5,3,,38,3,,,0.75,2,,,,31.94,RG2,Stirnradiusfräser – zwei Schneiden,52
+0068402,Fraise boule,Fraise boule 2 dents revêtue ALCRONA,,2,3,,38,4,,,1,2,,,,31.94,RG2,Stirnradiusfräser – zwei Schneiden,52
+00684025,Fraise boule,Fraise boule 2 dents revêtue ALCRONA,,2.5,3,,38,5,,,1.25,2,,,,31.94,RG2,Stirnradiusfräser – zwei Schneiden,52
+0068401,Fraise boule,Fraise boule 2 dents revêtue ALCRONA,,3,3,,38,6,,,1.5,2,,,,31.94,RG2,Stirnradiusfräser – zwei Schneiden,52
+0078542,Fraise boule,Fraise boule 4 dents revêtue ALCRONA,,2,6,,57,6,,,1,4,,,,,,,53
+0078543,Fraise boule,Fraise boule 4 dents revêtue ALCRONA,,3,6,,57,8,,,1.5,4,,,,,,,53
+0078543A,Fraise boule,Fraise boule 4 dents revêtue ALCRONA,,3,6,,57,20,,,1.5,4,,,,,,,53
+0078544,Fraise boule,Fraise boule 4 dents revêtue ALCRONA,,4,6,,57,11,,,2,4,,,,,,,53
+0078544A,Fraise boule,Fraise boule 4 dents revêtue ALCRONA,,4,6,,57,20,,,2,4,,,,,,,53
+0078545,Fraise boule,Fraise boule 4 dents revêtue ALCRONA,,5,6,,57,13,,,2.5,4,,,,42.95,RG2,"Stirnradiusfräser – vier Schneiden, kurz",53
+0078545A,Fraise boule,Fraise boule 4 dents revêtue ALCRONA,,5,6,,75,30,,,2.5,4,,,,42.95,RG2,"Stirnradiusfräser – vier Schneiden, lang",53
+0078546,Fraise boule,Fraise boule 4 dents revêtue ALCRONA,,6,6,,57,13,,,3,4,,,,42.95,RG2,"Stirnradiusfräser – vier Schneiden, kurz",53
+0078546A,Fraise boule,Fraise boule 4 dents revêtue ALCRONA,,6,6,,75,30,,,3,4,,,,42.95,RG2,"Stirnradiusfräser – vier Schneiden, lang",53
+0078548,Fraise boule,Fraise boule 4 dents revêtue ALCRONA,,8,8,,63,19,,,4,4,,,,59.21,RG2,"Stirnradiusfräser – vier Schneiden, kurz",53
+0078548A,Fraise boule,Fraise boule 4 dents revêtue ALCRONA,,8,8,,75,30,,,4,4,,,,59.21,RG2,"Stirnradiusfräser – vier Schneiden, lang",53
+0078550,Fraise boule,Fraise boule 4 dents revêtue ALCRONA,,10,10,,72,22,,,5,4,,,,79.89,RG2,"Stirnradiusfräser – vier Schneiden, kurz",53
+0078550A,Fraise boule,Fraise boule 4 dents revêtue ALCRONA,,10,10,,75,30,,,5,4,,,,79.89,RG2,"Stirnradiusfräser – vier Schneiden, lang",53
+0078552,Fraise boule,Fraise boule 4 dents revêtue ALCRONA,,12,12,,83,26,,,6,4,,,,100.59,RG2,"Stirnradiusfräser – vier Schneiden, kurz",53
+0078552A,Fraise boule,Fraise boule 4 dents revêtue ALCRONA,,12,12,,100,45,,,6,4,,,,95.72,RG2,"Stirnradiusfräser – vier Schneiden, lang",53
+0068460F,Fraise torique (rayon de coin),Fraise torique 2 dents,,6,6,5.8,58,7,21,,1,2,,,,43.53,RG2,Zweischneider – mit Eckenradius,56
+0068460S,Fraise torique (rayon de coin),Fraise torique 2 dents,,6,6,,50,6,,,0.5,2,,,,43.53,RG2,"Zweischneider – abgesetzt, mit Eckenradius",56
+0068080,Fraise torique (rayon de coin),Fraise torique 2 dents,,8,8,7.8,60,9,23,,1,2,,,,59.21,RG2,Zweischneider – mit Eckenradius,56
+0068080K,Fraise torique (rayon de coin),Fraise torique 2 dents,,8,8,,50,12,,,1,2,,,,56.38,RG2,"Zweischneider – abgesetzt, mit Eckenradius",56
+0078808R,Fraise torique (rayon de coin),Fraise torique 2 dents,,8,8,7.7,60,10,22,,0.2,2,,,,56.38,RG2,Zweischneider – abgesetzt,56
+00781043,Fraise torique (rayon de coin),Fraise torique 2 dents revêtue Triple-Cut,,3,3,2.7,50,4,14,,0.3,2,,,,37.16,RG2,Zweischneider – mit Eckenradius,57
+00781063,Fraise torique (rayon de coin),Fraise torique 2 dents revêtue Triple-Cut,,3,3,2.7,50,4,14,,1,2,,,,37.16,RG2,Zweischneider – mit Eckenradius,57
+00781044,Fraise torique (rayon de coin),Fraise torique 2 dents revêtue Triple-Cut,,4,4,3.7,50,5,16,,0.4,2,,,,38.57,RG2,Zweischneider – mit Eckenradius,57
+00781064,Fraise torique (rayon de coin),Fraise torique 2 dents revêtue Triple-Cut,,4,4,3.7,50,5,16,,1,2,,,,38.57,RG2,Zweischneider – mit Eckenradius,57
+00781045,Fraise torique (rayon de coin),Fraise torique 2 dents revêtue Triple-Cut,,5,5,4.6,54,6,18,,0.5,2,,,,41.55,RG2,Zweischneider – mit Eckenradius,57
+00781065,Fraise torique (rayon de coin),Fraise torique 2 dents revêtue Triple-Cut,,5,5,4.6,54,6,18,,1,2,,,,41.55,RG2,Zweischneider – mit Eckenradius,57
+00781046,Fraise torique (rayon de coin),Fraise torique 2 dents revêtue Triple-Cut,,6,6,5.5,58,7,21,,0.5,2,,,,50.59,RG2,Zweischneider – mit Eckenradius,57
+00781066,Fraise torique (rayon de coin),Fraise torique 2 dents revêtue Triple-Cut,,6,6,5.5,58,7,21,,1,2,,,,50.59,RG2,Zweischneider – mit Eckenradius,57
+00781048,Fraise torique (rayon de coin),Fraise torique 2 dents revêtue Triple-Cut,,8,8,7.4,63,9,27,,0.5,2,,,,68.63,RG2,Zweischneider – mit Eckenradius,57
+00781068,Fraise torique (rayon de coin),Fraise torique 2 dents revêtue Triple-Cut,,8,8,7.4,63,9,27,,1,2,,,,68.63,RG2,Zweischneider – mit Eckenradius,57
+00781050,Fraise torique (rayon de coin),Fraise torique 2 dents revêtue Triple-Cut,,10,10,9.2,72,11,32,,0.5,2,,,,89.48,RG2,Zweischneider – mit Eckenradius,57
+00781070,Fraise torique (rayon de coin),Fraise torique 2 dents revêtue Triple-Cut,,10,10,9.2,72,11,32,,1,2,,,,89.48,RG2,Zweischneider – mit Eckenradius,57
+00686903,Fraise torique (rayon de coin),Fraise torique 4 dents double hélice X.CEED,,3,6,,50,1,,,0.8,4,,,,95.93,RG2,"Torusfräser mit doppeltem Eckenradius, 4-schneidig, beschichtet",59
+00686904,Fraise torique (rayon de coin),Fraise torique 4 dents double hélice X.CEED,,4,6,,50,1,,,0.8,4,,,,95.93,RG2,"Torusfräser mit doppeltem Eckenradius, 4-schneidig, beschichtet",59
+00686906,Fraise torique (rayon de coin),Fraise torique 4 dents double hélice X.CEED,,6,6,,50,1,,,0.8,4,,,,95.93,RG2,"Torusfräser mit doppeltem Eckenradius, 4-schneidig, beschichtet",59
+0078620,Fraise torique (rayon de coin),Fraise torique 4 dents revêtue X.CEED,,2,6,1.8,50,4,12,,0.2,4,,,,,,,58
+0078620A,Fraise torique (rayon de coin),Fraise torique 4 dents revêtue X.CEED,,2,6,1.8,50,4,16,,0.2,4,,,,,,,58
+0078623,Fraise torique (rayon de coin),Fraise torique 4 dents revêtue X.CEED,,3,6,2.7,50,4,14,,0.3,4,,,,,,,58
+0078623A,Fraise torique (rayon de coin),Fraise torique 4 dents revêtue X.CEED,,3,6,2.7,50,4,18,,0.3,4,,,,,,,58
+0078624,Fraise torique (rayon de coin),Fraise torique 4 dents revêtue X.CEED,,4,6,3.7,50,5,16,,0.4,4,,,,,,,58
+0078625,Fraise torique (rayon de coin),Fraise torique 4 dents revêtue X.CEED,,5,6,4.6,54,6,18,,0.5,4,,,,52.86,RG2,Vierschneider – mit Eckenradius,58
+0078625A,Fraise torique (rayon de coin),Fraise torique 4 dents revêtue X.CEED,,5,6,4.6,54,6,18,,1,4,,,,52.86,RG2,Vierschneider – mit Eckenradius,58
+0078626,Fraise torique (rayon de coin),Fraise torique 4 dents revêtue X.CEED,,6,6,5.5,57,7,21,,0.5,4,,,,58.79,RG2,Vierschneider – mit Eckenradius,58
+0078626A,Fraise torique (rayon de coin),Fraise torique 4 dents revêtue X.CEED,,6,6,5.5,57,7,21,,1,4,,,,58.79,RG2,Vierschneider – mit Eckenradius,58
+0078628,Fraise torique (rayon de coin),Fraise torique 4 dents revêtue X.CEED,,8,8,7.4,63,9,27,,0.5,4,,,,79.29,RG2,Vierschneider – mit Eckenradius,58
+0078628A,Fraise torique (rayon de coin),Fraise torique 4 dents revêtue X.CEED,,8,8,7.4,63,9,27,,1,4,,,,79.29,RG2,Vierschneider – mit Eckenradius,58
+0078630,Fraise torique (rayon de coin),Fraise torique 4 dents revêtue X.CEED,,10,10,9.2,72,11,32,,0.5,4,,,,95.26,RG2,Vierschneider – mit Eckenradius,58
+0078630A,Fraise torique (rayon de coin),Fraise torique 4 dents revêtue X.CEED,,10,10,9.2,72,11,32,,1,4,,,,95.26,RG2,Vierschneider – mit Eckenradius,58
 00680010E,Fraise à fileter,Fraise à fileter,M1,0.72,3,0.32,40,0.13,3,60,,2,0.25,0.75,,59.02,RG2,Gewindewirbler,80
 00680011E,Fraise à fileter,Fraise à fileter,"M1,1",0.825,3,0.425,40,0.13,3,60,,2,0.25,0.85,,59.02,RG2,Gewindewirbler,80
 00680012E,Fraise à fileter,Fraise à fileter,"M1,2",0.84,3,0.44,40,0.13,3,60,,2,0.25,0.95,,59.02,RG2,Gewindewirbler,80

@@ -5,16 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CV – RomDuch</title>
 <meta name="description" content="CV de RomDuch : programmeur-régleur UGV Datron, développeur d'outils de génération SimPL, ancien régleur P2 et professeur de mathématiques.">
+<script src="i18n.js"></script>
 <script src="theme.js"></script>
 <link rel="stylesheet" href="themes.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Barlow,"Segoe UI",Roboto,Arial,sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Barlow,"Segoe UI",Roboto,"Noto Sans SC","Microsoft YaHei",Arial,sans-serif}
 main{max-width:980px;margin:0 auto;padding:28px 18px 70px}
 header{display:grid;gap:6px;padding:10px 0 22px;border-bottom:2px solid var(--brass);margin-bottom:10px}
-.top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}.top .prefs{display:flex;flex-wrap:wrap;gap:8px}
 h1{font:700 clamp(2.2rem,6vw,3.6rem)/1 "Barlow Condensed",Arial Narrow,sans-serif;margin:6px 0 0}
 .tag{font:600 1.2rem "Barlow Condensed",sans-serif;color:var(--brass);margin:0}
 a{color:var(--ink);text-decoration-color:var(--brass);text-underline-offset:3px}
@@ -37,18 +38,18 @@ footer{margin-top:44px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <body>
 <main>
 <header>
-  <div class="top"><a href="index.html">← RomDuch · Génère ton SimPL</a><span data-theme-select></span></div>
+  <div class="top"><a href="index.html" data-i18n>← RomDuch · Génère ton SimPL</a><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
   <h1>RomDuch</h1>
-  <p class="tag">Programmation UGV Datron & outils logiciels d'atelier</p>
+  <p class="tag" data-i18n>Programmation UGV Datron &amp; outils logiciels d'atelier</p>
   <p><a href="mailto:romduch@gmail.com">romduch@gmail.com</a></p>
 </header>
 
-<h2>Compétences</h2><div class="grid" id="competences"></div>
-<h2>Outils développés</h2><div class="grid" id="outils"></div>
-<h2>Parcours</h2><ol class="timeline" id="parcours"></ol>
-<h2>Formation</h2><ol class="timeline" id="formation"></ol>
+<h2 data-i18n>Compétences</h2><div class="grid" id="competences"></div>
+<h2 data-i18n>Outils développés</h2><div class="grid" id="outils"></div>
+<h2 data-i18n>Parcours</h2><ol class="timeline" id="parcours"></ol>
+<h2 data-i18n>Formation</h2><ol class="timeline" id="formation"></ol>
 
-<footer><p><a href="index.html">Générateur SimPL</a> · <a href="outils.html">Éditeur d'outils</a> · <a href="coupe.html">Données de coupe</a> · <a href="#" data-stockage-gerer>Gérer le stockage local</a></p></footer>
+<footer><p><a href="index.html" data-i18n>Générateur SimPL</a> · <a href="outils.html" data-i18n>Éditeur d'outils</a> · <a href="coupe.html" data-i18n>Données de coupe</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
 </main>
 <script src="stockage.js" defer></script>
 <script>
@@ -81,8 +82,8 @@ footer{margin-top:44px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     ]
   };
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const cells = a => a.map(([t, d]) => `<div class="cell"><h3>${esc(t)}</h3><p>${esc(d)}</p></div>`).join('');
-  const tl = a => a.map(([p, t, d]) => `<li><span class="per">${esc(p)}</span><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join('');
+  const cells = a => a.map(([x, d]) => `<div class="cell"><h3>${esc(t(x))}</h3><p>${esc(t(d))}</p></div>`).join('');
+  const tl = a => a.map(([p, x, d]) => `<li><span class="per">${esc(t(p))}</span><h3>${esc(t(x))}</h3><p>${esc(t(d))}</p></li>`).join('');
   document.getElementById('competences').innerHTML = cells(CV.competences);
   document.getElementById('outils').innerHTML = cells(CV.outils);
   document.getElementById('parcours').innerHTML = tl(CV.parcours);

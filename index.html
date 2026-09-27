@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>RomDuch – Programmation UGV Datron & générateur SimPL</title>
 <meta name="description" content="RomDuch – programmeur-régleur UGV Datron : générateur SimPL en ligne, visualiseur de trajectoires, outils NeoDrive, DaThread et TauDrive.">
+<script src="i18n.js"></script>
 <script src="theme.js"></script>
 <link rel="stylesheet" href="themes.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400&display=swap">
@@ -129,7 +130,7 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}
 .btnlink{display:inline-block;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 12px;border-radius:5px;font:600 15px Barlow,sans-serif;text-decoration:none}
 .favchip{display:inline-flex}.favchip button:first-child{border-radius:5px 0 0 5px}.favchip button:last-child{border-radius:0 5px 5px 0;border-left:0;padding:7px 9px}
 .nav{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin-top:10px}
-.nav .themesel{margin-left:auto}.nav a{color:var(--ink);font-weight:600;text-decoration-color:var(--brass);text-underline-offset:3px}
+.nav .prefs{margin-left:auto;display:flex;flex-wrap:wrap;gap:8px}.nav a{color:var(--ink);font-weight:600;text-decoration-color:var(--brass);text-underline-offset:3px}
 footer a{color:var(--mute)}
 </style>
 </head>
@@ -140,38 +141,37 @@ footer a{color:var(--mute)}
   <p class="tag" id="titre"></p>
   <p class="lead" id="accroche"></p>
   <div class="contact" id="contact"></div>
-  <nav class="nav"><a href="#sec-gen">Génère ton SimPL</a><a href="#sec-viewer">Visualiseur</a><a href="outils.html">Éditeur d’outils</a><a href="coupe.html">Données de coupe</a><a href="#sec-videos">Vidéo</a><a href="cv.html">CV</a><span data-theme-select></span></nav>
+  <nav class="nav"><a href="#sec-gen" data-i18n>Génère ton SimPL</a><a href="#sec-viewer" data-i18n>Visualiseur</a><a href="outils.html" data-i18n>Éditeur d’outils</a><a href="coupe.html" data-i18n>Données de coupe</a><a href="#sec-videos" data-i18n>Vidéo</a><a href="cv.html" data-i18n>CV</a><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></nav>
 </header>
 
 <section id="sec-gen">
-  <h2>Génère ton SimPL</h2>
-  <p class="lead" style="margin:-4px 0 12px">Composez un programme Datron à partir des opérations de base de NeoDrive. Créez d'abord vos outils dans l'<a href="outils.html">éditeur d'outils</a> (catalogue DATRON hors ligne, <a href="catalogue-datron.csv">CSV</a>) : la bibliothèque <a href="tools.json">tools.json</a> est vide par défaut. Vérifiez toujours le programme en simulation avant usinage.</p>
-  <div id="gen" class="gen"><noscript>Le générateur nécessite JavaScript.</noscript></div>
+  <h2 data-i18n>Génère ton SimPL</h2>
+  <p class="lead" style="margin:-4px 0 12px" data-i18n>Crée ton ensemble d'outils DATRON dans l'<a href="outils.html">éditeur d'outils</a>, puis compose ton SimPL avec les opérations de base de NeoDrive. Vérifie toujours le programme en simulation avant usinage.</p>
+  <div id="gen" class="gen"><noscript data-i18n>Le générateur nécessite JavaScript.</noscript></div>
 </section>
 
 <section id="sec-viewer">
-  <h2>Visualise ton SimPL</h2>
-  <p class="lead" style="margin:-4px 0 12px">Programme Calendreta affiché par défaut. Chargez votre propre fichier SimPL avec « Ouvrir un fichier… », ou envoyez-y le programme généré ci-dessus.</p>
+  <h2 data-i18n>Visualise ton SimPL</h2>
   <div class="viewer">
     <div class="vtop">
-      <select id="prog" aria-label="Programme"></select>
-      <button class="primary" id="play">Lire</button>
-      <input type="range" id="pos" min="0" max="1000" value="1000" aria-label="Avancement">
-      <select id="speed" aria-label="Vitesse"><option value="0.5">×0,5</option><option value="1" selected>×1</option><option value="3">×3</option></select>
-      <label><button id="load" type="button">Ouvrir un fichier…</button><input type="file" id="file" accept=".simpl,.txt,.nc,.mcr,*/*" hidden></label>
+      <select id="prog" aria-label="Programme" data-i18n-attr="aria-label"></select>
+      <button class="primary" id="play" data-i18n>Lire</button>
+      <input type="range" id="pos" min="0" max="1000" value="1000" aria-label="Avancement" data-i18n-attr="aria-label">
+      <select id="speed" aria-label="Vitesse" data-i18n-attr="aria-label"><option value="0.5">×0,5</option><option value="1" selected>×1</option><option value="3">×3</option></select>
+      <label><button id="load" type="button" data-i18n>Ouvrir un fichier…</button><input type="file" id="file" accept=".simpl,.txt,.nc,.mcr,*/*" hidden></label>
     </div>
-    <div class="vbody"><canvas id="cv"></canvas><pre id="code" aria-label="Code du programme"></pre></div>
-    <div class="info"><span class="leg"><i style="background:var(--brass)"></i>Usinage (Z ≤ 0)</span><span class="leg"><i style="background:var(--rapid)"></i>Hors matière</span><span id="stats"></span></div>
+    <div class="vbody"><canvas id="cv"></canvas><pre id="code" aria-label="Code du programme" data-i18n-attr="aria-label"></pre></div>
+    <div class="info"><span class="leg"><i style="background:var(--brass)"></i><span data-i18n>Usinage (Z ≤ 0)</span></span><span class="leg"><i style="background:var(--rapid)"></i><span data-i18n>Hors matière</span></span><span id="stats"></span></div>
   </div>
 </section>
 
-<section id="sec-videos" hidden><h2>Démo vidéo</h2><div class="vids" id="videos"></div></section>
+<section id="sec-videos" hidden><h2 data-i18n>Démo vidéo</h2><div class="vids" id="videos"></div></section>
 
 <figure class="endfig">
-  <img src="NeoDrive.png" width="1536" height="1024" alt="Plaque gravée NeoDrive : arbre de vie, soleil et lune en relief sur laiton" loading="lazy" decoding="async">
+  <img src="NeoDrive.png" width="1536" height="1024" alt="Plaque gravée NeoDrive : arbre de vie, soleil et lune en relief sur laiton" data-i18n-attr="alt" loading="lazy" decoding="async">
 </figure>
 
-<footer><p id="foot"></p><p><a href="cv.html">CV</a> · <a href="outils.html">Éditeur d’outils</a> · <a href="coupe.html">Données de coupe</a> · <a href="#" data-stockage-gerer>Gérer le stockage local</a></p></footer>
+<footer><p id="foot"></p><p><a href="cv.html" data-i18n>CV</a> · <a href="outils.html" data-i18n>Éditeur d’outils</a> · <a href="coupe.html" data-i18n>Données de coupe</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
 </main>
 
 <script>
@@ -180,20 +180,20 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
 /* ---------- Contenu ---------- */
-$('nom').textContent=CONFIG.nom; $('titre').textContent=CONFIG.titre; $('accroche').textContent=CONFIG.accroche;
+$('nom').textContent=CONFIG.nom; $('titre').textContent=t(CONFIG.titre); $('accroche').textContent=t(CONFIG.accroche);
 const c=CONFIG.contact, links=[];
 if(c.email) links.push(`<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`);
 if(c.telephone) links.push(`<a href="tel:${esc(c.telephone.replace(/\s/g,''))}">${esc(c.telephone)}</a>`);
 if(c.linkedin) links.push(`<a href="${esc(c.linkedin)}" rel="noopener">LinkedIn</a>`);
 $('contact').innerHTML=links.join('');
-$('foot').textContent=`${CONFIG.nom} · Programmes présentés sur pièces de démonstration, sans données clients.`;
+$('foot').textContent=`${CONFIG.nom} · ${t('Programmes présentés sur pièces de démonstration, sans données clients.')}`;
 const videos=CONFIG.videos.filter(v=>!v.masque);
 if(videos.length){
   $('sec-videos').hidden=false;
   $('videos').innerHTML=videos.map(v=>{
-    const m=v.youtube?`<iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}?rel=0" title="${esc(v.titre)}" allow="encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe>`
+    const m=v.youtube?`<iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}?rel=0" title="${esc(t(v.titre))}" allow="encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe>`
       :`<video src="${esc(v.mp4)}" controls preload="metadata" playsinline></video>`;
-    return `<div class="vid${v.vertical?' vertical':''}"><div class="ratio">${m}</div><p>${esc(v.titre)}</p></div>`;}).join('');
+    return `<div class="vid${v.vertical?' vertical':''}"><div class="ratio">${m}</div><p>${esc(t(v.titre))}</p></div>`;}).join('');
 }
 
 /* ---------- Lecteur de programmes ---------- */
@@ -245,8 +245,8 @@ function load(src){
     segs.push({a,b,L,s:total,cut:a.z<=0&&b.z<=0}); total+=L;}
   pre.innerHTML=prog.lines.map((l,i)=>`<div data-l="${i}">${esc(l)||' '}</div>`).join('');
   const zs=prog.pts.map(p=>p.z);
-  $('stats').textContent=prog.pts.length?`${prog.pts.length} positions · longueur ${total.toFixed(0)} mm · Z min ${Math.min(...zs).toFixed(2)} mm`
-    :'Aucun déplacement reconnu dans ce fichier.';
+  $('stats').textContent=prog.pts.length?t('{n} positions · longueur {l} mm · Z min {z} mm',{n:I18N.fmt(prog.pts.length),l:I18N.fmt(Math.round(total)),z:Math.min(...zs).toFixed(2)})
+    :t('Aucun déplacement reconnu dans ce fichier.');
   curLine=-1; prog01=1; $('pos').value=1000; stop(); draw();
 }
 function fit(){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1; cv.width=r.width*d; cv.height=r.height*d; ctx.setTransform(d,0,0,d,0,0); return r;}
@@ -278,20 +278,20 @@ function tick(t){ if(!playing) return; const dt=(t-last)/1000; last=t;
   const dur=Math.max(6,Math.min(40,total/15))/(+$('speed').value);
   prog01=Math.min(1,prog01+dt/dur); $('pos').value=prog01*1000; draw();
   if(prog01>=1) stop(); else requestAnimationFrame(tick); }
-function stop(){playing=false;$('play').textContent='Lire';}
-$('play').onclick=()=>{ if(playing) return stop(); if(prog01>=1) prog01=0; playing=true; $('play').textContent='Pause'; last=performance.now(); requestAnimationFrame(tick); };
+function stop(){playing=false;$('play').textContent=t('Lire');}
+$('play').onclick=()=>{ if(playing) return stop(); if(prog01>=1) prog01=0; playing=true; $('play').textContent=t('Pause'); last=performance.now(); requestAnimationFrame(tick); };
 $('pos').oninput=e=>{stop(); prog01=e.target.value/1000; draw();};
-$('prog').innerHTML=CONFIG.programmes.map((p,i)=>`<option value="${i}">${esc(p.titre)}</option>`).join('');
+$('prog').innerHTML=CONFIG.programmes.map((p,i)=>`<option value="${i}">${esc(t(p.titre))}</option>`).join('');
 /* Programme par URL (chargé à la demande) ou code intégré ; repli sur la démo générique si le fichier manque */
 const demo=CONFIG.programmes.find(p=>p.code);
 function pick(i){ const p=CONFIG.programmes[i]; $('prog').value=i;
   if(p.code!==undefined) return load(p.code);
   if(p.cache) return load(p.cache);
-  $('stats').textContent='Chargement…';
+  $('stats').textContent=t('Chargement…');
   fetch(p.url).then(r=>{if(!r.ok) throw new Error(r.status); return r.text();})
-    .then(t=>{p.cache=t; load(t);})
+    .then(x=>{p.cache=x; load(x);})
     .catch(()=>{ if(demo){ pick(CONFIG.programmes.indexOf(demo)); }
-      $('stats').textContent=`« ${p.titre} » indisponible : démo générique affichée.`; });
+      $('stats').textContent=t('« {p} » indisponible : démo générique affichée.',{p:t(p.titre)}); });
 }
 $('prog').onchange=e=>pick(+e.target.value);
 $('load').onclick=()=>$('file').click();

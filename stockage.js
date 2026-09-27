@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   const P = 'romduch.';
-  const KEYS = ['tools', 'favoris', 'dxf', 'theme', 'coupe'];
+  const KEYS = ['tools', 'favoris', 'dxf', 'theme', 'coupe', 'lang'];
   const ls = (() => { try { const s = window.localStorage; s.setItem(P + 't', '1'); s.removeItem(P + 't'); return s; } catch (e) { return null; } })();
   const ss = (() => { try { return window.sessionStorage; } catch (e) { return null; } })();
 
@@ -31,7 +31,7 @@
     set(k, v) {
       if (!this.actif()) return false;
       try { ls.setItem(P + k, JSON.stringify(v)); document.dispatchEvent(new CustomEvent('stockage-change', { detail: k })); return true; }
-      catch (e) { alert("Stockage local plein ou indisponible : l'élément n'a pas été enregistré."); return false; }
+      catch (e) { alert((window.t || (x => x))("Stockage local plein ou indisponible : l'élément n'a pas été enregistré.")); return false; }
     },
     taille() { try { return KEYS.reduce((s, k) => s + ((ls && ls.getItem(P + k)) || '').length, 0); } catch (e) { return 0; } },
 
@@ -41,11 +41,11 @@
       if (!force && this.consent() !== null) return;
       const old = document.getElementById('consent'); if (old) old.remove();
       const b = document.createElement('div');
-      b.id = 'consent'; b.setAttribute('role', 'dialog'); b.setAttribute('aria-label', 'Stockage local');
-      b.innerHTML = `<p><strong>Mémoriser vos réglages dans ce navigateur ?</strong><br>
-        Uniquement votre <em>tools.json</em>, vos opérations favorites, vos DXF importés, votre thème et les données de coupe lues dans votre guide Datron, stockés localement (localStorage).
-        Aucun traceur, aucune donnée envoyée. Vous pourrez tout effacer à tout moment.</p>
-        <div><button type="button" class="primary" data-c="oui">Accepter</button><button type="button" data-c="non">Refuser</button></div>`;
+      b.id = 'consent'; b.setAttribute('role', 'dialog'); b.setAttribute('aria-label', (window.t || (x => x))('Stockage local'));
+      const T = window.t || (x => x);
+      b.innerHTML = `<p><strong>${T('Mémoriser vos réglages dans ce navigateur ?')}</strong><br>
+        ${T('Uniquement votre <em>tools.json</em>, vos opérations favorites, vos DXF importés, votre thème, votre langue et les données de coupe lues dans votre guide DATRON, stockés localement (localStorage). Aucun traceur, aucune donnée envoyée. Vous pourrez tout effacer à tout moment.')}</p>
+        <div><button type="button" class="primary" data-c="oui">${T('Accepter')}</button><button type="button" data-c="non">${T('Refuser')}</button></div>`;
       b.querySelectorAll('[data-c]').forEach(x => x.onclick = () => { this.setConsent(x.dataset.c); b.remove(); });
       document.body.append(b);
     }
