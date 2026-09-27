@@ -126,13 +126,19 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
   <button type="button" id="b-fold">Tout replier</button><button type="button" id="b-unfold">Tout déplier</button>
   <button type="button" id="b-new">+ Outil vierge</button>
 </div>
+<div class="box" id="prop-box"><h3>Données de coupe Datron <small style="font-weight:400;color:var(--mute)">fraises 1 dent, aluminium – <a href="coupe.html">détails et calculateur</a></small></h3>
+  <div class="bar"><label style="font-size:14px;color:var(--mute)">Broche <select id="p-broche"></select></label>
+  <label style="font-size:14px;color:var(--mute)">Matière <select id="p-mat"></select></label>
+  <button type="button" class="primary" id="b-prop-all">Proposer pour toutes les fraises</button></div>
+  <p class="status" id="st-prop" role="status"></p></div>
 <div id="list"></div>
 
 <footer><p>Les références « GEN-… » du fichier générique sont fictives : remplacez-les par celles de votre magasin d'outils avant usinage. Vc = π·D·n / 1000 ; fz = avance / (n · dents).</p>
-<p><a href="index.html">Retour au générateur</a> · <a href="cv.html">CV</a> · <a href="#" data-stockage-gerer>Gérer le stockage local</a></p></footer>
+<p><a href="index.html">Retour au générateur</a> · <a href="coupe.html">Données de coupe</a> · <a href="cv.html">CV</a> · <a href="#" data-stockage-gerer>Gérer le stockage local</a></p></footer>
 </main>
 
 <script src="stockage.js" defer></script>
+<script src="coupe.js" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {   // après stockage.js (chargé en différé)
   'use strict';
@@ -191,6 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
       box.innerHTML = `<div class="thead"><h3>${esc(t.name || '(sans nom)')} <small>${esc(TYPES[t.type] || t.type || '')} · ${esc(t.articleNr || '—')}</small></h3>
         ${t.articleNr && !/^GEN-/.test(t.articleNr) ? '<button type="button" data-a="shop">Fiche webshop</button>' : ''}
         <button type="button" data-a="fold" aria-expanded="${!t._fold}">${t._fold ? 'Afficher' : 'Masquer'}</button>
+        ${t.type === 'fraise' ? '<button type="button" data-a="prop" title="Rotation et avances selon le guide Datron">Proposer (Datron)</button>' : ''}
         <button type="button" data-a="dup">Dupliquer</button><button type="button" data-a="del">Supprimer</button></div>
         <div${t._fold ? ' hidden' : ''}>
           <div class="fields">
@@ -203,6 +210,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
             ${FEEDS.map(f => field(t, 'feeds.' + f, `${FEED_LBL[f]} (mm/min)`)).join('')}
           </div>
           <p class="calc" data-calc>${calc(t)}</p>
+          ${t.coupe ? `<p class="calc">Datron (${esc(t.coupe.broche)}, ${t.coupe.source === 'guide' ? 'guide' : 'modèle'}) : rainurage ap ${t.coupe.rainurage.ap} × ae ${t.coupe.rainurage.ae} mm · latéral ap ${t.coupe.lateral.ap} × ae ${t.coupe.lateral.ae} mm</p>` : ''}
           ${al.map(a => `<p class="alert">${esc(a)}</p>`).join('')}
         </div>`;
       box.querySelectorAll('[data-k]').forEach(inp => inp.addEventListener(inp.tagName === 'SELECT' ? 'change' : 'input', () => {
@@ -214,6 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
       }));
       box.querySelectorAll('[data-k="name"],[data-k="id"],[data-k="articleNr"]').forEach(inp => inp.addEventListener('change', render));
       box.querySelector('[data-a=fold]').onclick = () => { t._fold = !t._fold; render(); };
+      const pb = box.querySelector('[data-a=prop]'); if (pb) pb.onclick = () => { appliquer(t); render(); };
       box.querySelector('[data-a=dup]').onclick = () => { const c = JSON.parse(JSON.stringify(t)); c.id = uid(t.id + '_copie'); c.name = t.name + ' (copie)'; delete c._fold;
         lib.tools.splice(i + 1, 0, c); dirty = true; render(); };
       box.querySelector('[data-a=del]').onclick = () => { if (confirm(`Supprimer « ${t.name} » ?`)) { lib.tools.splice(i, 1); dirty = true; render(); } };
@@ -324,6 +333,31 @@ navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText
     if (!navigator.clipboard || !navigator.clipboard.readText) { $('st-auto').textContent = 'Lecture du presse-papiers non autorisée : collez avec Ctrl+V dans la zone.'; return; }
     navigator.clipboard.readText().then(t => { $('paste').value = t; remplir(t); }, () => { $('st-auto').textContent = 'Accès au presse-papiers refusé : collez avec Ctrl+V dans la zone.'; });
   };
+
+  /* ---------- proposition des données de coupe Datron ---------- */
+  const C = window.Coupe;
+  $('p-broche').innerHTML = C.BROCHES.map(b => `<option${b === '2 kW neo' ? ' selected' : ''}>${b}</option>`).join('');
+  $('p-mat').innerHTML = Object.entries(C.MATIERES).map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join('');
+  function appliquer(t) {
+    const p = C.proposer(t, { broche: $('p-broche').value, matiere: $('p-mat').value });
+    if (!p.ok) { $('st-prop').textContent = `${t.name} : ${p.raison}`; return false; }
+    t.rpm = p.rpm; t.feeds = { ...(t.feeds || {}), ...p.feeds }; t.coupe = p.coupe;
+    dirty = true;
+    $('st-prop').textContent = `${t.name} : ${p.rpm} tr/min, ébauche ${p.feeds.roughing}, finition ${p.feeds.finishing} mm/min – source : ${p.source}. ${p.notes.join(' ')}`;
+    return p;
+  }
+  $('b-prop-all').onclick = () => {
+    const fr = lib.tools.filter(t => t.type === 'fraise');
+    if (!fr.length) { $('st-prop').textContent = 'Aucune fraise dans la bibliothèque.'; return; }
+    if (!confirm(`Remplacer la rotation et les avances de ${fr.length} fraise(s) par les propositions Datron (${$('p-broche').value}) ?`)) return;
+    const res = fr.map(appliquer).filter(Boolean);
+    const guide = res.filter(p => p.coupe.source === 'guide').length;
+    render();
+    $('st-prop').textContent = `${res.length} fraise(s) mises à jour (${guide} depuis le guide chargé, ${res.length - guide} par le modèle). Vérifiez, puis enregistrez ou exportez.`;
+  };
+  $('st-prop').textContent = C.guideCharge()
+    ? `Guide Datron chargé (${C.nbRefs()} références) : valeurs exactes pour les références reconnues.`
+    : 'Valeurs du modèle. Pour les valeurs exactes de vos références, chargez votre guide Datron sur la page « détails et calculateur ».';
 
   $('b-new').onclick = () => { lib.tools.unshift({ id: uid('NOUVEL_OUTIL'), name: 'Nouvel outil', type: 'fraise', articleNr: '', vendor: '', diameter: 2, fluteLength: 6, flutes: 1, tipAngle: 0, rpm: 20000,
     feeds: { roughing: 500, finishing: 700, plunge: 100, ramp: 200, approach: 6000 } }); dirty = true; render(); };
