@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>RomDuch – Programmation UGV Datron & générateur SimPL</title>
 <meta name="description" content="RomDuch – programmeur-régleur UGV Datron : générateur SimPL en ligne, visualiseur de trajectoires, outils NeoDrive, DaThread et TauDrive.">
+<script src="theme.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400&display=swap">
 <script>
 /* ======================= CONTENU ÉDITABLE ======================= */
@@ -159,6 +160,11 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}
 .addbar{display:flex;flex-wrap:wrap;gap:6px}
 .genout{width:100%;min-height:260px;font:400 13px/1.5 "JetBrains Mono",monospace;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:8px}
 .warn{color:var(--brass);font-size:14px}
+.btnlink{display:inline-block;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 12px;border-radius:5px;font:600 15px Barlow,sans-serif;text-decoration:none}
+.favchip{display:inline-flex}.favchip button:first-child{border-radius:5px 0 0 5px}.favchip button:last-child{border-radius:0 5px 5px 0;border-left:0;padding:7px 9px}
+.nav{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin-top:10px}
+.themebtn{margin-left:auto;padding:4px 10px;font-size:14px}.nav a{color:var(--ink);font-weight:600;text-decoration-color:var(--brass);text-underline-offset:3px}
+footer a{color:var(--mute)}
 </style>
 </head>
 <body>
@@ -168,6 +174,7 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}
   <p class="tag" id="titre"></p>
   <p class="lead" id="accroche"></p>
   <div class="contact" id="contact"></div>
+  <nav class="nav"><a href="#sec-gen">Génère ton SimPL</a><a href="#sec-viewer">Visualiseur</a><a href="outils.html">Éditeur d’outils</a><a href="#sec-videos">Vidéo</a><a href="#sec-cv">CV</a><button type="button" class="themebtn" data-theme-toggle>☾ Mode sombre</button></nav>
 </header>
 
 <section id="sec-gen">
@@ -206,7 +213,7 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}
   <img src="NeoDrive.png" width="1536" height="1024" alt="Plaque gravée NeoDrive : arbre de vie, soleil et lune en relief sur laiton" loading="lazy" decoding="async">
 </figure>
 
-<footer id="foot"></footer>
+<footer><p id="foot"></p><p><a href="outils.html">Éditeur d’outils</a> · <a href="#" data-stockage-gerer>Gérer le stockage local</a></p></footer>
 </main>
 
 <script>
@@ -342,6 +349,7 @@ if(CONFIG.programmes.length) pick(0);
 window.simplViewer={show(src){ load(src); document.getElementById('sec-viewer').scrollIntoView({behavior:'smooth'}); }};
 })();
 </script>
+<script src="stockage.js" defer></script>
 <script src="generateur.js" defer></script>
 </body>
 </html>

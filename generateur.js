@@ -25,7 +25,9 @@
 
   /* ---------- définition des opérations ---------- */
   const STROKE = 'strokeRapidZ=4 strokeCuttingZ=1';
-  const P = (k, label, type, def, opts) => ({ k, label, type, def, opts });
+  const P = (k, label, type, def, opts, when) => ({ k, label, type, def, opts, when });
+  const src = (...s) => o => s.includes(o.source);            // champ visible selon la source du tracé
+  const ST = () => (window.Stockage && window.Stockage.actif()) ? window.Stockage : null;
   const PTS = P('points', 'Positions X;Y (une par ligne)', 'points', '0;0');
 
   const OPS = {
@@ -130,11 +132,19 @@
       fields: [P('message', 'Message', 'text', "Retourner la pièce, palper l'origine, puis continuer ?"),
         P('stop', 'Si « Non »', 'select', 'arrêter la suite', ['arrêter la suite', 'continuer quand même'])]
     },
-    dxf: {
-      label: 'Contour / gravure DXF', tool: 'gravure', prefix: 'Gravure_DXF', dxf: true,
-      fields: [P('file', 'Fichier DXF', 'file', ''), P('depth', 'Profondeur (mm)', 'number', 0.2), P('infeedZ', 'Passe Z (mm)', 'number', 0.1),
-        P('scale', 'Échelle', 'number', 1), P('center', 'Centrer le dessin', 'select', 'oui', ['oui', 'non']),
-        P('offX', 'Décalage X (mm)', 'number', 0), P('offY', 'Décalage Y (mm)', 'number', 0)]
+    trace: {
+      label: 'Tracé (DXF, rectangle, cercle, segment)', tool: 'gravure', prefix: 'Trace', trace: true,
+      fields: [P('source', 'Source du tracé', 'select', 'DXF', ['DXF', 'Rectangle', 'Cercle', 'Segment']),
+        P('lib', 'DXF enregistré', 'dxflib', '', null, src('DXF')), P('file', 'Importer un DXF', 'file', '', null, src('DXF')),
+        P('scale', 'Échelle', 'number', 1, null, src('DXF')), P('center', 'Centrer le dessin', 'select', 'oui', ['oui', 'non'], src('DXF')),
+        P('offX', 'Décalage X (mm)', 'number', 0, null, src('DXF')), P('offY', 'Décalage Y (mm)', 'number', 0, null, src('DXF')),
+        P('cx', 'Centre X', 'number', 0, null, src('Rectangle', 'Cercle')), P('cy', 'Centre Y', 'number', 0, null, src('Rectangle', 'Cercle')),
+        P('widthX', 'Largeur X (mm)', 'number', 40, null, src('Rectangle')), P('widthY', 'Largeur Y (mm)', 'number', 20, null, src('Rectangle')),
+        P('cornerRadius', 'Rayon des coins (mm)', 'number', 0, null, src('Rectangle')),
+        P('diameter', 'Diamètre (mm)', 'number', 20, null, src('Cercle')),
+        P('x1', 'X départ', 'number', -20, null, src('Segment')), P('y1', 'Y départ', 'number', 0, null, src('Segment')),
+        P('x2', 'X arrivée', 'number', 20, null, src('Segment')), P('y2', 'Y arrivée', 'number', 0, null, src('Segment')),
+        P('depth', 'Profondeur (mm)', 'number', 0.2), P('infeedZ', 'Passe Z (mm)', 'number', 0.1)]
     }
   };
 
@@ -240,9 +250,16 @@
         const [cx, cy] = T(g.cx, g.cy); return { x, y, cx, cy, ccw: g.ccw }; }) };
     });
   }
-  function dxfSequence(name, o) {
-    const { paths: raw } = parseDXF(o.dxfText || '');
-    const paths = transform(chain(raw), o);
+  function tracePaths(o) {                    // tracé suivi par l'outil (sans compensation de rayon)
+    switch (o.source) {
+      case 'Rectangle': return [roundRect(+o.cx || 0, +o.cy || 0, Math.abs(o.widthX) / 2, Math.abs(o.widthY) / 2, +o.cornerRadius || 0)];
+      case 'Cercle': return +o.diameter > 0 ? [circlePath(+o.cx || 0, +o.cy || 0, o.diameter / 2)] : [];
+      case 'Segment': return [{ x0: +o.x1 || 0, y0: +o.y1 || 0, segs: [{ x: +o.x2 || 0, y: +o.y2 || 0 }] }];
+      default: return transform(chain(parseDXF(o.dxfText || '').paths), o);
+    }
+  }
+  function traceSequence(name, o) {
+    const paths = tracePaths(o);
     const depth = Math.abs(+o.depth || 0.1), inf = Math.max(0.01, Math.abs(+o.infeedZ || depth));
     const levels = []; for (let z = inf; z < depth - 1e-6; z += inf) levels.push(z); levels.push(depth);
     const out = [`$$$ ${name}`, 'Spindle On'];
@@ -357,11 +374,11 @@
       if (t) used.set(t.id, t);
       const name = uniq(def.name ? def.name(o) : def.prefix);
       let body;
-      if (def.dxf) {
-        if (!o.dxfText) { warn.push(`${def.label} : aucun fichier DXF chargé.`); return; }
+      if (def.trace) {
+        if (o.source === 'DXF' && !o.dxfText) { warn.push(`${def.label} : aucun fichier DXF chargé.`); return; }
         const seqName = ident(`${name}_${t.id}`).toUpperCase();
-        const seq = dxfSequence(seqName, o);
-        if (!seq.count) { warn.push(`${def.label} : aucun tracé exploitable dans « ${o.dxfName} ».`); return; }
+        const seq = traceSequence(seqName, o);
+        if (!seq.count) { warn.push(`${def.label} : aucun tracé exploitable${o.source === 'DXF' ? ` dans « ${o.dxfName} »` : ''}.`); return; }
         seqs.push({ name: seqName, lines: seq.lines });
         body = [seqName];
       } else if (def.seq) {
@@ -424,10 +441,18 @@
     return o;
   };
 
-  function fieldHTML(f, val, id) {
+  function fieldHTML(f, o, id) {
+    if (f.when && !f.when(o)) return '';
+    const val = o[f.k];
     if (f.type === 'select') return `<label>${esc(f.label)}<select data-k="${f.k}" id="${id}">${f.opts.map(v => `<option${v === val ? ' selected' : ''}>${esc(v)}</option>`).join('')}</select></label>`;
     if (f.type === 'points') return `<label class="wide">${esc(f.label)}<textarea data-k="${f.k}" id="${id}" spellcheck="false">${esc(val)}</textarea></label>`;
-    if (f.type === 'file') return `<label class="wide">${esc(f.label)}<input type="file" data-k="${f.k}" id="${id}" accept=".dxf"></label>`;
+    if (f.type === 'file') return `<label class="wide">${esc(f.label)}${ST() ? ' <small>(enregistré dans vos DXF)</small>' : ''}<input type="file" data-k="${f.k}" id="${id}" accept=".dxf"></label>`;
+    if (f.type === 'dxflib') {
+      const lib = ST() ? ST().get('dxf', []) : [];
+      if (!lib.length) return '';
+      return `<label class="wide">${esc(f.label)}<select data-k="${f.k}" id="${id}"><option value="">— choisir —</option>${lib.map(d =>
+        `<option value="${esc(d.nom)}"${d.nom === val ? ' selected' : ''}>${esc(d.nom)} (${Math.max(1, Math.round(d.texte.length / 1024))} ko)</option>`).join('')}</select></label>`;
+    }
     if (f.type === 'text') return `<label class="wide">${esc(f.label)}<input type="text" data-k="${f.k}" id="${id}" value="${esc(val)}"></label>`;
     return `<label>${esc(f.label)}<input type="number" step="any" data-k="${f.k}" id="${id}" value="${esc(val)}"></label>`;
   }
@@ -453,18 +478,32 @@
     headBox.querySelectorAll('[data-h]').forEach(i => i.addEventListener('input', () => { H[i.dataset.h] = i.value; }));
   }
 
+  let toolSource = 'tools.json générique du site';
+  function setTools(list, source) {
+    TOOLS = list; toolSource = source;
+    state.ops.forEach(o => { if (OPS[o.type].tool && !toolById(o.tool)) { const t = TOOLS.find(x => x.type === OPS[o.type].tool) || TOOLS[0]; o.tool = t ? t.id : ''; } });
+  }
   function renderTools(msg) {
     toolBox.innerHTML = `<h3>Bibliothèque d'outils</h3>
-      <p style="margin:0 0 8px;color:var(--mute)">${TOOLS.length} outil(s) chargé(s)${msg ? ' – ' + esc(msg) : ''}. Par défaut : <a href="tools.json">tools.json</a> générique (références fictives, valeurs indicatives).</p>
-      <label><button type="button" id="gt-load">Charger mon tools.json…</button><input type="file" id="gt-file" accept=".json,application/json" hidden></label>`;
+      <p style="margin:0 0 8px;color:var(--mute)">${TOOLS.length} outil(s) – source : ${esc(toolSource)}${msg ? ' – ' + esc(msg) : ''}.</p>
+      <div class="addbar"><a class="btnlink" href="outils.html">Éditer mes outils / catalogue Datron</a>
+      <label><button type="button" id="gt-load">Charger un tools.json…</button><input type="file" id="gt-file" accept=".json,application/json" hidden></label></div>`;
     toolBox.querySelector('#gt-load').onclick = () => toolBox.querySelector('#gt-file').click();
     toolBox.querySelector('#gt-file').onchange = e => {
       const f = e.target.files[0]; if (!f) return;
       f.text().then(t => { const j = JSON.parse(t); if (!Array.isArray(j.tools)) throw new Error('clé « tools » absente');
-        TOOLS = j.tools; state.ops.forEach(o => { if (OPS[o.type].tool && !toolById(o.tool)) o.tool = (TOOLS[0] || {}).id; });
-        renderTools(f.name); renderOps(); })
+        setTools(j.tools, f.name);
+        const saved = ST() && ST().set('tools', j);
+        renderTools(saved ? 'enregistré dans ce navigateur' : ''); renderOps(); })
         .catch(err => renderTools('erreur : ' + err.message));
     };
+  }
+
+  function saveDxf(nom, texte) {
+    if (!ST()) return;
+    const lib = ST().get('dxf', []).filter(d => d.nom !== nom);
+    lib.unshift({ nom, date: new Date().toISOString(), texte });
+    ST().set('dxf', lib.slice(0, 30));
   }
 
   function renderOps() {
@@ -473,18 +512,32 @@
       const def = OPS[o.type], box = el('div', { className: 'gbox op' });
       const tools = def.tool ? `<label>Outil<select data-k="tool">${TOOLS.map(t => `<option value="${esc(t.id)}"${t.id === o.tool ? ' selected' : ''}>${esc(t.name)}</option>`).join('')}</select></label>` : '';
       const t = def.tool ? toolById(o.tool) : null;
-      const resume = [t && t.name, def.dxf && o.dxfName].filter(Boolean).join(' · ');
+      const resume = [t && t.name, def.trace && (o.source === 'DXF' ? o.dxfName : o.source)].filter(Boolean).join(' · ');
       box.innerHTML = `<div class="ophead"><h3>${idx + 1}. ${esc(def.label)}${o.collapsed && resume ? `<small> – ${esc(resume)}</small>` : ''}</h3>
+        ${ST() ? '<button type="button" data-a="fav" title="Enregistrer comme opération favorite">☆ Favori</button>' : ''}
         <button type="button" data-a="toggle" aria-expanded="${!o.collapsed}" aria-controls="opf${idx}">${o.collapsed ? 'Afficher' : 'Masquer'}</button>
         <button type="button" data-a="up" aria-label="Monter">▲</button><button type="button" data-a="down" aria-label="Descendre">▼</button>
         <button type="button" data-a="del" aria-label="Supprimer">Supprimer</button></div>
         <div id="opf${idx}"${o.collapsed ? ' hidden' : ''}>
-        <div class="fields">${tools}${def.fields.map((f, k) => fieldHTML(f, o[f.k], `op${idx}_${k}`)).join('')}</div>
-        ${def.dxf && o.dxfName ? `<p style="margin:6px 0 0;color:var(--mute)">DXF chargé : ${esc(o.dxfName)}</p>` : ''}</div>`;
+        <div class="fields">${tools}${def.fields.map((f, k) => fieldHTML(f, o, `op${idx}_${k}`)).join('')}</div>
+        ${def.trace && o.source === 'DXF' && o.dxfName ? `<p style="margin:6px 0 0;color:var(--mute)">DXF chargé : ${esc(o.dxfName)}</p>` : ''}</div>`;
       box.querySelector('[data-a=toggle]').onclick = () => { o.collapsed = !o.collapsed; renderOps(); };
+      const fav = box.querySelector('[data-a=fav]');
+      if (fav) fav.onclick = () => {
+        const nom = prompt("Nom de l'opération favorite :", resume ? `${def.label} – ${resume}` : def.label);
+        if (!nom) return;
+        const copie = JSON.parse(JSON.stringify(o)); delete copie.dxfText; delete copie.collapsed;
+        const favs = ST().get('favoris', []).filter(x => x.nom !== nom);
+        favs.push({ nom, op: copie }); ST().set('favoris', favs); renderAdd();
+      };
       box.querySelectorAll('[data-k]').forEach(i => {
-        if (i.type === 'file') i.onchange = e => { const f = e.target.files[0]; if (!f) return; f.text().then(t => { o.dxfText = t; o.dxfName = f.name; renderOps(); }); };
-        else i.addEventListener('input', () => { o[i.dataset.k] = i.value; });
+        const k = i.dataset.k;
+        if (i.type === 'file') i.onchange = e => { const f = e.target.files[0]; if (!f) return;
+          f.text().then(tx => { o.dxfText = tx; o.dxfName = f.name; o.lib = f.name; saveDxf(f.name, tx); renderOps(); }); };
+        else if (k === 'lib') i.addEventListener('change', () => { const d = (ST() ? ST().get('dxf', []) : []).find(x => x.nom === i.value);
+          o.lib = i.value; if (d) { o.dxfText = d.texte; o.dxfName = d.nom; } renderOps(); });
+        else if (k === 'source') i.addEventListener('change', () => { o.source = i.value; renderOps(); });
+        else i.addEventListener('input', () => { o[k] = i.value; });
       });
       box.querySelector('[data-a=up]').onclick = () => { if (idx > 0) { state.ops.splice(idx - 1, 0, state.ops.splice(idx, 1)[0]); renderOps(); } };
       box.querySelector('[data-a=down]').onclick = () => { if (idx < state.ops.length - 1) { state.ops.splice(idx + 1, 0, state.ops.splice(idx, 1)[0]); renderOps(); } };
@@ -493,11 +546,28 @@
     });
   }
 
+  function addOp(o) { state.ops.push(o); renderOps(); opsBox.lastChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+
   function renderAdd() {
+    const favs = ST() ? ST().get('favoris', []) : [];
     addBox.innerHTML = `<h3>Ajouter une opération</h3><div class="addbar">${Object.entries(OPS).map(([k, d]) => `<button type="button" data-add="${k}">+ ${esc(d.label)}</button>`).join('')}</div>
+      ${ST() ? `<h3 style="margin-top:12px">Mes favoris</h3>${favs.length ? `<div class="addbar">${favs.map((f, i) =>
+        `<span class="favchip"><button type="button" data-fav="${i}">★ ${esc(f.nom)}</button><button type="button" data-favdel="${i}" aria-label="Retirer ${esc(f.nom)} des favoris">✕</button></span>`).join('')}</div>`
+        : '<p style="margin:0;color:var(--mute)">Aucun favori : utilisez « ☆ Favori » sur une opération.</p>'}`
+        : '<p style="margin:10px 0 0;color:var(--mute)">Favoris et DXF enregistrés : <a href="#" data-gerer>activer le stockage local</a>.</p>'}
       <div class="addbar" style="margin-top:8px"><button type="button" data-all="1">Tout replier</button><button type="button" data-all="0">Tout déplier</button></div>`;
     addBox.querySelectorAll('[data-all]').forEach(b => b.onclick = () => { state.ops.forEach(o => { o.collapsed = b.dataset.all === '1'; }); renderOps(); });
-    addBox.querySelectorAll('[data-add]').forEach(b => b.onclick = () => { state.ops.push(newOp(b.dataset.add)); renderOps(); opsBox.lastChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); });
+    addBox.querySelectorAll('[data-add]').forEach(b => b.onclick = () => addOp(newOp(b.dataset.add)));
+    addBox.querySelectorAll('[data-fav]').forEach(b => b.onclick = () => {
+      const f = favs[+b.dataset.fav]; if (!OPS[f.op.type]) return;
+      const o = Object.assign(newOp(f.op.type), JSON.parse(JSON.stringify(f.op)));
+      if (o.lib) { const d = ST().get('dxf', []).find(x => x.nom === o.lib); if (d) { o.dxfText = d.texte; o.dxfName = d.nom; } }
+      if (OPS[o.type].tool && !toolById(o.tool)) o.tool = (TOOLS.find(x => x.type === OPS[o.type].tool) || TOOLS[0] || {}).id;
+      addOp(o);
+    });
+    addBox.querySelectorAll('[data-favdel]').forEach(b => b.onclick = () => { favs.splice(+b.dataset.favdel, 1); ST().set('favoris', favs); renderAdd(); });
+    const g = addBox.querySelector('[data-gerer]');
+    if (g) g.onclick = e => { e.preventDefault(); window.Stockage && window.Stockage.banniere(true); };
   }
 
   function renderOut() {
@@ -518,7 +588,7 @@
   }
 
   function init() {
-    // exemple : surfaçage, perçages, taraudage, découpe
+    // exemple : surfaçage, perçages, taraudage, poche
     const ex = [newOp('rectface'), Object.assign(newOp('drill'), { points: '-35;-20\n35;-20\n35;20\n-35;20', depth: 8 }),
       Object.assign(newOp('thread'), { points: '-35;-20\n35;-20\n35;20\n-35;20', thread: 'M5', depth: 6 }),
       Object.assign(newOp('pocketrect'), { widthX: 30, widthY: 20, cornerRadius: 4, depth: 2 })];
@@ -528,9 +598,13 @@
     state.ops = ex;
     renderHead(); renderTools(); renderOps(); renderAdd(); renderOut();
     outBox.querySelector('#g-gen').click();
+    document.addEventListener('stockage-change', () => { renderAdd(); renderOps(); });
   }
 
-  fetch('tools.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(j => { TOOLS = j.tools || []; init(); })
-    .catch(() => { TOOLS = []; init(); renderTools('tools.json introuvable : chargez votre fichier'); });
+  // priorité : tools.json enregistré dans ce navigateur, sinon tools.json du site
+  const saved = ST() && ST().get('tools');
+  if (saved && Array.isArray(saved.tools) && saved.tools.length) { setTools(saved.tools, 'mon tools.json (ce navigateur)'); init(); }
+  else fetch('tools.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(j => { setTools(j.tools || [], 'tools.json générique du site'); init(); })
+    .catch(() => { setTools([], 'aucune'); init(); renderTools('tools.json introuvable : chargez votre fichier'); });
 })();
