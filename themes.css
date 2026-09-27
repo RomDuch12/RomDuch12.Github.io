@@ -1,0 +1,35 @@
+/* Thèmes de couleurs partagés (index, éditeur d'outils, CV).
+   Jetons : --bg fond, --card cartes, --ink texte, --mute texte secondaire, --line bordures,
+   --brass accent, --brass-l accent clair (focus), --on-accent texte sur l'accent,
+   --rapid trajectoires hors matière (visualiseur), --warn alertes.
+   Sans choix (data-theme absent) : « Laiton clair » ou « Laiton nuit » selon le système. */
+:root{--bg:#EDEFF1;--card:#FAFBFB;--ink:#1F2A36;--mute:#5E6B78;--line:#CBD1D6;--brass:#86652A;--brass-l:#C9A35A;--on-accent:#fff;--rapid:#9AA6B2;--warn:#A4462F;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme]){--bg:#151B21;--card:#1E262E;--ink:#E4E8EC;--mute:#98A4B0;--line:#33404B;--brass:#D2A857;--brass-l:#E5C27E;--on-accent:#151B21;--rapid:#56636F;--warn:#E08A6E;color-scheme:dark}}
+
+/* ---------- 15 thèmes sombres ---------- */
+:root[data-theme="laiton-nuit"]{--bg:#151B21;--card:#1E262E;--ink:#E4E8EC;--mute:#98A4B0;--line:#33404B;--brass:#D2A857;--brass-l:#E5C27E;--on-accent:#151B21;--rapid:#56636F;--warn:#E08A6E;color-scheme:dark}
+:root[data-theme="graphite"]{--bg:#161616;--card:#202020;--ink:#EAEAEA;--mute:#A0A0A0;--line:#3A3A3A;--brass:#F28C28;--brass-l:#F7B26A;--on-accent:#161616;--rapid:#5A5A5A;--warn:#FF7B6B;color-scheme:dark}
+:root[data-theme="ocean"]{--bg:#0B1A2A;--card:#11263B;--ink:#E3EEF8;--mute:#8FA9C2;--line:#1F3B57;--brass:#4FB3FF;--brass-l:#8FD0FF;--on-accent:#0B1A2A;--rapid:#3D5A75;--warn:#FF8A7A;color-scheme:dark}
+:root[data-theme="foret"]{--bg:#0F1A14;--card:#16261D;--ink:#E2EFE6;--mute:#8DAA96;--line:#264232;--brass:#5FCB86;--brass-l:#93E0AE;--on-accent:#0F1A14;--rapid:#3E5A48;--warn:#F08C6C;color-scheme:dark}
+:root[data-theme="bordeaux"]{--bg:#1A0F13;--card:#26161C;--ink:#F1E4E8;--mute:#B495A0;--line:#432630;--brass:#E0607E;--brass-l:#EE95A9;--on-accent:#1A0F13;--rapid:#5E3F4A;--warn:#FFB35C;color-scheme:dark}
+:root[data-theme="amethyste"]{--bg:#15111F;--card:#1F192D;--ink:#ECE6F7;--mute:#A79DC0;--line:#362C4E;--brass:#B48CFF;--brass-l:#CDB3FF;--on-accent:#15111F;--rapid:#54496E;--warn:#FF8FA3;color-scheme:dark}
+:root[data-theme="cuivre"]{--bg:#1A1310;--card:#261C17;--ink:#F2E7E1;--mute:#B59E92;--line:#45332A;--brass:#E0864A;--brass-l:#EDAA7C;--on-accent:#1A1310;--rapid:#5E4A40;--warn:#FF7070;color-scheme:dark}
+:root[data-theme="neon"]{--bg:#0A0A12;--card:#12121F;--ink:#E8F7FF;--mute:#8C9BB5;--line:#262640;--brass:#00E5FF;--brass-l:#7CF2FF;--on-accent:#0A0A12;--rapid:#44446A;--warn:#FF5FA2;color-scheme:dark}
+:root[data-theme="terminal"]{--bg:#050805;--card:#0C130C;--ink:#C8F5C8;--mute:#6FA66F;--line:#1E331E;--brass:#33FF66;--brass-l:#8CFFA8;--on-accent:#050805;--rapid:#2F4A2F;--warn:#FFB347;color-scheme:dark}
+:root[data-theme="solarized-sombre"]{--bg:#002B36;--card:#073642;--ink:#EEE8D5;--mute:#93A1A1;--line:#0F4B59;--brass:#B58900;--brass-l:#D5A92A;--on-accent:#002B36;--rapid:#586E75;--warn:#DC322F;color-scheme:dark}
+:root[data-theme="nord"]{--bg:#2E3440;--card:#3B4252;--ink:#ECEFF4;--mute:#AEB6C4;--line:#4C566A;--brass:#88C0D0;--brass-l:#A7D3DF;--on-accent:#2E3440;--rapid:#616E88;--warn:#D08770;color-scheme:dark}
+:root[data-theme="dracula"]{--bg:#1E1F29;--card:#282A36;--ink:#F8F8F2;--mute:#A4A8C4;--line:#44475A;--brass:#FF79C6;--brass-l:#FFA5D8;--on-accent:#1E1F29;--rapid:#6272A4;--warn:#FFB86C;color-scheme:dark}
+:root[data-theme="ambre"]{--bg:#121212;--card:#1C1B19;--ink:#EDE6D8;--mute:#A89F8C;--line:#37342D;--brass:#FFB000;--brass-l:#FFCB57;--on-accent:#121212;--rapid:#57524A;--warn:#FF6B5B;color-scheme:dark}
+:root[data-theme="ardoise"]{--bg:#1B2330;--card:#232D3D;--ink:#E6ECF4;--mute:#9AA8BC;--line:#364458;--brass:#6C9EF8;--brass-l:#9DBEFB;--on-accent:#1B2330;--rapid:#4F5F76;--warn:#F4A26B;color-scheme:dark}
+:root[data-theme="minuit-rouge"]{--bg:#140A0A;--card:#1F1212;--ink:#F5E6E6;--mute:#B89A9A;--line:#3D2222;--brass:#FF5252;--brass-l:#FF8A8A;--on-accent:#140A0A;--rapid:#5A3A3A;--warn:#FFC857;color-scheme:dark}
+
+/* ---------- 5 thèmes clairs ---------- */
+:root[data-theme="laiton-clair"]{--bg:#EDEFF1;--card:#FAFBFB;--ink:#1F2A36;--mute:#5E6B78;--line:#CBD1D6;--brass:#86652A;--brass-l:#C9A35A;--on-accent:#fff;--rapid:#9AA6B2;--warn:#A4462F;color-scheme:light}
+:root[data-theme="papier"]{--bg:#F5F1E8;--card:#FFFDF8;--ink:#2B2620;--mute:#6B6255;--line:#DDD3C2;--brass:#A0522D;--brass-l:#C8835A;--on-accent:#fff;--rapid:#B5A994;--warn:#B3261E;color-scheme:light}
+:root[data-theme="ciel"]{--bg:#EAF2FA;--card:#FFFFFF;--ink:#13263B;--mute:#52667D;--line:#C9D8E8;--brass:#1F6FD1;--brass-l:#5B9BE6;--on-accent:#fff;--rapid:#9DB2C8;--warn:#B3261E;color-scheme:light}
+:root[data-theme="menthe"]{--bg:#EAF5EF;--card:#FFFFFF;--ink:#16301F;--mute:#4F6B59;--line:#C6DECF;--brass:#187A42;--brass-l:#52B07A;--on-accent:#fff;--rapid:#9DBDAA;--warn:#B3261E;color-scheme:light}
+:root[data-theme="solarized-clair"]{--bg:#FDF6E3;--card:#FFFCF0;--ink:#073642;--mute:#586E75;--line:#E3DCC6;--brass:#8A6A00;--brass-l:#CB9D2C;--on-accent:#fff;--rapid:#93A1A1;--warn:#C0392B;color-scheme:light}
+
+/* ---------- sélecteur de thème ---------- */
+.themesel{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--mute)}
+.themesel select{font:500 14px Barlow,"Segoe UI",sans-serif;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:5px;padding:4px 8px;max-width:100%}

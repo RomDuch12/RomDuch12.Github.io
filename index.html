@@ -6,6 +6,7 @@
 <title>RomDuch – Programmation UGV Datron & générateur SimPL</title>
 <meta name="description" content="RomDuch – programmeur-régleur UGV Datron : générateur SimPL en ligne, visualiseur de trajectoires, outils NeoDrive, DaThread et TauDrive.">
 <script src="theme.js"></script>
+<link rel="stylesheet" href="themes.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400&display=swap">
 <script>
 /* ======================= CONTENU ÉDITABLE ======================= */
@@ -14,31 +15,6 @@ const CONFIG = {
   titre: "Programmation UGV Datron & outils logiciels d'atelier",
   accroche: "Programmeur-régleur sur centres Datron en production. Je développe les outils qui génèrent, vérifient et fiabilisent les programmes SIMPL.",
   contact: { email: "romduch@gmail.com", linkedin: "", telephone: "" },
-  competences: [
-    ["Usinage UGV", "Datron neo et centres UGV, gravure de précision sur laiton, montages et bridages, réglage en production."],
-    ["SIMPL / DATRON next", "Écriture et génération de programmes SIMPL, sous-programmes, exploitation des fonctions spécifiques de la neo."],
-    ["Développement", "Python, PySide6, Flask, architecture modulaire, validation de données, tests, exécutables PyInstaller."],
-    ["Méthodes", "Stratégies ébauche/finition par outil, bibliothèques d'outils partagées, contrôle des profondeurs avant envoi machine."],
-    ["Production & qualité", "Conduite d'une dizaine de machines différentes, contrôles qualité, liaison maintenance / méthodes / qualité. Habilitation électrique B1."],
-    ["Mathématiques & transmission", "Formation d'ingénieur en génie mathématique, cinq ans d'enseignement des mathématiques, formation et accompagnement d'utilisateurs."],
-    ["Informatique", "Maintenance de systèmes, réparation de matériel, outils logiciels d'atelier."],
-    ["Anglais", "Bon niveau."]
-  ],
-  parcours: [
-    ["Aujourd'hui", "Programmeur-régleur UGV Datron", "Production sur centres Datron neo, gravure de précision sur laiton. Conception de NeoDrive, DaThread et TauDrive."],
-    ["2015 – 2021", "Régleur P2 – Sogefi Filtration", "Production de filtres à huile selon cahier des charges : une dizaine de machines différentes conduites avec un aide-régleur, contrôles qualité, rapports à la hiérarchie et aux services maintenance, méthodes et qualité."],
-    ["2010 – 2015", "Professeur de mathématiques – Keepschool", "Cours de soutien de la 6e aux maths sup (28 élèves en 2014), stages collectifs de préparation au bac S."],
-    ["2009 – 2015", "Dépannage informatique – auto-entrepreneur", "Maintenance de systèmes d'exploitation, réparations matérielles, formation et accompagnement des utilisateurs."]
-  ],
-  formation: [
-    ["2004 – 2008", "INSA Rouen", "Élève ingénieur – génie mathématique."],
-    ["2000 – 2004", "Baccalauréat S", "Option sport, mention Bien – Rodez."]
-  ],
-  outils: [
-    ["NeoDrive", "Générateur de code SimPL pour Datron à partir d'opérations de base : taraudage, surfaçage, découpe, poche, perçage, perçage-fraisage, palpage, gravure depuis DXF et décalages d'origine (offsets). Version web simplifiée en haut de cette page."],
-    ["DaThread", "Détecteur des taraudages à effectuer depuis un DXF. Gère aussi les perçages et les gravures, pour le montage des bruts sur plaques de reprise."],
-    ["TauDrive", "Générateur de parcours pour laser Cielle, avec ses fonctions dédiées."]
-  ],
   /* Vidéos : { titre, youtube: "ID de la vidéo" } ou { titre, mp4: "videos/fichier.mp4" } ;
      vertical: true pour un Short ; masque: true pour la cacher sans la supprimer */
   videos: [
@@ -92,10 +68,7 @@ Z=5` }
 /* ================================================================ */
 </script>
 <style>
-:root{--bg:#EDEFF1;--card:#FAFBFB;--ink:#1F2A36;--mute:#5E6B78;--line:#CBD1D6;--brass:#9A7430;--brass-l:#C9A35A;--rapid:#9AA6B2;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151B21;--card:#1E262E;--ink:#E4E8EC;--mute:#98A4B0;--line:#33404B;--brass:#D2A857;--brass-l:#E5C27E;--rapid:#56636F}}
-:root[data-theme="dark"]{--bg:#151B21;--card:#1E262E;--ink:#E4E8EC;--mute:#98A4B0;--line:#33404B;--brass:#D2A857;--brass-l:#E5C27E;--rapid:#56636F}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *,*::before,*::after{box-sizing:inherit}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Barlow,"Segoe UI",Roboto,Arial,sans-serif}
@@ -107,13 +80,6 @@ h1{font:700 clamp(2.2rem,6vw,3.6rem)/1 "Barlow Condensed",Arial Narrow,sans-seri
 .contact{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}
 .endfig{margin:48px 0 0}
 .endfig img{display:block;width:100%;max-width:720px;height:auto;margin:0 auto;border-radius:6px;border:1px solid var(--line)}
-h3.sub{font:600 1.25rem "Barlow Condensed",sans-serif;color:var(--brass);margin:22px 0 10px}
-.timeline{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.timeline li{display:grid;grid-template-columns:120px 1fr;gap:4px 14px;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:10px 14px}
-.timeline .per{font:600 15px Barlow,sans-serif;color:var(--brass)}
-.timeline h4{margin:0;font:600 1.05rem Barlow,sans-serif}
-.timeline p{margin:2px 0 0;color:var(--mute);grid-column:2}
-@media (max-width:560px){.timeline li{grid-template-columns:1fr}.timeline p{grid-column:1}}
 .contact a{color:var(--ink);font-weight:600;text-decoration-color:var(--brass);text-underline-offset:3px}
 h2{font:700 1.8rem/1.1 "Barlow Condensed",sans-serif;margin:44px 0 14px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:12px}
@@ -128,10 +94,10 @@ canvas{width:100%;height:420px;display:block;background:var(--bg)}
 @media (max-width:760px){canvas{height:320px}}
 pre{margin:0;max-height:420px;overflow:auto;font:400 13px/1.6 "JetBrains Mono",Consolas,monospace;border-left:1px solid var(--line)}
 pre div{padding:0 10px;white-space:pre}
-pre div.cur{background:var(--brass);color:#fff}
+pre div.cur{background:var(--brass);color:var(--on-accent)}
 select,button,input[type=range]{font:600 15px Barlow,sans-serif}
 select,button{max-width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 12px;border-radius:5px;cursor:pointer}
-button.primary{background:var(--brass);border-color:var(--brass);color:#fff}
+button.primary{background:var(--brass);border-color:var(--brass);color:var(--on-accent)}
 :focus-visible{outline:3px solid var(--brass-l);outline-offset:2px}
 input[type=range]{flex:1;min-width:120px;accent-color:var(--brass)}
 .info{padding:8px 10px;color:var(--mute);font-size:14px;border-top:1px solid var(--line);display:flex;gap:16px;flex-wrap:wrap}
@@ -163,7 +129,7 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}
 .btnlink{display:inline-block;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 12px;border-radius:5px;font:600 15px Barlow,sans-serif;text-decoration:none}
 .favchip{display:inline-flex}.favchip button:first-child{border-radius:5px 0 0 5px}.favchip button:last-child{border-radius:0 5px 5px 0;border-left:0;padding:7px 9px}
 .nav{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin-top:10px}
-.themebtn{margin-left:auto;padding:4px 10px;font-size:14px}.nav a{color:var(--ink);font-weight:600;text-decoration-color:var(--brass);text-underline-offset:3px}
+.nav .themesel{margin-left:auto}.nav a{color:var(--ink);font-weight:600;text-decoration-color:var(--brass);text-underline-offset:3px}
 footer a{color:var(--mute)}
 </style>
 </head>
@@ -174,7 +140,7 @@ footer a{color:var(--mute)}
   <p class="tag" id="titre"></p>
   <p class="lead" id="accroche"></p>
   <div class="contact" id="contact"></div>
-  <nav class="nav"><a href="#sec-gen">Génère ton SimPL</a><a href="#sec-viewer">Visualiseur</a><a href="outils.html">Éditeur d’outils</a><a href="#sec-videos">Vidéo</a><a href="#sec-cv">CV</a><button type="button" class="themebtn" data-theme-toggle>☾ Mode sombre</button></nav>
+  <nav class="nav"><a href="#sec-gen">Génère ton SimPL</a><a href="#sec-viewer">Visualiseur</a><a href="outils.html">Éditeur d’outils</a><a href="#sec-videos">Vidéo</a><a href="cv.html">CV</a><span data-theme-select></span></nav>
 </header>
 
 <section id="sec-gen">
@@ -201,19 +167,11 @@ footer a{color:var(--mute)}
 
 <section id="sec-videos" hidden><h2>Démo vidéo</h2><div class="vids" id="videos"></div></section>
 
-<section id="sec-cv">
-  <h2>CV</h2>
-  <h3 class="sub">Compétences</h3><div class="grid" id="competences"></div>
-  <h3 class="sub">Outils développés</h3><div class="grid" id="outils"></div>
-  <h3 class="sub">Parcours</h3><ol class="timeline" id="parcours"></ol>
-  <h3 class="sub">Formation</h3><ol class="timeline" id="formation"></ol>
-</section>
-
 <figure class="endfig">
   <img src="NeoDrive.png" width="1536" height="1024" alt="Plaque gravée NeoDrive : arbre de vie, soleil et lune en relief sur laiton" loading="lazy" decoding="async">
 </figure>
 
-<footer><p id="foot"></p><p><a href="outils.html">Éditeur d’outils</a> · <a href="#" data-stockage-gerer>Gérer le stockage local</a></p></footer>
+<footer><p id="foot"></p><p><a href="cv.html">CV</a> · <a href="outils.html">Éditeur d’outils</a> · <a href="#" data-stockage-gerer>Gérer le stockage local</a></p></footer>
 </main>
 
 <script>
@@ -228,10 +186,6 @@ if(c.email) links.push(`<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`);
 if(c.telephone) links.push(`<a href="tel:${esc(c.telephone.replace(/\s/g,''))}">${esc(c.telephone)}</a>`);
 if(c.linkedin) links.push(`<a href="${esc(c.linkedin)}" rel="noopener">LinkedIn</a>`);
 $('contact').innerHTML=links.join('');
-const cells=a=>a.map(([t,d])=>`<div class="cell"><h3>${esc(t)}</h3><p>${esc(d)}</p></div>`).join('');
-$('competences').innerHTML=cells(CONFIG.competences); $('outils').innerHTML=cells(CONFIG.outils);
-const tl=a=>a.map(([p,t,d])=>`<li><span class="per">${esc(p)}</span><h4>${esc(t)}</h4><p>${esc(d)}</p></li>`).join('');
-$('parcours').innerHTML=tl(CONFIG.parcours); $('formation').innerHTML=tl(CONFIG.formation);
 $('foot').textContent=`${CONFIG.nom} · Programmes présentés sur pièces de démonstration, sans données clients.`;
 const videos=CONFIG.videos.filter(v=>!v.masque);
 if(videos.length){

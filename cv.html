@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CV – RomDuch</title>
+<meta name="description" content="CV de RomDuch : programmeur-régleur UGV Datron, développeur d'outils de génération SimPL, ancien régleur P2 et professeur de mathématiques.">
+<script src="theme.js"></script>
+<link rel="stylesheet" href="themes.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Barlow,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:980px;margin:0 auto;padding:28px 18px 70px}
+header{display:grid;gap:6px;padding:10px 0 22px;border-bottom:2px solid var(--brass);margin-bottom:10px}
+.top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+h1{font:700 clamp(2.2rem,6vw,3.6rem)/1 "Barlow Condensed",Arial Narrow,sans-serif;margin:6px 0 0}
+.tag{font:600 1.2rem "Barlow Condensed",sans-serif;color:var(--brass);margin:0}
+a{color:var(--ink);text-decoration-color:var(--brass);text-underline-offset:3px}
+h2{font:700 1.8rem/1.1 "Barlow Condensed",sans-serif;margin:34px 0 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:12px}
+.cell{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brass);padding:14px 16px;border-radius:4px}
+.cell h3{margin:0 0 4px;font:600 1.1rem Barlow,sans-serif}
+.cell p{margin:0;color:var(--mute);max-width:65ch}
+.timeline{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.timeline li{display:grid;grid-template-columns:120px 1fr;gap:4px 14px;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:10px 14px}
+.timeline .per{font:600 15px Barlow,sans-serif;color:var(--brass)}
+.timeline h3{margin:0;font:600 1.05rem Barlow,sans-serif}
+.timeline p{margin:2px 0 0;color:var(--mute);grid-column:2}
+@media (max-width:560px){.timeline li{grid-template-columns:1fr}.timeline p{grid-column:1}}
+:focus-visible{outline:3px solid var(--brass-l);outline-offset:2px}
+footer{margin-top:44px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
+@media print{.top,footer{display:none}body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="top"><a href="index.html">← RomDuch · Génère ton SimPL</a><span data-theme-select></span></div>
+  <h1>RomDuch</h1>
+  <p class="tag">Programmation UGV Datron & outils logiciels d'atelier</p>
+  <p><a href="mailto:romduch@gmail.com">romduch@gmail.com</a></p>
+</header>
+
+<h2>Compétences</h2><div class="grid" id="competences"></div>
+<h2>Outils développés</h2><div class="grid" id="outils"></div>
+<h2>Parcours</h2><ol class="timeline" id="parcours"></ol>
+<h2>Formation</h2><ol class="timeline" id="formation"></ol>
+
+<footer><p><a href="index.html">Générateur SimPL</a> · <a href="outils.html">Éditeur d'outils</a> · <a href="#" data-stockage-gerer>Gérer le stockage local</a></p></footer>
+</main>
+<script src="stockage.js" defer></script>
+<script>
+(function () {
+  const CV = {
+    competences: [
+      ["Usinage UGV", "Datron neo et centres UGV, gravure de précision sur laiton, montages et bridages, réglage en production."],
+      ["SIMPL / DATRON next", "Écriture et génération de programmes SIMPL, sous-programmes, exploitation des fonctions spécifiques de la neo."],
+      ["Développement", "Python, PySide6, Flask, architecture modulaire, validation de données, tests, exécutables PyInstaller."],
+      ["Méthodes", "Stratégies ébauche/finition par outil, bibliothèques d'outils partagées, contrôle des profondeurs avant envoi machine."],
+      ["Production & qualité", "Conduite d'une dizaine de machines différentes, contrôles qualité, liaison maintenance / méthodes / qualité. Habilitation électrique B1."],
+      ["Mathématiques & transmission", "Formation d'ingénieur en génie mathématique, cinq ans d'enseignement des mathématiques, formation et accompagnement d'utilisateurs."],
+      ["Informatique", "Maintenance de systèmes, réparation de matériel, outils logiciels d'atelier."],
+      ["Anglais", "Bon niveau."]
+    ],
+    outils: [
+      ["NeoDrive", "Générateur de code SimPL pour Datron à partir d'opérations de base : taraudage, surfaçage, découpe, poche, perçage, perçage-fraisage, palpage, gravure depuis DXF et décalages d'origine (offsets). Version web simplifiée sur la page d'accueil."],
+      ["DaThread", "Détecteur des taraudages à effectuer depuis un DXF. Gère aussi les perçages et les gravures, pour le montage des bruts sur plaques de reprise."],
+      ["TauDrive", "Générateur de parcours pour laser Cielle, avec ses fonctions dédiées."]
+    ],
+    parcours: [
+      ["Aujourd'hui", "Programmeur-régleur UGV Datron", "Production sur centres Datron neo, gravure de précision sur laiton. Conception de NeoDrive, DaThread et TauDrive."],
+      ["2015 – 2021", "Régleur P2 – Sogefi Filtration", "Production de filtres à huile selon cahier des charges : une dizaine de machines différentes conduites avec un aide-régleur, contrôles qualité, rapports à la hiérarchie et aux services maintenance, méthodes et qualité."],
+      ["2010 – 2015", "Professeur de mathématiques – Keepschool", "Cours de soutien de la 6e aux maths sup (28 élèves en 2014), stages collectifs de préparation au bac S."],
+      ["2009 – 2015", "Dépannage informatique – auto-entrepreneur", "Maintenance de systèmes d'exploitation, réparations matérielles, formation et accompagnement des utilisateurs."]
+    ],
+    formation: [
+      ["2004 – 2008", "INSA Rouen", "Élève ingénieur – génie mathématique."],
+      ["2000 – 2004", "Baccalauréat S", "Option sport, mention Bien – Rodez."]
+    ]
+  };
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const cells = a => a.map(([t, d]) => `<div class="cell"><h3>${esc(t)}</h3><p>${esc(d)}</p></div>`).join('');
+  const tl = a => a.map(([p, t, d]) => `<li><span class="per">${esc(p)}</span><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join('');
+  document.getElementById('competences').innerHTML = cells(CV.competences);
+  document.getElementById('outils').innerHTML = cells(CV.outils);
+  document.getElementById('parcours').innerHTML = tl(CV.parcours);
+  document.getElementById('formation').innerHTML = tl(CV.formation);
+})();
+</script>
+</body>
+</html>

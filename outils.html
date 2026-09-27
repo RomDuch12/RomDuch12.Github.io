@@ -6,12 +6,10 @@
 <title>Éditeur d'outils – RomDuch</title>
 <meta name="description" content="Éditeur de bibliothèque d'outils (tools.json) pour le générateur SimPL : recherche dans le catalogue Datron, édition des avances, export.">
 <script src="theme.js"></script>
+<link rel="stylesheet" href="themes.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400&display=swap">
 <style>
-:root{--bg:#EDEFF1;--card:#FAFBFB;--ink:#1F2A36;--mute:#5E6B78;--line:#CBD1D6;--brass:#9A7430;--brass-l:#C9A35A;--warn:#A4462F;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151B21;--card:#1E262E;--ink:#E4E8EC;--mute:#98A4B0;--line:#33404B;--brass:#D2A857;--brass-l:#E5C27E;--warn:#E08A6E}}
-:root[data-theme="dark"]{--bg:#151B21;--card:#1E262E;--ink:#E4E8EC;--mute:#98A4B0;--line:#33404B;--brass:#D2A857;--brass-l:#E5C27E;--warn:#E08A6E}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:inherit}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Barlow,"Segoe UI",Roboto,Arial,sans-serif}
 main{max-width:980px;margin:0 auto;padding:28px 18px 90px}
@@ -25,7 +23,7 @@ a{color:var(--ink);text-decoration-color:var(--brass);text-underline-offset:3px}
 .bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 select,button,input,textarea{font:400 15px Barlow,sans-serif;color:var(--ink);max-width:100%}
 button{border:1px solid var(--line);background:var(--card);padding:7px 12px;border-radius:5px;cursor:pointer;font-weight:600}
-button.primary{background:var(--brass);border-color:var(--brass);color:#fff}
+button.primary{background:var(--brass);border-color:var(--brass);color:var(--on-accent)}
 button:disabled{opacity:.5;cursor:not-allowed}
 :focus-visible{outline:3px solid var(--brass-l);outline-offset:2px}
 .fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px 12px}
@@ -46,13 +44,19 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .chips button{font-weight:500;font-size:14px;padding:4px 10px}
 .search{display:flex;gap:6px;flex-wrap:wrap}.search input{flex:1 1 220px;background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:7px 9px}
 .top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}.themebtn{padding:4px 10px;font-size:14px}
+.auto{margin:0 0 12px;border:1px dashed var(--line);border-radius:5px;padding:8px 12px}
+.auto summary{cursor:pointer;font-weight:600}
+.steps{margin:8px 0;padding-left:1.3em;color:var(--mute);font-size:15px}
+.bookmarklet{display:inline-block;background:var(--brass);color:var(--on-accent);padding:2px 10px;border-radius:5px;text-decoration:none;font-weight:700;cursor:grab}
+#paste{flex:1 1 260px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:6px 8px;font:400 14px "JetBrains Mono",monospace;min-height:42px}
+.filled{outline:2px solid var(--brass-l);outline-offset:1px}
 footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
 </style>
 </head>
 <body>
 <main>
 <header>
-  <div class="top"><a href="index.html">← RomDuch · Génère ton SimPL</a><button type="button" class="themebtn" data-theme-toggle>☾ Mode sombre</button></div>
+  <div class="top"><a href="index.html">← RomDuch · Génère ton SimPL</a><span data-theme-select></span></div>
   <h1>Éditeur d'outils</h1>
   <p class="lead">Construisez votre <em>tools.json</em> pour le générateur : cherchez l'outil dans le catalogue Datron, reportez ses cotes, puis réglez rotation et avances. Le fichier reste chez vous (export, ou stockage local si vous l'acceptez).</p>
 </header>
@@ -84,6 +88,19 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 
 <section class="box" aria-labelledby="t-add">
   <h3 id="t-add">Ajouter un outil du catalogue</h3>
+  <details class="auto" open>
+    <summary>Remplissage automatique depuis une fiche Datron</summary>
+    <ol class="steps">
+      <li>Glissez ce bouton dans votre barre de favoris : <a class="bookmarklet" id="bm" href="#">→ RomDuch</a> (une seule fois).</li>
+      <li>Ouvrez la fiche de l'outil sur le webshop (recherche ci-dessus), puis cliquez sur le favori « → RomDuch » : la fiche est copiée.</li>
+      <li>Collez-la ici (Ctrl+V) : référence, désignation, type, D1, L2 et nombre de dents sont remplis. Le texte copié à la main depuis la fiche fonctionne aussi.</li>
+    </ol>
+    <div class="bar">
+      <textarea id="paste" rows="2" placeholder="Collez ici la fiche Datron (Ctrl+V)" aria-label="Fiche Datron à analyser"></textarea>
+      <button type="button" id="b-paste">Coller depuis le presse-papiers</button>
+    </div>
+    <p class="status" id="st-auto" role="status"></p>
+  </details>
   <form id="f-add">
     <div class="fields">
       <label>Référence Datron<input name="articleNr" required placeholder="0068432A" autocomplete="off"></label>
@@ -112,7 +129,7 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <div id="list"></div>
 
 <footer><p>Les références « GEN-… » du fichier générique sont fictives : remplacez-les par celles de votre magasin d'outils avant usinage. Vc = π·D·n / 1000 ; fz = avance / (n · dents).</p>
-<p><a href="index.html">Retour au générateur</a> · <a href="#" data-stockage-gerer>Gérer le stockage local</a></p></footer>
+<p><a href="index.html">Retour au générateur</a> · <a href="cv.html">CV</a> · <a href="#" data-stockage-gerer>Gérer le stockage local</a></p></footer>
 </main>
 
 <script src="stockage.js" defer></script>
@@ -255,6 +272,59 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
     if (t.tipDiameter === undefined) delete t.tipDiameter;
     lib.tools.unshift(t); dirty = true; render(); f.reset(); status(`« ${t.name} » ajouté en tête de liste : réglez rotation et avances.`);
   };
+  /* ---------- remplissage automatique depuis une fiche Datron ---------- */
+  // favori (bookmarklet) : lit les données structurées schema.org/Product de la fiche et les copie
+  const BM = `(()=>{const L=[...document.querySelectorAll('script[type="application/ld+json"]')].flatMap(s=>{try{const j=JSON.parse(s.textContent);return Array.isArray(j)?j:[j]}catch(e){return[]}});
+const p=L.find(x=>x&&x['@type']==='Product');if(!p){alert('RomDuch : ouvrez une fiche produit du webshop Datron.');return}
+const d=JSON.stringify({romduch:'datron',sku:p.sku,name:p.name,description:p.description,url:location.href});
+const ok=()=>alert('RomDuch : fiche '+p.sku+' copiée. Collez-la dans l\\'éditeur d\\'outils.');
+navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(d).then(ok,()=>prompt('Copiez ce texte :',d)):prompt('Copiez ce texte :',d)})()`;
+  $('bm').href = 'javascript:' + encodeURIComponent(BM.replace(/\n/g, ''));
+  $('bm').onclick = e => { e.preventDefault(); alert('Glissez ce bouton dans votre barre de favoris, puis utilisez-le sur une fiche du webshop Datron.'); };
+
+  function parseDatron(txt) {
+    const o = {};
+    try { const j = JSON.parse(txt); if (j && j.romduch === 'datron') { o.sku = j.sku; o.titre = j.name; o.url = j.url; txt = `${j.name || ''} ${j.description || ''}`; } } catch (e) { /* texte brut */ }
+    const t = String(txt).replace(/\/n/g, ' ').replace(/\s+/g, ' ');
+    const num = re => { const m = t.match(re); return m ? parseFloat(m[1].replace(',', '.')) : undefined; };
+    o.sku = (o.sku || (t.match(/\b(0[0-9A-Z]\d{5}[A-Z])\b/i) || [])[1] || '').toUpperCase();
+    o.d1 = num(/\(D1\)\s*[=:]\s*([\d.,]+)/i) ?? num(/\bD1\b\s*[=:]?\s*([\d.,]+)\s*mm/i);
+    o.d2 = num(/\(D2\)\s*[=:]\s*([\d.,]+)/i);
+    o.l1 = num(/\(L1\)\s*[=:]\s*([\d.,]+)/i);
+    o.l2 = num(/\(L2\)\s*[=:]\s*([\d.,]+)/i) ?? num(/\bL2\b\s*[=:]?\s*([\d.,]+)\s*mm/i);
+    const words = { ein: 1, zwei: 2, drei: 3, vier: 4 };
+    const fl = t.match(/mit\s+(\d+)\s+Schneide/i) || t.match(/\b(ein|zwei|drei|vier)schneider/i);
+    o.flutes = fl ? (words[String(fl[1]).toLowerCase()] || +fl[1]) : undefined;
+    o.tipAngle = num(/Spitzenwinkel\s*(?:\([^)]*\))?\s*[=:]\s*([\d.,]+)/i) ?? num(/(\d+(?:[.,]\d+)?)\s*°/);
+    o.tipDiameter = num(/Spitzen(?:durchmesser|breite)\s*(?:\([^)]*\))?\s*[=:]\s*([\d.,]+)/i);
+    o.type = /gravier/i.test(t) ? 'gravure' : /gewinde/i.test(t) ? 'filetage' : /bohr/i.test(t) ? 'foret' : /planfr|fly ?cut/i.test(t) ? 'surfacage' : 'fraise';
+    if (!o.titre && o.sku) { const m = t.match(new RegExp('([A-Za-zÄÖÜäöüß-]+)\\s+' + o.sku, 'i')); if (m) o.titre = m[1]; }
+    if (o.d1 === undefined && o.type === 'gravure') o.d1 = o.d2;          // graveur : Ø utile = queue
+    return o;
+  }
+  function remplir(txt) {
+    const o = parseDatron(txt), f = $('f-add'), filled = [];
+    const put = (k, v, lbl) => { if (v === undefined || v === '' || Number.isNaN(v)) return; f.elements[k].value = v; f.elements[k].classList.add('filled'); filled.push(lbl); };
+    f.querySelectorAll('.filled').forEach(x => x.classList.remove('filled'));
+    if (!o.sku && o.d1 === undefined) { $('st-auto').textContent = 'Aucune donnée Datron reconnue dans le texte collé.'; return; }
+    f.reset();                                                     // pas de reste d'une fiche précédente
+    put('articleNr', o.sku, 'référence');
+    const famille = (o.titre || '').replace(o.sku, '').trim();
+    const cotes = o.type === 'gravure'
+      ? [o.tipAngle !== undefined && `${o.tipAngle}°`, o.tipDiameter !== undefined && `pointe ${o.tipDiameter}`]
+      : [o.d1 !== undefined && `Ø${o.d1}`, o.l2 !== undefined && `L${o.l2}`];
+    put('name', [famille || TYPES[o.type], ...cotes].filter(Boolean).join(' '), 'désignation');
+    put('type', o.type, 'type'); put('diameter', o.d1, 'D1'); put('fluteLength', o.l2, 'L2'); put('flutes', o.flutes, 'dents');
+    if (o.type === 'gravure' || o.type === 'foret') put('tipAngle', o.tipAngle, 'angle'); put('tipDiameter', o.tipDiameter, 'Ø pointe');
+    $('st-auto').textContent = `Rempli : ${filled.join(', ')}${o.d2 ? ` (queue Ø${o.d2}, longueur ${o.l1 ?? '?'} mm)` : ''}. Vérifiez, puis « Ajouter à ma bibliothèque ».`;
+  }
+  $('paste').addEventListener('paste', e => { const t = (e.clipboardData || window.clipboardData).getData('text'); if (t) { e.preventDefault(); $('paste').value = t; remplir(t); } });
+  $('paste').addEventListener('change', () => remplir($('paste').value));
+  $('b-paste').onclick = () => {
+    if (!navigator.clipboard || !navigator.clipboard.readText) { $('st-auto').textContent = 'Lecture du presse-papiers non autorisée : collez avec Ctrl+V dans la zone.'; return; }
+    navigator.clipboard.readText().then(t => { $('paste').value = t; remplir(t); }, () => { $('st-auto').textContent = 'Accès au presse-papiers refusé : collez avec Ctrl+V dans la zone.'; });
+  };
+
   $('b-new').onclick = () => { lib.tools.unshift({ id: uid('NOUVEL_OUTIL'), name: 'Nouvel outil', type: 'fraise', articleNr: '', vendor: '', diameter: 2, fluteLength: 6, flutes: 1, tipAngle: 0, rpm: 20000,
     feeds: { roughing: 500, finishing: 700, plunge: 100, ramp: 200, approach: 6000 } }); dirty = true; render(); };
   $('b-fold').onclick = () => { lib.tools.forEach(t => { t._fold = true; }); render(); };
