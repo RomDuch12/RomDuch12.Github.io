@@ -1,172 +1,603 @@
-ref,famille,D1_mm,D2_mm,L1_mm,L2_mm,dents,n_tr_min,Vf_rainurage_mm_min,ap_rainurage_mm,ae_rainurage_mm,Vf_lateral_mm_min,ap_lateral_mm,ae_lateral_mm,source_avances
-0068003E,standard,0.3,3,38,1,1,40000,420,0.28,0.3,310,0.7,0.08,"modèle RomDuch, 2 kW neo, aluminium"
-0068004E,standard,0.4,3,38,1,1,40000,570,0.37,0.4,460,0.7,0.12,"modèle RomDuch, 2 kW neo, aluminium"
-0068005E,standard,0.5,3,38,1.5,1,40000,660,0.35,0.5,510,1.1,0.11,"modèle RomDuch, 2 kW neo, aluminium"
-0068006E,standard,0.6,3,38,2.5,1,40000,710,0.29,0.6,510,1.93,0.09,"modèle RomDuch, 2 kW neo, aluminium"
-0068606E,standard,0.6,3.175,38,3,1,40000,680,0.26,0.6,470,2.36,0.08,"modèle RomDuch, 2 kW neo, aluminium"
-0068008E,standard,0.8,3,38,3,1,40000,920,0.34,0.8,690,2.36,0.12,"modèle RomDuch, 2 kW neo, aluminium"
-0068608E,standard,0.8,3.175,38,3,1,40000,920,0.34,0.8,690,2.36,0.12,"modèle RomDuch, 2 kW neo, aluminium"
-0068610E,standard,1,3.175,38,3,1,40000,1180,0.42,1.0,930,2.35,0.15,"modèle RomDuch, 2 kW neo, aluminium"
-0068010E,standard,1,3,38,4,1,40000,1100,0.35,1.0,810,3.24,0.12,"modèle RomDuch, 2 kW neo, aluminium"
-0068410E,standard,1,6,50,4,1,40000,1100,0.35,1.0,810,3.24,0.12,"modèle RomDuch, 2 kW neo, aluminium"
-0068612E,standard,1.2,3.175,38,4,1,40000,1340,0.42,1.2,1030,3.23,0.15,"modèle RomDuch, 2 kW neo, aluminium"
-0068415A,standard,1.5,6,50,3,1,39700,1820,0.62,1.5,1580,2.34,0.26,"modèle RomDuch, 2 kW neo, aluminium"
-0068615E,standard,1.5,3.175,38,4,1,39500,1690,0.52,1.5,1370,3.22,0.21,"modèle RomDuch, 2 kW neo, aluminium"
-0068015E,standard,1.5,3,38,5,1,39300,1590,0.45,1.5,1220,4.13,0.17,"modèle RomDuch, 2 kW neo, aluminium"
-0068415Y,standard,1.5,4,40,5,1,39300,1590,0.45,1.5,1220,4.13,0.17,"modèle RomDuch, 2 kW neo, aluminium"
-0068415E,standard,1.5,6,50,7,1,39000,1450,0.36,1.5,1030,6.0,0.13,"modèle RomDuch, 2 kW neo, aluminium"
-0078415E,standard,1.5,6,58,7,1,39000,1450,0.36,1.5,1030,6.0,0.13,"modèle RomDuch, 2 kW neo, aluminium"
-0068016E,standard,1.6,3,38,5,1,39000,1690,0.47,1.6,1320,4.13,0.19,"modèle RomDuch, 2 kW neo, aluminium"
-0068432A,standard,2,6,50,5,1,38100,2110,0.59,2.0,1740,4.12,0.25,"modèle RomDuch, 2 kW neo, aluminium"
-0068620G,standard,2,3.175,40,5,1,38100,2110,0.59,2.0,1740,4.12,0.25,"modèle RomDuch, 2 kW neo, aluminium"
-0068020G,standard,2,3,40,6,1,37900,2010,0.52,2.0,1590,5.04,0.21,"modèle RomDuch, 2 kW neo, aluminium"
-0068432E,standard,2,6,50,7,1,37800,1930,0.47,2.0,1470,5.98,0.19,"modèle RomDuch, 2 kW neo, aluminium"
-0078420E,standard,2,6,58,7,1,37800,1930,0.47,2.0,1470,5.98,0.19,"modèle RomDuch, 2 kW neo, aluminium"
-0068020E,standard,2,3,40,8,1,37700,1860,0.43,2.0,1370,6.94,0.17,"modèle RomDuch, 2 kW neo, aluminium"
-0068432Y,standard,2,4,40,8,1,37700,1860,0.43,2.0,1370,6.94,0.17,"modèle RomDuch, 2 kW neo, aluminium"
-0068620E,standard,2,3.175,38,8,1,37700,1860,0.43,2.0,1370,6.94,0.17,"modèle RomDuch, 2 kW neo, aluminium"
-0068020L,standard,2,3,40,10,1,37500,1760,0.37,2.0,1230,8.89,0.14,"modèle RomDuch, 2 kW neo, aluminium"
-0068432L,standard,2,6,50,11,1,37400,1710,0.35,2.0,1170,9.88,0.13,"modèle RomDuch, 2 kW neo, aluminium"
-0068620F,standard,2,3.175,40,11.5,1,37400,1690,0.34,2.0,1140,10.38,0.13,"modèle RomDuch, 2 kW neo, aluminium"
-0068020W,standard,2,3,65,15,1,37200,1580,0.29,2.0,1000,13.95,0.1,"modèle RomDuch, 2 kW neo, aluminium"
-0068024A,standard,2.4,3,40,5.5,1,37300,2460,0.66,2.4,2070,4.57,0.29,"modèle RomDuch, 2 kW neo, aluminium"
-0068024E,standard,2.4,3,40,8,1,37000,2230,0.51,2.4,1720,6.92,0.21,"modèle RomDuch, 2 kW neo, aluminium"
-0068624E,standard,2.4,3.175,38,8,1,37000,2230,0.51,2.4,1720,6.92,0.21,"modèle RomDuch, 2 kW neo, aluminium"
-0078424E,standard,2.4,6,50,8,1,37000,2230,0.51,2.4,1720,6.92,0.21,"modèle RomDuch, 2 kW neo, aluminium"
-0068024L,standard,2.4,3,40,10,1,36800,2100,0.44,2.4,1530,8.87,0.18,"modèle RomDuch, 2 kW neo, aluminium"
-0068425A,standard,2.5,6,50,5,1,37200,2620,0.73,2.5,2290,4.11,0.33,"modèle RomDuch, 2 kW neo, aluminium"
-0078425E,standard,2.5,6,58,8,1,36800,2320,0.53,2.5,1800,6.92,0.23,"modèle RomDuch, 2 kW neo, aluminium"
-0068430A,standard,3,6,50,5,1,36500,3140,0.86,3.0,2860,4.1,0.42,"modèle RomDuch, 2 kW neo, aluminium"
-0068430E,standard,3,6,50,8,1,36100,2770,0.63,3.0,2260,6.91,0.28,"modèle RomDuch, 2 kW neo, aluminium"
-0078430E,standard,3,6,58,8,1,36100,2770,0.63,3.0,2260,6.91,0.28,"modèle RomDuch, 2 kW neo, aluminium"
-0068630E,standard,3,3.175,38,9,1,36000,2690,0.59,3.0,2130,7.87,0.26,"modèle RomDuch, 2 kW neo, aluminium"
-0068030E,standard,3,3,40,10,1,35900,2610,0.55,3.0,2020,8.85,0.24,"modèle RomDuch, 2 kW neo, aluminium"
-0068030Y,standard,3,3,65,10,1,35900,2610,0.55,3.0,2020,8.85,0.24,"modèle RomDuch, 2 kW neo, aluminium"
-0068430S,standard,3,6,50,10,1,35900,2610,0.55,3.0,2020,8.85,0.24,"modèle RomDuch, 2 kW neo, aluminium"
-0068430Y,standard,3,4,40,10,1,35900,2610,0.55,3.0,2020,8.85,0.24,"modèle RomDuch, 2 kW neo, aluminium"
-0078430S,standard,3,6,58,10,1,35900,2610,0.55,3.0,2020,8.85,0.24,"modèle RomDuch, 2 kW neo, aluminium"
-0068030Z,standard,3,3,40,10.5,1,35900,2580,0.53,3.0,1970,9.34,0.23,"modèle RomDuch, 2 kW neo, aluminium"
-0068630F,standard,3,3.175,40,11.5,1,35800,2520,0.5,3.0,1880,10.34,0.21,"modèle RomDuch, 2 kW neo, aluminium"
-0068430L,standard,3,6,50,12,1,35800,2490,0.49,3.0,1840,10.84,0.21,"modèle RomDuch, 2 kW neo, aluminium"
-0068030W,standard,3,3,65,15,1,35600,2350,0.42,3.0,1640,13.89,0.17,"modèle RomDuch, 2 kW neo, aluminium"
-0078435E,standard,3.5,6,58,10,1,35300,3040,0.63,3.5,2440,8.84,0.29,"modèle RomDuch, 2 kW neo, aluminium"
-0068434A,standard,4,6,50,5,1,35400,4160,1.13,4.0,4080,4.09,0.6,"modèle RomDuch, 2 kW neo, aluminium"
-0068434B,standard,4,6,50,7,1,35100,3800,0.91,4.0,3440,5.94,0.46,"modèle RomDuch, 2 kW neo, aluminium"
-0068434E,standard,4,6,50,10,1,34800,3460,0.72,4.0,2870,8.82,0.34,"modèle RomDuch, 2 kW neo, aluminium"
-0068434Y,standard,4,4,40,10,1,34800,3460,0.72,4.0,2870,8.82,0.34,"modèle RomDuch, 2 kW neo, aluminium"
-0078440E,standard,4,6,58,10,1,34800,3460,0.72,4.0,2870,8.82,0.34,"modèle RomDuch, 2 kW neo, aluminium"
-0068434L,standard,4,6,50,12,1,34700,3300,0.64,4.0,2620,10.8,0.3,"modèle RomDuch, 2 kW neo, aluminium"
-0068434S,standard,4,6,60,14,1,34600,3170,0.58,4.0,2420,12.82,0.26,"modèle RomDuch, 2 kW neo, aluminium"
-0068434Z,standard,4,6,45,14,1,34600,3170,0.58,4.0,2420,12.82,0.26,"modèle RomDuch, 2 kW neo, aluminium"
-0078440L,standard,4,6,58,18,1,34400,2960,0.49,4.0,2140,16.95,0.21,"modèle RomDuch, 2 kW neo, aluminium"
-0068434F,standard,4,6,58,20,1,34300,2880,0.46,4.0,2020,19.06,0.2,"modèle RomDuch, 2 kW neo, aluminium"
-0068435B,standard,5,6,50,8,1,34200,4570,1.03,5.0,4230,6.87,0.55,"modèle RomDuch, 2 kW neo, aluminium"
-0068435E,standard,5,6,50,12,1,33900,4110,0.79,5.0,3450,10.78,0.39,"modèle RomDuch, 2 kW neo, aluminium"
-0068435L,standard,5,6,58,22,1,26700,2240,0.42,4.0,1620,16.91,0.19,"modèle RomDuch, 2 kW neo, aluminium"
-0068460C,standard,6,6,50,8,1,33500,5460,1.23,6.0,5300,6.86,0.69,"modèle RomDuch, 2 kW neo, aluminium"
-0068460E,standard,6,6,50,14,1,33100,4710,0.85,6.0,3990,12.77,0.44,"modèle RomDuch, 2 kW neo, aluminium"
-0068460L,standard,6,6,60,20,1,32800,4290,0.67,6.0,3330,18.97,0.33,"modèle RomDuch, 2 kW neo, aluminium"
-0068460A,standard,6,6,58,25,1,26100,2590,0.46,4.8,1910,19.45,0.22,"modèle RomDuch, 2 kW neo, aluminium"
-0068460B,standard,6,6,65,30,1,26000,2470,0.41,4.8,1740,23.81,0.19,"modèle RomDuch, 2 kW neo, aluminium"
-0068079E,standard,7,8,60,14,1,32600,5480,0.98,7.0,4820,12.75,0.54,"modèle RomDuch, 2 kW neo, aluminium"
-0068080E,standard,8,8,60,14,1,32100,6250,1.12,8.0,5690,12.73,0.64,"modèle RomDuch, 2 kW neo, aluminium"
-0068080L,standard,8,8,60,20,1,31800,5690,0.88,8.0,4750,18.92,0.48,"modèle RomDuch, 2 kW neo, aluminium"
-0068080A,standard,8,8,60,25,1,31700,5360,0.76,8.0,4240,24.24,0.4,"modèle RomDuch, 2 kW neo, aluminium"
-0068080B,standard,8,8,80,32,1,31500,5020,0.65,8.0,3740,31.88,0.33,"modèle RomDuch, 2 kW neo, aluminium"
-0068470E,standard,10,10,60,20,1,31100,7080,1.09,10.0,6250,18.87,0.63,"modèle RomDuch, 2 kW neo, aluminium"
-0068470L,standard,10,10,100,40,1,30600,5890,0.69,10.0,4400,40.0,0.36,"modèle RomDuch, 2 kW neo, aluminium"
-0068803A,4-IN-1,3,6,40,5,1,36500,3140,0.86,3.0,2860,4.1,0.42,"modèle RomDuch, 2 kW neo, aluminium"
-0068803E,4-IN-1,3,6,50,9,1,36000,2690,0.59,3.0,2130,7.87,0.26,"modèle RomDuch, 2 kW neo, aluminium"
-0068803K,4-IN-1,3,6,45,9,1,36000,2690,0.59,3.0,2130,7.87,0.26,"modèle RomDuch, 2 kW neo, aluminium"
-0068803L,4-IN-1,3,6,50,9,1,36000,2690,0.59,3.0,2130,7.87,0.26,"modèle RomDuch, 2 kW neo, aluminium"
-0068803X,4-IN-1,3,6,50,13,1,35700,2440,0.46,3.0,1770,11.84,0.19,"modèle RomDuch, 2 kW neo, aluminium"
-0068804A,4-IN-1,4,6,40,5,1,35400,4160,1.13,4.0,4080,4.09,0.6,"modèle RomDuch, 2 kW neo, aluminium"
-0068804E,4-IN-1,4,6,50,9,1,34900,3560,0.77,4.0,3030,7.85,0.37,"modèle RomDuch, 2 kW neo, aluminium"
-0068804K,4-IN-1,4,6,45,9,1,34900,3560,0.77,4.0,3030,7.85,0.37,"modèle RomDuch, 2 kW neo, aluminium"
-0068804L,4-IN-1,4,6,55,9,1,34900,3560,0.77,4.0,3030,7.85,0.37,"modèle RomDuch, 2 kW neo, aluminium"
-0068804X,4-IN-1,4,6,55,16,1,34500,3060,0.53,4.0,2270,14.87,0.24,"modèle RomDuch, 2 kW neo, aluminium"
-0068805A,4-IN-1,5,6,45,7,1,34300,4730,1.13,5.0,4530,5.92,0.61,"modèle RomDuch, 2 kW neo, aluminium"
-0068805E,4-IN-1,5,6,60,11,1,33900,4200,0.84,5.0,3600,9.79,0.42,"modèle RomDuch, 2 kW neo, aluminium"
-0068805K,4-IN-1,5,6,50,11,1,33900,4200,0.84,5.0,3600,9.79,0.42,"modèle RomDuch, 2 kW neo, aluminium"
-0068805L,4-IN-1,5,6,60,11,1,33900,4200,0.84,5.0,3600,9.79,0.42,"modèle RomDuch, 2 kW neo, aluminium"
-0068805X,4-IN-1,5,6,55,16,1,33600,3810,0.65,5.0,2980,14.84,0.31,"modèle RomDuch, 2 kW neo, aluminium"
-0068806A,4-IN-1,6,6,45,7,1,33600,5660,1.34,6.0,5670,5.91,0.77,"modèle RomDuch, 2 kW neo, aluminium"
-0068806E,4-IN-1,6,6,60,13,1,33100,4810,0.89,6.0,4140,11.76,0.47,"modèle RomDuch, 2 kW neo, aluminium"
-0068806K,4-IN-1,6,6,50,13,1,33100,4810,0.89,6.0,4140,11.76,0.47,"modèle RomDuch, 2 kW neo, aluminium"
-0068806L,4-IN-1,6,6,65,13,1,33100,4810,0.89,6.0,4140,11.76,0.47,"modèle RomDuch, 2 kW neo, aluminium"
-0068806X,4-IN-1,6,6,55,21,1,32800,4240,0.65,6.0,3250,20.03,0.32,"modèle RomDuch, 2 kW neo, aluminium"
-0068808A,4-IN-1,8,8,45,9,1,32400,7020,1.49,8.0,7110,7.79,0.91,"modèle RomDuch, 2 kW neo, aluminium"
-0068808E,4-IN-1,8,8,65,17,1,31900,5940,0.98,8.0,5150,15.79,0.54,"modèle RomDuch, 2 kW neo, aluminium"
-0068808K,4-IN-1,8,8,55,17,1,31900,5940,0.98,8.0,5150,15.79,0.54,"modèle RomDuch, 2 kW neo, aluminium"
-0068808L,4-IN-1,8,8,75,17,1,31900,5940,0.98,8.0,5150,15.79,0.54,"modèle RomDuch, 2 kW neo, aluminium"
-0068808X,4-IN-1,8,8,65,26,1,31600,5310,0.74,8.0,4160,25.32,0.39,"modèle RomDuch, 2 kW neo, aluminium"
-0068810A,4-IN-1,10,10,50,11,1,31500,8290,1.62,10.0,8450,9.71,1.03,"modèle RomDuch, 2 kW neo, aluminium"
-0068810E,4-IN-1,10,10,75,21,1,31000,6990,1.06,10.0,6100,19.92,0.61,"modèle RomDuch, 2 kW neo, aluminium"
-0068810K,4-IN-1,10,10,60,21,1,31000,6990,1.06,10.0,6100,19.92,0.61,"modèle RomDuch, 2 kW neo, aluminium"
-0068810L,4-IN-1,10,10,85,21,1,31000,6990,1.06,10.0,6100,19.92,0.61,"modèle RomDuch, 2 kW neo, aluminium"
-0068810X,4-IN-1,10,10,70,32,1,30800,6250,0.8,10.0,4930,31.81,0.43,"modèle RomDuch, 2 kW neo, aluminium"
-0068812A,4-IN-1,12,12,55,14,1,30700,9300,1.64,12.0,9360,12.67,1.07,"modèle RomDuch, 2 kW neo, aluminium"
-0068812E,4-IN-1,12,12,85,26,1,30300,7900,1.09,12.0,6850,25.21,0.65,"modèle RomDuch, 2 kW neo, aluminium"
-0068812K,4-IN-1,12,12,65,26,1,30300,7900,1.09,12.0,6850,25.21,0.65,"modèle RomDuch, 2 kW neo, aluminium"
-0068812L,4-IN-1,12,12,95,26,1,30300,7900,1.09,12.0,6850,25.21,0.65,"modèle RomDuch, 2 kW neo, aluminium"
-0068812X,4-IN-1,12,12,75,36,1,30100,7250,0.88,12.0,5810,36.0,0.5,"modèle RomDuch, 2 kW neo, aluminium"
-0078310E,arête polie (acrylique),1,6,50,4,1,40000,1100,0.35,1.0,810,3.24,0.12,"modèle RomDuch, 2 kW neo, aluminium"
-0078320E,arête polie (acrylique),2,6,50,7,1,37800,1930,0.47,2.0,1470,5.98,0.19,"modèle RomDuch, 2 kW neo, aluminium"
-0078320L,arête polie (acrylique),2,6,50,11,1,37400,1710,0.35,2.0,1170,9.88,0.13,"modèle RomDuch, 2 kW neo, aluminium"
-0078330E,arête polie (acrylique),3,6,50,8,1,36100,2770,0.63,3.0,2260,6.91,0.28,"modèle RomDuch, 2 kW neo, aluminium"
-0078330L,arête polie (acrylique),3,6,50,12,1,35800,2490,0.49,3.0,1840,10.84,0.21,"modèle RomDuch, 2 kW neo, aluminium"
-0078334E,arête polie (acrylique),4,6,50,10,1,34800,3460,0.72,4.0,2870,8.82,0.34,"modèle RomDuch, 2 kW neo, aluminium"
-0078334L,arête polie (acrylique),4,6,60,22,1,34200,2810,0.43,4.0,1930,21.18,0.18,"modèle RomDuch, 2 kW neo, aluminium"
-0078335E,arête polie (acrylique),5,6,50,12,1,33900,4110,0.79,5.0,3450,10.78,0.39,"modèle RomDuch, 2 kW neo, aluminium"
-0078335L,arête polie (acrylique),5,6,60,22,1,26700,2240,0.42,4.0,1620,16.91,0.19,"modèle RomDuch, 2 kW neo, aluminium"
-0078360E,arête polie (acrylique),6,6,50,14,1,33100,4710,0.85,6.0,3990,12.77,0.44,"modèle RomDuch, 2 kW neo, aluminium"
-0078360L,arête polie (acrylique),6,6,60,22,1,32800,4180,0.63,6.0,3180,21.09,0.31,"modèle RomDuch, 2 kW neo, aluminium"
-0078338E,arête polie (acrylique),8,8,60,22,1,31800,5550,0.83,8.0,4530,21.03,0.44,"modèle RomDuch, 2 kW neo, aluminium"
-0078338L,arête polie (acrylique),8,8,70,32,1,31500,5020,0.65,8.0,3740,31.88,0.33,"modèle RomDuch, 2 kW neo, aluminium"
-0078339E,arête polie (acrylique),10,10,75,32,1,30800,6250,0.8,10.0,4930,31.81,0.43,"modèle RomDuch, 2 kW neo, aluminium"
-0068492K,avec dépouille,2,6,50,4,1,38300,2240,0.68,2.0,1950,3.21,0.3,"modèle RomDuch, 2 kW neo, aluminium"
-0068492E,avec dépouille,2,6,50,7,1,37800,1930,0.47,2.0,1470,5.98,0.19,"modèle RomDuch, 2 kW neo, aluminium"
-0068493D,avec dépouille,3,6,50,4,1,36600,3330,1.0,3.0,3210,3.2,0.5,"modèle RomDuch, 2 kW neo, aluminium"
-0068493F,avec dépouille,3,6,50,4,1,36600,3330,1.0,3.0,3210,3.2,0.5,"modèle RomDuch, 2 kW neo, aluminium"
-0068493K,avec dépouille,3,6,50,4,1,36600,3330,1.0,3.0,3210,3.2,0.5,"modèle RomDuch, 2 kW neo, aluminium"
-0068493E,avec dépouille,3,6,50,8,1,36100,2770,0.63,3.0,2260,6.91,0.28,"modèle RomDuch, 2 kW neo, aluminium"
-0068493L,avec dépouille,3,6,50,8,1,36100,2770,0.63,3.0,2260,6.91,0.28,"modèle RomDuch, 2 kW neo, aluminium"
-0068493S,avec dépouille,3,6,50,8,1,36100,2770,0.63,3.0,2260,6.91,0.28,"modèle RomDuch, 2 kW neo, aluminium"
-0068494D,avec dépouille,4,6,50,5,1,35400,4160,1.13,4.0,4080,4.09,0.6,"modèle RomDuch, 2 kW neo, aluminium"
-0068494K,avec dépouille,4,6,50,5,1,35400,4160,1.13,4.0,4080,4.09,0.6,"modèle RomDuch, 2 kW neo, aluminium"
-0068494E,avec dépouille,4,6,50,10,1,34800,3460,0.72,4.0,2870,8.82,0.34,"modèle RomDuch, 2 kW neo, aluminium"
-0068494S,avec dépouille,4,6,50,10,1,34800,3460,0.72,4.0,2870,8.82,0.34,"modèle RomDuch, 2 kW neo, aluminium"
-0068495K,avec dépouille,5,6,60,5,1,34500,5170,1.4,5.0,5370,4.08,0.8,"modèle RomDuch, 2 kW neo, aluminium"
-0068495E,avec dépouille,5,6,50,12,1,33900,4110,0.79,5.0,3450,10.78,0.39,"modèle RomDuch, 2 kW neo, aluminium"
-0068496F,avec dépouille,6,6,60,5,1,33700,5900,1.48,6.0,6120,4.98,0.87,"modèle RomDuch, 2 kW neo, aluminium"
-0068496K,avec dépouille,6,6,60,5,1,33700,5900,1.48,6.0,6120,4.98,0.87,"modèle RomDuch, 2 kW neo, aluminium"
-0068496E,avec dépouille,6,6,50,14,1,33100,4710,0.85,6.0,3990,12.77,0.44,"modèle RomDuch, 2 kW neo, aluminium"
-0068496L,avec dépouille,6,6,60,14,1,33100,4710,0.85,6.0,3990,12.77,0.44,"modèle RomDuch, 2 kW neo, aluminium"
-0068471E,hélice à gauche,1.5,6,50,7,1,39000,1450,0.36,1.5,1030,6.0,0.13,"modèle RomDuch, 2 kW neo, aluminium"
-0068472E,hélice à gauche,2,6,50,7,1,37800,1930,0.47,2.0,1470,5.98,0.19,"modèle RomDuch, 2 kW neo, aluminium"
-0068473E,hélice à gauche,3,6,50,8,1,36100,2770,0.63,3.0,2260,6.91,0.28,"modèle RomDuch, 2 kW neo, aluminium"
-0068474E,hélice à gauche,4,6,50,10,1,34800,3460,0.72,4.0,2870,8.82,0.34,"modèle RomDuch, 2 kW neo, aluminium"
-0068475E,hélice à gauche,5,6,50,12,1,33900,4110,0.79,5.0,3450,10.78,0.39,"modèle RomDuch, 2 kW neo, aluminium"
-0068476E,hélice à gauche,6,6,50,14,1,33100,4710,0.85,6.0,3990,12.77,0.44,"modèle RomDuch, 2 kW neo, aluminium"
-0068476L,hélice à gauche,6,6,60,20,1,32800,4290,0.67,6.0,3330,18.97,0.33,"modèle RomDuch, 2 kW neo, aluminium"
-0068085E,équilibrée,5,6,50,8.75,1,34100,4460,0.97,5.0,4050,7.59,0.51,"modèle RomDuch, 2 kW neo, aluminium"
-0068085S,équilibrée,5,8,50,8.75,1,34100,4460,0.97,5.0,4050,7.59,0.51,"modèle RomDuch, 2 kW neo, aluminium"
-0068086E,équilibrée,6,6,50,10.5,1,33300,5090,1.03,6.0,4620,9.27,0.56,"modèle RomDuch, 2 kW neo, aluminium"
-0068086S,équilibrée,6,8,50,10.5,1,33300,5090,1.03,6.0,4620,9.27,0.56,"modèle RomDuch, 2 kW neo, aluminium"
-0068086L,équilibrée,6,6,50,16,1,33000,4550,0.78,6.0,3730,14.81,0.4,"modèle RomDuch, 2 kW neo, aluminium"
-0068086X,équilibrée,6,6,55,21,1,32800,4240,0.65,6.0,3250,20.03,0.32,"modèle RomDuch, 2 kW neo, aluminium"
-0068088K,équilibrée,8,8,50,8,1,32500,7240,1.61,8.0,7540,6.84,1.0,"modèle RomDuch, 2 kW neo, aluminium"
-0068080D,équilibrée,8,8,70,14,1,32100,6250,1.12,8.0,5690,12.73,0.64,"modèle RomDuch, 2 kW neo, aluminium"
-0068088E,équilibrée,8,8,60,14,1,32100,6250,1.12,8.0,5690,12.73,0.64,"modèle RomDuch, 2 kW neo, aluminium"
-0068088S,équilibrée,8,8,60,21,1,31800,5620,0.86,8.0,4630,19.97,0.46,"modèle RomDuch, 2 kW neo, aluminium"
-0068088L,équilibrée,8,8,60,26,1,31600,5310,0.74,8.0,4160,25.32,0.39,"modèle RomDuch, 2 kW neo, aluminium"
-0068088X,équilibrée,8,8,70,31,1,31500,5070,0.66,8.0,3810,30.78,0.34,"modèle RomDuch, 2 kW neo, aluminium"
-0068090K,équilibrée,10,10,50,10,1,31600,8500,1.72,10.0,8870,8.74,1.11,"modèle RomDuch, 2 kW neo, aluminium"
-0068090E,équilibrée,10,10,60,17.5,1,31200,7330,1.19,10.0,6680,16.27,0.71,"modèle RomDuch, 2 kW neo, aluminium"
-0068090S,équilibrée,10,10,80,17.5,1,31200,7330,1.19,10.0,6680,16.27,0.71,"modèle RomDuch, 2 kW neo, aluminium"
-0068090L,équilibrée,10,10,60,26,1,30900,6600,0.92,10.0,5470,25.26,0.51,"modèle RomDuch, 2 kW neo, aluminium"
-0068090M,équilibrée,10,10,85,26,1,30900,6600,0.92,10.0,5470,25.26,0.51,"modèle RomDuch, 2 kW neo, aluminium"
-0068090X,équilibrée,10,10,70,32.5,1,30700,6230,0.79,10.0,4890,32.36,0.43,"modèle RomDuch, 2 kW neo, aluminium"
-0068092K,équilibrée,12,12,60,12,1,30800,9690,1.82,12.0,10120,10.68,1.21,"modèle RomDuch, 2 kW neo, aluminium"
-0068092E,équilibrée,12,12,70,21,1,30400,8360,1.26,12.0,7630,19.88,0.77,"modèle RomDuch, 2 kW neo, aluminium"
-0068092L,équilibrée,12,12,70,31.5,1,30200,7510,0.96,12.0,6210,31.2,0.56,"modèle RomDuch, 2 kW neo, aluminium"
+ref,categorie,famille,filetage,D1,D2,D3,L1,L2,L3,angle,R,dents,pas,prepercage,longueur_utile,prix_eur,groupe_prix,designation_de,page_catalogue
+0068803A,Fraise 1 dent,Fraise 1 dent 4-IN-1,,3,6,,40,5,,,,1,,,,38.68,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068803E,Fraise 1 dent,Fraise 1 dent 4-IN-1,,3,6,2.8,50,9,13,,,1,,,,40.56,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068803K,Fraise 1 dent,Fraise 1 dent 4-IN-1,,3,6,,45,9,,,,1,,,,39.95,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068803L,Fraise 1 dent,Fraise 1 dent 4-IN-1,,3,6,2.8,50,9,16,,,1,,,,41.2,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068803X,Fraise 1 dent,Fraise 1 dent 4-IN-1,,3,6,,50,13,,,,1,,,,42.44,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068804A,Fraise 1 dent,Fraise 1 dent 4-IN-1,,4,6,,40,5,,,,1,,,,39.95,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068804E,Fraise 1 dent,Fraise 1 dent 4-IN-1,,4,6,3.7,50,9,16,,,1,,,,41.8,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068804K,Fraise 1 dent,Fraise 1 dent 4-IN-1,,4,6,,45,9,,,,1,,,,41.2,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068804L,Fraise 1 dent,Fraise 1 dent 4-IN-1,,4,6,3.7,55,9,21,,,1,,,,42.44,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068804X,Fraise 1 dent,Fraise 1 dent 4-IN-1,,4,6,,55,16,,,,1,,,,43.69,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068805A,Fraise 1 dent,Fraise 1 dent 4-IN-1,,5,6,,45,7,,,,1,,,,42.44,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068805E,Fraise 1 dent,Fraise 1 dent 4-IN-1,,5,6,4.6,60,11,21,,,1,,,,44.32,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068805K,Fraise 1 dent,Fraise 1 dent 4-IN-1,,5,6,,50,11,,,,1,,,,43.69,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068805L,Fraise 1 dent,Fraise 1 dent 4-IN-1,,5,6,4.6,60,11,26,,,1,,,,44.96,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068805X,Fraise 1 dent,Fraise 1 dent 4-IN-1,,5,6,,55,16,,,,1,,,,46.2,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068806A,Fraise 1 dent,Fraise 1 dent 4-IN-1,,6,6,,45,7,,,,1,,,,44.96,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068806E,Fraise 1 dent,Fraise 1 dent 4-IN-1,,6,6,5.5,60,13,26,,,1,,,,48.7,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068806K,Fraise 1 dent,Fraise 1 dent 4-IN-1,,6,6,,50,13,,,,1,,,,46.82,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068806L,Fraise 1 dent,Fraise 1 dent 4-IN-1,,6,6,5.5,65,13,31,,,1,,,,50.58,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068806X,Fraise 1 dent,Fraise 1 dent 4-IN-1,,6,6,,55,21,,,,1,,,,52.46,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068808A,Fraise 1 dent,Fraise 1 dent 4-IN-1,,8,8,,45,9,,,,1,,,,55.15,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068808E,Fraise 1 dent,Fraise 1 dent 4-IN-1,,8,8,7.4,65,17,31,,,1,,,,60.55,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068808K,Fraise 1 dent,Fraise 1 dent 4-IN-1,,8,8,,55,17,,,,1,,,,57.84,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068808L,Fraise 1 dent,Fraise 1 dent 4-IN-1,,8,8,7.4,75,17,41,,,1,,,,63.23,RG2,"Einschneider – gewuchtet, Planschn.,pol., Freischliff; min",
+0068808X,Fraise 1 dent,Fraise 1 dent 4-IN-1,,8,8,,65,26,,,,1,,,,65.94,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068810A,Fraise 1 dent,Fraise 1 dent 4-IN-1,,10,10,,50,11,,,,1,,,,67.28,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068810E,Fraise 1 dent,Fraise 1 dent 4-IN-1,,10,10,9.2,75,21,41,,,1,,,,74.02,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068810K,Fraise 1 dent,Fraise 1 dent 4-IN-1,,10,10,,60,21,,,,1,,,,70.64,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068810L,Fraise 1 dent,Fraise 1 dent 4-IN-1,,10,10,9.2,85,21,51,,,1,,,,77.38,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068810X,Fraise 1 dent,Fraise 1 dent 4-IN-1,,10,10,,70,32,,,,1,,,,80.77,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068812A,Fraise 1 dent,Fraise 1 dent 4-IN-1,,12,12,,55,14,,,,1,,,,94.24,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068812E,Fraise 1 dent,Fraise 1 dent 4-IN-1,,12,12,11,85,26,51,,,1,,,,102.34,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068812K,Fraise 1 dent,Fraise 1 dent 4-IN-1,,12,12,,65,26,,,,1,,,,98.29,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0068812L,Fraise 1 dent,Fraise 1 dent 4-IN-1,,12,12,11,95,26,61,,,1,,,,106.37,RG2,"Einschneider – gewuchtet, Planschneide, poliert, Freisch",
+0068812X,Fraise 1 dent,Fraise 1 dent 4-IN-1,,12,12,,75,36,,,,1,,,,110.42,RG2,"Einschneider – gewuchtet, Planschneide, poliert",
+0078310E,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,1,6,,50,4,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
+0078320E,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,2,6,,50,7,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
+0078320L,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,2,6,,50,11,,,,1,,,,44.04,RG2,Einschneider – mit polierter Schneide,
+0078330E,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,3,6,,50,8,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
+0078330L,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,3,6,,50,12,,,,1,,,,44.04,RG2,Einschneider – mit polierter Schneide,
+0078334E,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,4,6,,50,10,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
+0078334L,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,4,6,,60,22,,,,1,,,,44.04,RG2,Einschneider – mit polierter Schneide,
+0078335E,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,5,6,,50,12,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
+0078335L,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,5,6,,60,22,,,,1,,,,44.04,RG2,Einschneider – mit polierter Schneide,
+0078360E,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,6,6,,50,14,,,,1,,,,41.41,RG2,Einschneider – mit polierter Schneide,
+0078360L,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,6,6,,60,22,,,,1,,,,44.04,RG2,Einschneider – mit polierter Schneide,
+0078338E,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,8,8,,60,22,,,,1,,,,61.58,RG2,Einschneider – mit polierter Schneide,
+0078338L,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,8,8,,70,32,,,,1,,,,68.66,RG2,Einschneider – mit polierter Schneide,
+0078339E,Fraise 1 dent,Fraise 1 dent arête polie (acrylique),,10,10,,75,32,,,,1,,,,79.99,RG2,Einschneider – mit polierter Schneide,
+0068492E,Fraise 1 dent,Fraise 1 dent avec dépouille,,2,6,1.8,50,7,14,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068492K,Fraise 1 dent,Fraise 1 dent avec dépouille,,2,6,1.8,50,4,12,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068493D,Fraise 1 dent,Fraise 1 dent avec dépouille,,3,6,2.7,50,4,17,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068493E,Fraise 1 dent,Fraise 1 dent avec dépouille,,3,6,2.7,50,8,14,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068493F,Fraise 1 dent,Fraise 1 dent avec dépouille,,3,6,2.7,50,4,21,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068493K,Fraise 1 dent,Fraise 1 dent avec dépouille,,3,6,2.7,50,4,14,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068493L,Fraise 1 dent,Fraise 1 dent avec dépouille,,3,6,2.7,50,8,21,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068493S,Fraise 1 dent,Fraise 1 dent avec dépouille,,3,6,2.7,50,8,17,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068494D,Fraise 1 dent,Fraise 1 dent avec dépouille,,4,6,3.6,50,5,21,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068494E,Fraise 1 dent,Fraise 1 dent avec dépouille,,4,6,3.6,50,10,18,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068494K,Fraise 1 dent,Fraise 1 dent avec dépouille,,4,6,3.6,50,5,18,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068494S,Fraise 1 dent,Fraise 1 dent avec dépouille,,4,6,3.6,50,10,21,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068495E,Fraise 1 dent,Fraise 1 dent avec dépouille,,5,6,4.4,50,12,22,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068495K,Fraise 1 dent,Fraise 1 dent avec dépouille,,5,6,4.4,60,5,22,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068496E,Fraise 1 dent,Fraise 1 dent avec dépouille,,6,6,5.3,50,14,24,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068496F,Fraise 1 dent,Fraise 1 dent avec dépouille,,6,6,5.3,60,5,30,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068496K,Fraise 1 dent,Fraise 1 dent avec dépouille,,6,6,5.3,60,5,24,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068496L,Fraise 1 dent,Fraise 1 dent avec dépouille,,6,6,5.3,60,14,30,,,1,,,,37.34,RG2,Einschneider – mit Freischliff,
+0068471E,Fraise 1 dent,Fraise 1 dent hélice à gauche,,1.5,6,,50,7,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
+0068472E,Fraise 1 dent,Fraise 1 dent hélice à gauche,,2,6,,50,7,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
+0068473E,Fraise 1 dent,Fraise 1 dent hélice à gauche,,3,6,,50,8,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
+0068474E,Fraise 1 dent,Fraise 1 dent hélice à gauche,,4,6,,50,10,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
+0068475E,Fraise 1 dent,Fraise 1 dent hélice à gauche,,5,6,,50,12,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
+0068476E,Fraise 1 dent,Fraise 1 dent hélice à gauche,,6,6,,50,14,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
+0068476L,Fraise 1 dent,Fraise 1 dent hélice à gauche,,6,6,,60,20,,,,1,,,,35.23,RG2,"Einschneider – linkspiralisiert, rechtsschneidend",
+0068003E,Fraise 1 dent,Fraise 1 dent standard,,0.3,3,,38,1,,,,1,,,,16.52,RG2,Einschneider,
+0068004E,Fraise 1 dent,Fraise 1 dent standard,,0.4,3,,38,1,,,,1,,,,16.52,RG1,Einschneider,
+0068005E,Fraise 1 dent,Fraise 1 dent standard,,0.5,3,,38,1.5,,,,1,,,,16.52,RG1,Einschneider,
+0068006E,Fraise 1 dent,Fraise 1 dent standard,,0.6,3,,38,2.5,,,,1,,,,16.52,RG2,Einschneider,
+0068606E,Fraise 1 dent,Fraise 1 dent standard,,0.6,3.175,,38,3,,,,1,,,,13.15,RG1,Einschneider,
+0068008E,Fraise 1 dent,Fraise 1 dent standard,,0.8,3,,38,3,,,,1,,,,16.52,RG1,Einschneider,
+0068608E,Fraise 1 dent,Fraise 1 dent standard,,0.8,3.175,,38,3,,,,1,,,,13.15,RG1,Einschneider,
+0068010E,Fraise 1 dent,Fraise 1 dent standard,,1,3,,38,4,,,,1,,,,16.52,RG1,Einschneider,
+0068410E,Fraise 1 dent,Fraise 1 dent standard,,1,6,,50,4,,,,1,,,,30.93,RG2,Einschneider,
+0068610E,Fraise 1 dent,Fraise 1 dent standard,,1,3.175,,38,3,,,,1,,,,13.15,RG1,Einschneider,
+0068612E,Fraise 1 dent,Fraise 1 dent standard,,1.2,3.175,,38,4,,,,1,,,,13.15,RG1,Einschneider,
+0068015E,Fraise 1 dent,Fraise 1 dent standard,,1.5,3,,38,5,,,,1,,,,16.52,RG1,Einschneider,
+0068415A,Fraise 1 dent,Fraise 1 dent standard,,1.5,6,,50,3,,,,1,,,,29.54,RG2,Einschneider,
+0068415E,Fraise 1 dent,Fraise 1 dent standard,,1.5,6,,50,7,,,,1,,,,30.93,RG2,Einschneider,
+0068415Y,Fraise 1 dent,Fraise 1 dent standard,,1.5,4,,40,5,,,,1,,,,27.03,RG2,Einschneider,
+0068615E,Fraise 1 dent,Fraise 1 dent standard,,1.5,3.175,,38,4,,,,1,,,,13.15,RG1,Einschneider,
+0078415E,Fraise 1 dent,Fraise 1 dent standard,,1.5,6,,58,7,,,,1,,,,29.54,RG2,Einschneider,
+0068016E,Fraise 1 dent,Fraise 1 dent standard,,1.6,3,,38,5,,,,1,,,,16.52,RG1,Einschneider,
+0068020E,Fraise 1 dent,Fraise 1 dent standard,,2,3,,40,8,,,,1,,,,16.52,RG1,Einschneider,
+0068020G,Fraise 1 dent,Fraise 1 dent standard,,2,3,,40,6,,,,1,,,,15.78,RG2,Einschneider,
+0068020L,Fraise 1 dent,Fraise 1 dent standard,,2,3,,40,10,,,,1,,,,16.52,RG1,Einschneider,
+0068020W,Fraise 1 dent,Fraise 1 dent standard,,2,3,,65,15,,,,1,,,,37.44,RG2,Einschneider,
+0068432A,Fraise 1 dent,Fraise 1 dent standard,,2,6,,50,5,,,,1,,,,29.54,RG2,Einschneider,
+0068432E,Fraise 1 dent,Fraise 1 dent standard,,2,6,,50,7,,,,1,,,,29.54,RG2,Einschneider,
+0068432L,Fraise 1 dent,Fraise 1 dent standard,,2,6,,50,11,,,,1,,,,29.54,RG2,Einschneider,
+0068432Y,Fraise 1 dent,Fraise 1 dent standard,,2,4,,40,8,,,,1,,,,27.03,RG2,Einschneider,
+0068620E,Fraise 1 dent,Fraise 1 dent standard,,2,3.175,,38,8,,,,1,,,,13.15,RG1,Einschneider,
+0068620F,Fraise 1 dent,Fraise 1 dent standard,,2,3.175,,40,11.5,,,,1,,,,15.78,RG1,Einschneider,
+0068620G,Fraise 1 dent,Fraise 1 dent standard,,2,3.175,,40,5,,,,1,,,,15.78,RG1,Einschneider,
+0078420E,Fraise 1 dent,Fraise 1 dent standard,,2,6,,58,7,,,,1,,,,29.54,RG2,Einschneider,
+0068024A,Fraise 1 dent,Fraise 1 dent standard,,2.4,3,,40,5.5,,,,1,,,,16.52,RG2,Einschneider,
+0068024E,Fraise 1 dent,Fraise 1 dent standard,,2.4,3,,40,8,,,,1,,,,16.52,RG1,Einschneider,
+0068024L,Fraise 1 dent,Fraise 1 dent standard,,2.4,3,,40,10,,,,1,,,,16.52,RG2,Einschneider,
+0068624E,Fraise 1 dent,Fraise 1 dent standard,,2.4,3.175,,38,8,,,,1,,,,13.15,RG1,Einschneider,
+0078424E,Fraise 1 dent,Fraise 1 dent standard,,2.4,6,,50,8,,,,1,,,,29.54,RG2,Einschneider,
+0068425A,Fraise 1 dent,Fraise 1 dent standard,,2.5,6,,50,5,,,,1,,,,29.54,RG2,Einschneider,
+0078425E,Fraise 1 dent,Fraise 1 dent standard,,2.5,6,,58,8,,,,1,,,,29.54,RG2,Einschneider,
+0068030E,Fraise 1 dent,Fraise 1 dent standard,,3,3,,40,10,,,,1,,,,16.52,RG1,Einschneider,
+0068030W,Fraise 1 dent,Fraise 1 dent standard,,3,3,,65,15,,,,1,,,,37.44,RG2,Einschneider,
+0068030Y,Fraise 1 dent,Fraise 1 dent standard,,3,3,,65,10,,,,1,,,,31.79,RG2,Einschneider,
+0068030Z,Fraise 1 dent,Fraise 1 dent standard,,3,3,,40,10.5,,,,1,,,,16.52,RG1,Einschneider,
+0068430A,Fraise 1 dent,Fraise 1 dent standard,,3,6,,50,5,,,,1,,,,29.54,RG2,Einschneider,
+0068430E,Fraise 1 dent,Fraise 1 dent standard,,3,6,,50,8,,,,1,,,,29.54,RG2,Einschneider,
+0068430L,Fraise 1 dent,Fraise 1 dent standard,,3,6,,50,12,,,,1,,,,29.54,RG2,Einschneider,
+0068430S,Fraise 1 dent,Fraise 1 dent standard,,3,6,,50,10,,,,1,,,,29.54,RG2,Einschneider,
+0068430Y,Fraise 1 dent,Fraise 1 dent standard,,3,4,,40,10,,,,1,,,,27.03,RG2,Einschneider,
+0068630E,Fraise 1 dent,Fraise 1 dent standard,,3,3.175,,38,9,,,,1,,,,13.15,RG1,Einschneider,
+0068630F,Fraise 1 dent,Fraise 1 dent standard,,3,3.175,,40,11.5,,,,1,,,,15.78,RG1,Einschneider,
+0078430E,Fraise 1 dent,Fraise 1 dent standard,,3,6,,58,8,,,,1,,,,29.54,RG2,Einschneider,
+0078430S,Fraise 1 dent,Fraise 1 dent standard,,3,6,,58,10,,,,1,,,,29.54,RG2,Einschneider,
+0078435E,Fraise 1 dent,Fraise 1 dent standard,,3.5,6,,58,10,,,,1,,,,29.54,RG2,Einschneider,
+0068434A,Fraise 1 dent,Fraise 1 dent standard,,4,6,,50,5,,,,1,,,,29.54,RG2,Einschneider,
+0068434B,Fraise 1 dent,Fraise 1 dent standard,,4,6,,50,7,,,,1,,,,29.54,RG2,Einschneider,
+0068434E,Fraise 1 dent,Fraise 1 dent standard,,4,6,,50,10,,,,1,,,,29.54,RG2,Einschneider,
+0068434F,Fraise 1 dent,Fraise 1 dent standard,,4,6,,58,20,,,,1,,,,31.54,RG2,Einschneider,
+0068434L,Fraise 1 dent,Fraise 1 dent standard,,4,6,,50,12,,,,1,,,,29.54,RG2,Einschneider,
+0068434S,Fraise 1 dent,Fraise 1 dent standard,,4,6,,60,14,,,,1,,,,31.54,RG2,Einschneider,
+0068434Y,Fraise 1 dent,Fraise 1 dent standard,,4,4,,40,10,,,,1,,,,27.03,RG2,Einschneider,
+0068434Z,Fraise 1 dent,Fraise 1 dent standard,,4,6,,45,14,,,,1,,,,29.54,RG2,Einschneider,
+0078440E,Fraise 1 dent,Fraise 1 dent standard,,4,6,,58,10,,,,1,,,,29.54,RG2,Einschneider,
+0078440L,Fraise 1 dent,Fraise 1 dent standard,,4,6,,58,18,,,,1,,,,31.54,RG2,Einschneider,
+0068435B,Fraise 1 dent,Fraise 1 dent standard,,5,6,,50,8,,,,1,,,,29.54,RG2,Einschneider,
+0068435E,Fraise 1 dent,Fraise 1 dent standard,,5,6,,50,12,,,,1,,,,29.54,RG2,Einschneider,
+0068435L,Fraise 1 dent,Fraise 1 dent standard,,5,6,,58,22,,,,1,,,,31.54,RG2,Einschneider,
+0068460A,Fraise 1 dent,Fraise 1 dent standard,,6,6,,58,25,,,,1,,,,39.43,RG2,Einschneider,
+0068460B,Fraise 1 dent,Fraise 1 dent standard,,6,6,,65,30,,,,1,,,,39.43,RG2,Einschneider,
+0068460C,Fraise 1 dent,Fraise 1 dent standard,,6,6,,50,8,,,,1,,,,29.54,RG2,Einschneider,
+0068460E,Fraise 1 dent,Fraise 1 dent standard,,6,6,,50,14,,,,1,,,,29.54,RG2,Einschneider,
+0068460L,Fraise 1 dent,Fraise 1 dent standard,,6,6,,60,20,,,,1,,,,29.54,RG2,Einschneider,
+0068079E,Fraise 1 dent,Fraise 1 dent standard,,7,8,,60,14,,,,1,,,,37.21,RG2,Einschneider,
+0068080A,Fraise 1 dent,Fraise 1 dent standard,,8,8,,60,25,,,,1,,,,52.45,RG2,Einschneider,
+0068080B,Fraise 1 dent,Fraise 1 dent standard,,8,8,,80,32,,,,1,,,,65.13,RG2,Einschneider,
+0068080E,Fraise 1 dent,Fraise 1 dent standard,,8,8,,60,14,,,,1,,,,37.21,RG2,Einschneider,
+0068080L,Fraise 1 dent,Fraise 1 dent standard,,8,8,,60,20,,,,1,,,,41.66,RG2,Einschneider,
+0068470E,Fraise 1 dent,Fraise 1 dent standard,,10,10,,60,20,,,,1,,,,45.29,RG2,Einschneider,
+0068470L,Fraise 1 dent,Fraise 1 dent standard,,10,10,,100,40,,,,1,,,,86.55,RG2,Einschneider,
+0068085E,Fraise 1 dent,Fraise 1 dent équilibrée,,5,6,4.8,50,8.75,13.5,,,1,,,,39.97,RG2,Einschneider – gewuchtet,
+0068085S,Fraise 1 dent,Fraise 1 dent équilibrée,,5,8,4.8,50,8.75,13.5,,,1,,,,54.93,RG2,Einschneider – gewuchtet,
+0068086E,Fraise 1 dent,Fraise 1 dent équilibrée,,6,6,5.5,50,10.5,16.5,,,1,,,,41.41,RG2,Einschneider – gewuchtet,
+0068086L,Fraise 1 dent,Fraise 1 dent équilibrée,,6,6,5.5,50,16,23.5,,,1,,,,42.85,RG2,Einschneider – gewuchtet,
+0068086S,Fraise 1 dent,Fraise 1 dent équilibrée,,6,8,5.5,50,10.5,16.5,,,1,,,,56.33,RG2,Einschneider – gewuchtet,
+0068086X,Fraise 1 dent,Fraise 1 dent équilibrée,,6,6,5.5,55,21,27,,,1,,,,49.67,RG2,Einschneider – gewuchtet,
+0068080D,Fraise 1 dent,Fraise 1 dent équilibrée,,8,8,7.4,70,14,43,,,1,,,,55.49,RG2,Einschneider – gewuchtet,
+0068088E,Fraise 1 dent,Fraise 1 dent équilibrée,,8,8,7.4,60,14,26,,,1,,,,50.67,RG2,Einschneider – gewuchtet,
+0068088K,Fraise 1 dent,Fraise 1 dent équilibrée,,8,8,7.4,50,8,12.5,,,1,,,,48.98,RG2,Einschneider – gewuchtet,
+0068088L,Fraise 1 dent,Fraise 1 dent équilibrée,,8,8,7.4,60,26,34,,,1,,,,58.03,RG2,Einschneider – gewuchtet,
+0068088S,Fraise 1 dent,Fraise 1 dent équilibrée,,8,8,7.4,60,21,31,,,1,,,,55.06,RG2,Einschneider – gewuchtet,
+0068088X,Fraise 1 dent,Fraise 1 dent équilibrée,,8,8,7.4,70,31,42,,,1,,,,63.86,RG2,Einschneider – gewuchtet,
+0068090E,Fraise 1 dent,Fraise 1 dent équilibrée,,10,10,9.2,60,17.5,27.5,,,1,,,,63.86,RG2,Einschneider – gewuchtet,
+0068090K,Fraise 1 dent,Fraise 1 dent équilibrée,,10,10,9.2,50,10,15.6,,,1,,,,62.43,RG2,Einschneider – gewuchtet,
+0068090L,Fraise 1 dent,Fraise 1 dent équilibrée,,10,10,9.2,60,26,34,,,1,,,,66.96,RG2,Einschneider – gewuchtet,
+0068090M,Fraise 1 dent,Fraise 1 dent équilibrée,,10,10,9.2,85,26,34,,,1,,,,89.46,RG2,Einschneider – gewuchtet,
+0068090S,Fraise 1 dent,Fraise 1 dent équilibrée,,10,10,9.2,80,17.5,52,,,1,,,,74.32,RG2,Einschneider – gewuchtet,
+0068090X,Fraise 1 dent,Fraise 1 dent équilibrée,,10,10,9.2,70,32.5,42.5,,,1,,,,69.93,RG2,Einschneider – gewuchtet,
+0068092E,Fraise 1 dent,Fraise 1 dent équilibrée,,12,12,11,70,21,33,,,1,,,,122.31,RG2,Einschneider – gewuchtet,
+0068092K,Fraise 1 dent,Fraise 1 dent équilibrée,,12,12,11,60,12,19,,,1,,,,106.46,RG2,Einschneider – gewuchtet,
+0068092L,Fraise 1 dent,Fraise 1 dent équilibrée,,12,12,11,70,31.5,42,,,1,,,,129.38,RG2,Einschneider – gewuchtet,
+00680010E,Fraise à fileter,Fraise à fileter,M1,0.72,3,0.32,40,0.13,3,60,,2,0.25,0.75,,59.02,RG2,Gewindewirbler,80
+00680011E,Fraise à fileter,Fraise à fileter,"M1,1",0.825,3,0.425,40,0.13,3,60,,2,0.25,0.85,,59.02,RG2,Gewindewirbler,80
+00680012E,Fraise à fileter,Fraise à fileter,"M1,2",0.84,3,0.44,40,0.13,3,60,,2,0.25,0.95,,59.02,RG2,Gewindewirbler,80
+00680014E,Fraise à fileter,Fraise à fileter,"M1,4",0.98,3,0.53,40,0.15,4,60,,2,0.3,1.1,,59.02,RG2,Gewindewirbler,80
+00680016E,Fraise à fileter,Fraise à fileter,"M1,6",1.12,3,0.61,40,0.17,4,60,,2,0.35,1.3,,59.02,RG2,Gewindefräser,80
+00680018E,Fraise à fileter,Fraise à fileter,"M1,8",1.26,3,0.75,40,0.17,4,60,,2,0.35,1.5,,59.02,RG2,Gewindewirbler,80
+00680020E,Fraise à fileter,Fraise à fileter,M2,1.4,3,0.83,40,0.19,6,60,,2,0.4,1.6,,59.02,RG2,Gewindewirbler,80
+00680022E,Fraise à fileter,Fraise à fileter,"M2,2",1.54,3,0.91,40,0.21,6,60,,2,0.45,1.8,,59.02,RG2,Gewindewirbler,80
+00680025E,Fraise à fileter,Fraise à fileter,"M2,5",1.75,3,1.12,40,0.2,6,60,,4,0.45,2.1,,59.02,RG2,Gewindewirbler,80
+00680030E,Fraise à fileter,Fraise à fileter,M3,2.1,6,1.31,50,0.26,8,60,,4,0.5,2.5,,63.19,RG2,Gewindewirbler,80
+00684503,Fraise à fileter,Fraise à fileter,M3,2.3,6,,50,8,,60,,,,,,164.92,RG2,Multi-Gewindefräser,83
+00680035E,Fraise à fileter,Fraise à fileter,"M3,5",2.45,6,1.55,50,0.29,8,60,,4,0.6,2.9,,63.19,RG2,Gewindewirbler,80
+00680040E,Fraise à fileter,Fraise à fileter,M4,2.8,6,1.8,50,0.33,11,60,,4,0.7,3.3,,63.19,RG2,Gewindewirbler,80
+00684504,Fraise à fileter,Fraise à fileter,M4,3,6,,50,8,,60,,,,,,164.92,RG2,Multi-Gewindefräser,83
+00684544,Fraise à fileter,Fraise à fileter,M4,3,6,,50,12,,60,,,,,,170.83,RG2,Multi-Gewindefräser,83
+00680045E,Fraise à fileter,Fraise à fileter,"M4,5",3.15,6,2.1,50,0.34,10,60,,4,0.75,3.7,,63.19,RG2,Gewindewirbler,80
+00680050E,Fraise à fileter,Fraise à fileter,M5,3.5,6,2.4,50,0.36,10,60,,4,0.8,4.2,,63.19,RG2,Gewindewirbler,80
+00684505,Fraise à fileter,Fraise à fileter,M5,3.8,6,,50,12,,60,,,,,,170.83,RG2,Multi-Gewindefräser,83
+00684555,Fraise à fileter,Fraise à fileter,M5,3.8,6,,50,16,,60,,,,,,174.51,RG2,Multi-Gewindefräser,83
+00680060E,Fraise à fileter,Fraise à fileter,M6,4.2,6,2.9,50,0.43,12,60,,4,1,5,,63.19,RG2,Gewindewirbler,80
+00684506,Fraise à fileter,Fraise à fileter,M6,4.5,8,,50,12,,60,,,,,,188.84,RG2,Multi-Gewindefräser,83
+00684566,Fraise à fileter,Fraise à fileter,M6,4.5,8,,50,16,,60,,,,,,193.57,RG2,Multi-Gewindefräser,83
+00680070E,Fraise à fileter,Fraise à fileter,M7,4.9,6,3.6,54,0.43,14,60,,4,1,6,,63.19,RG2,Gewindewirbler,80
+00680080E,Fraise à fileter,Fraise à fileter,M8,5.6,6,4.05,58,0.51,16,60,,4,1.25,6.8,,79.58,RG2,Gewindewirbler,80
+00684508,Fraise à fileter,Fraise à fileter,M8,6,10,,50,12,,60,,,,,,199.97,RG2,Multi-Gewindefräser,83
+00684588,Fraise à fileter,Fraise à fileter,M8,6,10,,50,16,,60,,,,,,215.94,RG2,Multi-Gewindefräser,83
+00680100E,Fraise à fileter,Fraise à fileter,M10,7,8,5.2,60,0.57,21,60,,4,1.5,8.5,,85.7,RG2,Gewindewirbler,80
+00680120E,Fraise à fileter,Fraise à fileter,M12,8.4,10,6.35,66,0.69,26,60,,4,1.75,10.2,,94.69,RG2,Gewindewirbler,80
+0068419A,Fraise à fileter,Fraise à fileter 3 dents,M2.5 - M3,2,3,1.5,40,1,8.5,60,,3,,,3,91.98,RG2,Fräsgewindefräser,82
+0068420A,Fraise à fileter,Fraise à fileter 3 dents,M4 - M5,3,3,2.2,40,1,10,60,,3,,,5,91.98,RG2,Fräsgewindefräser,82
+0068456,Fraise à fileter,Fraise à fileter 3 dents,M6,3.6,6,3.4,50,1,12,60,,3,,,6,99.47,RG2,Fräsgewindefräser,82
+0068454A,Fraise à fileter,Fraise à fileter 3 dents,Branchement mét.,4.2,6,4,50,2,12,60,,3,,,10,91.98,RG2,Fräsgewindefräser,82
+0068457,Fraise à fileter,Fraise à fileter 3 dents,M8 - M10,4.2,6,4,50,1.5,12,60,,3,,,8,99.47,RG2,Fräsgewindefräser,82
+0068454,Fraise à fileter,Fraise à fileter 3 dents,PG7 - PG48,4.4,6,4.2,50,2,12,80,,3,,,10,72.77,RG2,Fräsgewindefräser,82
+0068458,Fraise à fileter,Fraise à fileter 3 dents,M12 - M16,5.6,6,5.4,50,1.5,12,60,,3,,,10,106.82,RG2,Fräsgewindefräser,82
+0068418,Fraise à fileter,Fraise à fileter à multiple denture,M1.0 - M1.2,0.8,3,0.49,40,0.09,3,60,,4,,,,120.39,RG2,Gewindefräser,81
+0068418L,Fraise à fileter,Fraise à fileter à multiple denture,M1.0 - M1.2,0.8,3,0.49,40,0.09,6,60,,4,,,,120.39,RG2,Gewindefräser,81
+0068418S,Fraise à fileter,Fraise à fileter à multiple denture,M1.4,0.95,3,0.49,40,0.09,3,60,,4,,,,134.96,RG2,Gewindefräser,81
+0068419,Fraise à fileter,Fraise à fileter à multiple denture,M1.6 - M2.5,1.4,3,0.9,40,0.1,6,60,,4,,,,72.06,RG2,Gewindefräser,81
+0068419L,Fraise à fileter,Fraise à fileter à multiple denture,M1.6 - M2.5,1.4,3,0.9,40,0.1,10,60,,4,,,,78.01,RG2,Gewindefräser,81
+0068419X,Fraise à fileter,Fraise à fileter à multiple denture,M1.6 - M2.5,1.4,3,0.9,60,0.1,6,60,,4,,,,147.1,RG2,Gewindefräser,81
+0068420,Fraise à fileter,Fraise à fileter à multiple denture,M2.5 - M4,2,3,1,40,0.2,8,60,,4,,,,72.06,RG2,Gewindefräser,81
+0068420L,Fraise à fileter,Fraise à fileter à multiple denture,M2.5 - M4,2,3,1,40,0.2,12,60,,4,,,,78.01,RG2,Gewindefräser,81
+0068420X,Fraise à fileter,Fraise à fileter à multiple denture,M2.5 - M4,2,3,1,50,0.2,8,60,,4,,,,141.16,RG2,Gewindefräser,81
+0068451,Fraise à fileter,Fraise à fileter à multiple denture,M5 - M10,4,6,1,50,0.5,12,60,,4,,,,81.1,RG2,Gewindefräser,81
+0068451L,Fraise à fileter,Fraise à fileter à multiple denture,M5 - M10,4,6,2,50,0.5,16,60,,4,,,,88.46,RG2,Gewindefräser,81
+0068451X,Fraise à fileter,Fraise à fileter à multiple denture,M5 - M10,4,6,2,58,0.5,30,60,,4,,,,147.1,RG2,Gewindefräser,81
+0068450,Fraise à fileter,Fraise à fileter à multiple denture,Withworth ≤ 1/2“,6,6,3,50,0.7,12,55,,4,,,,87.76,RG2,Gewindefräser,81
+0068452,Fraise à fileter,Fraise à fileter à multiple denture,PG7 - PG48,6,6,3,50,1.3,12,80,,4,,,,81.1,RG2,Gewindefräser,81
+0068450A,Fraise à fileter,Fraise à fileter à multiple denture,Withworth ≥ 1/2“,8,6,3,50,1.55,12,55,,4,,,,123.26,RG2,Gewindefräser,81
+0068451A,Fraise à fileter,Fraise à fileter à multiple denture,M10 - M36,8,6,3,50,1.6,12,60,,4,,,,123.26,RG2,Gewindefräser,81
+0068478,Chanfrein / lamage,Fraise à chanfreiner,,3,3,,40,1.5,,90,,2,,,,35.75,RG2,Senker,62
+0068478A,Chanfrein / lamage,Fraise à chanfreiner,,3,3,,40,2.5,,60,,2,,,,35.75,RG2,Senker,62
+0068479,Chanfrein / lamage,Fraise à chanfreiner,,6,6,,50,3,,90,,3,,,,41.69,RG2,Senker,62
+0068479A,Chanfrein / lamage,Fraise à chanfreiner,,6,6,,50,1.7,,120,,4,,,,41.69,RG2,Senker,62
+0068479B,Chanfrein / lamage,Fraise à chanfreiner,,6,6,,50,8.2,,40,,3,,,,41.69,RG2,Senker,62
+0068479C,Chanfrein / lamage,Fraise à chanfreiner,,6,6,,50,4.2,,70,,3,,,,41.69,RG2,Senker,62
+0068479D,Chanfrein / lamage,Fraise à chanfreiner,,6,6,,50,1.1,,140,,3,,,,41.69,RG2,Senker,62
+0068479E,Chanfrein / lamage,Fraise à chanfreiner,,6,6,,50,1.2,,160,,3,,,,41.69,RG2,Senker,62
+0068480B,Chanfrein / lamage,Fraise à chanfreiner,,6,6,,50,5.1,,60,,4,,,,41.69,RG2,Senker,62
+0068480,Chanfrein / lamage,Fraise à chanfreiner,,8,6,,50,4,,90,,3,,,,67.25,RG2,Senker,62
+0068480A,Chanfrein / lamage,Fraise à chanfreiner,,8,6,,50,2.3,,120,,3,,,,67.25,RG2,Senker,62
+0068480C,Chanfrein / lamage,Fraise à chanfreiner,,8,6,,50,3.3,,100,,4,,,,67.25,RG2,Senker,62
+0068480N,Chanfrein / lamage,Fraise à chanfreiner,,8,8,,50,4,,90,,3,,,,64.07,RG2,Senker,62
+0068483,Chanfrein / lamage,Fraise à chanfreiner,,10,6,,50,5,,90,,3,,,,96.19,RG2,Senker,62
+0068483A,Chanfrein / lamage,Fraise à chanfreiner,,10,6,,50,2.8,,120,,4,,,,96.19,RG2,Senker,62
+0068483B,Chanfrein / lamage,Fraise à chanfreiner,,10,10,,50,5,,90,,3,,,,96.19,RG2,Senker,62
+0068483N,Chanfrein / lamage,Fraise à chanfreiner,,10,8,,50,5,,90,,3,,,,91.6,RG2,Senker,62
+0068483D,Chanfrein / lamage,Fraise à chanfreiner,,12,8,,50,6,,90,,4,,,,147.6,RG2,Senker,62
+0068483E,Chanfrein / lamage,Fraise à chanfreiner,,12,6,,50,3.4,,120,,4,,,,147.6,RG2,Senker,62
+0068483H,Chanfrein / lamage,Fraise à chanfreiner,,14,8,,50,7,,90,,4,,,,158.42,RG2,Senker,62
+0068485C,Chanfrein / lamage,Fraise à chanfreiner pour mousse PU,,4,6,10,50,3,,90,,3,,,,136.09,RG2,Senker – für Schaumstoff,64
+0068485D,Chanfrein / lamage,Fraise à chanfreiner pour mousse PU,,4,6,12,50,4,,90,,3,,,,151.9,RG2,Senker – für Schaumstoff,64
+0068485E,Chanfrein / lamage,Fraise à chanfreiner pour mousse PU,,4,6,14,50,5,,90,,3,,,,165.04,RG2,Senker – für Schaumstoff,64
+0068485F,Chanfrein / lamage,Fraise à chanfreiner pour mousse PU,,4,6,16,50,6,,90,,3,,,,211.25,RG2,Senker – für Schaumstoff,64
+0068485N,Chanfrein / lamage,Fraise à chanfreiner pour mousse PU,,4,8,14,50,5,,90,,3,,,,185.36,RG2,Senker – für Schaumstoff,64
+00685806,Chanfrein / lamage,Fraise à chanfreiner pour verre acrylique,,0.1,6,6,50,3,,90,,6,,,,46.91,RG2,Senker – für Acryl,63
+00685808,Chanfrein / lamage,Fraise à chanfreiner pour verre acrylique,,0.1,6,8,50,4,,90,,6,,,,70.51,RG2,Senker – für Acryl,63
+00685810,Chanfrein / lamage,Fraise à chanfreiner pour verre acrylique,,4,6,10,50,3,,90,,3,,,,136.09,RG2,Senker – für Acryl,63
+00685812,Chanfrein / lamage,Fraise à chanfreiner pour verre acrylique,,4,6,12,50,4,,90,,3,,,,151.9,RG2,Senker – für Acryl,63
+00685814,Chanfrein / lamage,Fraise à chanfreiner pour verre acrylique,,4,6,14,50,5,,90,,3,,,,165.04,RG2,Senker – für Acryl,63
+00685816,Chanfrein / lamage,Fraise à chanfreiner pour verre acrylique,,4,6,16,50,6,,90,,3,,,,211.25,RG2,Senker – für Acryl,63
+0068772,Chanfrein / lamage,Outil de lamage,,2,6,,50,1.9,,90,,1,,,,87.76,RG2,Frässenker,65
+0068772A,Chanfrein / lamage,Outil de lamage,,2,6,,50,2.9,,90,,1,,,,87.76,RG2,Frässenker,65
+0068772B,Chanfrein / lamage,Outil de lamage,,2,6,,50,4.9,,90,,1,,,,87.76,RG2,Frässenker,65
+0068772D,Chanfrein / lamage,Outil de lamage,,2,6,,50,1,,90,,1,,,,87.76,RG2,Frässenker,65
+0068772E,Chanfrein / lamage,Outil de lamage,,2,6,,50,1.5,,90,,1,,,,87.76,RG2,Frässenker,65
+0068772F,Chanfrein / lamage,Outil de lamage,,2,6,,50,2.5,,90,,1,,,,87.76,RG2,Frässenker,65
+0068772G,Chanfrein / lamage,Outil de lamage,,2,6,,50,4,,90,,1,,,,87.76,RG2,Frässenker,65
+0068773,Chanfrein / lamage,Outil de lamage,,3,6,,50,2.9,,90,,1,,,,81.81,RG2,Frässenker,65
+0068773A,Chanfrein / lamage,Outil de lamage,,3,6,,50,3.9,,90,,1,,,,81.81,RG2,Frässenker,65
+0068773B,Chanfrein / lamage,Outil de lamage,,3,6,,50,4.9,,90,,1,,,,81.81,RG2,Frässenker,65
+0068773D,Chanfrein / lamage,Outil de lamage,,3,6,,50,1,,90,,1,,,,81.81,RG2,Frässenker,65
+0068773E,Chanfrein / lamage,Outil de lamage,,3,6,,50,1.5,,90,,1,,,,,,,65
+0068773F,Chanfrein / lamage,Outil de lamage,,3,6,,50,2.5,,90,,1,,,,81.81,RG2,Frässenker,65
+0068773G,Chanfrein / lamage,Outil de lamage,,3,6,,50,2,,90,,1,,,,81.81,RG2,Frässenker,65
+0068774,Chanfrein / lamage,Outil de lamage,,4,6,,50,2.9,,90,,1,,,,78.7,RG2,Frässenker,65
+0068774A,Chanfrein / lamage,Outil de lamage,,4,6,,50,3.9,,90,,1,,,,78.7,RG2,Frässenker,65
+0068774B,Chanfrein / lamage,Outil de lamage,,4,6,,50,5,,90,,1,,,,78.7,RG2,Frässenker,65
+0068774D,Chanfrein / lamage,Outil de lamage,,4,6,,50,1,,90,,1,,,,78.7,RG2,Frässenker,65
+0068774E,Chanfrein / lamage,Outil de lamage,,4,6,,50,1.5,,90,,1,,,,78.7,RG2,Frässenker,65
+0068774F,Chanfrein / lamage,Outil de lamage,,4,6,,50,2.5,,90,,1,,,,78.7,RG2,Frässenker,65
+0068774G,Chanfrein / lamage,Outil de lamage,,4,6,,50,2,,90,,1,,,,78.7,RG2,Frässenker,65
+0068775,Chanfrein / lamage,Outil de lamage,,5,6,,50,3,,90,,1,,,,78.7,RG2,Frässenker,65
+0068775A,Chanfrein / lamage,Outil de lamage,,5,6,,50,4,,90,,1,,,,78.7,RG2,Frässenker,65
+0068775B,Chanfrein / lamage,Outil de lamage,,5,6,,50,5,,90,,1,,,,78.7,RG2,Frässenker,65
+0068775D,Chanfrein / lamage,Outil de lamage,,5,6,,50,1,,90,,1,,,,78.7,RG2,Frässenker,65
+0068775E,Chanfrein / lamage,Outil de lamage,,5,6,,50,1.5,,90,,1,,,,78.7,RG2,Frässenker,65
+0068775F,Chanfrein / lamage,Outil de lamage,,5,6,,50,2.5,,90,,1,,,,78.7,RG2,Frässenker,65
+0068775G,Chanfrein / lamage,Outil de lamage,,5,6,,50,2,,90,,1,,,,78.7,RG2,Frässenker,65
+0068701,Foret,"Foret queue 1/8""",,0.1,3.175,,38,1,,130,,2,,,,8.91,RG1,"Bohrer – 1/8"" Schaft",70
+00687015,Foret,"Foret queue 1/8""",,0.15,3.175,,38,2.5,,130,,2,,,,8.91,RG1,"Bohrer – 1/8"" Schaft",70
+0068702,Foret,"Foret queue 1/8""",,0.2,3.175,,38,3.2,,130,,2,,,,8.91,RG1,"Bohrer – 1/8"" Schaft",70
+00687025,Foret,"Foret queue 1/8""",,0.25,3.175,,38,3.5,,130,,2,,,,8.91,RG1,"Bohrer – 1/8"" Schaft",70
+0068703,Foret,"Foret queue 1/8""",,0.3,3.175,,38,5.5,,130,,2,,,,6.92,RG1,"Bohrer – 1/8"" Schaft",70
+00687035,Foret,"Foret queue 1/8""",,0.35,3.175,,38,5.5,,130,,2,,,,6.92,RG1,"Bohrer – 1/8"" Schaft",70
+0068704,Foret,"Foret queue 1/8""",,0.4,3.175,,38,5.5,,130,,2,,,,6.92,RG1,"Bohrer – 1/8"" Schaft",70
+00687045,Foret,"Foret queue 1/8""",,0.45,3.175,,38,5.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+0068705,Foret,"Foret queue 1/8""",,0.5,3.175,,38,5.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+00687055,Foret,"Foret queue 1/8""",,0.55,3.175,,38,5.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+0068706,Foret,"Foret queue 1/8""",,0.6,3.175,,38,7,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+00687065,Foret,"Foret queue 1/8""",,0.65,3.175,,38,8.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+0068707,Foret,"Foret queue 1/8""",,0.7,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+00687075,Foret,"Foret queue 1/8""",,0.75,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+0068708,Foret,"Foret queue 1/8""",,0.8,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+00687085,Foret,"Foret queue 1/8""",,0.85,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+0068709,Foret,"Foret queue 1/8""",,0.9,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+00687095,Foret,"Foret queue 1/8""",,0.95,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+0068710,Foret,"Foret queue 1/8""",,1,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+00687105,Foret,"Foret queue 1/8""",,1.05,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+0068711,Foret,"Foret queue 1/8""",,1.1,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+00687115,Foret,"Foret queue 1/8""",,1.15,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+0068712,Foret,"Foret queue 1/8""",,1.2,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+00687125,Foret,"Foret queue 1/8""",,1.25,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+0068713,Foret,"Foret queue 1/8""",,1.3,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+00687135,Foret,"Foret queue 1/8""",,1.35,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+0068714,Foret,"Foret queue 1/8""",,1.4,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+00687145,Foret,"Foret queue 1/8""",,1.45,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+0068715,Foret,"Foret queue 1/8""",,1.5,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+00687155,Foret,"Foret queue 1/8""",,1.55,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+0068716,Foret,"Foret queue 1/8""",,1.6,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+00687165,Foret,"Foret queue 1/8""",,1.65,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+0068717,Foret,"Foret queue 1/8""",,1.7,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+00687175,Foret,"Foret queue 1/8""",,1.75,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+0068718,Foret,"Foret queue 1/8""",,1.8,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",70
+00687185,Foret,"Foret queue 1/8""",,1.85,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+0068719,Foret,"Foret queue 1/8""",,1.9,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+00687195,Foret,"Foret queue 1/8""",,1.95,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+0068720,Foret,"Foret queue 1/8""",,2,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+00687205,Foret,"Foret queue 1/8""",,2.05,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+0068721,Foret,"Foret queue 1/8""",,2.1,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+00687215,Foret,"Foret queue 1/8""",,2.15,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+0068722,Foret,"Foret queue 1/8""",,2.2,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+00687225,Foret,"Foret queue 1/8""",,2.25,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+0068723,Foret,"Foret queue 1/8""",,2.3,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+00687235,Foret,"Foret queue 1/8""",,2.35,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+0068724,Foret,"Foret queue 1/8""",,2.4,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+00687245,Foret,"Foret queue 1/8""",,2.45,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+0068725,Foret,"Foret queue 1/8""",,2.5,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+0068725X,Foret,"Foret queue 1/8""",,2.5,3.175,,38,12,,130,,2,,,,5.94,RG1,"Bohrer – 1/8"" Schaft",71
+00687255,Foret,"Foret queue 1/8""",,2.55,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+0068726,Foret,"Foret queue 1/8""",,2.6,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+00687265,Foret,"Foret queue 1/8""",,2.65,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+0068727,Foret,"Foret queue 1/8""",,2.7,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+00687275,Foret,"Foret queue 1/8""",,2.75,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+0068728,Foret,"Foret queue 1/8""",,2.8,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+00687285,Foret,"Foret queue 1/8""",,2.85,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+0068729,Foret,"Foret queue 1/8""",,2.9,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+0068729X,Foret,"Foret queue 1/8""",,2.9,3.175,,38,16,,130,,2,,,,8.01,RG1,"Bohrer – 1/8"" Schaft",71
+00687295,Foret,"Foret queue 1/8""",,2.95,3.175,,38,10.5,,130,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+0068730,Foret,"Foret queue 1/8""",,3,3.175,,38,10.5,,165,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+00687305,Foret,"Foret queue 1/8""",,3.05,3.175,,38,10.5,,165,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+0068731,Foret,"Foret queue 1/8""",,3.1,3.175,,38,10.5,,165,,2,,,,5.51,RG1,"Bohrer – 1/8"" Schaft",71
+0068732,Foret,"Foret queue 1/8""",,3.2,3.175,,38,12,,165,,2,,,,11.44,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068733,Foret,"Foret queue 1/8""",,3.3,3.175,,38,12,,165,,2,,,,11.44,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068734,Foret,"Foret queue 1/8""",,3.4,3.175,,38,12,,165,,2,,,,11.44,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068735,Foret,"Foret queue 1/8""",,3.5,3.175,,38,12,,165,,2,,,,11.44,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068736,Foret,"Foret queue 1/8""",,3.6,3.175,,38,12,,165,,2,,,,12.85,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068737,Foret,"Foret queue 1/8""",,3.7,3.175,,38,12,,165,,2,,,,12.85,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068738,Foret,"Foret queue 1/8""",,3.8,3.175,,38,12,,165,,2,,,,12.85,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068739,Foret,"Foret queue 1/8""",,3.9,3.175,,38,12,,165,,2,,,,12.85,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068740,Foret,"Foret queue 1/8""",,4,3.175,,38,12,,165,,2,,,,12.85,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068741,Foret,"Foret queue 1/8""",,4.1,3.175,,38,12,,165,,2,,,,13.71,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068742,Foret,"Foret queue 1/8""",,4.2,3.175,,38,12,,165,,2,,,,13.71,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068743,Foret,"Foret queue 1/8""",,4.3,3.175,,38,12,,165,,2,,,,13.71,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068744,Foret,"Foret queue 1/8""",,4.4,3.175,,38,12,,165,,2,,,,13.71,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068745,Foret,"Foret queue 1/8""",,4.5,3.175,,38,12,,165,,2,,,,13.71,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068746,Foret,"Foret queue 1/8""",,4.6,3.175,,38,12,,165,,2,,,,14.28,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068747,Foret,"Foret queue 1/8""",,4.7,3.175,,38,12,,165,,2,,,,14.28,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068748,Foret,"Foret queue 1/8""",,4.8,3.175,,38,12,,165,,2,,,,14.28,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068749,Foret,"Foret queue 1/8""",,4.9,3.175,,38,12,,165,,2,,,,14.28,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068750,Foret,"Foret queue 1/8""",,5,3.175,,38,12,,165,,2,,,,14.28,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068751,Foret,"Foret queue 1/8""",,5.1,3.175,,38,12,,165,,2,,,,15.69,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068752,Foret,"Foret queue 1/8""",,5.2,3.175,,38,12,,165,,2,,,,15.69,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068753,Foret,"Foret queue 1/8""",,5.3,3.175,,38,12,,165,,2,,,,15.69,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068754,Foret,"Foret queue 1/8""",,5.4,3.175,,38,12,,165,,2,,,,15.69,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068755,Foret,"Foret queue 1/8""",,5.5,3.175,,38,12,,165,,2,,,,15.69,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068756,Foret,"Foret queue 1/8""",,5.6,3.175,,38,12,,165,,2,,,,17.1,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068757,Foret,"Foret queue 1/8""",,5.7,3.175,,38,12,,165,,2,,,,17.1,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068758,Foret,"Foret queue 1/8""",,5.8,3.175,,38,12,,165,,2,,,,17.1,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068759,Foret,"Foret queue 1/8""",,5.9,3.175,,38,12,,165,,2,,,,17.1,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068760,Foret,"Foret queue 1/8""",,6,3.175,,38,12,,165,,2,,,,17.1,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068761,Foret,"Foret queue 1/8""",,6.1,3.175,,38,12,,165,,2,,,,21.61,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068762,Foret,"Foret queue 1/8""",,6.2,3.175,,38,12,,165,,2,,,,21.61,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068763,Foret,"Foret queue 1/8""",,6.3,3.175,,38,12,,165,,2,,,,21.61,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068764,Foret,"Foret queue 1/8""",,6.4,3.175,,38,12,,165,,2,,,,21.61,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+0068765,Foret,"Foret queue 1/8""",,6.5,3.175,,38,12,,165,,2,,,,21.61,RG1,"Bohrer – 1/8"" Schaft, 165°",71
+00682015,Foret,Foret queue 3 mm,,0.15,3,,38,2,,130,,2,,,,8.91,RG2,Bohrer – 3 mm Schaft,68
+0068202,Foret,Foret queue 3 mm,,0.2,3,,38,3.5,,130,,2,,,,8.91,RG1,Bohrer – 3 mm Schaft,68
+00682025,Foret,Foret queue 3 mm,,0.25,3,,38,3.5,,130,,2,,,,8.91,RG1,Bohrer – 3 mm Schaft,68
+0068203,Foret,Foret queue 3 mm,,0.3,3,,38,3.5,,130,,2,,,,7.49,RG1,Bohrer – 3 mm Schaft,68
+00682035,Foret,Foret queue 3 mm,,0.35,3,,38,3.5,,130,,2,,,,7.49,RG1,Bohrer – 3 mm Schaft,68
+0068204,Foret,Foret queue 3 mm,,0.4,3,,38,6,,130,,2,,,,7.49,RG2,Bohrer – 3 mm Schaft,68
+00682045,Foret,Foret queue 3 mm,,0.45,3,,38,6,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+0068205,Foret,Foret queue 3 mm,,0.5,3,,38,6,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+00682055,Foret,Foret queue 3 mm,,0.55,3,,38,6,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+0068206,Foret,Foret queue 3 mm,,0.6,3,,38,6.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+00682065,Foret,Foret queue 3 mm,,0.65,3,,38,6.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+0068207,Foret,Foret queue 3 mm,,0.7,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+00682075,Foret,Foret queue 3 mm,,0.75,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+0068208,Foret,Foret queue 3 mm,,0.8,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+00682085,Foret,Foret queue 3 mm,,0.85,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+0068209,Foret,Foret queue 3 mm,,0.9,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+00682095,Foret,Foret queue 3 mm,,0.95,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+0068210,Foret,Foret queue 3 mm,,1,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+00682105,Foret,Foret queue 3 mm,,1.05,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+0068211,Foret,Foret queue 3 mm,,1.1,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+00682115,Foret,Foret queue 3 mm,,1.15,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+0068212,Foret,Foret queue 3 mm,,1.2,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+00682125,Foret,Foret queue 3 mm,,1.25,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+0068213,Foret,Foret queue 3 mm,,1.3,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+00682135,Foret,Foret queue 3 mm,,1.35,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+0068214,Foret,Foret queue 3 mm,,1.4,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+00682145,Foret,Foret queue 3 mm,,1.45,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+0068215,Foret,Foret queue 3 mm,,1.5,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+00682155,Foret,Foret queue 3 mm,,1.55,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+0068216,Foret,Foret queue 3 mm,,1.6,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+00682165,Foret,Foret queue 3 mm,,1.65,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+0068217,Foret,Foret queue 3 mm,,1.7,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+00682175,Foret,Foret queue 3 mm,,1.75,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+0068218,Foret,Foret queue 3 mm,,1.8,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,68
+00682185,Foret,Foret queue 3 mm,,1.85,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+0068219,Foret,Foret queue 3 mm,,1.9,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+00682195,Foret,Foret queue 3 mm,,1.95,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+0068220,Foret,Foret queue 3 mm,,2,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+00682205,Foret,Foret queue 3 mm,,2.05,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+0068221,Foret,Foret queue 3 mm,,2.1,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+00682215,Foret,Foret queue 3 mm,,2.15,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+0068222,Foret,Foret queue 3 mm,,2.2,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+00682225,Foret,Foret queue 3 mm,,2.25,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+0068223,Foret,Foret queue 3 mm,,2.3,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+00682235,Foret,Foret queue 3 mm,,2.35,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+0068224,Foret,Foret queue 3 mm,,2.4,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+00682245,Foret,Foret queue 3 mm,,2.45,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+0068225,Foret,Foret queue 3 mm,,2.5,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+00682255,Foret,Foret queue 3 mm,,2.55,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+0068226,Foret,Foret queue 3 mm,,2.6,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+00682265,Foret,Foret queue 3 mm,,2.65,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+0068227,Foret,Foret queue 3 mm,,2.7,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+00682275,Foret,Foret queue 3 mm,,2.75,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+0068228,Foret,Foret queue 3 mm,,2.8,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+00682285,Foret,Foret queue 3 mm,,2.85,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+0068229,Foret,Foret queue 3 mm,,2.9,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+00682295,Foret,Foret queue 3 mm,,2.95,3,,38,10.5,,130,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+0068230,Foret,Foret queue 3 mm,,3,3,,38,10.5,,165,,2,,,,5.94,RG2,Bohrer – 3 mm Schaft,69
+0068231,Foret,Foret queue 3 mm,,3.1,3,,38,12,,165,,2,,,,15.41,RG2,Bohrer – 3 mm Schaft,69
+0068232,Foret,Foret queue 3 mm,,3.2,3,,38,12,,165,,2,,,,15.41,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068233,Foret,Foret queue 3 mm,,3.3,3,,38,12,,165,,2,,,,15.41,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068234,Foret,Foret queue 3 mm,,3.4,3,,38,12,,165,,2,,,,15.41,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068235,Foret,Foret queue 3 mm,,3.5,3,,38,12,,165,,2,,,,15.41,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068236,Foret,Foret queue 3 mm,,3.6,3,,38,12,,165,,2,,,,18.22,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068237,Foret,Foret queue 3 mm,,3.7,3,,38,12,,165,,2,,,,18.22,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068238,Foret,Foret queue 3 mm,,3.8,3,,38,12,,165,,2,,,,18.22,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068239,Foret,Foret queue 3 mm,,3.9,3,,38,12,,165,,2,,,,18.22,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068240,Foret,Foret queue 3 mm,,4,3,,38,12,,165,,2,,,,18.22,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068241,Foret,Foret queue 3 mm,,4.1,3,,38,12,,165,,2,,,,18.22,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068242,Foret,Foret queue 3 mm,,4.2,3,,38,12,,165,,2,,,,18.22,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068243,Foret,Foret queue 3 mm,,4.3,3,,38,12,,165,,2,,,,18.22,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068244,Foret,Foret queue 3 mm,,4.4,3,,38,12,,165,,2,,,,18.22,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068245,Foret,Foret queue 3 mm,,4.5,3,,38,12,,165,,2,,,,18.22,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068246,Foret,Foret queue 3 mm,,4.6,3,,38,12,,165,,2,,,,21.2,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068247,Foret,Foret queue 3 mm,,4.7,3,,38,12,,165,,2,,,,21.2,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068248,Foret,Foret queue 3 mm,,4.8,3,,38,12,,165,,2,,,,21.2,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068249,Foret,Foret queue 3 mm,,4.9,3,,38,12,,165,,2,,,,21.2,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068250,Foret,Foret queue 3 mm,,5,3,,38,12,,165,,2,,,,21.2,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068251,Foret,Foret queue 3 mm,,5.1,3,,38,12,,165,,2,,,,23.17,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068252,Foret,Foret queue 3 mm,,5.2,3,,38,12,,165,,2,,,,23.17,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068253,Foret,Foret queue 3 mm,,5.3,3,,38,12,,165,,2,,,,23.17,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068254,Foret,Foret queue 3 mm,,5.4,3,,38,12,,165,,2,,,,23.17,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068255,Foret,Foret queue 3 mm,,5.5,3,,38,12,,165,,2,,,,23.17,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068256,Foret,Foret queue 3 mm,,5.6,3,,38,12,,165,,2,,,,25.72,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068257,Foret,Foret queue 3 mm,,5.7,3,,38,12,,165,,2,,,,25.72,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068258,Foret,Foret queue 3 mm,,5.8,3,,38,12,,165,,2,,,,25.72,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068259,Foret,Foret queue 3 mm,,5.9,3,,38,12,,165,,2,,,,25.72,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068260,Foret,Foret queue 3 mm,,6,3,,38,12,,165,,2,,,,25.72,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068261,Foret,Foret queue 3 mm,,6.1,3,,38,12,,165,,2,,,,29.68,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068262,Foret,Foret queue 3 mm,,6.2,3,,38,12,,165,,2,,,,29.68,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068263,Foret,Foret queue 3 mm,,6.3,3,,38,12,,165,,2,,,,29.68,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068264,Foret,Foret queue 3 mm,,6.4,3,,38,12,,165,,2,,,,29.68,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068265,Foret,Foret queue 3 mm,,6.5,3,,38,12,,165,,2,,,,29.68,RG2,"Bohrer – 3mm Schaft, 165°",69
+0068229X,Foret,Foret queue 6 mm,,2.9,6,,50,21,,130,,2,,,,49.43,RG2,Bohrer – 6 mm Schaft,72
+0068230L,Foret,Foret queue 6 mm,,3,6,,50,21,,130,,2,,,,48.17,RG2,Bohrer – 6 mm Schaft,72
+0068231L,Foret,Foret queue 6 mm,,3.1,6,,50,21,,130,,2,,,,48.17,RG2,Bohrer – 6 mm Schaft,72
+0068232L,Foret,Foret queue 6 mm,,3.2,6,,50,21,,130,,2,,,,48.17,RG2,Bohrer – 6 mm Schaft,72
+0068233L,Foret,Foret queue 6 mm,,3.3,6,,50,21,,130,,2,,,,48.17,RG2,Bohrer – 6 mm Schaft,72
+0068234L,Foret,Foret queue 6 mm,,3.4,6,,50,21,,130,,2,,,,48.17,RG2,Bohrer – 6 mm Schaft,72
+0068235L,Foret,Foret queue 6 mm,,3.5,6,,50,21,,130,,2,,,,48.17,RG2,Bohrer – 6 mm Schaft,72
+0068236L,Foret,Foret queue 6 mm,,3.6,6,,50,21,,130,,2,,,,48.17,RG2,Bohrer – 6 mm Schaft,72
+0068237L,Foret,Foret queue 6 mm,,3.7,6,,50,21,,130,,2,,,,48.17,RG2,Bohrer – 6 mm Schaft,72
+0068238L,Foret,Foret queue 6 mm,,3.8,6,,50,21,,130,,2,,,,48.17,RG2,Bohrer – 6 mm Schaft,72
+0068239L,Foret,Foret queue 6 mm,,3.9,6,,50,21,,130,,2,,,,48.17,RG2,Bohrer – 6 mm Schaft,72
+0068239X,Foret,Foret queue 6 mm,,3.9,6,,56,26,,130,,2,,,,48.17,RG2,Bohrer – 6 mm Schaft,72
+0068240L,Foret,Foret queue 6 mm,,4,6,,50,21,,130,,2,,,,48.17,RG2,Bohrer – 6 mm Schaft,72
+0068240X,Foret,Foret queue 6 mm,,4,6,,60,31,,130,,2,,,,55.25,RG2,Bohrer – 6 mm Schaft,72
+0068241L,Foret,Foret queue 6 mm,,4.1,6,,50,21,,130,,2,,,,46.77,RG2,Bohrer – 6 mm Schaft,72
+0068242L,Foret,Foret queue 6 mm,,4.2,6,,50,21,,130,,2,,,,46.77,RG2,Bohrer – 6 mm Schaft,72
+0068243L,Foret,Foret queue 6 mm,,4.3,6,,50,21,,130,,2,,,,46.77,RG2,Bohrer – 6 mm Schaft,72
+0068244L,Foret,Foret queue 6 mm,,4.4,6,,50,21,,130,,2,,,,46.77,RG2,Bohrer – 6 mm Schaft,72
+0068245L,Foret,Foret queue 6 mm,,4.5,6,,50,21,,130,,2,,,,46.77,RG2,Bohrer – 6 mm Schaft,72
+0068245X,Foret,Foret queue 6 mm,,4.5,6,,60,31,,130,,2,,,,53.84,RG2,Bohrer – 6 mm Schaft,72
+0068246L,Foret,Foret queue 6 mm,,4.6,6,,50,21,,130,,2,,,,46.77,RG2,Bohrer – 6 mm Schaft,72
+0068247L,Foret,Foret queue 6 mm,,4.7,6,,50,21,,130,,2,,,,46.77,RG2,Bohrer – 6 mm Schaft,72
+0068248L,Foret,Foret queue 6 mm,,4.8,6,,50,21,,130,,2,,,,46.77,RG2,Bohrer – 6 mm Schaft,72
+0068249L,Foret,Foret queue 6 mm,,4.9,6,,50,21,,130,,2,,,,46.77,RG2,Bohrer – 6 mm Schaft,72
+0068249X,Foret,Foret queue 6 mm,,4.9,6,,60,31,,130,,2,,,,48.17,RG2,Bohrer – 6 mm Schaft,72
+0068250L,Foret,Foret queue 6 mm,,5,6,,50,21,,130,,2,,,,45.35,RG2,Bohrer – 6 mm Schaft,72
+0068250X,Foret,Foret queue 6 mm,,5,6,,60,31,,130,,2,,,,52.43,RG2,Bohrer – 6 mm Schaft,72
+0068251L,Foret,Foret queue 6 mm,,5.1,6,,50,21,,130,,2,,,,45.35,RG2,Bohrer – 6 mm Schaft,72
+0068252L,Foret,Foret queue 6 mm,,5.2,6,,50,21,,130,,2,,,,45.35,RG2,Bohrer – 6 mm Schaft,72
+0068253L,Foret,Foret queue 6 mm,,5.3,6,,50,21,,130,,2,,,,45.35,RG2,Bohrer – 6 mm Schaft,72
+0068254L,Foret,Foret queue 6 mm,,5.4,6,,50,21,,130,,2,,,,45.35,RG2,Bohrer – 6 mm Schaft,72
+0068255L,Foret,Foret queue 6 mm,,5.5,6,,50,21,,130,,2,,,,45.35,RG2,Bohrer – 6 mm Schaft,72
+0068255X,Foret,Foret queue 6 mm,,5.5,6,,60,31,,130,,2,,,,52.43,RG2,Bohrer – 6 mm Schaft,72
+0068256L,Foret,Foret queue 6 mm,,5.6,6,,50,21,,130,,2,,,,45.35,RG2,Bohrer – 6 mm Schaft,73
+0068257L,Foret,Foret queue 6 mm,,5.7,6,,50,21,,130,,2,,,,45.35,RG2,Bohrer – 6 mm Schaft,73
+0068258L,Foret,Foret queue 6 mm,,5.8,6,,50,21,,130,,2,,,,45.35,RG2,Bohrer – 6 mm Schaft,73
+0068259L,Foret,Foret queue 6 mm,,5.9,6,,50,21,,130,,2,,,,45.35,RG2,Bohrer – 6 mm Schaft,73
+0068259X,Foret,Foret queue 6 mm,,5.9,6,,70,36,,130,,2,,,,46.93,RG2,Bohrer – 6 mm Schaft,73
+0068260L,Foret,Foret queue 6 mm,,6,6,,50,21,,130,,2,,,,45.35,RG2,Bohrer – 6 mm Schaft,73
+0068260X,Foret,Foret queue 6 mm,,6,6,,60,31,,130,,2,,,,52.43,RG2,Bohrer – 6 mm Schaft,73
+0068795,"Conique (gravure, rainure en V)",Fraise pour rainure en V,,5,6,,50,10,,90,,2,,,,56.38,RG2,V-Nut Fräser,66
+0068795A,"Conique (gravure, rainure en V)",Fraise pour rainure en V,,5,6,,50,10,,60,,2,,,,56.38,RG2,V-Nut Fräser,66
+0068795B,"Conique (gravure, rainure en V)",Fraise pour rainure en V,,5,6,,50,10,,120,,2,,,,56.38,RG2,V-Nut Fräser,66
+0068796,"Conique (gravure, rainure en V)",Fraise pour rainure en V,,6,6,,58,12,,90,,2,,,,70.51,RG2,V-Nut Fräser,66
+0068796A,"Conique (gravure, rainure en V)",Fraise pour rainure en V,,6,6,,58,12,,60,,2,,,,70.51,RG2,V-Nut Fräser,66
+0068796B,"Conique (gravure, rainure en V)",Fraise pour rainure en V,,6,6,,58,12,,120,,2,,,,70.51,RG2,V-Nut Fräser,66
+0068798,"Conique (gravure, rainure en V)",Fraise pour rainure en V,,8,8,,70,16,,90,,2,,,,106.37,RG2,V-Nut Fräser,66
+0068798A,"Conique (gravure, rainure en V)",Fraise pour rainure en V,,8,8,,70,16,,60,,2,,,,106.37,RG2,V-Nut Fräser,66
+0068798B,"Conique (gravure, rainure en V)",Fraise pour rainure en V,,8,8,,70,16,,120,,2,,,,106.37,RG2,V-Nut Fräser,66
+0068799,"Conique (gravure, rainure en V)",Fraise pour rainure en V,,10,10,,70,16,,90,,2,,,,109.47,RG2,V-Nut-Fräser,66
+0068799A,"Conique (gravure, rainure en V)",Fraise pour rainure en V,,10,10,,70,16,,60,,2,,,,109.47,RG2,V-Nut-Fräser,66
+0068799B,"Conique (gravure, rainure en V)",Fraise pour rainure en V,,10,10,,70,16,,120,,2,,,,109.47,RG2,V-Nut-Fräser,66
+0068278,"Conique (gravure, rainure en V)",Pointe à graver,,0.05,3,,40,,,20,,1,,,,19.93,RG1,Gravierstichel,90
+0068284B,"Conique (gravure, rainure en V)",Pointe à graver,,0.05,6,,50,,,20,,1,,,,41.69,RG2,Gravierstichel,91
+0068270,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,4,,40,,,20,,1,,,,26.85,RG1,Gravierstichel,90
+0068273,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,4,,40,,,30,,1,,,,26.85,RG1,Gravierstichel,90
+0068274,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,4,,40,,,40,,1,,,,26.85,RG1,Gravierstichel,90
+0068276,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,4,,40,,,60,,1,,,,26.85,RG1,Gravierstichel,90
+0068277,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,4,,40,,,90,,1,,,,26.85,RG1,Gravierstichel,90
+0068279,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,3,,40,,,20,,1,,,,20.92,RG1,Gravierstichel,90
+0068279A,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,3,,40,,,30,,1,,,,19.93,RG1,Gravierstichel,90
+0068280,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,3,,40,,,40,,1,,,,19.93,RG1,Gravierstichel,90
+0068280A,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,3,,40,,,45,,1,,,,19.93,RG1,Gravierstichel,90
+0068281,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,3,,40,,,60,,1,,,,19.93,RG1,Gravierstichel,90
+0068282,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,3,,40,,,90,,1,,,,19.93,RG1,Gravierstichel,90
+0068283,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,6,,50,,,30,,1,,,,40.27,RG1,Gravierstichel,91
+0068283L,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,6,,50,,,40,,1,,,,40.27,RG1,Gravierstichel,91
+0068284C,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,6,,50,,,20,,1,,,,41.69,RG2,Gravierstichel,91
+0068285,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,6,,50,,,50,,1,,,,40.27,RG1,Gravierstichel,91
+0068285A,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,6,,50,,,60,,1,,,,40.27,RG1,Gravierstichel,91
+0068286,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,6,,50,,,90,,1,,,,40.27,RG1,Gravierstichel,91
+0068287,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,6,,50,,,120,,1,,,,41.69,RG2,Gravierstichel,91
+0068679,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,3.175,,40,,,20,,1,,,,19.93,RG1,Gravierstichel,90
+0068679A,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,3.175,,40,,,30,,1,,,,19.93,RG1,Gravierstichel,90
+0068680,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,3.175,,40,,,40,,1,,,,19.93,RG1,Gravierstichel,90
+0068681,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,3.175,,40,,,60,,1,,,,19.93,RG1,Gravierstichel,90
+0068682,"Conique (gravure, rainure en V)",Pointe à graver,,0.1,3.175,,40,,,90,,1,,,,19.93,RG1,Gravierstichel,90
+0068278A,"Conique (gravure, rainure en V)",Pointe à graver,,0.2,3,,40,,,20,,1,,,,20.92,RG1,Gravierstichel,90
+0068279B,"Conique (gravure, rainure en V)",Pointe à graver,,0.2,3,,40,,,30,,1,,,,19.93,RG1,Gravierstichel,90
+0068280B,"Conique (gravure, rainure en V)",Pointe à graver,,0.2,3,,40,,,40,,1,,,,19.93,RG1,Gravierstichel,90
+0068281A,"Conique (gravure, rainure en V)",Pointe à graver,,0.2,3,,40,,,60,,1,,,,21.4,RG1,Gravierstichel,90
+0068283D,"Conique (gravure, rainure en V)",Pointe à graver,,0.2,6,,50,,,30,,1,,,,41.69,RG1,Gravierstichel,91
+0068284D,"Conique (gravure, rainure en V)",Pointe à graver,,0.2,6,,50,,,20,,1,,,,41.69,RG2,Gravierstichel,91
+0068285D,"Conique (gravure, rainure en V)",Pointe à graver,,0.2,6,,50,,,60,,1,,,,41.69,RG1,Gravierstichel,91
+0068283E,"Conique (gravure, rainure en V)",Pointe à graver,,0.3,6,,50,,,30,,1,,,,41.69,RG1,Gravierstichel,91
+0068285E,"Conique (gravure, rainure en V)",Pointe à graver,,0.3,6,,50,,,60,,1,,,,41.69,RG1,Gravierstichel,91
+0068283F,"Conique (gravure, rainure en V)",Pointe à graver,,0.4,6,,50,,,30,,1,,,,41.69,RG1,Gravierstichel,91
+0068284F,"Conique (gravure, rainure en V)",Pointe à graver,,0.4,6,,50,,,20,,1,,,,41.69,RG2,Gravierstichel,91
+0068285F,"Conique (gravure, rainure en V)",Pointe à graver,,0.4,6,,50,,,60,,1,,,,41.69,RG1,Gravierstichel,91
+0068280D,"Conique (gravure, rainure en V)",Pointe à graver,,0.5,3,,40,,,40,,1,,,,19.93,RG1,Gravierstichel,90
+0068283G,"Conique (gravure, rainure en V)",Pointe à graver,,0.6,6,,50,,,30,,1,,,,41.69,RG1,Gravierstichel,91
+0068284,"Conique (gravure, rainure en V)",Pointe à graver,,3,3,,40,,,180,,1,,,,17.09,RG1,Gravierstichel,90
+0068288,"Conique (gravure, rainure en V)",Pointe à graver,,6,6,,50,,,180,,1,,,,20.92,RG2,Gravierstichel,91
+0068510,"Conique (gravure, rainure en V)",Pointe à graver pour l'acier,,0.1,6,,50,,,20,,1,,,,43.1,RG2,Gravierstichel – für die Stahlbearbeitung,93
+0068511,"Conique (gravure, rainure en V)",Pointe à graver pour l'acier,,0.1,6,,50,,,30,,1,,,,43.1,RG2,Gravierstichel – für die Stahlbearbeitung,93
+0068512,"Conique (gravure, rainure en V)",Pointe à graver pour l'acier,,0.1,6,,50,,,40,,1,,,,43.1,RG2,Gravierstichel – für die Stahlbearbeitung,93
+0068513,"Conique (gravure, rainure en V)",Pointe à graver pour l'acier,,0.1,6,,50,,,60,,1,,,,43.1,RG2,Gravierstichel – für die Stahlbearbeitung,93
+0068514,"Conique (gravure, rainure en V)",Pointe à graver pour l'acier,,0.1,6,,50,,,90,,1,,,,43.1,RG2,Gravierstichel – für die Stahlbearbeitung,93
+0068510A,"Conique (gravure, rainure en V)",Pointe à graver pour l'acier,,0.2,6,,50,,,20,,1,,,,43.1,RG2,Gravierstichel – für die Stahlbearbeitung,93
+0068511A,"Conique (gravure, rainure en V)",Pointe à graver pour l'acier,,0.2,6,,50,,,30,,1,,,,43.1,RG2,Gravierstichel – für die Stahlbearbeitung,93
+0068512A,"Conique (gravure, rainure en V)",Pointe à graver pour l'acier,,0.2,6,,50,,,40,,1,,,,43.1,RG2,Gravierstichel – für die Stahlbearbeitung,93
+0068513A,"Conique (gravure, rainure en V)",Pointe à graver pour l'acier,,0.2,6,,50,,,60,,1,,,,43.1,RG2,Gravierstichel – für die Stahlbearbeitung,93
+0068514A,"Conique (gravure, rainure en V)",Pointe à graver pour l'acier,,0.2,6,,50,,,90,,1,,,,43.1,RG2,Gravierstichel – für die Stahlbearbeitung,93
+0068520,"Conique (gravure, rainure en V)",Pointe à graver revêtue ALCRONA,,0.1,4,,40,,,30,,1,,,,69.53,RG2,Gravierstichel – für die Hartbearbeitung,94
+0068521,"Conique (gravure, rainure en V)",Pointe à graver revêtue ALCRONA,,0.1,4,,40,,,45,,1,,,,69.53,RG2,Gravierstichel – für die Hartbearbeitung,94
+0068520A,"Conique (gravure, rainure en V)",Pointe à graver revêtue ALCRONA,,0.2,4,,40,,,30,,1,,,,69.53,RG2,Gravierstichel – für die Hartbearbeitung,94
+0068521A,"Conique (gravure, rainure en V)",Pointe à graver revêtue ALCRONA,,0.2,4,,40,,,45,,1,,,,69.53,RG2,Gravierstichel – für die Hartbearbeitung,94
+0068282G,"Conique (gravure, rainure en V)",Pointe à graver équilibrée,,0.1,6,,50,,,30,,1,,,,44.79,RG2,Gravierstichel – gewuchtet,92
+0068284G,"Conique (gravure, rainure en V)",Pointe à graver équilibrée,,0.1,6,,50,,,40,,1,,,,44.79,RG2,Gravierstichel – gewuchtet,92
+0068285G,"Conique (gravure, rainure en V)",Pointe à graver équilibrée,,0.1,6,,50,,,60,,1,,,,44.79,RG2,Gravierstichel – gewuchtet,92
+0068286G,"Conique (gravure, rainure en V)",Pointe à graver équilibrée,,0.1,6,,50,,,90,,1,,,,44.79,RG2,Gravierstichel – gewuchtet,92
+0068412,Fraise à rayonner (rayon extérieur),Fraise à rayonner,,2,6,6,50,2,,,2,2,,,,47.62,RG2,Außenradiusfräser,86
+00684115,Fraise à rayonner (rayon extérieur),Fraise à rayonner,,3,6,6,50,1.5,,,1.5,2,,,,47.62,RG2,Außenradiusfräser,86
+00684125,Fraise à rayonner (rayon extérieur),Fraise à rayonner,,3,6,8,50,2.5,,,2.5,4,,,,75.87,RG2,Außenradiusfräser,86
+00684125N,Fraise à rayonner (rayon extérieur),Fraise à rayonner,,3,8,8,50,2.5,,,2.5,4,,,,77.83,RG2,Außenradiusfräser,86
+00684145,Fraise à rayonner (rayon extérieur),Fraise à rayonner,,3,6,12,50,4.5,,,4.5,4,,,,118.97,RG2,Außenradiusfräser,86
+0068415,Fraise à rayonner (rayon extérieur),Fraise à rayonner,,3,6,13,50,5,,,5,4,,,,135.22,RG2,Außenradiusfräser,86
+0068411,Fraise à rayonner (rayon extérieur),Fraise à rayonner,,4,6,6,50,1,,,1,2,,,,47.62,RG2,Außenradiusfräser,86
+0068413,Fraise à rayonner (rayon extérieur),Fraise à rayonner,,4,6,10,50,3,,,3,4,,,,95.24,RG2,Außenradiusfräser,86
+00684135,Fraise à rayonner (rayon extérieur),Fraise à rayonner,,4,6,11,50,3.5,,,3.5,4,,,,111.5,RG2,Außenradiusfräser,86
+00684135N,Fraise à rayonner (rayon extérieur),Fraise à rayonner,,4,8,11,50,3.5,,,3.5,4,,,,114.35,RG2,Außenradiusfräser,86
+0068413N,Fraise à rayonner (rayon extérieur),Fraise à rayonner,,4,8,10,50,3,,,3,4,,,,97.68,RG2,Außenradiusfräser,86
+0068414,Fraise à rayonner (rayon extérieur),Fraise à rayonner,,4,6,12,50,4,,,4,4,,,,118.97,RG2,Außenradiusfräser,86
+0068414N,Fraise à rayonner (rayon extérieur),Fraise à rayonner,,4,8,12,50,4,,,4,4,,,,122.03,RG2,Außenradiusfräser,86
+0068416,Fraise à rayonner (rayon extérieur),Fraise à rayonner,,4,6,16,50,6,,,6,4,,,,144.98,RG2,Außenradiusfräser,86
+0068410,Fraise à rayonner (rayon extérieur),Fraise à rayonner,,5,6,6,50,0.5,,,0.5,2,,,,47.62,RG2,Außenradiusfräser,86
+00685710,Fraise à rayonner (rayon extérieur),Fraise à rayonner polie pour verre acrylique,,4,6,6,50,1,,,1,3,,,,58.22,RG2,Außenradiusfräser – poliert,87
+00685720,Fraise à rayonner (rayon extérieur),Fraise à rayonner polie pour verre acrylique,,4,6,8,50,2,,,2,3,,,,87.89,RG2,Außenradiusfräser – poliert,87
+00685730,Fraise à rayonner (rayon extérieur),Fraise à rayonner polie pour verre acrylique,,4,6,10,50,3,,,3,3,,,,117.57,RG2,Außenradiusfräser – poliert,87
+00685715,Fraise à rayonner (rayon extérieur),Fraise à rayonner polie pour verre acrylique,,5,6,8,50,1.5,,,1.5,3,,,,87.89,RG2,Außenradiusfräser – poliert,87
+00685725,Fraise à rayonner (rayon extérieur),Fraise à rayonner polie pour verre acrylique,,5,6,10,50,2.5,,,2.5,3,,,,117.57,RG2,Außenradiusfräser – poliert,87

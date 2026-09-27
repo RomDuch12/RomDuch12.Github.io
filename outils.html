@@ -79,21 +79,22 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 
 <h2>Catalogue Datron</h2>
 <section class="box" aria-labelledby="t-cat">
-  <h3 id="t-cat">Fraises carbure 1 dent DATRON <small style="font-weight:400;color:var(--mute)" id="cat-count"></small></h3>
+  <h3 id="t-cat">Outils DATRON <small style="font-weight:400;color:var(--mute)" id="cat-count"></small></h3>
   <form class="search" id="f-search" role="search">
-    <input type="search" id="q" placeholder="Référence, Ø ou famille (ex. 0068432A, 3, équilibrée)" aria-label="Rechercher dans le catalogue des fraises Datron">
+    <input type="search" id="q" placeholder="Référence, Ø, filetage ou famille (ex. 0068432A, 3, M5, 90°)" aria-label="Rechercher dans le catalogue Datron">
+    <select id="cat-cat" aria-label="Catégorie"><option value="">toutes les catégories</option></select>
     <select id="cat-fam" aria-label="Famille"><option value="">toutes les familles</option></select>
     <select id="cat-d" aria-label="Diamètre"><option value="">tous les Ø</option></select>
   </form>
   <div class="chips" id="chips" aria-label="Filtres rapides"></div>
-  <div class="scroll"><table class="cat" id="cat-table"><thead><tr><th>Référence</th><th>Famille</th><th>Ø D1</th><th>L2</th><th>Queue</th><th>L1</th>
-    <th title="Modèle RomDuch, broche 2 kW neo, aluminium">n</th><th title="Avance en rainurage (modèle)">Vf rain.</th><th></th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table class="cat" id="cat-table"><thead><tr><th>Référence</th><th>Famille</th><th>Ø D1</th><th>L2</th><th title="Angle, rayon ou filetage">Spécif.</th><th>Queue</th><th>L1</th>
+    <th>Prix €</th><th title="Rotation proposée (fraises 1 dent : modèle ou guide ; autres : vide)">n</th><th></th></tr></thead><tbody></tbody></table></div>
   <p class="status" id="st-cat" role="status"></p>
-  <p class="status">Catalogue hors ligne : <a href="catalogue-datron.csv">catalogue-datron.csv</a> (lisible sur
-    <a href="https://github.com/RomDuch12/RomDuch12.Github.io/blob/main/catalogue-datron.csv" target="_blank" rel="noopener">GitHub</a>) ·
-    <a href="catalogue-datron.json">catalogue-datron.json</a>. Cotes d'après le <a href="https://www.datron.com/wp-content/uploads/2022/11/DATRON-High-Speed-Cutting-Guide.pdf" target="_blank" rel="noopener">DATRON High-Speed Cutting Guide</a> ;
-    n et Vf : modèle RomDuch (broche 2 kW neo, aluminium). « Ajouter » applique la broche et la matière choisies plus bas, et les valeurs exactes si votre guide est chargé.
-    Autres outils (graveurs, forets…) : <a href="https://webshop.datron.de/" target="_blank" rel="noopener">webshop Datron</a> puis formulaire ci-dessous.</p>
+  <p class="status">Catalogue hors ligne (602 outils) : <a href="catalogue-datron.csv">catalogue-datron.csv</a>, lisible sur
+    <a href="https://github.com/RomDuch12/RomDuch12.Github.io/blob/main/catalogue-datron.csv" target="_blank" rel="noopener">GitHub</a> ·
+    <a href="catalogue-datron.json">catalogue-datron.json</a>. Cotes d'après le catalogue outils DATRON FR et le guide de coupe ; prix : liste DATRON (DE, avril 2026, € HT indicatif).
+    Aucune avance n'est publiée : « Ajouter » calcule rotation et avances des fraises 1 dent (modèle, ou valeurs exactes si votre guide est chargé)
+    et laisse les autres outils sans avances, à compléter.</p>
 </section>
 
 <section class="box" aria-labelledby="t-add">
@@ -154,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
   'use strict';
   const $ = id => document.getElementById(id);
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const TYPES = { surfacage: 'Surfaçage', fraise: 'Fraise', gravure: 'Gravure', foret: 'Foret', filetage: 'Filetage (fraise à fileter)' };
+  const TYPES = { surfacage: 'Surfaçage', fraise: 'Fraise', gravure: 'Gravure (conique)', foret: 'Foret', filetage: 'Filetage (fraise à fileter)', chanfrein: 'Chanfrein / lamage', rayon: 'Rayon extérieur (fraise à rayonner)' };
   const FEEDS = ['roughing', 'finishing', 'plunge', 'ramp', 'approach'];
   const FEED_LBL = { roughing: 'Ébauche', finishing: 'Finition', plunge: 'Plongée', ramp: 'Rampe', approach: 'Approche' };
   const SHOP = q => `https://webshop.datron.de/search?search=${encodeURIComponent(q)}`;
@@ -184,6 +185,8 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
     if (!t.articleNr) a.push('Référence manquante : la machine ne pourra pas appeler l\'outil.');
     else if (/^GEN-/.test(t.articleNr)) a.push('Référence générique fictive : à remplacer par la référence de votre magasin d\'outils.');
     if (+t.rpm > 40000) a.push('Rotation supérieure à 40 000 tr/min : vérifiez la limite de votre broche.');
+    if (!t.rpm || !Object.values(t.feeds || {}).some(v => v !== undefined && v !== null && v !== ''))
+      a.push('Rotation ou avances vides (aucune recommandation disponible) : à renseigner avant usinage.');
     if (!(+t.diameter > 0)) a.push('Diamètre manquant.');
     return a;
   }
@@ -270,49 +273,83 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
   };
 
   /* ---------- catalogue ---------- */
-  /* ---------- catalogue hors ligne des fraises Datron ---------- */
-  let CAT = [];
+  /* ---------- catalogue hors ligne des outils Datron ---------- */
+  let CAT = [], CATS = {};
   const nf = v => String(v).replace('.', ',');
-  const CHIPS = [['Standard', { fam: 'standard' }], ['Équilibrées', { fam: 'équilibrée' }], ['4-IN-1', { fam: '4-IN-1' }], ['Acrylique', { fam: 'arête polie (acrylique)' }],
-    ['Ø1', { d: 1 }], ['Ø2', { d: 2 }], ['Ø3', { d: 3 }], ['Ø4', { d: 4 }], ['Ø6', { d: 6 }], ['Ø8', { d: 8 }], ['Tout', {}]];
+  const TYPE_DE = { fraise: 'fraise', filetage: 'filetage', chanfrein: 'chanfrein', foret: 'foret', conique: 'gravure', rayon: 'rayon' };
+  const CHIPS = [['Fraises 1 dent', { cat: 'fraise' }], ['Filetage', { cat: 'filetage' }], ['Chanfrein', { cat: 'chanfrein' }], ['Forets', { cat: 'foret' }],
+    ['Coniques', { cat: 'conique' }], ['Rayon ext.', { cat: 'rayon' }], ['Ø1', { d: 1 }], ['Ø2', { d: 2 }], ['Ø3', { d: 3 }], ['Ø4', { d: 4 }], ['Ø6', { d: 6 }], ['Tout', {}]];
+  const specif = x => x.categorie === 'filetage' ? (x.filetage || '') : x.categorie === 'rayon' ? `R${nf(x.R)}` : x.angle ? `${x.angle}°` : '';
+  const nomOutil = x => {
+    switch (x.categorie) {
+      case 'fraise': return `Fraise 1 dent Ø${nf(x.D1)} L${nf(x.L2)}${/standard/.test(x.famille) ? '' : ` (${x.famille.replace('Fraise 1 dent ', '')})`}`;
+      case 'filetage': return `Fraise à fileter ${x.filetage || ''} Ø${nf(x.D1)}`.replace(/\s+/g, ' ');
+      case 'foret': return `Foret Ø${nf(x.D1)} L${nf(x.L2)}`;
+      case 'conique': return `${x.famille} ${x.angle}° Ø${nf(x.D1)}`;
+      case 'chanfrein': return `${x.famille} ${x.angle}° Ø${nf(x.D3 || x.D1)}`;
+      case 'rayon': return `${x.famille} R${nf(x.R)}`;
+      default: return `${x.famille} ${x.ref}`;
+    }
+  };
+  function rpmPropose(x) {
+    if (x.categorie !== 'fraise' || !window.Coupe) return '';
+    const p = window.Coupe.proposer({ type: 'fraise', articleNr: x.ref, diameter: x.D1, fluteLength: x.L2, flutes: x.dents || 1 },
+      { broche: $('p-broche').value || '2 kW neo', matiere: $('p-mat').value || 'alu' });
+    return p.ok ? p.rpm : '';
+  }
   function filtrerCat() {
-    const q = $('q').value.trim().toLowerCase().replace(',', '.'), fam = $('cat-fam').value, d = $('cat-d').value;
-    const res = CAT.filter(x => (!fam || x.famille === fam) && (!d || String(x.D1) === d)
-      && (!q || x.ref.toLowerCase().includes(q) || x.famille.toLowerCase().includes(q) || String(x.D1) === q || `ø${x.D1}` === q));
-    const max = 60;
+    const q = $('q').value.trim().toLowerCase().replace(',', '.'), cat = $('cat-cat').value, fam = $('cat-fam').value, d = $('cat-d').value;
+    const res = CAT.filter(x => (!cat || x.categorie === cat) && (!fam || x.famille === fam) && (!d || String(x.D1) === d)
+      && (!q || x.ref.toLowerCase().includes(q) || x.famille.toLowerCase().includes(q) || String(x.D1) === q || `ø${x.D1}` === q
+          || (x.filetage || '').toLowerCase().replace(/\s/g, '').includes(q.replace(/\s/g, '')) || specif(x).toLowerCase() === q));
+    const max = 80;
     $('cat-table').tBodies[0].innerHTML = res.slice(0, max).map(x => `<tr><td><b>${esc(x.ref)}</b></td><td>${esc(x.famille)}</td>
-      <td class="n">${nf(x.D1)}</td><td class="n">${nf(x.L2)}</td><td class="n">${nf(x.D2)}</td><td class="n">${nf(x.L1)}</td>
-      <td class="n">${x.modele_neo.n}</td><td class="n">${x.modele_neo.rainurage.vf}</td>
+      <td class="n">${nf(x.D1)}</td><td class="n">${x.L2 !== undefined ? nf(x.L2) : ''}</td><td>${esc(specif(x))}</td><td class="n">${nf(x.D2)}</td>
+      <td class="n">${x.L1 !== undefined ? nf(x.L1) : ''}</td><td class="n">${x.prix_eur !== undefined ? x.prix_eur.toFixed(2).replace('.', ',') : ''}</td>
+      <td class="n">${rpmPropose(x)}</td>
       <td><button type="button" data-ref="${esc(x.ref)}">Ajouter</button> <a href="${SHOP(x.ref)}" target="_blank" rel="noopener" title="Fiche sur le webshop Datron">fiche</a></td></tr>`).join('');
-    $('st-cat').textContent = res.length ? `${res.length} fraise(s)${res.length > max ? ` – ${max} premières affichées, affinez la recherche` : ''}.` : 'Aucune fraise ne correspond.';
+    $('st-cat').textContent = res.length ? `${res.length} outil(s)${res.length > max ? ` – ${max} premiers affichés, affinez la recherche` : ''}.` : 'Aucun outil ne correspond.';
     $('cat-table').querySelectorAll('[data-ref]').forEach(bt => bt.onclick = () => ajouterDuCatalogue(bt.dataset.ref));
   }
   function ajouterDuCatalogue(ref) {
     const x = CAT.find(c => c.ref === ref); if (!x) return;
-    const t = { id: lib.tools.some(o => o.id === ref) ? uid(ref) : ref, name: `Fraise 1 dent Ø${nf(x.D1)} L${nf(x.L2)}${x.famille !== 'standard' ? ` (${x.famille})` : ''}`,
-      type: 'fraise', articleNr: ref, vendor: 'DATRON', diameter: x.D1, tipAngle: 0, fluteLength: x.L2, flutes: x.dents || 1, rpm: x.modele_neo.n,
-      feeds: { roughing: x.modele_neo.rainurage.vf, finishing: x.modele_neo.lateral.vf, plunge: 100, ramp: x.modele_neo.rainurage.vf, approach: 12000 } };
+    const type = TYPE_DE[x.categorie] || 'fraise';
+    const t = { id: lib.tools.some(o => o.id === ref) ? uid(ref) : ref, name: nomOutil(x), type, articleNr: ref, vendor: 'DATRON',
+      diameter: x.categorie === 'conique' && x.famille.startsWith('Pointe') ? x.D2 : (x.categorie === 'chanfrein' ? (x.D3 || x.D1) : x.D1),
+      fluteLength: x.L2, flutes: x.dents || undefined, tipAngle: x.angle || 0, feeds: {} };
+    if (x.categorie === 'conique') t.tipDiameter = x.D1;
+    if (x.categorie === 'rayon') t.radius = x.R;
+    if (x.categorie === 'filetage') { t.thread = x.filetage; if (x.pas) t.pitch = x.pas; }
+    if (x.prix_eur !== undefined) t.prix_eur = x.prix_eur;
+    Object.keys(t).forEach(k => t[k] === undefined && delete t[k]);
     lib.tools.unshift(t);
-    const prop = appliquer(t);                                   // broche / matière choisies, guide exact si chargé
+    const prop = t.type === 'fraise' ? appliquer(t) : null;      // fraises 1 dent : modèle ou guide ; autres : avances vides
     dirty = true; render();
-    $('st-cat').textContent = `${ref} ajoutée en tête de votre bibliothèque${prop ? ` (${prop.rpm} tr/min, ébauche ${prop.feeds.roughing} mm/min – ${prop.source})` : ''}. Pensez à enregistrer ou exporter.`;
+    $('st-cat').textContent = `${ref} ajouté en tête de votre bibliothèque` + (prop ? ` (${prop.rpm} tr/min, ébauche ${prop.feeds.roughing} mm/min – ${prop.source})`
+      : ' : rotation et avances laissées vides (aucune recommandation disponible), à compléter') + '. Pensez à enregistrer ou exporter.';
   }
   $('chips').innerHTML = CHIPS.map(([l], i) => `<button type="button" data-chip="${i}">${esc(l)}</button>`).join('');
   $('chips').querySelectorAll('[data-chip]').forEach(bt => bt.onclick = () => {
-    const f = CHIPS[+bt.dataset.chip][1];
-    if ('fam' in f || !Object.keys(f).length) $('cat-fam').value = f.fam || '';
-    if ('d' in f || !Object.keys(f).length) $('cat-d').value = f.d !== undefined ? String(f.d) : '';
-    if (!Object.keys(f).length) $('q').value = '';
-    filtrerCat();
+    const f = CHIPS[+bt.dataset.chip][1], tout = !Object.keys(f).length;
+    if ('cat' in f || tout) { $('cat-cat').value = f.cat || ''; $('cat-fam').value = ''; }
+    if ('d' in f || tout) $('cat-d').value = f.d !== undefined ? String(f.d) : '';
+    if (tout) $('q').value = '';
+    majFamilles(); filtrerCat();
   });
+  function majFamilles() {
+    const cat = $('cat-cat').value, cur = $('cat-fam').value;
+    const fams = [...new Set(CAT.filter(x => !cat || x.categorie === cat).map(x => x.famille))];
+    $('cat-fam').innerHTML = '<option value="">toutes les familles</option>' + fams.map(f => `<option${f === cur ? ' selected' : ''}>${esc(f)}</option>`).join('');
+  }
   $('f-search').onsubmit = e => { e.preventDefault(); filtrerCat(); };
+  $('cat-cat').addEventListener('input', () => { majFamilles(); filtrerCat(); });
   ['q', 'cat-fam', 'cat-d'].forEach(id => $(id).addEventListener('input', filtrerCat));
   fetch('catalogue-datron.json', { cache: 'no-cache' }).then(r => r.json()).then(j => {
-    CAT = j.fraises || [];
+    CAT = j.outils || []; CATS = j.categories || {};
     $('cat-count').textContent = `– ${CAT.length} références hors ligne`;
-    $('cat-fam').innerHTML = '<option value="">toutes les familles</option>' + [...new Set(CAT.map(x => x.famille))].map(f => `<option>${esc(f)}</option>`).join('');
+    $('cat-cat').innerHTML = '<option value="">toutes les catégories</option>' + Object.entries(CATS).map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join('');
     $('cat-d').innerHTML = '<option value="">tous les Ø</option>' + [...new Set(CAT.map(x => x.D1))].sort((a, b) => a - b).map(d => `<option value="${d}">Ø${nf(d)}</option>`).join('');
-    $('cat-fam').value = 'standard'; filtrerCat();
+    $('cat-cat').value = 'fraise'; majFamilles(); filtrerCat();
   }).catch(() => { $('st-cat').textContent = 'Catalogue introuvable.'; });
   $('add-type').innerHTML = Object.entries(TYPES).map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join('');
   $('filtre').innerHTML = '<option value="">tous les types</option>' + Object.entries(TYPES).map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join('');

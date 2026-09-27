@@ -350,7 +350,9 @@
   function toolBlock(t) {
     const fd = t.feeds || {};
     const feeds = ['finishing', 'approach', 'plunge', 'ramp', 'roughing'].filter(k => fd[k] !== undefined).map(k => `${k}=${fd[k]}`).join(' ');
-    return [`Tool type="${q(t.articleNr)}"  skipRestoring    #${t.name}`, `Rpm = ${t.rpm}`, 'Spindle On', `SetFeedTechnology (${feeds})`];
+    return [`Tool type="${q(t.articleNr)}"  skipRestoring    #${t.name}`,
+      t.rpm ? `Rpm = ${t.rpm}` : '# Rpm à renseigner (rotation non définie pour cet outil)', 'Spindle On',
+      feeds ? `SetFeedTechnology (${feeds})` : '# SetFeedTechnology à renseigner (avances non définies pour cet outil)'];
   }
 
   function generate(state) {
@@ -371,6 +373,8 @@
       const t = def.tool ? toolById(o.tool) : null;
       if (def.tool && !t) { warn.push(`${def.label} : aucun outil choisi.`); return; }
       if (def.check) { const w = def.check(o, t); if (w) warn.push(w); }
+      if (t && !used.has(t.id) && (!t.rpm || !Object.values(t.feeds || {}).some(v => v !== undefined && v !== null && v !== '')))
+        warn.push(`Outil « ${t.name} » : rotation ou avances non renseignées, à compléter dans l'éditeur d'outils.`);
       if (t) used.set(t.id, t);
       const name = uniq(def.name ? def.name(o) : def.prefix);
       let body;
@@ -485,7 +489,7 @@
   }
   function renderTools(msg) {
     toolBox.innerHTML = `<h3>Bibliothèque d'outils</h3>
-      <p style="margin:0 0 8px;color:var(--mute)">${TOOLS.length} outil(s) – source : ${esc(toolSource)}${msg ? ' – ' + esc(msg) : ''}.</p>
+      <p style="margin:0 0 8px;color:var(--mute)">${TOOLS.length ? `${TOOLS.length} outil(s)` : 'Bibliothèque vide'} – source : ${esc(toolSource)}${msg ? ' – ' + esc(msg) : ''}.</p>
       <div class="addbar"><a class="btnlink" href="outils.html">Éditer mes outils / catalogue Datron</a>
       <label><button type="button" id="gt-load">Charger un tools.json…</button><input type="file" id="gt-file" accept=".json,application/json" hidden></label></div>`;
     toolBox.querySelector('#gt-load').onclick = () => toolBox.querySelector('#gt-file').click();
@@ -507,7 +511,7 @@
   }
 
   function renderOps() {
-    opsBox.innerHTML = '';
+    opsBox.innerHTML = state.ops.length ? '' : `<p class="gbox" style="margin:0;color:var(--mute)">Aucune opération : ajoutez-en ci-dessous${TOOLS.length ? '' : ", après avoir créé vos outils dans l'<a href=\"outils.html\">éditeur d'outils</a> (catalogue DATRON)"}.</p>`;
     state.ops.forEach((o, idx) => {
       const def = OPS[o.type], box = el('div', { className: 'gbox op' });
       const tools = def.tool ? `<label>Outil<select data-k="tool">${TOOLS.map(t => `<option value="${esc(t.id)}"${t.id === o.tool ? ' selected' : ''}>${esc(t.name)}</option>`).join('')}</select></label>` : '';
@@ -588,16 +592,8 @@
   }
 
   function init() {
-    // exemple : surfaçage, perçages, taraudage, poche
-    const ex = [newOp('rectface'), Object.assign(newOp('drill'), { points: '-35;-20\n35;-20\n35;20\n-35;20', depth: 8 }),
-      Object.assign(newOp('thread'), { points: '-35;-20\n35;-20\n35;20\n-35;20', thread: 'M5', depth: 6 }),
-      Object.assign(newOp('pocketrect'), { widthX: 30, widthY: 20, cornerRadius: 4, depth: 2 })];
-    const pick = (o, id) => { if (toolById(id)) o.tool = id; return o; };
-    pick(ex[1], 'FORET4_2'); pick(ex[2], 'THR_M4_M5'); pick(ex[3], '0068430E');
-    ex.slice(0, 3).forEach(o => { o.collapsed = true; });          // exemple compact : seule la poche est dépliée
-    state.ops = ex;
+    state.ops = [];                                                 // démarrage vide : l'utilisateur ajoute outils et opérations
     renderHead(); renderTools(); renderOps(); renderAdd(); renderOut();
-    outBox.querySelector('#g-gen').click();
     document.addEventListener('stockage-change', () => { renderAdd(); renderOps(); });
   }
 
