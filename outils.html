@@ -50,6 +50,11 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .bookmarklet{display:inline-block;background:var(--brass);color:var(--on-accent);padding:2px 10px;border-radius:5px;text-decoration:none;font-weight:700;cursor:grab}
 #paste{flex:1 1 260px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:6px 8px;font:400 14px "JetBrains Mono",monospace;min-height:42px}
 .filled{outline:2px solid var(--brass-l);outline-offset:1px}
+.scroll{overflow-x:auto;max-height:420px;overflow-y:auto;margin-top:8px;border:1px solid var(--line);border-radius:5px}
+table.cat{border-collapse:collapse;width:100%;font-size:14px}table.cat th,table.cat td{padding:4px 8px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+table.cat th{position:sticky;top:0;background:var(--card);color:var(--mute);font-weight:600}table.cat td.n{text-align:right;font-family:"JetBrains Mono",monospace}
+table.cat button{padding:2px 9px;font-size:13px}
+#f-search select{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:7px 8px}
 footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
 </style>
 </head>
@@ -74,16 +79,21 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 
 <h2>Catalogue Datron</h2>
 <section class="box" aria-labelledby="t-cat">
-  <h3 id="t-cat">Rechercher un outil</h3>
-  <form class="search" id="f-search">
-    <input type="search" id="q" placeholder="Référence (ex. 0068432A) ou mot-clé" aria-label="Recherche dans le webshop Datron">
-    <button type="submit" class="primary">Chercher sur le webshop Datron</button>
+  <h3 id="t-cat">Fraises carbure 1 dent DATRON <small style="font-weight:400;color:var(--mute)" id="cat-count"></small></h3>
+  <form class="search" id="f-search" role="search">
+    <input type="search" id="q" placeholder="Référence, Ø ou famille (ex. 0068432A, 3, équilibrée)" aria-label="Rechercher dans le catalogue des fraises Datron">
+    <select id="cat-fam" aria-label="Famille"><option value="">toutes les familles</option></select>
+    <select id="cat-d" aria-label="Diamètre"><option value="">tous les Ø</option></select>
   </form>
-  <div class="chips" id="chips" aria-label="Familles d'outils"></div>
-  <p class="status">La recherche s'ouvre dans un nouvel onglet sur <a href="https://webshop.datron.de/" target="_blank" rel="noopener">webshop.datron.de</a>.
-    Relevez la référence et les cotes (D1 = Ø de coupe, L2 = longueur de coupe, nombre de dents) puis ajoutez l'outil ci-dessous.
-    Données de coupe de référence : <a href="https://www.datron.com/wp-content/uploads/2022/11/DATRON-High-Speed-Cutting-Guide.pdf" target="_blank" rel="noopener">DATRON High-Speed Cutting Guide (PDF)</a> ·
-    <a href="https://www.datron.fr/fileadmin/dokumente/broschueren/tools/DATRON_catalogue_outils_220607_FR_V4.0.pdf" target="_blank" rel="noopener">catalogue outils FR (PDF)</a>.</p>
+  <div class="chips" id="chips" aria-label="Filtres rapides"></div>
+  <div class="scroll"><table class="cat" id="cat-table"><thead><tr><th>Référence</th><th>Famille</th><th>Ø D1</th><th>L2</th><th>Queue</th><th>L1</th>
+    <th title="Modèle RomDuch, broche 2 kW neo, aluminium">n</th><th title="Avance en rainurage (modèle)">Vf rain.</th><th></th></tr></thead><tbody></tbody></table></div>
+  <p class="status" id="st-cat" role="status"></p>
+  <p class="status">Catalogue hors ligne : <a href="catalogue-datron.csv">catalogue-datron.csv</a> (lisible sur
+    <a href="https://github.com/RomDuch12/RomDuch12.Github.io/blob/main/catalogue-datron.csv" target="_blank" rel="noopener">GitHub</a>) ·
+    <a href="catalogue-datron.json">catalogue-datron.json</a>. Cotes d'après le <a href="https://www.datron.com/wp-content/uploads/2022/11/DATRON-High-Speed-Cutting-Guide.pdf" target="_blank" rel="noopener">DATRON High-Speed Cutting Guide</a> ;
+    n et Vf : modèle RomDuch (broche 2 kW neo, aluminium). « Ajouter » applique la broche et la matière choisies plus bas, et les valeurs exactes si votre guide est chargé.
+    Autres outils (graveurs, forets…) : <a href="https://webshop.datron.de/" target="_blank" rel="noopener">webshop Datron</a> puis formulaire ci-dessous.</p>
 </section>
 
 <section class="box" aria-labelledby="t-add">
@@ -91,8 +101,8 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
   <details class="auto" open>
     <summary>Remplissage automatique depuis une fiche Datron</summary>
     <ol class="steps">
-      <li>Glissez ce bouton dans votre barre de favoris : <a class="bookmarklet" id="bm" href="#">→ RomDuch</a> (une seule fois).</li>
-      <li>Ouvrez la fiche de l'outil sur le webshop (recherche ci-dessus), puis cliquez sur le favori « → RomDuch » : la fiche est copiée.</li>
+      <li>Glissez ce bouton dans votre barre de favoris : <a class="bookmarklet" id="bm" href="#">→ RDsimPl</a> (une seule fois).</li>
+      <li>Ouvrez la fiche de l'outil sur le webshop (recherche ci-dessus), puis cliquez sur le favori « → RDsimPl » : la fiche est copiée.</li>
       <li>Collez-la ici (Ctrl+V) : référence, désignation, type, D1, L2 et nombre de dents sont remplis. Le texte copié à la main depuis la fiche fonctionne aussi.</li>
     </ol>
     <div class="bar">
@@ -147,9 +157,6 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
   const TYPES = { surfacage: 'Surfaçage', fraise: 'Fraise', gravure: 'Gravure', foret: 'Foret', filetage: 'Filetage (fraise à fileter)' };
   const FEEDS = ['roughing', 'finishing', 'plunge', 'ramp', 'approach'];
   const FEED_LBL = { roughing: 'Ébauche', finishing: 'Finition', plunge: 'Plongée', ramp: 'Rampe', approach: 'Approche' };
-  const CHIPS = [['Fraises 1 dent', 'Einschneider'], ['Fraises 2 dents', 'Zweischneider'], ['Fraises 3 dents', 'Dreischneider'],
-    ['Gravure', 'Gravierwerkzeug'], ['Forets', 'Bohrer'], ['Fraises à fileter', 'Gewindefräser'], ['Surfaçage', 'Planfräser'],
-    ['Fraises hémisphériques', 'Radiusfräser'], ['Chanfrein', 'Fasenfräser']];
   const SHOP = q => `https://webshop.datron.de/search?search=${encodeURIComponent(q)}`;
   const ST = () => (window.Stockage && window.Stockage.actif()) ? window.Stockage : null;
 
@@ -250,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
   }
 
   $('b-site').onclick = () => { if (dirty && !confirm('Remplacer la bibliothèque en cours ?')) return;
-    fetch('tools.json').then(r => r.json()).then(j => setLib(j, 'tools.json générique du site')).catch(e => status('Erreur : ' + e.message)); };
+    fetch('tools.json', { cache: 'no-cache' }).then(r => r.json()).then(j => setLib(j, 'tools.json générique du site')).catch(e => status('Erreur : ' + e.message)); };
   $('b-imp').onclick = () => $('f-imp').click();
   $('f-imp').onchange = e => { const f = e.target.files[0]; if (!f) return;
     f.text().then(t => setLib(JSON.parse(t), f.name)).catch(err => status('Fichier invalide : ' + err.message)); e.target.value = ''; };
@@ -263,9 +270,50 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
   };
 
   /* ---------- catalogue ---------- */
-  $('chips').innerHTML = CHIPS.map(([l, q]) => `<button type="button" data-q="${esc(q)}">${esc(l)}</button>`).join('');
-  $('chips').querySelectorAll('[data-q]').forEach(b => b.onclick = () => window.open(SHOP(b.dataset.q), '_blank', 'noopener'));
-  $('f-search').onsubmit = e => { e.preventDefault(); const q = $('q').value.trim(); if (q) window.open(SHOP(q), '_blank', 'noopener'); };
+  /* ---------- catalogue hors ligne des fraises Datron ---------- */
+  let CAT = [];
+  const nf = v => String(v).replace('.', ',');
+  const CHIPS = [['Standard', { fam: 'standard' }], ['Équilibrées', { fam: 'équilibrée' }], ['4-IN-1', { fam: '4-IN-1' }], ['Acrylique', { fam: 'arête polie (acrylique)' }],
+    ['Ø1', { d: 1 }], ['Ø2', { d: 2 }], ['Ø3', { d: 3 }], ['Ø4', { d: 4 }], ['Ø6', { d: 6 }], ['Ø8', { d: 8 }], ['Tout', {}]];
+  function filtrerCat() {
+    const q = $('q').value.trim().toLowerCase().replace(',', '.'), fam = $('cat-fam').value, d = $('cat-d').value;
+    const res = CAT.filter(x => (!fam || x.famille === fam) && (!d || String(x.D1) === d)
+      && (!q || x.ref.toLowerCase().includes(q) || x.famille.toLowerCase().includes(q) || String(x.D1) === q || `ø${x.D1}` === q));
+    const max = 60;
+    $('cat-table').tBodies[0].innerHTML = res.slice(0, max).map(x => `<tr><td><b>${esc(x.ref)}</b></td><td>${esc(x.famille)}</td>
+      <td class="n">${nf(x.D1)}</td><td class="n">${nf(x.L2)}</td><td class="n">${nf(x.D2)}</td><td class="n">${nf(x.L1)}</td>
+      <td class="n">${x.modele_neo.n}</td><td class="n">${x.modele_neo.rainurage.vf}</td>
+      <td><button type="button" data-ref="${esc(x.ref)}">Ajouter</button> <a href="${SHOP(x.ref)}" target="_blank" rel="noopener" title="Fiche sur le webshop Datron">fiche</a></td></tr>`).join('');
+    $('st-cat').textContent = res.length ? `${res.length} fraise(s)${res.length > max ? ` – ${max} premières affichées, affinez la recherche` : ''}.` : 'Aucune fraise ne correspond.';
+    $('cat-table').querySelectorAll('[data-ref]').forEach(bt => bt.onclick = () => ajouterDuCatalogue(bt.dataset.ref));
+  }
+  function ajouterDuCatalogue(ref) {
+    const x = CAT.find(c => c.ref === ref); if (!x) return;
+    const t = { id: lib.tools.some(o => o.id === ref) ? uid(ref) : ref, name: `Fraise 1 dent Ø${nf(x.D1)} L${nf(x.L2)}${x.famille !== 'standard' ? ` (${x.famille})` : ''}`,
+      type: 'fraise', articleNr: ref, vendor: 'DATRON', diameter: x.D1, tipAngle: 0, fluteLength: x.L2, flutes: x.dents || 1, rpm: x.modele_neo.n,
+      feeds: { roughing: x.modele_neo.rainurage.vf, finishing: x.modele_neo.lateral.vf, plunge: 100, ramp: x.modele_neo.rainurage.vf, approach: 12000 } };
+    lib.tools.unshift(t);
+    const prop = appliquer(t);                                   // broche / matière choisies, guide exact si chargé
+    dirty = true; render();
+    $('st-cat').textContent = `${ref} ajoutée en tête de votre bibliothèque${prop ? ` (${prop.rpm} tr/min, ébauche ${prop.feeds.roughing} mm/min – ${prop.source})` : ''}. Pensez à enregistrer ou exporter.`;
+  }
+  $('chips').innerHTML = CHIPS.map(([l], i) => `<button type="button" data-chip="${i}">${esc(l)}</button>`).join('');
+  $('chips').querySelectorAll('[data-chip]').forEach(bt => bt.onclick = () => {
+    const f = CHIPS[+bt.dataset.chip][1];
+    if ('fam' in f || !Object.keys(f).length) $('cat-fam').value = f.fam || '';
+    if ('d' in f || !Object.keys(f).length) $('cat-d').value = f.d !== undefined ? String(f.d) : '';
+    if (!Object.keys(f).length) $('q').value = '';
+    filtrerCat();
+  });
+  $('f-search').onsubmit = e => { e.preventDefault(); filtrerCat(); };
+  ['q', 'cat-fam', 'cat-d'].forEach(id => $(id).addEventListener('input', filtrerCat));
+  fetch('catalogue-datron.json', { cache: 'no-cache' }).then(r => r.json()).then(j => {
+    CAT = j.fraises || [];
+    $('cat-count').textContent = `– ${CAT.length} références hors ligne`;
+    $('cat-fam').innerHTML = '<option value="">toutes les familles</option>' + [...new Set(CAT.map(x => x.famille))].map(f => `<option>${esc(f)}</option>`).join('');
+    $('cat-d').innerHTML = '<option value="">tous les Ø</option>' + [...new Set(CAT.map(x => x.D1))].sort((a, b) => a - b).map(d => `<option value="${d}">Ø${nf(d)}</option>`).join('');
+    $('cat-fam').value = 'standard'; filtrerCat();
+  }).catch(() => { $('st-cat').textContent = 'Catalogue introuvable.'; });
   $('add-type').innerHTML = Object.entries(TYPES).map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join('');
   $('filtre').innerHTML = '<option value="">tous les types</option>' + Object.entries(TYPES).map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join('');
   $('filtre').onchange = render;
@@ -284,9 +332,9 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
   /* ---------- remplissage automatique depuis une fiche Datron ---------- */
   // favori (bookmarklet) : lit les données structurées schema.org/Product de la fiche et les copie
   const BM = `(()=>{const L=[...document.querySelectorAll('script[type="application/ld+json"]')].flatMap(s=>{try{const j=JSON.parse(s.textContent);return Array.isArray(j)?j:[j]}catch(e){return[]}});
-const p=L.find(x=>x&&x['@type']==='Product');if(!p){alert('RomDuch : ouvrez une fiche produit du webshop Datron.');return}
+const p=L.find(x=>x&&x['@type']==='Product');if(!p){alert('RDsimPl : ouvrez une fiche produit du webshop Datron.');return}
 const d=JSON.stringify({romduch:'datron',sku:p.sku,name:p.name,description:p.description,url:location.href});
-const ok=()=>alert('RomDuch : fiche '+p.sku+' copiée. Collez-la dans l\\'éditeur d\\'outils.');
+const ok=()=>alert('RDsimPl : fiche '+p.sku+' copiée. Collez-la dans l\\'éditeur d\\'outils.');
 navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(d).then(ok,()=>prompt('Copiez ce texte :',d)):prompt('Copiez ce texte :',d)})()`;
   $('bm').href = 'javascript:' + encodeURIComponent(BM.replace(/\n/g, ''));
   $('bm').onclick = e => { e.preventDefault(); alert('Glissez ce bouton dans votre barre de favoris, puis utilisez-le sur une fiche du webshop Datron.'); };
@@ -367,10 +415,10 @@ navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText
   document.addEventListener('stockage-change', render);
 
   /* ---------- démarrage : ma bibliothèque enregistrée, sinon le fichier générique ---------- */
-  fetch('tools.json').then(r => r.json()).then(j => { generic = j.tools || []; }).catch(() => {}).finally(() => {
+  fetch('tools.json', { cache: 'no-cache' }).then(r => r.json()).then(j => { generic = j.tools || []; }).catch(() => {}).finally(() => {
     const saved = ST() && ST().get('tools');
     if (saved && Array.isArray(saved.tools)) setLib(saved, 'mon tools.json (ce navigateur)');
-    else fetch('tools.json').then(r => r.json()).then(j => setLib(j, 'tools.json générique du site')).catch(() => { render(); status('tools.json du site introuvable : importez votre fichier.'); });
+    else fetch('tools.json', { cache: 'no-cache' }).then(r => r.json()).then(j => setLib(j, 'tools.json générique du site')).catch(() => { render(); status('tools.json du site introuvable : importez votre fichier.'); });
   });
 });
 </script>

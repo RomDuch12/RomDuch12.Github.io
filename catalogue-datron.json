@@ -1,0 +1,3875 @@
+{
+ "_info": "Catalogue des fraises carbure 1 dent DATRON : référence, famille et cotes (D1 Ø de coupe, D2 Ø de queue, D3 Ø de dégagement, L1 longueur totale, L2 longueur de coupe, L3 longueur de dégagement, en mm). Avances « modele_neo » : calculées par le modèle RomDuch pour une broche 2 kW neo dans l'aluminium 200–400 N/mm² (valeurs de départ, voir coupe.html). Les valeurs exactes recommandées par DATRON figurent dans le DATRON High-Speed Cutting Guide.",
+ "source_cotes": "DATRON High-Speed Cutting Guide (données outils) – https://www.datron.com/wp-content/uploads/2022/11/DATRON-High-Speed-Cutting-Guide.pdf",
+ "fiche_webshop": "https://webshop.datron.de/search?search={ref}",
+ "fraises": [
+  {
+   "ref": "0068003E",
+   "famille": "standard",
+   "D1": 0.3,
+   "D2": 3,
+   "L1": 38,
+   "L2": 1,
+   "dents": 1,
+   "modele_neo": {
+    "n": 40000,
+    "rainurage": {
+     "vf": 420,
+     "ap": 0.28,
+     "ae": 0.3
+    },
+    "lateral": {
+     "vf": 310,
+     "ap": 0.7,
+     "ae": 0.08
+    }
+   }
+  },
+  {
+   "ref": "0068004E",
+   "famille": "standard",
+   "D1": 0.4,
+   "D2": 3,
+   "L1": 38,
+   "L2": 1,
+   "dents": 1,
+   "modele_neo": {
+    "n": 40000,
+    "rainurage": {
+     "vf": 570,
+     "ap": 0.37,
+     "ae": 0.4
+    },
+    "lateral": {
+     "vf": 460,
+     "ap": 0.7,
+     "ae": 0.12
+    }
+   }
+  },
+  {
+   "ref": "0068005E",
+   "famille": "standard",
+   "D1": 0.5,
+   "D2": 3,
+   "L1": 38,
+   "L2": 1.5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 40000,
+    "rainurage": {
+     "vf": 660,
+     "ap": 0.35,
+     "ae": 0.5
+    },
+    "lateral": {
+     "vf": 510,
+     "ap": 1.1,
+     "ae": 0.11
+    }
+   }
+  },
+  {
+   "ref": "0068006E",
+   "famille": "standard",
+   "D1": 0.6,
+   "D2": 3,
+   "L1": 38,
+   "L2": 2.5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 40000,
+    "rainurage": {
+     "vf": 710,
+     "ap": 0.29,
+     "ae": 0.6
+    },
+    "lateral": {
+     "vf": 510,
+     "ap": 1.93,
+     "ae": 0.09
+    }
+   }
+  },
+  {
+   "ref": "0068606E",
+   "famille": "standard",
+   "D1": 0.6,
+   "D2": 3.175,
+   "L1": 38,
+   "L2": 3,
+   "dents": 1,
+   "modele_neo": {
+    "n": 40000,
+    "rainurage": {
+     "vf": 680,
+     "ap": 0.26,
+     "ae": 0.6
+    },
+    "lateral": {
+     "vf": 470,
+     "ap": 2.36,
+     "ae": 0.08
+    }
+   }
+  },
+  {
+   "ref": "0068008E",
+   "famille": "standard",
+   "D1": 0.8,
+   "D2": 3,
+   "L1": 38,
+   "L2": 3,
+   "dents": 1,
+   "modele_neo": {
+    "n": 40000,
+    "rainurage": {
+     "vf": 920,
+     "ap": 0.34,
+     "ae": 0.8
+    },
+    "lateral": {
+     "vf": 690,
+     "ap": 2.36,
+     "ae": 0.12
+    }
+   }
+  },
+  {
+   "ref": "0068608E",
+   "famille": "standard",
+   "D1": 0.8,
+   "D2": 3.175,
+   "L1": 38,
+   "L2": 3,
+   "dents": 1,
+   "modele_neo": {
+    "n": 40000,
+    "rainurage": {
+     "vf": 920,
+     "ap": 0.34,
+     "ae": 0.8
+    },
+    "lateral": {
+     "vf": 690,
+     "ap": 2.36,
+     "ae": 0.12
+    }
+   }
+  },
+  {
+   "ref": "0068610E",
+   "famille": "standard",
+   "D1": 1,
+   "D2": 3.175,
+   "L1": 38,
+   "L2": 3,
+   "dents": 1,
+   "modele_neo": {
+    "n": 40000,
+    "rainurage": {
+     "vf": 1180,
+     "ap": 0.42,
+     "ae": 1.0
+    },
+    "lateral": {
+     "vf": 930,
+     "ap": 2.35,
+     "ae": 0.15
+    }
+   }
+  },
+  {
+   "ref": "0068010E",
+   "famille": "standard",
+   "D1": 1,
+   "D2": 3,
+   "L1": 38,
+   "L2": 4,
+   "dents": 1,
+   "modele_neo": {
+    "n": 40000,
+    "rainurage": {
+     "vf": 1100,
+     "ap": 0.35,
+     "ae": 1.0
+    },
+    "lateral": {
+     "vf": 810,
+     "ap": 3.24,
+     "ae": 0.12
+    }
+   }
+  },
+  {
+   "ref": "0068410E",
+   "famille": "standard",
+   "D1": 1,
+   "D2": 6,
+   "L1": 50,
+   "L2": 4,
+   "dents": 1,
+   "modele_neo": {
+    "n": 40000,
+    "rainurage": {
+     "vf": 1100,
+     "ap": 0.35,
+     "ae": 1.0
+    },
+    "lateral": {
+     "vf": 810,
+     "ap": 3.24,
+     "ae": 0.12
+    }
+   }
+  },
+  {
+   "ref": "0068612E",
+   "famille": "standard",
+   "D1": 1.2,
+   "D2": 3.175,
+   "L1": 38,
+   "L2": 4,
+   "dents": 1,
+   "modele_neo": {
+    "n": 40000,
+    "rainurage": {
+     "vf": 1340,
+     "ap": 0.42,
+     "ae": 1.2
+    },
+    "lateral": {
+     "vf": 1030,
+     "ap": 3.23,
+     "ae": 0.15
+    }
+   }
+  },
+  {
+   "ref": "0068415A",
+   "famille": "standard",
+   "D1": 1.5,
+   "D2": 6,
+   "L1": 50,
+   "L2": 3,
+   "dents": 1,
+   "modele_neo": {
+    "n": 39700,
+    "rainurage": {
+     "vf": 1820,
+     "ap": 0.62,
+     "ae": 1.5
+    },
+    "lateral": {
+     "vf": 1580,
+     "ap": 2.34,
+     "ae": 0.26
+    }
+   }
+  },
+  {
+   "ref": "0068615E",
+   "famille": "standard",
+   "D1": 1.5,
+   "D2": 3.175,
+   "L1": 38,
+   "L2": 4,
+   "dents": 1,
+   "modele_neo": {
+    "n": 39500,
+    "rainurage": {
+     "vf": 1690,
+     "ap": 0.52,
+     "ae": 1.5
+    },
+    "lateral": {
+     "vf": 1370,
+     "ap": 3.22,
+     "ae": 0.21
+    }
+   }
+  },
+  {
+   "ref": "0068015E",
+   "famille": "standard",
+   "D1": 1.5,
+   "D2": 3,
+   "L1": 38,
+   "L2": 5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 39300,
+    "rainurage": {
+     "vf": 1590,
+     "ap": 0.45,
+     "ae": 1.5
+    },
+    "lateral": {
+     "vf": 1220,
+     "ap": 4.13,
+     "ae": 0.17
+    }
+   }
+  },
+  {
+   "ref": "0068415Y",
+   "famille": "standard",
+   "D1": 1.5,
+   "D2": 4,
+   "L1": 40,
+   "L2": 5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 39300,
+    "rainurage": {
+     "vf": 1590,
+     "ap": 0.45,
+     "ae": 1.5
+    },
+    "lateral": {
+     "vf": 1220,
+     "ap": 4.13,
+     "ae": 0.17
+    }
+   }
+  },
+  {
+   "ref": "0068415E",
+   "famille": "standard",
+   "D1": 1.5,
+   "D2": 6,
+   "L1": 50,
+   "L2": 7,
+   "dents": 1,
+   "modele_neo": {
+    "n": 39000,
+    "rainurage": {
+     "vf": 1450,
+     "ap": 0.36,
+     "ae": 1.5
+    },
+    "lateral": {
+     "vf": 1030,
+     "ap": 6.0,
+     "ae": 0.13
+    }
+   }
+  },
+  {
+   "ref": "0078415E",
+   "famille": "standard",
+   "D1": 1.5,
+   "D2": 6,
+   "L1": 58,
+   "L2": 7,
+   "dents": 1,
+   "modele_neo": {
+    "n": 39000,
+    "rainurage": {
+     "vf": 1450,
+     "ap": 0.36,
+     "ae": 1.5
+    },
+    "lateral": {
+     "vf": 1030,
+     "ap": 6.0,
+     "ae": 0.13
+    }
+   }
+  },
+  {
+   "ref": "0068016E",
+   "famille": "standard",
+   "D1": 1.6,
+   "D2": 3,
+   "L1": 38,
+   "L2": 5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 39000,
+    "rainurage": {
+     "vf": 1690,
+     "ap": 0.47,
+     "ae": 1.6
+    },
+    "lateral": {
+     "vf": 1320,
+     "ap": 4.13,
+     "ae": 0.19
+    }
+   }
+  },
+  {
+   "ref": "0068432A",
+   "famille": "standard",
+   "D1": 2,
+   "D2": 6,
+   "L1": 50,
+   "L2": 5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 38100,
+    "rainurage": {
+     "vf": 2110,
+     "ap": 0.59,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1740,
+     "ap": 4.12,
+     "ae": 0.25
+    }
+   }
+  },
+  {
+   "ref": "0068620G",
+   "famille": "standard",
+   "D1": 2,
+   "D2": 3.175,
+   "L1": 40,
+   "L2": 5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 38100,
+    "rainurage": {
+     "vf": 2110,
+     "ap": 0.59,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1740,
+     "ap": 4.12,
+     "ae": 0.25
+    }
+   }
+  },
+  {
+   "ref": "0068020G",
+   "famille": "standard",
+   "D1": 2,
+   "D2": 3,
+   "L1": 40,
+   "L2": 6,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37900,
+    "rainurage": {
+     "vf": 2010,
+     "ap": 0.52,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1590,
+     "ap": 5.04,
+     "ae": 0.21
+    }
+   }
+  },
+  {
+   "ref": "0068432E",
+   "famille": "standard",
+   "D1": 2,
+   "D2": 6,
+   "L1": 50,
+   "L2": 7,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37800,
+    "rainurage": {
+     "vf": 1930,
+     "ap": 0.47,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1470,
+     "ap": 5.98,
+     "ae": 0.19
+    }
+   }
+  },
+  {
+   "ref": "0078420E",
+   "famille": "standard",
+   "D1": 2,
+   "D2": 6,
+   "L1": 58,
+   "L2": 7,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37800,
+    "rainurage": {
+     "vf": 1930,
+     "ap": 0.47,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1470,
+     "ap": 5.98,
+     "ae": 0.19
+    }
+   }
+  },
+  {
+   "ref": "0068020E",
+   "famille": "standard",
+   "D1": 2,
+   "D2": 3,
+   "L1": 40,
+   "L2": 8,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37700,
+    "rainurage": {
+     "vf": 1860,
+     "ap": 0.43,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1370,
+     "ap": 6.94,
+     "ae": 0.17
+    }
+   }
+  },
+  {
+   "ref": "0068432Y",
+   "famille": "standard",
+   "D1": 2,
+   "D2": 4,
+   "L1": 40,
+   "L2": 8,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37700,
+    "rainurage": {
+     "vf": 1860,
+     "ap": 0.43,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1370,
+     "ap": 6.94,
+     "ae": 0.17
+    }
+   }
+  },
+  {
+   "ref": "0068620E",
+   "famille": "standard",
+   "D1": 2,
+   "D2": 3.175,
+   "L1": 38,
+   "L2": 8,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37700,
+    "rainurage": {
+     "vf": 1860,
+     "ap": 0.43,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1370,
+     "ap": 6.94,
+     "ae": 0.17
+    }
+   }
+  },
+  {
+   "ref": "0068020L",
+   "famille": "standard",
+   "D1": 2,
+   "D2": 3,
+   "L1": 40,
+   "L2": 10,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37500,
+    "rainurage": {
+     "vf": 1760,
+     "ap": 0.37,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1230,
+     "ap": 8.89,
+     "ae": 0.14
+    }
+   }
+  },
+  {
+   "ref": "0068432L",
+   "famille": "standard",
+   "D1": 2,
+   "D2": 6,
+   "L1": 50,
+   "L2": 11,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37400,
+    "rainurage": {
+     "vf": 1710,
+     "ap": 0.35,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1170,
+     "ap": 9.88,
+     "ae": 0.13
+    }
+   }
+  },
+  {
+   "ref": "0068620F",
+   "famille": "standard",
+   "D1": 2,
+   "D2": 3.175,
+   "L1": 40,
+   "L2": 11.5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37400,
+    "rainurage": {
+     "vf": 1690,
+     "ap": 0.34,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1140,
+     "ap": 10.38,
+     "ae": 0.13
+    }
+   }
+  },
+  {
+   "ref": "0068020W",
+   "famille": "standard",
+   "D1": 2,
+   "D2": 3,
+   "L1": 65,
+   "L2": 15,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37200,
+    "rainurage": {
+     "vf": 1580,
+     "ap": 0.29,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1000,
+     "ap": 13.95,
+     "ae": 0.1
+    }
+   }
+  },
+  {
+   "ref": "0068024A",
+   "famille": "standard",
+   "D1": 2.4,
+   "D2": 3,
+   "L1": 40,
+   "L2": 5.5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37300,
+    "rainurage": {
+     "vf": 2460,
+     "ap": 0.66,
+     "ae": 2.4
+    },
+    "lateral": {
+     "vf": 2070,
+     "ap": 4.57,
+     "ae": 0.29
+    }
+   }
+  },
+  {
+   "ref": "0068024E",
+   "famille": "standard",
+   "D1": 2.4,
+   "D2": 3,
+   "L1": 40,
+   "L2": 8,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37000,
+    "rainurage": {
+     "vf": 2230,
+     "ap": 0.51,
+     "ae": 2.4
+    },
+    "lateral": {
+     "vf": 1720,
+     "ap": 6.92,
+     "ae": 0.21
+    }
+   }
+  },
+  {
+   "ref": "0068624E",
+   "famille": "standard",
+   "D1": 2.4,
+   "D2": 3.175,
+   "L1": 38,
+   "L2": 8,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37000,
+    "rainurage": {
+     "vf": 2230,
+     "ap": 0.51,
+     "ae": 2.4
+    },
+    "lateral": {
+     "vf": 1720,
+     "ap": 6.92,
+     "ae": 0.21
+    }
+   }
+  },
+  {
+   "ref": "0078424E",
+   "famille": "standard",
+   "D1": 2.4,
+   "D2": 6,
+   "L1": 50,
+   "L2": 8,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37000,
+    "rainurage": {
+     "vf": 2230,
+     "ap": 0.51,
+     "ae": 2.4
+    },
+    "lateral": {
+     "vf": 1720,
+     "ap": 6.92,
+     "ae": 0.21
+    }
+   }
+  },
+  {
+   "ref": "0068024L",
+   "famille": "standard",
+   "D1": 2.4,
+   "D2": 3,
+   "L1": 40,
+   "L2": 10,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36800,
+    "rainurage": {
+     "vf": 2100,
+     "ap": 0.44,
+     "ae": 2.4
+    },
+    "lateral": {
+     "vf": 1530,
+     "ap": 8.87,
+     "ae": 0.18
+    }
+   }
+  },
+  {
+   "ref": "0068425A",
+   "famille": "standard",
+   "D1": 2.5,
+   "D2": 6,
+   "L1": 50,
+   "L2": 5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37200,
+    "rainurage": {
+     "vf": 2620,
+     "ap": 0.73,
+     "ae": 2.5
+    },
+    "lateral": {
+     "vf": 2290,
+     "ap": 4.11,
+     "ae": 0.33
+    }
+   }
+  },
+  {
+   "ref": "0078425E",
+   "famille": "standard",
+   "D1": 2.5,
+   "D2": 6,
+   "L1": 58,
+   "L2": 8,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36800,
+    "rainurage": {
+     "vf": 2320,
+     "ap": 0.53,
+     "ae": 2.5
+    },
+    "lateral": {
+     "vf": 1800,
+     "ap": 6.92,
+     "ae": 0.23
+    }
+   }
+  },
+  {
+   "ref": "0068430A",
+   "famille": "standard",
+   "D1": 3,
+   "D2": 6,
+   "L1": 50,
+   "L2": 5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36500,
+    "rainurage": {
+     "vf": 3140,
+     "ap": 0.86,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2860,
+     "ap": 4.1,
+     "ae": 0.42
+    }
+   }
+  },
+  {
+   "ref": "0068430E",
+   "famille": "standard",
+   "D1": 3,
+   "D2": 6,
+   "L1": 50,
+   "L2": 8,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36100,
+    "rainurage": {
+     "vf": 2770,
+     "ap": 0.63,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2260,
+     "ap": 6.91,
+     "ae": 0.28
+    }
+   }
+  },
+  {
+   "ref": "0078430E",
+   "famille": "standard",
+   "D1": 3,
+   "D2": 6,
+   "L1": 58,
+   "L2": 8,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36100,
+    "rainurage": {
+     "vf": 2770,
+     "ap": 0.63,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2260,
+     "ap": 6.91,
+     "ae": 0.28
+    }
+   }
+  },
+  {
+   "ref": "0068630E",
+   "famille": "standard",
+   "D1": 3,
+   "D2": 3.175,
+   "L1": 38,
+   "L2": 9,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36000,
+    "rainurage": {
+     "vf": 2690,
+     "ap": 0.59,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2130,
+     "ap": 7.87,
+     "ae": 0.26
+    }
+   }
+  },
+  {
+   "ref": "0068030E",
+   "famille": "standard",
+   "D1": 3,
+   "D2": 3,
+   "L1": 40,
+   "L2": 10,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35900,
+    "rainurage": {
+     "vf": 2610,
+     "ap": 0.55,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2020,
+     "ap": 8.85,
+     "ae": 0.24
+    }
+   }
+  },
+  {
+   "ref": "0068030Y",
+   "famille": "standard",
+   "D1": 3,
+   "D2": 3,
+   "L1": 65,
+   "L2": 10,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35900,
+    "rainurage": {
+     "vf": 2610,
+     "ap": 0.55,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2020,
+     "ap": 8.85,
+     "ae": 0.24
+    }
+   }
+  },
+  {
+   "ref": "0068430S",
+   "famille": "standard",
+   "D1": 3,
+   "D2": 6,
+   "L1": 50,
+   "L2": 10,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35900,
+    "rainurage": {
+     "vf": 2610,
+     "ap": 0.55,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2020,
+     "ap": 8.85,
+     "ae": 0.24
+    }
+   }
+  },
+  {
+   "ref": "0068430Y",
+   "famille": "standard",
+   "D1": 3,
+   "D2": 4,
+   "L1": 40,
+   "L2": 10,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35900,
+    "rainurage": {
+     "vf": 2610,
+     "ap": 0.55,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2020,
+     "ap": 8.85,
+     "ae": 0.24
+    }
+   }
+  },
+  {
+   "ref": "0078430S",
+   "famille": "standard",
+   "D1": 3,
+   "D2": 6,
+   "L1": 58,
+   "L2": 10,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35900,
+    "rainurage": {
+     "vf": 2610,
+     "ap": 0.55,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2020,
+     "ap": 8.85,
+     "ae": 0.24
+    }
+   }
+  },
+  {
+   "ref": "0068030Z",
+   "famille": "standard",
+   "D1": 3,
+   "D2": 3,
+   "L1": 40,
+   "L2": 10.5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35900,
+    "rainurage": {
+     "vf": 2580,
+     "ap": 0.53,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 1970,
+     "ap": 9.34,
+     "ae": 0.23
+    }
+   }
+  },
+  {
+   "ref": "0068630F",
+   "famille": "standard",
+   "D1": 3,
+   "D2": 3.175,
+   "L1": 40,
+   "L2": 11.5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35800,
+    "rainurage": {
+     "vf": 2520,
+     "ap": 0.5,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 1880,
+     "ap": 10.34,
+     "ae": 0.21
+    }
+   }
+  },
+  {
+   "ref": "0068430L",
+   "famille": "standard",
+   "D1": 3,
+   "D2": 6,
+   "L1": 50,
+   "L2": 12,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35800,
+    "rainurage": {
+     "vf": 2490,
+     "ap": 0.49,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 1840,
+     "ap": 10.84,
+     "ae": 0.21
+    }
+   }
+  },
+  {
+   "ref": "0068030W",
+   "famille": "standard",
+   "D1": 3,
+   "D2": 3,
+   "L1": 65,
+   "L2": 15,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35600,
+    "rainurage": {
+     "vf": 2350,
+     "ap": 0.42,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 1640,
+     "ap": 13.89,
+     "ae": 0.17
+    }
+   }
+  },
+  {
+   "ref": "0078435E",
+   "famille": "standard",
+   "D1": 3.5,
+   "D2": 6,
+   "L1": 58,
+   "L2": 10,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35300,
+    "rainurage": {
+     "vf": 3040,
+     "ap": 0.63,
+     "ae": 3.5
+    },
+    "lateral": {
+     "vf": 2440,
+     "ap": 8.84,
+     "ae": 0.29
+    }
+   }
+  },
+  {
+   "ref": "0068434A",
+   "famille": "standard",
+   "D1": 4,
+   "D2": 6,
+   "L1": 50,
+   "L2": 5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35400,
+    "rainurage": {
+     "vf": 4160,
+     "ap": 1.13,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 4080,
+     "ap": 4.09,
+     "ae": 0.6
+    }
+   }
+  },
+  {
+   "ref": "0068434B",
+   "famille": "standard",
+   "D1": 4,
+   "D2": 6,
+   "L1": 50,
+   "L2": 7,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35100,
+    "rainurage": {
+     "vf": 3800,
+     "ap": 0.91,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 3440,
+     "ap": 5.94,
+     "ae": 0.46
+    }
+   }
+  },
+  {
+   "ref": "0068434E",
+   "famille": "standard",
+   "D1": 4,
+   "D2": 6,
+   "L1": 50,
+   "L2": 10,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34800,
+    "rainurage": {
+     "vf": 3460,
+     "ap": 0.72,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 2870,
+     "ap": 8.82,
+     "ae": 0.34
+    }
+   }
+  },
+  {
+   "ref": "0068434Y",
+   "famille": "standard",
+   "D1": 4,
+   "D2": 4,
+   "L1": 40,
+   "L2": 10,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34800,
+    "rainurage": {
+     "vf": 3460,
+     "ap": 0.72,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 2870,
+     "ap": 8.82,
+     "ae": 0.34
+    }
+   }
+  },
+  {
+   "ref": "0078440E",
+   "famille": "standard",
+   "D1": 4,
+   "D2": 6,
+   "L1": 58,
+   "L2": 10,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34800,
+    "rainurage": {
+     "vf": 3460,
+     "ap": 0.72,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 2870,
+     "ap": 8.82,
+     "ae": 0.34
+    }
+   }
+  },
+  {
+   "ref": "0068434L",
+   "famille": "standard",
+   "D1": 4,
+   "D2": 6,
+   "L1": 50,
+   "L2": 12,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34700,
+    "rainurage": {
+     "vf": 3300,
+     "ap": 0.64,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 2620,
+     "ap": 10.8,
+     "ae": 0.3
+    }
+   }
+  },
+  {
+   "ref": "0068434S",
+   "famille": "standard",
+   "D1": 4,
+   "D2": 6,
+   "L1": 60,
+   "L2": 14,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34600,
+    "rainurage": {
+     "vf": 3170,
+     "ap": 0.58,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 2420,
+     "ap": 12.82,
+     "ae": 0.26
+    }
+   }
+  },
+  {
+   "ref": "0068434Z",
+   "famille": "standard",
+   "D1": 4,
+   "D2": 6,
+   "L1": 45,
+   "L2": 14,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34600,
+    "rainurage": {
+     "vf": 3170,
+     "ap": 0.58,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 2420,
+     "ap": 12.82,
+     "ae": 0.26
+    }
+   }
+  },
+  {
+   "ref": "0078440L",
+   "famille": "standard",
+   "D1": 4,
+   "D2": 6,
+   "L1": 58,
+   "L2": 18,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34400,
+    "rainurage": {
+     "vf": 2960,
+     "ap": 0.49,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 2140,
+     "ap": 16.95,
+     "ae": 0.21
+    }
+   }
+  },
+  {
+   "ref": "0068434F",
+   "famille": "standard",
+   "D1": 4,
+   "D2": 6,
+   "L1": 58,
+   "L2": 20,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34300,
+    "rainurage": {
+     "vf": 2880,
+     "ap": 0.46,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 2020,
+     "ap": 19.06,
+     "ae": 0.2
+    }
+   }
+  },
+  {
+   "ref": "0068435B",
+   "famille": "standard",
+   "D1": 5,
+   "D2": 6,
+   "L1": 50,
+   "L2": 8,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34200,
+    "rainurage": {
+     "vf": 4570,
+     "ap": 1.03,
+     "ae": 5.0
+    },
+    "lateral": {
+     "vf": 4230,
+     "ap": 6.87,
+     "ae": 0.55
+    }
+   }
+  },
+  {
+   "ref": "0068435E",
+   "famille": "standard",
+   "D1": 5,
+   "D2": 6,
+   "L1": 50,
+   "L2": 12,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33900,
+    "rainurage": {
+     "vf": 4110,
+     "ap": 0.79,
+     "ae": 5.0
+    },
+    "lateral": {
+     "vf": 3450,
+     "ap": 10.78,
+     "ae": 0.39
+    }
+   }
+  },
+  {
+   "ref": "0068435L",
+   "famille": "standard",
+   "D1": 5,
+   "D2": 6,
+   "L1": 58,
+   "L2": 22,
+   "dents": 1,
+   "modele_neo": {
+    "n": 26700,
+    "rainurage": {
+     "vf": 2240,
+     "ap": 0.42,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 1620,
+     "ap": 16.91,
+     "ae": 0.19
+    }
+   }
+  },
+  {
+   "ref": "0068460C",
+   "famille": "standard",
+   "D1": 6,
+   "D2": 6,
+   "L1": 50,
+   "L2": 8,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33500,
+    "rainurage": {
+     "vf": 5460,
+     "ap": 1.23,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 5300,
+     "ap": 6.86,
+     "ae": 0.69
+    }
+   }
+  },
+  {
+   "ref": "0068460E",
+   "famille": "standard",
+   "D1": 6,
+   "D2": 6,
+   "L1": 50,
+   "L2": 14,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33100,
+    "rainurage": {
+     "vf": 4710,
+     "ap": 0.85,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 3990,
+     "ap": 12.77,
+     "ae": 0.44
+    }
+   }
+  },
+  {
+   "ref": "0068460L",
+   "famille": "standard",
+   "D1": 6,
+   "D2": 6,
+   "L1": 60,
+   "L2": 20,
+   "dents": 1,
+   "modele_neo": {
+    "n": 32800,
+    "rainurage": {
+     "vf": 4290,
+     "ap": 0.67,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 3330,
+     "ap": 18.97,
+     "ae": 0.33
+    }
+   }
+  },
+  {
+   "ref": "0068460A",
+   "famille": "standard",
+   "D1": 6,
+   "D2": 6,
+   "L1": 58,
+   "L2": 25,
+   "dents": 1,
+   "modele_neo": {
+    "n": 26100,
+    "rainurage": {
+     "vf": 2590,
+     "ap": 0.46,
+     "ae": 4.8
+    },
+    "lateral": {
+     "vf": 1910,
+     "ap": 19.45,
+     "ae": 0.22
+    }
+   }
+  },
+  {
+   "ref": "0068460B",
+   "famille": "standard",
+   "D1": 6,
+   "D2": 6,
+   "L1": 65,
+   "L2": 30,
+   "dents": 1,
+   "modele_neo": {
+    "n": 26000,
+    "rainurage": {
+     "vf": 2470,
+     "ap": 0.41,
+     "ae": 4.8
+    },
+    "lateral": {
+     "vf": 1740,
+     "ap": 23.81,
+     "ae": 0.19
+    }
+   }
+  },
+  {
+   "ref": "0068079E",
+   "famille": "standard",
+   "D1": 7,
+   "D2": 8,
+   "L1": 60,
+   "L2": 14,
+   "dents": 1,
+   "modele_neo": {
+    "n": 32600,
+    "rainurage": {
+     "vf": 5480,
+     "ap": 0.98,
+     "ae": 7.0
+    },
+    "lateral": {
+     "vf": 4820,
+     "ap": 12.75,
+     "ae": 0.54
+    }
+   }
+  },
+  {
+   "ref": "0068080E",
+   "famille": "standard",
+   "D1": 8,
+   "D2": 8,
+   "L1": 60,
+   "L2": 14,
+   "dents": 1,
+   "modele_neo": {
+    "n": 32100,
+    "rainurage": {
+     "vf": 6250,
+     "ap": 1.12,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 5690,
+     "ap": 12.73,
+     "ae": 0.64
+    }
+   }
+  },
+  {
+   "ref": "0068080L",
+   "famille": "standard",
+   "D1": 8,
+   "D2": 8,
+   "L1": 60,
+   "L2": 20,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31800,
+    "rainurage": {
+     "vf": 5690,
+     "ap": 0.88,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 4750,
+     "ap": 18.92,
+     "ae": 0.48
+    }
+   }
+  },
+  {
+   "ref": "0068080A",
+   "famille": "standard",
+   "D1": 8,
+   "D2": 8,
+   "L1": 60,
+   "L2": 25,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31700,
+    "rainurage": {
+     "vf": 5360,
+     "ap": 0.76,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 4240,
+     "ap": 24.24,
+     "ae": 0.4
+    }
+   }
+  },
+  {
+   "ref": "0068080B",
+   "famille": "standard",
+   "D1": 8,
+   "D2": 8,
+   "L1": 80,
+   "L2": 32,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31500,
+    "rainurage": {
+     "vf": 5020,
+     "ap": 0.65,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 3740,
+     "ap": 31.88,
+     "ae": 0.33
+    }
+   }
+  },
+  {
+   "ref": "0068470E",
+   "famille": "standard",
+   "D1": 10,
+   "D2": 10,
+   "L1": 60,
+   "L2": 20,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31100,
+    "rainurage": {
+     "vf": 7080,
+     "ap": 1.09,
+     "ae": 10.0
+    },
+    "lateral": {
+     "vf": 6250,
+     "ap": 18.87,
+     "ae": 0.63
+    }
+   }
+  },
+  {
+   "ref": "0068470L",
+   "famille": "standard",
+   "D1": 10,
+   "D2": 10,
+   "L1": 100,
+   "L2": 40,
+   "dents": 1,
+   "modele_neo": {
+    "n": 30600,
+    "rainurage": {
+     "vf": 5890,
+     "ap": 0.69,
+     "ae": 10.0
+    },
+    "lateral": {
+     "vf": 4400,
+     "ap": 40.0,
+     "ae": 0.36
+    }
+   }
+  },
+  {
+   "ref": "0068803A",
+   "famille": "4-IN-1",
+   "D1": 3,
+   "D2": 6,
+   "L1": 40,
+   "L2": 5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36500,
+    "rainurage": {
+     "vf": 3140,
+     "ap": 0.86,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2860,
+     "ap": 4.1,
+     "ae": 0.42
+    }
+   }
+  },
+  {
+   "ref": "0068803E",
+   "famille": "4-IN-1",
+   "D1": 3,
+   "D2": 6,
+   "D3": 2.8,
+   "L1": 50,
+   "L2": 9,
+   "L3": 13,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36000,
+    "rainurage": {
+     "vf": 2690,
+     "ap": 0.59,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2130,
+     "ap": 7.87,
+     "ae": 0.26
+    }
+   }
+  },
+  {
+   "ref": "0068803K",
+   "famille": "4-IN-1",
+   "D1": 3,
+   "D2": 6,
+   "L1": 45,
+   "L2": 9,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36000,
+    "rainurage": {
+     "vf": 2690,
+     "ap": 0.59,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2130,
+     "ap": 7.87,
+     "ae": 0.26
+    }
+   }
+  },
+  {
+   "ref": "0068803L",
+   "famille": "4-IN-1",
+   "D1": 3,
+   "D2": 6,
+   "D3": 2.8,
+   "L1": 50,
+   "L2": 9,
+   "L3": 16,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36000,
+    "rainurage": {
+     "vf": 2690,
+     "ap": 0.59,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2130,
+     "ap": 7.87,
+     "ae": 0.26
+    }
+   }
+  },
+  {
+   "ref": "0068803X",
+   "famille": "4-IN-1",
+   "D1": 3,
+   "D2": 6,
+   "L1": 50,
+   "L2": 13,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35700,
+    "rainurage": {
+     "vf": 2440,
+     "ap": 0.46,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 1770,
+     "ap": 11.84,
+     "ae": 0.19
+    }
+   }
+  },
+  {
+   "ref": "0068804A",
+   "famille": "4-IN-1",
+   "D1": 4,
+   "D2": 6,
+   "L1": 40,
+   "L2": 5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35400,
+    "rainurage": {
+     "vf": 4160,
+     "ap": 1.13,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 4080,
+     "ap": 4.09,
+     "ae": 0.6
+    }
+   }
+  },
+  {
+   "ref": "0068804E",
+   "famille": "4-IN-1",
+   "D1": 4,
+   "D2": 6,
+   "D3": 3.7,
+   "L1": 50,
+   "L2": 9,
+   "L3": 16,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34900,
+    "rainurage": {
+     "vf": 3560,
+     "ap": 0.77,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 3030,
+     "ap": 7.85,
+     "ae": 0.37
+    }
+   }
+  },
+  {
+   "ref": "0068804K",
+   "famille": "4-IN-1",
+   "D1": 4,
+   "D2": 6,
+   "L1": 45,
+   "L2": 9,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34900,
+    "rainurage": {
+     "vf": 3560,
+     "ap": 0.77,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 3030,
+     "ap": 7.85,
+     "ae": 0.37
+    }
+   }
+  },
+  {
+   "ref": "0068804L",
+   "famille": "4-IN-1",
+   "D1": 4,
+   "D2": 6,
+   "D3": 3.7,
+   "L1": 55,
+   "L2": 9,
+   "L3": 21,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34900,
+    "rainurage": {
+     "vf": 3560,
+     "ap": 0.77,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 3030,
+     "ap": 7.85,
+     "ae": 0.37
+    }
+   }
+  },
+  {
+   "ref": "0068804X",
+   "famille": "4-IN-1",
+   "D1": 4,
+   "D2": 6,
+   "L1": 55,
+   "L2": 16,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34500,
+    "rainurage": {
+     "vf": 3060,
+     "ap": 0.53,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 2270,
+     "ap": 14.87,
+     "ae": 0.24
+    }
+   }
+  },
+  {
+   "ref": "0068805A",
+   "famille": "4-IN-1",
+   "D1": 5,
+   "D2": 6,
+   "L1": 45,
+   "L2": 7,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34300,
+    "rainurage": {
+     "vf": 4730,
+     "ap": 1.13,
+     "ae": 5.0
+    },
+    "lateral": {
+     "vf": 4530,
+     "ap": 5.92,
+     "ae": 0.61
+    }
+   }
+  },
+  {
+   "ref": "0068805E",
+   "famille": "4-IN-1",
+   "D1": 5,
+   "D2": 6,
+   "D3": 4.6,
+   "L1": 60,
+   "L2": 11,
+   "L3": 21,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33900,
+    "rainurage": {
+     "vf": 4200,
+     "ap": 0.84,
+     "ae": 5.0
+    },
+    "lateral": {
+     "vf": 3600,
+     "ap": 9.79,
+     "ae": 0.42
+    }
+   }
+  },
+  {
+   "ref": "0068805K",
+   "famille": "4-IN-1",
+   "D1": 5,
+   "D2": 6,
+   "L1": 50,
+   "L2": 11,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33900,
+    "rainurage": {
+     "vf": 4200,
+     "ap": 0.84,
+     "ae": 5.0
+    },
+    "lateral": {
+     "vf": 3600,
+     "ap": 9.79,
+     "ae": 0.42
+    }
+   }
+  },
+  {
+   "ref": "0068805L",
+   "famille": "4-IN-1",
+   "D1": 5,
+   "D2": 6,
+   "D3": 4.6,
+   "L1": 60,
+   "L2": 11,
+   "L3": 26,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33900,
+    "rainurage": {
+     "vf": 4200,
+     "ap": 0.84,
+     "ae": 5.0
+    },
+    "lateral": {
+     "vf": 3600,
+     "ap": 9.79,
+     "ae": 0.42
+    }
+   }
+  },
+  {
+   "ref": "0068805X",
+   "famille": "4-IN-1",
+   "D1": 5,
+   "D2": 6,
+   "L1": 55,
+   "L2": 16,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33600,
+    "rainurage": {
+     "vf": 3810,
+     "ap": 0.65,
+     "ae": 5.0
+    },
+    "lateral": {
+     "vf": 2980,
+     "ap": 14.84,
+     "ae": 0.31
+    }
+   }
+  },
+  {
+   "ref": "0068806A",
+   "famille": "4-IN-1",
+   "D1": 6,
+   "D2": 6,
+   "L1": 45,
+   "L2": 7,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33600,
+    "rainurage": {
+     "vf": 5660,
+     "ap": 1.34,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 5670,
+     "ap": 5.91,
+     "ae": 0.77
+    }
+   }
+  },
+  {
+   "ref": "0068806E",
+   "famille": "4-IN-1",
+   "D1": 6,
+   "D2": 6,
+   "D3": 5.5,
+   "L1": 60,
+   "L2": 13,
+   "L3": 26,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33100,
+    "rainurage": {
+     "vf": 4810,
+     "ap": 0.89,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 4140,
+     "ap": 11.76,
+     "ae": 0.47
+    }
+   }
+  },
+  {
+   "ref": "0068806K",
+   "famille": "4-IN-1",
+   "D1": 6,
+   "D2": 6,
+   "L1": 50,
+   "L2": 13,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33100,
+    "rainurage": {
+     "vf": 4810,
+     "ap": 0.89,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 4140,
+     "ap": 11.76,
+     "ae": 0.47
+    }
+   }
+  },
+  {
+   "ref": "0068806L",
+   "famille": "4-IN-1",
+   "D1": 6,
+   "D2": 6,
+   "D3": 5.5,
+   "L1": 65,
+   "L2": 13,
+   "L3": 31,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33100,
+    "rainurage": {
+     "vf": 4810,
+     "ap": 0.89,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 4140,
+     "ap": 11.76,
+     "ae": 0.47
+    }
+   }
+  },
+  {
+   "ref": "0068806X",
+   "famille": "4-IN-1",
+   "D1": 6,
+   "D2": 6,
+   "L1": 55,
+   "L2": 21,
+   "dents": 1,
+   "modele_neo": {
+    "n": 32800,
+    "rainurage": {
+     "vf": 4240,
+     "ap": 0.65,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 3250,
+     "ap": 20.03,
+     "ae": 0.32
+    }
+   }
+  },
+  {
+   "ref": "0068808A",
+   "famille": "4-IN-1",
+   "D1": 8,
+   "D2": 8,
+   "L1": 45,
+   "L2": 9,
+   "dents": 1,
+   "modele_neo": {
+    "n": 32400,
+    "rainurage": {
+     "vf": 7020,
+     "ap": 1.49,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 7110,
+     "ap": 7.79,
+     "ae": 0.91
+    }
+   }
+  },
+  {
+   "ref": "0068808E",
+   "famille": "4-IN-1",
+   "D1": 8,
+   "D2": 8,
+   "D3": 7.4,
+   "L1": 65,
+   "L2": 17,
+   "L3": 31,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31900,
+    "rainurage": {
+     "vf": 5940,
+     "ap": 0.98,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 5150,
+     "ap": 15.79,
+     "ae": 0.54
+    }
+   }
+  },
+  {
+   "ref": "0068808K",
+   "famille": "4-IN-1",
+   "D1": 8,
+   "D2": 8,
+   "L1": 55,
+   "L2": 17,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31900,
+    "rainurage": {
+     "vf": 5940,
+     "ap": 0.98,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 5150,
+     "ap": 15.79,
+     "ae": 0.54
+    }
+   }
+  },
+  {
+   "ref": "0068808L",
+   "famille": "4-IN-1",
+   "D1": 8,
+   "D2": 8,
+   "D3": 7.4,
+   "L1": 75,
+   "L2": 17,
+   "L3": 41,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31900,
+    "rainurage": {
+     "vf": 5940,
+     "ap": 0.98,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 5150,
+     "ap": 15.79,
+     "ae": 0.54
+    }
+   }
+  },
+  {
+   "ref": "0068808X",
+   "famille": "4-IN-1",
+   "D1": 8,
+   "D2": 8,
+   "L1": 65,
+   "L2": 26,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31600,
+    "rainurage": {
+     "vf": 5310,
+     "ap": 0.74,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 4160,
+     "ap": 25.32,
+     "ae": 0.39
+    }
+   }
+  },
+  {
+   "ref": "0068810A",
+   "famille": "4-IN-1",
+   "D1": 10,
+   "D2": 10,
+   "L1": 50,
+   "L2": 11,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31500,
+    "rainurage": {
+     "vf": 8290,
+     "ap": 1.62,
+     "ae": 10.0
+    },
+    "lateral": {
+     "vf": 8450,
+     "ap": 9.71,
+     "ae": 1.03
+    }
+   }
+  },
+  {
+   "ref": "0068810E",
+   "famille": "4-IN-1",
+   "D1": 10,
+   "D2": 10,
+   "D3": 9.2,
+   "L1": 75,
+   "L2": 21,
+   "L3": 41,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31000,
+    "rainurage": {
+     "vf": 6990,
+     "ap": 1.06,
+     "ae": 10.0
+    },
+    "lateral": {
+     "vf": 6100,
+     "ap": 19.92,
+     "ae": 0.61
+    }
+   }
+  },
+  {
+   "ref": "0068810K",
+   "famille": "4-IN-1",
+   "D1": 10,
+   "D2": 10,
+   "L1": 60,
+   "L2": 21,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31000,
+    "rainurage": {
+     "vf": 6990,
+     "ap": 1.06,
+     "ae": 10.0
+    },
+    "lateral": {
+     "vf": 6100,
+     "ap": 19.92,
+     "ae": 0.61
+    }
+   }
+  },
+  {
+   "ref": "0068810L",
+   "famille": "4-IN-1",
+   "D1": 10,
+   "D2": 10,
+   "D3": 9.2,
+   "L1": 85,
+   "L2": 21,
+   "L3": 51,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31000,
+    "rainurage": {
+     "vf": 6990,
+     "ap": 1.06,
+     "ae": 10.0
+    },
+    "lateral": {
+     "vf": 6100,
+     "ap": 19.92,
+     "ae": 0.61
+    }
+   }
+  },
+  {
+   "ref": "0068810X",
+   "famille": "4-IN-1",
+   "D1": 10,
+   "D2": 10,
+   "L1": 70,
+   "L2": 32,
+   "dents": 1,
+   "modele_neo": {
+    "n": 30800,
+    "rainurage": {
+     "vf": 6250,
+     "ap": 0.8,
+     "ae": 10.0
+    },
+    "lateral": {
+     "vf": 4930,
+     "ap": 31.81,
+     "ae": 0.43
+    }
+   }
+  },
+  {
+   "ref": "0068812A",
+   "famille": "4-IN-1",
+   "D1": 12,
+   "D2": 12,
+   "L1": 55,
+   "L2": 14,
+   "dents": 1,
+   "modele_neo": {
+    "n": 30700,
+    "rainurage": {
+     "vf": 9300,
+     "ap": 1.64,
+     "ae": 12.0
+    },
+    "lateral": {
+     "vf": 9360,
+     "ap": 12.67,
+     "ae": 1.07
+    }
+   }
+  },
+  {
+   "ref": "0068812E",
+   "famille": "4-IN-1",
+   "D1": 12,
+   "D2": 12,
+   "D3": 11,
+   "L1": 85,
+   "L2": 26,
+   "L3": 51,
+   "dents": 1,
+   "modele_neo": {
+    "n": 30300,
+    "rainurage": {
+     "vf": 7900,
+     "ap": 1.09,
+     "ae": 12.0
+    },
+    "lateral": {
+     "vf": 6850,
+     "ap": 25.21,
+     "ae": 0.65
+    }
+   }
+  },
+  {
+   "ref": "0068812K",
+   "famille": "4-IN-1",
+   "D1": 12,
+   "D2": 12,
+   "L1": 65,
+   "L2": 26,
+   "dents": 1,
+   "modele_neo": {
+    "n": 30300,
+    "rainurage": {
+     "vf": 7900,
+     "ap": 1.09,
+     "ae": 12.0
+    },
+    "lateral": {
+     "vf": 6850,
+     "ap": 25.21,
+     "ae": 0.65
+    }
+   }
+  },
+  {
+   "ref": "0068812L",
+   "famille": "4-IN-1",
+   "D1": 12,
+   "D2": 12,
+   "D3": 11,
+   "L1": 95,
+   "L2": 26,
+   "L3": 61,
+   "dents": 1,
+   "modele_neo": {
+    "n": 30300,
+    "rainurage": {
+     "vf": 7900,
+     "ap": 1.09,
+     "ae": 12.0
+    },
+    "lateral": {
+     "vf": 6850,
+     "ap": 25.21,
+     "ae": 0.65
+    }
+   }
+  },
+  {
+   "ref": "0068812X",
+   "famille": "4-IN-1",
+   "D1": 12,
+   "D2": 12,
+   "L1": 75,
+   "L2": 36,
+   "dents": 1,
+   "modele_neo": {
+    "n": 30100,
+    "rainurage": {
+     "vf": 7250,
+     "ap": 0.88,
+     "ae": 12.0
+    },
+    "lateral": {
+     "vf": 5810,
+     "ap": 36.0,
+     "ae": 0.5
+    }
+   }
+  },
+  {
+   "ref": "0078310E",
+   "famille": "arête polie (acrylique)",
+   "D1": 1,
+   "D2": 6,
+   "L1": 50,
+   "L2": 4,
+   "dents": 1,
+   "modele_neo": {
+    "n": 40000,
+    "rainurage": {
+     "vf": 1100,
+     "ap": 0.35,
+     "ae": 1.0
+    },
+    "lateral": {
+     "vf": 810,
+     "ap": 3.24,
+     "ae": 0.12
+    }
+   }
+  },
+  {
+   "ref": "0078320E",
+   "famille": "arête polie (acrylique)",
+   "D1": 2,
+   "D2": 6,
+   "L1": 50,
+   "L2": 7,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37800,
+    "rainurage": {
+     "vf": 1930,
+     "ap": 0.47,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1470,
+     "ap": 5.98,
+     "ae": 0.19
+    }
+   }
+  },
+  {
+   "ref": "0078320L",
+   "famille": "arête polie (acrylique)",
+   "D1": 2,
+   "D2": 6,
+   "L1": 50,
+   "L2": 11,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37400,
+    "rainurage": {
+     "vf": 1710,
+     "ap": 0.35,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1170,
+     "ap": 9.88,
+     "ae": 0.13
+    }
+   }
+  },
+  {
+   "ref": "0078330E",
+   "famille": "arête polie (acrylique)",
+   "D1": 3,
+   "D2": 6,
+   "L1": 50,
+   "L2": 8,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36100,
+    "rainurage": {
+     "vf": 2770,
+     "ap": 0.63,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2260,
+     "ap": 6.91,
+     "ae": 0.28
+    }
+   }
+  },
+  {
+   "ref": "0078330L",
+   "famille": "arête polie (acrylique)",
+   "D1": 3,
+   "D2": 6,
+   "L1": 50,
+   "L2": 12,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35800,
+    "rainurage": {
+     "vf": 2490,
+     "ap": 0.49,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 1840,
+     "ap": 10.84,
+     "ae": 0.21
+    }
+   }
+  },
+  {
+   "ref": "0078334E",
+   "famille": "arête polie (acrylique)",
+   "D1": 4,
+   "D2": 6,
+   "L1": 50,
+   "L2": 10,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34800,
+    "rainurage": {
+     "vf": 3460,
+     "ap": 0.72,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 2870,
+     "ap": 8.82,
+     "ae": 0.34
+    }
+   }
+  },
+  {
+   "ref": "0078334L",
+   "famille": "arête polie (acrylique)",
+   "D1": 4,
+   "D2": 6,
+   "L1": 60,
+   "L2": 22,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34200,
+    "rainurage": {
+     "vf": 2810,
+     "ap": 0.43,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 1930,
+     "ap": 21.18,
+     "ae": 0.18
+    }
+   }
+  },
+  {
+   "ref": "0078335E",
+   "famille": "arête polie (acrylique)",
+   "D1": 5,
+   "D2": 6,
+   "L1": 50,
+   "L2": 12,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33900,
+    "rainurage": {
+     "vf": 4110,
+     "ap": 0.79,
+     "ae": 5.0
+    },
+    "lateral": {
+     "vf": 3450,
+     "ap": 10.78,
+     "ae": 0.39
+    }
+   }
+  },
+  {
+   "ref": "0078335L",
+   "famille": "arête polie (acrylique)",
+   "D1": 5,
+   "D2": 6,
+   "L1": 60,
+   "L2": 22,
+   "dents": 1,
+   "modele_neo": {
+    "n": 26700,
+    "rainurage": {
+     "vf": 2240,
+     "ap": 0.42,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 1620,
+     "ap": 16.91,
+     "ae": 0.19
+    }
+   }
+  },
+  {
+   "ref": "0078360E",
+   "famille": "arête polie (acrylique)",
+   "D1": 6,
+   "D2": 6,
+   "L1": 50,
+   "L2": 14,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33100,
+    "rainurage": {
+     "vf": 4710,
+     "ap": 0.85,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 3990,
+     "ap": 12.77,
+     "ae": 0.44
+    }
+   }
+  },
+  {
+   "ref": "0078360L",
+   "famille": "arête polie (acrylique)",
+   "D1": 6,
+   "D2": 6,
+   "L1": 60,
+   "L2": 22,
+   "dents": 1,
+   "modele_neo": {
+    "n": 32800,
+    "rainurage": {
+     "vf": 4180,
+     "ap": 0.63,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 3180,
+     "ap": 21.09,
+     "ae": 0.31
+    }
+   }
+  },
+  {
+   "ref": "0078338E",
+   "famille": "arête polie (acrylique)",
+   "D1": 8,
+   "D2": 8,
+   "L1": 60,
+   "L2": 22,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31800,
+    "rainurage": {
+     "vf": 5550,
+     "ap": 0.83,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 4530,
+     "ap": 21.03,
+     "ae": 0.44
+    }
+   }
+  },
+  {
+   "ref": "0078338L",
+   "famille": "arête polie (acrylique)",
+   "D1": 8,
+   "D2": 8,
+   "L1": 70,
+   "L2": 32,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31500,
+    "rainurage": {
+     "vf": 5020,
+     "ap": 0.65,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 3740,
+     "ap": 31.88,
+     "ae": 0.33
+    }
+   }
+  },
+  {
+   "ref": "0078339E",
+   "famille": "arête polie (acrylique)",
+   "D1": 10,
+   "D2": 10,
+   "L1": 75,
+   "L2": 32,
+   "dents": 1,
+   "modele_neo": {
+    "n": 30800,
+    "rainurage": {
+     "vf": 6250,
+     "ap": 0.8,
+     "ae": 10.0
+    },
+    "lateral": {
+     "vf": 4930,
+     "ap": 31.81,
+     "ae": 0.43
+    }
+   }
+  },
+  {
+   "ref": "0068492K",
+   "famille": "avec dépouille",
+   "D1": 2,
+   "D2": 6,
+   "D3": 1.8,
+   "L1": 50,
+   "L2": 4,
+   "L3": 12,
+   "dents": 1,
+   "modele_neo": {
+    "n": 38300,
+    "rainurage": {
+     "vf": 2240,
+     "ap": 0.68,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1950,
+     "ap": 3.21,
+     "ae": 0.3
+    }
+   }
+  },
+  {
+   "ref": "0068492E",
+   "famille": "avec dépouille",
+   "D1": 2,
+   "D2": 6,
+   "D3": 1.8,
+   "L1": 50,
+   "L2": 7,
+   "L3": 14,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37800,
+    "rainurage": {
+     "vf": 1930,
+     "ap": 0.47,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1470,
+     "ap": 5.98,
+     "ae": 0.19
+    }
+   }
+  },
+  {
+   "ref": "0068493D",
+   "famille": "avec dépouille",
+   "D1": 3,
+   "D2": 6,
+   "D3": 2.7,
+   "L1": 50,
+   "L2": 4,
+   "L3": 17,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36600,
+    "rainurage": {
+     "vf": 3330,
+     "ap": 1.0,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 3210,
+     "ap": 3.2,
+     "ae": 0.5
+    }
+   }
+  },
+  {
+   "ref": "0068493F",
+   "famille": "avec dépouille",
+   "D1": 3,
+   "D2": 6,
+   "D3": 2.7,
+   "L1": 50,
+   "L2": 4,
+   "L3": 21,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36600,
+    "rainurage": {
+     "vf": 3330,
+     "ap": 1.0,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 3210,
+     "ap": 3.2,
+     "ae": 0.5
+    }
+   }
+  },
+  {
+   "ref": "0068493K",
+   "famille": "avec dépouille",
+   "D1": 3,
+   "D2": 6,
+   "D3": 2.7,
+   "L1": 50,
+   "L2": 4,
+   "L3": 14,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36600,
+    "rainurage": {
+     "vf": 3330,
+     "ap": 1.0,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 3210,
+     "ap": 3.2,
+     "ae": 0.5
+    }
+   }
+  },
+  {
+   "ref": "0068493E",
+   "famille": "avec dépouille",
+   "D1": 3,
+   "D2": 6,
+   "D3": 2.7,
+   "L1": 50,
+   "L2": 8,
+   "L3": 14,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36100,
+    "rainurage": {
+     "vf": 2770,
+     "ap": 0.63,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2260,
+     "ap": 6.91,
+     "ae": 0.28
+    }
+   }
+  },
+  {
+   "ref": "0068493L",
+   "famille": "avec dépouille",
+   "D1": 3,
+   "D2": 6,
+   "D3": 2.7,
+   "L1": 50,
+   "L2": 8,
+   "L3": 21,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36100,
+    "rainurage": {
+     "vf": 2770,
+     "ap": 0.63,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2260,
+     "ap": 6.91,
+     "ae": 0.28
+    }
+   }
+  },
+  {
+   "ref": "0068493S",
+   "famille": "avec dépouille",
+   "D1": 3,
+   "D2": 6,
+   "D3": 2.7,
+   "L1": 50,
+   "L2": 8,
+   "L3": 17,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36100,
+    "rainurage": {
+     "vf": 2770,
+     "ap": 0.63,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2260,
+     "ap": 6.91,
+     "ae": 0.28
+    }
+   }
+  },
+  {
+   "ref": "0068494D",
+   "famille": "avec dépouille",
+   "D1": 4,
+   "D2": 6,
+   "D3": 3.6,
+   "L1": 50,
+   "L2": 5,
+   "L3": 21,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35400,
+    "rainurage": {
+     "vf": 4160,
+     "ap": 1.13,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 4080,
+     "ap": 4.09,
+     "ae": 0.6
+    }
+   }
+  },
+  {
+   "ref": "0068494K",
+   "famille": "avec dépouille",
+   "D1": 4,
+   "D2": 6,
+   "D3": 3.6,
+   "L1": 50,
+   "L2": 5,
+   "L3": 18,
+   "dents": 1,
+   "modele_neo": {
+    "n": 35400,
+    "rainurage": {
+     "vf": 4160,
+     "ap": 1.13,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 4080,
+     "ap": 4.09,
+     "ae": 0.6
+    }
+   }
+  },
+  {
+   "ref": "0068494E",
+   "famille": "avec dépouille",
+   "D1": 4,
+   "D2": 6,
+   "D3": 3.6,
+   "L1": 50,
+   "L2": 10,
+   "L3": 18,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34800,
+    "rainurage": {
+     "vf": 3460,
+     "ap": 0.72,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 2870,
+     "ap": 8.82,
+     "ae": 0.34
+    }
+   }
+  },
+  {
+   "ref": "0068494S",
+   "famille": "avec dépouille",
+   "D1": 4,
+   "D2": 6,
+   "D3": 3.6,
+   "L1": 50,
+   "L2": 10,
+   "L3": 21,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34800,
+    "rainurage": {
+     "vf": 3460,
+     "ap": 0.72,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 2870,
+     "ap": 8.82,
+     "ae": 0.34
+    }
+   }
+  },
+  {
+   "ref": "0068495K",
+   "famille": "avec dépouille",
+   "D1": 5,
+   "D2": 6,
+   "D3": 4.4,
+   "L1": 60,
+   "L2": 5,
+   "L3": 22,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34500,
+    "rainurage": {
+     "vf": 5170,
+     "ap": 1.4,
+     "ae": 5.0
+    },
+    "lateral": {
+     "vf": 5370,
+     "ap": 4.08,
+     "ae": 0.8
+    }
+   }
+  },
+  {
+   "ref": "0068495E",
+   "famille": "avec dépouille",
+   "D1": 5,
+   "D2": 6,
+   "D3": 4.4,
+   "L1": 50,
+   "L2": 12,
+   "L3": 22,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33900,
+    "rainurage": {
+     "vf": 4110,
+     "ap": 0.79,
+     "ae": 5.0
+    },
+    "lateral": {
+     "vf": 3450,
+     "ap": 10.78,
+     "ae": 0.39
+    }
+   }
+  },
+  {
+   "ref": "0068496F",
+   "famille": "avec dépouille",
+   "D1": 6,
+   "D2": 6,
+   "D3": 5.3,
+   "L1": 60,
+   "L2": 5,
+   "L3": 30,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33700,
+    "rainurage": {
+     "vf": 5900,
+     "ap": 1.48,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 6120,
+     "ap": 4.98,
+     "ae": 0.87
+    }
+   }
+  },
+  {
+   "ref": "0068496K",
+   "famille": "avec dépouille",
+   "D1": 6,
+   "D2": 6,
+   "D3": 5.3,
+   "L1": 60,
+   "L2": 5,
+   "L3": 24,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33700,
+    "rainurage": {
+     "vf": 5900,
+     "ap": 1.48,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 6120,
+     "ap": 4.98,
+     "ae": 0.87
+    }
+   }
+  },
+  {
+   "ref": "0068496E",
+   "famille": "avec dépouille",
+   "D1": 6,
+   "D2": 6,
+   "D3": 5.3,
+   "L1": 50,
+   "L2": 14,
+   "L3": 24,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33100,
+    "rainurage": {
+     "vf": 4710,
+     "ap": 0.85,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 3990,
+     "ap": 12.77,
+     "ae": 0.44
+    }
+   }
+  },
+  {
+   "ref": "0068496L",
+   "famille": "avec dépouille",
+   "D1": 6,
+   "D2": 6,
+   "D3": 5.3,
+   "L1": 60,
+   "L2": 14,
+   "L3": 30,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33100,
+    "rainurage": {
+     "vf": 4710,
+     "ap": 0.85,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 3990,
+     "ap": 12.77,
+     "ae": 0.44
+    }
+   }
+  },
+  {
+   "ref": "0068471E",
+   "famille": "hélice à gauche",
+   "D1": 1.5,
+   "D2": 6,
+   "L1": 50,
+   "L2": 7,
+   "dents": 1,
+   "modele_neo": {
+    "n": 39000,
+    "rainurage": {
+     "vf": 1450,
+     "ap": 0.36,
+     "ae": 1.5
+    },
+    "lateral": {
+     "vf": 1030,
+     "ap": 6.0,
+     "ae": 0.13
+    }
+   }
+  },
+  {
+   "ref": "0068472E",
+   "famille": "hélice à gauche",
+   "D1": 2,
+   "D2": 6,
+   "L1": 50,
+   "L2": 7,
+   "dents": 1,
+   "modele_neo": {
+    "n": 37800,
+    "rainurage": {
+     "vf": 1930,
+     "ap": 0.47,
+     "ae": 2.0
+    },
+    "lateral": {
+     "vf": 1470,
+     "ap": 5.98,
+     "ae": 0.19
+    }
+   }
+  },
+  {
+   "ref": "0068473E",
+   "famille": "hélice à gauche",
+   "D1": 3,
+   "D2": 6,
+   "L1": 50,
+   "L2": 8,
+   "dents": 1,
+   "modele_neo": {
+    "n": 36100,
+    "rainurage": {
+     "vf": 2770,
+     "ap": 0.63,
+     "ae": 3.0
+    },
+    "lateral": {
+     "vf": 2260,
+     "ap": 6.91,
+     "ae": 0.28
+    }
+   }
+  },
+  {
+   "ref": "0068474E",
+   "famille": "hélice à gauche",
+   "D1": 4,
+   "D2": 6,
+   "L1": 50,
+   "L2": 10,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34800,
+    "rainurage": {
+     "vf": 3460,
+     "ap": 0.72,
+     "ae": 4.0
+    },
+    "lateral": {
+     "vf": 2870,
+     "ap": 8.82,
+     "ae": 0.34
+    }
+   }
+  },
+  {
+   "ref": "0068475E",
+   "famille": "hélice à gauche",
+   "D1": 5,
+   "D2": 6,
+   "L1": 50,
+   "L2": 12,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33900,
+    "rainurage": {
+     "vf": 4110,
+     "ap": 0.79,
+     "ae": 5.0
+    },
+    "lateral": {
+     "vf": 3450,
+     "ap": 10.78,
+     "ae": 0.39
+    }
+   }
+  },
+  {
+   "ref": "0068476E",
+   "famille": "hélice à gauche",
+   "D1": 6,
+   "D2": 6,
+   "L1": 50,
+   "L2": 14,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33100,
+    "rainurage": {
+     "vf": 4710,
+     "ap": 0.85,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 3990,
+     "ap": 12.77,
+     "ae": 0.44
+    }
+   }
+  },
+  {
+   "ref": "0068476L",
+   "famille": "hélice à gauche",
+   "D1": 6,
+   "D2": 6,
+   "L1": 60,
+   "L2": 20,
+   "dents": 1,
+   "modele_neo": {
+    "n": 32800,
+    "rainurage": {
+     "vf": 4290,
+     "ap": 0.67,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 3330,
+     "ap": 18.97,
+     "ae": 0.33
+    }
+   }
+  },
+  {
+   "ref": "0068085E",
+   "famille": "équilibrée",
+   "D1": 5,
+   "D2": 6,
+   "D3": 4.8,
+   "L1": 50,
+   "L2": 8.75,
+   "L3": 13.5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34100,
+    "rainurage": {
+     "vf": 4460,
+     "ap": 0.97,
+     "ae": 5.0
+    },
+    "lateral": {
+     "vf": 4050,
+     "ap": 7.59,
+     "ae": 0.51
+    }
+   }
+  },
+  {
+   "ref": "0068085S",
+   "famille": "équilibrée",
+   "D1": 5,
+   "D2": 8,
+   "D3": 4.8,
+   "L1": 50,
+   "L2": 8.75,
+   "L3": 13.5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 34100,
+    "rainurage": {
+     "vf": 4460,
+     "ap": 0.97,
+     "ae": 5.0
+    },
+    "lateral": {
+     "vf": 4050,
+     "ap": 7.59,
+     "ae": 0.51
+    }
+   }
+  },
+  {
+   "ref": "0068086E",
+   "famille": "équilibrée",
+   "D1": 6,
+   "D2": 6,
+   "D3": 5.5,
+   "L1": 50,
+   "L2": 10.5,
+   "L3": 16.5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33300,
+    "rainurage": {
+     "vf": 5090,
+     "ap": 1.03,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 4620,
+     "ap": 9.27,
+     "ae": 0.56
+    }
+   }
+  },
+  {
+   "ref": "0068086S",
+   "famille": "équilibrée",
+   "D1": 6,
+   "D2": 8,
+   "D3": 5.5,
+   "L1": 50,
+   "L2": 10.5,
+   "L3": 16.5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33300,
+    "rainurage": {
+     "vf": 5090,
+     "ap": 1.03,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 4620,
+     "ap": 9.27,
+     "ae": 0.56
+    }
+   }
+  },
+  {
+   "ref": "0068086L",
+   "famille": "équilibrée",
+   "D1": 6,
+   "D2": 6,
+   "D3": 5.5,
+   "L1": 50,
+   "L2": 16,
+   "L3": 23.5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 33000,
+    "rainurage": {
+     "vf": 4550,
+     "ap": 0.78,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 3730,
+     "ap": 14.81,
+     "ae": 0.4
+    }
+   }
+  },
+  {
+   "ref": "0068086X",
+   "famille": "équilibrée",
+   "D1": 6,
+   "D2": 6,
+   "D3": 5.5,
+   "L1": 55,
+   "L2": 21,
+   "L3": 27,
+   "dents": 1,
+   "modele_neo": {
+    "n": 32800,
+    "rainurage": {
+     "vf": 4240,
+     "ap": 0.65,
+     "ae": 6.0
+    },
+    "lateral": {
+     "vf": 3250,
+     "ap": 20.03,
+     "ae": 0.32
+    }
+   }
+  },
+  {
+   "ref": "0068088K",
+   "famille": "équilibrée",
+   "D1": 8,
+   "D2": 8,
+   "D3": 7.4,
+   "L1": 50,
+   "L2": 8,
+   "L3": 12.5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 32500,
+    "rainurage": {
+     "vf": 7240,
+     "ap": 1.61,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 7540,
+     "ap": 6.84,
+     "ae": 1.0
+    }
+   }
+  },
+  {
+   "ref": "0068080D",
+   "famille": "équilibrée",
+   "D1": 8,
+   "D2": 8,
+   "D3": 7.4,
+   "L1": 70,
+   "L2": 14,
+   "L3": 43,
+   "dents": 1,
+   "modele_neo": {
+    "n": 32100,
+    "rainurage": {
+     "vf": 6250,
+     "ap": 1.12,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 5690,
+     "ap": 12.73,
+     "ae": 0.64
+    }
+   }
+  },
+  {
+   "ref": "0068088E",
+   "famille": "équilibrée",
+   "D1": 8,
+   "D2": 8,
+   "D3": 7.4,
+   "L1": 60,
+   "L2": 14,
+   "L3": 26,
+   "dents": 1,
+   "modele_neo": {
+    "n": 32100,
+    "rainurage": {
+     "vf": 6250,
+     "ap": 1.12,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 5690,
+     "ap": 12.73,
+     "ae": 0.64
+    }
+   }
+  },
+  {
+   "ref": "0068088S",
+   "famille": "équilibrée",
+   "D1": 8,
+   "D2": 8,
+   "D3": 7.4,
+   "L1": 60,
+   "L2": 21,
+   "L3": 31,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31800,
+    "rainurage": {
+     "vf": 5620,
+     "ap": 0.86,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 4630,
+     "ap": 19.97,
+     "ae": 0.46
+    }
+   }
+  },
+  {
+   "ref": "0068088L",
+   "famille": "équilibrée",
+   "D1": 8,
+   "D2": 8,
+   "D3": 7.4,
+   "L1": 60,
+   "L2": 26,
+   "L3": 34,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31600,
+    "rainurage": {
+     "vf": 5310,
+     "ap": 0.74,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 4160,
+     "ap": 25.32,
+     "ae": 0.39
+    }
+   }
+  },
+  {
+   "ref": "0068088X",
+   "famille": "équilibrée",
+   "D1": 8,
+   "D2": 8,
+   "D3": 7.4,
+   "L1": 70,
+   "L2": 31,
+   "L3": 42,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31500,
+    "rainurage": {
+     "vf": 5070,
+     "ap": 0.66,
+     "ae": 8.0
+    },
+    "lateral": {
+     "vf": 3810,
+     "ap": 30.78,
+     "ae": 0.34
+    }
+   }
+  },
+  {
+   "ref": "0068090K",
+   "famille": "équilibrée",
+   "D1": 10,
+   "D2": 10,
+   "D3": 9.2,
+   "L1": 50,
+   "L2": 10,
+   "L3": 15.6,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31600,
+    "rainurage": {
+     "vf": 8500,
+     "ap": 1.72,
+     "ae": 10.0
+    },
+    "lateral": {
+     "vf": 8870,
+     "ap": 8.74,
+     "ae": 1.11
+    }
+   }
+  },
+  {
+   "ref": "0068090E",
+   "famille": "équilibrée",
+   "D1": 10,
+   "D2": 10,
+   "D3": 9.2,
+   "L1": 60,
+   "L2": 17.5,
+   "L3": 27.5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31200,
+    "rainurage": {
+     "vf": 7330,
+     "ap": 1.19,
+     "ae": 10.0
+    },
+    "lateral": {
+     "vf": 6680,
+     "ap": 16.27,
+     "ae": 0.71
+    }
+   }
+  },
+  {
+   "ref": "0068090S",
+   "famille": "équilibrée",
+   "D1": 10,
+   "D2": 10,
+   "D3": 9.2,
+   "L1": 80,
+   "L2": 17.5,
+   "L3": 52,
+   "dents": 1,
+   "modele_neo": {
+    "n": 31200,
+    "rainurage": {
+     "vf": 7330,
+     "ap": 1.19,
+     "ae": 10.0
+    },
+    "lateral": {
+     "vf": 6680,
+     "ap": 16.27,
+     "ae": 0.71
+    }
+   }
+  },
+  {
+   "ref": "0068090L",
+   "famille": "équilibrée",
+   "D1": 10,
+   "D2": 10,
+   "D3": 9.2,
+   "L1": 60,
+   "L2": 26,
+   "L3": 34,
+   "dents": 1,
+   "modele_neo": {
+    "n": 30900,
+    "rainurage": {
+     "vf": 6600,
+     "ap": 0.92,
+     "ae": 10.0
+    },
+    "lateral": {
+     "vf": 5470,
+     "ap": 25.26,
+     "ae": 0.51
+    }
+   }
+  },
+  {
+   "ref": "0068090M",
+   "famille": "équilibrée",
+   "D1": 10,
+   "D2": 10,
+   "D3": 9.2,
+   "L1": 85,
+   "L2": 26,
+   "L3": 34,
+   "dents": 1,
+   "modele_neo": {
+    "n": 30900,
+    "rainurage": {
+     "vf": 6600,
+     "ap": 0.92,
+     "ae": 10.0
+    },
+    "lateral": {
+     "vf": 5470,
+     "ap": 25.26,
+     "ae": 0.51
+    }
+   }
+  },
+  {
+   "ref": "0068090X",
+   "famille": "équilibrée",
+   "D1": 10,
+   "D2": 10,
+   "D3": 9.2,
+   "L1": 70,
+   "L2": 32.5,
+   "L3": 42.5,
+   "dents": 1,
+   "modele_neo": {
+    "n": 30700,
+    "rainurage": {
+     "vf": 6230,
+     "ap": 0.79,
+     "ae": 10.0
+    },
+    "lateral": {
+     "vf": 4890,
+     "ap": 32.36,
+     "ae": 0.43
+    }
+   }
+  },
+  {
+   "ref": "0068092K",
+   "famille": "équilibrée",
+   "D1": 12,
+   "D2": 12,
+   "D3": 11,
+   "L1": 60,
+   "L2": 12,
+   "L3": 19,
+   "dents": 1,
+   "modele_neo": {
+    "n": 30800,
+    "rainurage": {
+     "vf": 9690,
+     "ap": 1.82,
+     "ae": 12.0
+    },
+    "lateral": {
+     "vf": 10120,
+     "ap": 10.68,
+     "ae": 1.21
+    }
+   }
+  },
+  {
+   "ref": "0068092E",
+   "famille": "équilibrée",
+   "D1": 12,
+   "D2": 12,
+   "D3": 11,
+   "L1": 70,
+   "L2": 21,
+   "L3": 33,
+   "dents": 1,
+   "modele_neo": {
+    "n": 30400,
+    "rainurage": {
+     "vf": 8360,
+     "ap": 1.26,
+     "ae": 12.0
+    },
+    "lateral": {
+     "vf": 7630,
+     "ap": 19.88,
+     "ae": 0.77
+    }
+   }
+  },
+  {
+   "ref": "0068092L",
+   "famille": "équilibrée",
+   "D1": 12,
+   "D2": 12,
+   "D3": 11,
+   "L1": 70,
+   "L2": 31.5,
+   "L3": 42,
+   "dents": 1,
+   "modele_neo": {
+    "n": 30200,
+    "rainurage": {
+     "vf": 7510,
+     "ap": 0.96,
+     "ae": 12.0
+    },
+    "lateral": {
+     "vf": 6210,
+     "ap": 31.2,
+     "ae": 0.56
+    }
+   }
+  }
+ ]
+}

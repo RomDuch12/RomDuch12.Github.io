@@ -593,7 +593,7 @@
       Object.assign(newOp('thread'), { points: '-35;-20\n35;-20\n35;20\n-35;20', thread: 'M5', depth: 6 }),
       Object.assign(newOp('pocketrect'), { widthX: 30, widthY: 20, cornerRadius: 4, depth: 2 })];
     const pick = (o, id) => { if (toolById(id)) o.tool = id; return o; };
-    pick(ex[1], 'FORET4_2'); pick(ex[2], 'THR_M4_M5'); pick(ex[3], 'CYL3');
+    pick(ex[1], 'FORET4_2'); pick(ex[2], 'THR_M4_M5'); pick(ex[3], '0068430E');
     ex.slice(0, 3).forEach(o => { o.collapsed = true; });          // exemple compact : seule la poche est dépliée
     state.ops = ex;
     renderHead(); renderTools(); renderOps(); renderAdd(); renderOut();
@@ -604,7 +604,7 @@
   // priorité : tools.json enregistré dans ce navigateur, sinon tools.json du site
   const saved = ST() && ST().get('tools');
   if (saved && Array.isArray(saved.tools) && saved.tools.length) { setTools(saved.tools, 'mon tools.json (ce navigateur)'); init(); }
-  else fetch('tools.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  else fetch('tools.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(j => { setTools(j.tools || [], 'tools.json générique du site'); init(); })
     .catch(() => { setTools([], 'aucune'); init(); renderTools('tools.json introuvable : chargez votre fichier'); });
 })();
