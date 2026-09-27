@@ -89,6 +89,23 @@
         return out;
       }
     },
+    pocketrect: {
+      label: 'Poche rectangle', tool: 'fraise', prefix: 'Poche_Rectangle',
+      fields: [P('cx', 'Centre X', 'number', 0), P('cy', 'Centre Y', 'number', 0), P('widthX', 'Largeur X (mm)', 'number', 30), P('widthY', 'Largeur Y (mm)', 'number', 20),
+        P('cornerRadius', 'Rayon des coins (mm)', 'number', 3), P('depth', 'Profondeur (mm)', 'number', 2), P('infeedZ', 'Passe Z (mm)', 'number', 0.5),
+        P('stepover', 'Recouvrement (% du Ø outil)', 'number', 40), P('finishingXY', 'Finition XY (mm)', 'number', 0.1)],
+      seq: (o, t, name) => pocketSequence(name, o, t, 'rect'),
+      check: (o, t) => t && t.diameter >= Math.min(o.widthX, o.widthY) ? `Poche rectangle : l'outil Ø${t.diameter} est trop gros pour la poche.`
+        : (t && +o.cornerRadius < t.diameter / 2 ? `Poche rectangle : rayon de coin (${o.cornerRadius}) < rayon outil (${t.diameter / 2}) : les coins seront arrondis au rayon de l'outil.` : '')
+    },
+    pocketcircle: {
+      label: 'Poche cercle', tool: 'fraise', prefix: 'Poche_Cercle',
+      fields: [P('cx', 'Centre X', 'number', 0), P('cy', 'Centre Y', 'number', 0), P('diameter', 'Diamètre (mm)', 'number', 20),
+        P('depth', 'Profondeur (mm)', 'number', 2), P('infeedZ', 'Passe Z (mm)', 'number', 0.5),
+        P('stepover', 'Recouvrement (% du Ø outil)', 'number', 40), P('finishingXY', 'Finition XY (mm)', 'number', 0.1)],
+      seq: (o, t, name) => pocketSequence(name, o, t, 'circle'),
+      check: (o, t) => t && t.diameter >= o.diameter ? `Poche cercle : l'outil Ø${t.diameter} est trop gros pour la poche Ø${o.diameter}.` : ''
+    },
     probe: {
       label: 'Palpage rectangle', tool: null, prefix: 'Palpage',
       fields: [P('dimX', 'Dimension X (mm)', 'number', 100), P('dimY', 'Dimension Y (mm)', 'number', 60), P('zOff', 'Décalage Z des palpages X/Y (mm)', 'number', -2),
@@ -247,6 +264,65 @@
     return { lines: out, count: paths.length };
   }
 
+  /* ---------- poches : trajectoire explicite (boucles concentriques + contour de finition) ---------- */
+  function zLevels(o) {
+    const depth = Math.abs(+o.depth || 0.1), inf = Math.max(0.01, Math.abs(+o.infeedZ || depth));
+    const lv = []; for (let z = inf; z < depth - 1e-6; z += inf) lv.push(z); lv.push(depth); return lv;
+  }
+  function emitSegs(out, p) {
+    let cx = p.x0, cy = p.y0;
+    p.segs.forEach(g => {
+      if (g.cx === undefined) out.push(`Line X=${num(g.x, 4)} Y=${num(g.y, 4)}`);
+      else out.push(`Arc ${g.ccw ? 'CCW' : 'CW'} X=${num(g.x, 4)} Y=${num(g.y, 4)} dX=${num(g.cx - cx, 4)} dY=${num(g.cy - cy, 4)}`);
+      cx = g.x; cy = g.y;
+    });
+  }
+  function roundRect(cx, cy, a, b, c) {         // rectangle de demi-côtés a,b, rayon c, anti-horaire, départ milieu bas
+    c = Math.max(0, Math.min(c, a, b));
+    const s = [], L = (x, y) => s.push({ x, y }), A = (x, y, ccx, ccy) => c > 1e-6 && s.push({ x, y, cx: ccx, cy: ccy, ccw: true });
+    L(cx + a - c, cy - b); A(cx + a, cy - b + c, cx + a - c, cy - b + c);
+    L(cx + a, cy + b - c); A(cx + a - c, cy + b, cx + a - c, cy + b - c);
+    L(cx - a + c, cy + b); A(cx - a, cy + b - c, cx - a + c, cy + b - c);
+    L(cx - a, cy - b + c); A(cx - a + c, cy - b, cx - a + c, cy - b + c);
+    L(cx, cy - b);
+    return { x0: cx, y0: cy - b, segs: s.filter((g, k, arr) => k === 0 ? Math.hypot(g.x - cx, g.y - (cy - b)) > 1e-6 || g.cx !== undefined
+      : Math.hypot(g.x - arr[k - 1].x, g.y - arr[k - 1].y) > 1e-6 || g.cx !== undefined) };
+  }
+  const circlePath = (cx, cy, R) => ({ x0: cx + R, y0: cy, segs: [
+    { x: cx - R, y: cy, cx, cy, ccw: true }, { x: cx + R, y: cy, cx, cy, ccw: true }] });
+
+  function pocketSequence(name, o, t, shape) {
+    const r = t.diameter / 2, step = Math.max(0.05, t.diameter * (+o.stepover || 40) / 100), fin = Math.max(0, +o.finishingXY || 0);
+    const cx = +o.cx || 0, cy = +o.cy || 0;
+    let rough = [], finish, start;
+    if (shape === 'rect') {
+      const W = +o.widthX / 2, H = +o.widthY / 2, Rc = +o.cornerRadius || 0;
+      finish = roundRect(cx, cy, W - r, H - r, Rc - r);
+      for (let d = r + fin; W - d > 1e-6 && H - d > 1e-6; d += step) rough.push(roundRect(cx, cy, W - d, H - d, Rc - d));
+      rough.reverse();                                             // du centre vers l'extérieur
+      const e = Math.max(0, Math.abs(W - H));                      // ligne centrale pour le reliquat
+      const center = W >= H ? { x0: cx - e, y0: cy, segs: [{ x: cx + e, y: cy }] } : { x0: cx, y0: cy - e, segs: [{ x: cx, y: cy + e }] };
+      rough.unshift(center);
+    } else {
+      const Rf = +o.diameter / 2 - r;
+      finish = circlePath(cx, cy, Rf);
+      for (let R = Rf - fin; R > 1e-6; R -= step) rough.push(circlePath(cx, cy, R));
+      rough.reverse();
+      rough.unshift({ x0: cx, y0: cy, segs: [] });
+    }
+    start = rough[0];
+    const out = [`$$$ ${name}`, 'Spindle On', `PrePositioning X=${num(start.x0, 4)} Y=${num(start.y0, 4)} Z=5`, 'Rapid Z=1'];
+    zLevels(o).forEach((z, li) => {
+      if (li > 0) out.push('Rapid Z=1', `Rapid X=${num(start.x0, 4)} Y=${num(start.y0, 4)}`);
+      out.push('Feed Plunge', `Line Z=${num(-z, 4)}`, 'Feed Roughing');
+      rough.forEach((p, k) => { if (k > 0) out.push(`Line X=${num(p.x0, 4)} Y=${num(p.y0, 4)}`); emitSegs(out, p); });
+    });
+    out.push('Feed Finishing', `Line X=${num(finish.x0, 4)} Y=${num(finish.y0, 4)}`);   // contour de finition à pleine profondeur
+    emitSegs(out, finish);
+    out.push('Rapid Z=1', 'MoveToSafetyPosition');
+    return out;
+  }
+
   /* ---------- génération du programme ---------- */
   function toolDescription(t) {
     const f = [['Name', `"${q(t.name)}"`], ['Category', '"Unspecified"'], ['ArticleNr', `"${q(t.articleNr)}"`], ['Vendor', `"${q(t.vendor || '')}"`],
@@ -287,6 +363,10 @@
         const seq = dxfSequence(seqName, o);
         if (!seq.count) { warn.push(`${def.label} : aucun tracé exploitable dans « ${o.dxfName} ».`); return; }
         seqs.push({ name: seqName, lines: seq.lines });
+        body = [seqName];
+      } else if (def.seq) {
+        const seqName = ident(`${name}_${t.id}`).toUpperCase();
+        seqs.push({ name: seqName, lines: def.seq(o, t, seqName) });
         body = [seqName];
       } else body = def.body(o);
       if (!body.length) { warn.push(`${def.label} : aucune position valide.`); return; }
@@ -392,11 +472,16 @@
     state.ops.forEach((o, idx) => {
       const def = OPS[o.type], box = el('div', { className: 'gbox op' });
       const tools = def.tool ? `<label>Outil<select data-k="tool">${TOOLS.map(t => `<option value="${esc(t.id)}"${t.id === o.tool ? ' selected' : ''}>${esc(t.name)}</option>`).join('')}</select></label>` : '';
-      box.innerHTML = `<div class="ophead"><h3>${idx + 1}. ${esc(def.label)}</h3>
+      const t = def.tool ? toolById(o.tool) : null;
+      const resume = [t && t.name, def.dxf && o.dxfName].filter(Boolean).join(' · ');
+      box.innerHTML = `<div class="ophead"><h3>${idx + 1}. ${esc(def.label)}${o.collapsed && resume ? `<small> – ${esc(resume)}</small>` : ''}</h3>
+        <button type="button" data-a="toggle" aria-expanded="${!o.collapsed}" aria-controls="opf${idx}">${o.collapsed ? 'Afficher' : 'Masquer'}</button>
         <button type="button" data-a="up" aria-label="Monter">▲</button><button type="button" data-a="down" aria-label="Descendre">▼</button>
         <button type="button" data-a="del" aria-label="Supprimer">Supprimer</button></div>
+        <div id="opf${idx}"${o.collapsed ? ' hidden' : ''}>
         <div class="fields">${tools}${def.fields.map((f, k) => fieldHTML(f, o[f.k], `op${idx}_${k}`)).join('')}</div>
-        ${def.dxf && o.dxfName ? `<p style="margin:6px 0 0;color:var(--mute)">DXF chargé : ${esc(o.dxfName)}</p>` : ''}`;
+        ${def.dxf && o.dxfName ? `<p style="margin:6px 0 0;color:var(--mute)">DXF chargé : ${esc(o.dxfName)}</p>` : ''}</div>`;
+      box.querySelector('[data-a=toggle]').onclick = () => { o.collapsed = !o.collapsed; renderOps(); };
       box.querySelectorAll('[data-k]').forEach(i => {
         if (i.type === 'file') i.onchange = e => { const f = e.target.files[0]; if (!f) return; f.text().then(t => { o.dxfText = t; o.dxfName = f.name; renderOps(); }); };
         else i.addEventListener('input', () => { o[i.dataset.k] = i.value; });
@@ -409,7 +494,9 @@
   }
 
   function renderAdd() {
-    addBox.innerHTML = `<h3>Ajouter une opération</h3><div class="addbar">${Object.entries(OPS).map(([k, d]) => `<button type="button" data-add="${k}">+ ${esc(d.label)}</button>`).join('')}</div>`;
+    addBox.innerHTML = `<h3>Ajouter une opération</h3><div class="addbar">${Object.entries(OPS).map(([k, d]) => `<button type="button" data-add="${k}">+ ${esc(d.label)}</button>`).join('')}</div>
+      <div class="addbar" style="margin-top:8px"><button type="button" data-all="1">Tout replier</button><button type="button" data-all="0">Tout déplier</button></div>`;
+    addBox.querySelectorAll('[data-all]').forEach(b => b.onclick = () => { state.ops.forEach(o => { o.collapsed = b.dataset.all === '1'; }); renderOps(); });
     addBox.querySelectorAll('[data-add]').forEach(b => b.onclick = () => { state.ops.push(newOp(b.dataset.add)); renderOps(); opsBox.lastChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); });
   }
 
@@ -434,9 +521,10 @@
     // exemple : surfaçage, perçages, taraudage, découpe
     const ex = [newOp('rectface'), Object.assign(newOp('drill'), { points: '-35;-20\n35;-20\n35;20\n-35;20', depth: 8 }),
       Object.assign(newOp('thread'), { points: '-35;-20\n35;-20\n35;20\n-35;20', thread: 'M5', depth: 6 }),
-      Object.assign(newOp('rect'), { widthX: 30, widthY: 20, depth: 3 })];
+      Object.assign(newOp('pocketrect'), { widthX: 30, widthY: 20, cornerRadius: 4, depth: 2 })];
     const pick = (o, id) => { if (toolById(id)) o.tool = id; return o; };
     pick(ex[1], 'FORET4_2'); pick(ex[2], 'THR_M4_M5'); pick(ex[3], 'CYL3');
+    ex.slice(0, 3).forEach(o => { o.collapsed = true; });          // exemple compact : seule la poche est dépliée
     state.ops = ex;
     renderHead(); renderTools(); renderOps(); renderAdd(); renderOut();
     outBox.querySelector('#g-gen').click();
