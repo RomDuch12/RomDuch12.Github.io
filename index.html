@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>RomDuch – Programmation UGV Datron & outils logiciels d'atelier</title>
+<title>Outils en ligne – RomDuch</title>
 <meta name="description" content="RomDuch – programmeur-régleur UGV Datron : NeoDrive (générateur SimPL), TauDrive (dessin et job laser), éditeur d'outils DATRON, données de coupe et CV.">
 <script src="i18n.js"></script>
 <script src="theme.js"></script>
@@ -33,29 +33,31 @@ h2{font:700 1.8rem/1.1 "Barlow Condensed",sans-serif;margin:38px 0 14px}
 footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
 </style>
 <link rel="stylesheet" href="site.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#171b22">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <script src="ui.js" defer></script>
 </head>
 <body>
 <main>
 <header>
-  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" aria-current="page">RomDuch</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
-  <h1>RomDuch</h1>
-  <p class="tag" data-i18n>Programmation UGV Datron &amp; outils logiciels d'atelier</p>
-  <p class="lead" data-i18n>Programmeur-régleur sur centres Datron en production. Je développe les outils qui génèrent, vérifient et fiabilisent les programmes SIMPL.</p>
-  <p class="contact"><a href="mailto:romduch@gmail.com">romduch@gmail.com</a></p>
+  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-current="page" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tauconvert.html">TauConvert</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html">RomDuch</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <h1 data-i18n>Outils en ligne</h1>
+  <p class="lead" data-i18n>Programmation Datron, gravure laser et conversion de dessins : des outils d'atelier qui tournent dans ton navigateur, sans installation et sans rien envoyer.</p>
 </header>
 
 <section>
-  <h2 data-i18n>Outils en ligne</h2>
   <div class="cards">
     <div class="card main"><h3><a href="neodrive.html">NeoDrive</a></h3><p data-i18n>Génère ton programme SimPL pour Datron à partir d'opérations de base, puis visualise les trajectoires.</p>
       <ul class="sub"><li><a href="neodrive.html#sec-gen" data-i18n>Génère ton SimPL</a></li><li><a href="neodrive.html#sec-viewer" data-i18n>Visualiseur</a></li>
         <li><a href="outils.html" data-i18n>Éditeur d'outils</a> <small data-i18n>catalogue DATRON hors ligne, set de démarrage</small></li><li><a href="coupe.html" data-i18n>Données de coupe</a> <small data-i18n>fraises 1 dent, aluminium</small></li></ul></div>
-    <div class="card main"><h3><a href="taudrive.html">TauDrive</a></h3><p data-i18n>Dessine ta gravure laser (texte, formes, DataMatrix, DXF, offset, hachurage), crée des coupons d'essai et génère le job ISO + CLJOB, avec son visualiseur.</p>
+    <div class="card main"><h3><a href="taudrive.html">TauDrive</a></h3><p data-i18n>Dessine ta gravure laser (texte, formes, QR Code et codes-barres, DXF, offset, hachurage), crée des coupons d'essai et génère le job ISO + CLJOB, avec son visualiseur.</p>
       <ul class="sub"><li><a href="taudrive.html#sec-td-draw" data-i18n>Dessin</a></li><li><a href="taudrive.html#sec-td-job" data-i18n>Job</a></li>
-        <li><a href="taudrive.html#sec-td-viewer" data-i18n>Visualiseur de job</a></li><li><a href="tauconvert.html">TauConvert</a> <small data-i18n>conversion AI, PDF, EPS, SVG, DXF</small></li></ul></div>
+        <li><a href="taudrive.html#sec-td-viewer" data-i18n>Visualiseur de job</a></li></ul></div>
+    <a class="card" href="tauconvert.html"><h3>TauConvert</h3><p data-i18n>Convertis tes dessins AI, PDF, EPS, SVG et DXF en DXF, SVG, EPS, PDF ou PNG : en ligne, dans ton navigateur, ou avec le programme Windows et son menu contextuel.</p></a>
     <a class="card" href="tuto.html"><h3 data-i18n>Tuto</h3><p data-i18n>Prise en main pas à pas de NeoDrive, TauDrive et TauConvert</p></a>
-    <a class="card" href="cv.html"><h3 data-i18n>CV</h3><p data-i18n>Parcours, compétences et outils développés.</p></a>
+    <a class="card" href="cv.html"><h3>RomDuch</h3><p data-i18n>Parcours, compétences et outils développés.</p></a>
   </div>
 </section>
 

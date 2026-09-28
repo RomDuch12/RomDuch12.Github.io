@@ -33,6 +33,21 @@
   const PTS = P('points', 'Positions X;Y (une par ligne)', 'points', '0;0');
 
   const OPS = {
+    trace: {
+      label: 'Tracé (DXF, rectangle, cercle, segment)', tool: 'gravure', prefix: 'Trace', trace: true,
+      fields: [P('source', 'Source du tracé', 'select', 'DXF', ['DXF', 'Rectangle', 'Cercle', 'Segment']),
+        P('lib', 'DXF enregistré', 'dxflib', '', null, src('DXF')), P('file', 'Importer un dessin (DXF, SVG, PDF, AI, EPS)', 'file', '', null, src('DXF')),
+        P('scale', 'Échelle', 'number', 1, null, src('DXF')), P('center', 'Centrer le dessin', 'select', 'oui', ['oui', 'non'], src('DXF')),
+        P('offX', 'Décalage X (mm)', 'number', 0, null, src('DXF')), P('offY', 'Décalage Y (mm)', 'number', 0, null, src('DXF')),
+        P('cx', 'Centre X', 'number', 0, null, src('Rectangle', 'Cercle')), P('cy', 'Centre Y', 'number', 0, null, src('Rectangle', 'Cercle')),
+        P('widthX', 'Largeur X (mm)', 'number', 40, null, src('Rectangle')), P('widthY', 'Largeur Y (mm)', 'number', 20, null, src('Rectangle')),
+        P('cornerRadius', 'Rayon des coins (mm)', 'number', 0, null, src('Rectangle')),
+        P('diameter', 'Diamètre (mm)', 'number', 20, null, src('Cercle')),
+        P('x1', 'X départ', 'number', -20, null, src('Segment')), P('y1', 'Y départ', 'number', 0, null, src('Segment')),
+        P('x2', 'X arrivée', 'number', 20, null, src('Segment')), P('y2', 'Y arrivée', 'number', 0, null, src('Segment')),
+        P('comp', 'Compensation du rayon d\'outil', 'select', 'sur le tracé', ['sur le tracé', 'extérieur', 'intérieur']),
+        P('depth', 'Profondeur (mm)', 'number', 0.2), P('infeedZ', 'Passe Z (mm)', 'number', 0.1)]
+    },
     thread: {
       label: 'Taraudage', tool: 'filetage', prefix: 'Taraudage',
       fields: [PTS, P('thread', 'Filetage', 'select', 'M5', ['M3', 'M4', 'M5', 'M6', 'M8', 'M10']), P('depth', 'Profondeur (mm)', 'number', 6),
@@ -150,20 +165,6 @@
         P('dimX', 'Dimension X (mm)', 'number', 100, null, o => o.probe === 'oui'), P('dimY', 'Dimension Y (mm)', 'number', 60, null, o => o.probe === 'oui'),
         P('zOff', 'Décalage Z des palpages X/Y (mm)', 'number', -2, null, o => o.probe === 'oui'),
         P('skipZ', 'Palper aussi Z', 'select', 'oui', ['oui', 'non'], o => o.probe === 'oui')]
-    },
-    trace: {
-      label: 'Tracé (DXF, rectangle, cercle, segment)', tool: 'gravure', prefix: 'Trace', trace: true,
-      fields: [P('source', 'Source du tracé', 'select', 'DXF', ['DXF', 'Rectangle', 'Cercle', 'Segment']),
-        P('lib', 'DXF enregistré', 'dxflib', '', null, src('DXF')), P('file', 'Importer un DXF', 'file', '', null, src('DXF')),
-        P('scale', 'Échelle', 'number', 1, null, src('DXF')), P('center', 'Centrer le dessin', 'select', 'oui', ['oui', 'non'], src('DXF')),
-        P('offX', 'Décalage X (mm)', 'number', 0, null, src('DXF')), P('offY', 'Décalage Y (mm)', 'number', 0, null, src('DXF')),
-        P('cx', 'Centre X', 'number', 0, null, src('Rectangle', 'Cercle')), P('cy', 'Centre Y', 'number', 0, null, src('Rectangle', 'Cercle')),
-        P('widthX', 'Largeur X (mm)', 'number', 40, null, src('Rectangle')), P('widthY', 'Largeur Y (mm)', 'number', 20, null, src('Rectangle')),
-        P('cornerRadius', 'Rayon des coins (mm)', 'number', 0, null, src('Rectangle')),
-        P('diameter', 'Diamètre (mm)', 'number', 20, null, src('Cercle')),
-        P('x1', 'X départ', 'number', -20, null, src('Segment')), P('y1', 'Y départ', 'number', 0, null, src('Segment')),
-        P('x2', 'X arrivée', 'number', 20, null, src('Segment')), P('y2', 'Y arrivée', 'number', 0, null, src('Segment')),
-        P('depth', 'Profondeur (mm)', 'number', 0.2), P('infeedZ', 'Passe Z (mm)', 'number', 0.1)]
     }
   };
 
@@ -269,7 +270,34 @@
         const [cx, cy] = T(g.cx, g.cy); return { x, y, cx, cy, ccw: g.ccw }; }) };
     });
   }
-  function tracePaths(o) {                    // tracé suivi par l'outil (sans compensation de rayon)
+  function flatPath(p) {                         // tracé → polyligne (arcs découpés)
+    const l = [[p.x0, p.y0]]; let c = [p.x0, p.y0];
+    p.segs.forEach(g => {
+      if (g.cx === undefined) l.push([g.x, g.y]);
+      else { const r = Math.hypot(c[0] - g.cx, c[1] - g.cy), a0 = Math.atan2(c[1] - g.cy, c[0] - g.cx), a1 = Math.atan2(g.y - g.cy, g.x - g.cx);
+        let sw = g.ccw ? a1 - a0 : a0 - a1; while (sw <= 1e-9) sw += 2 * Math.PI; const n = Math.max(6, Math.ceil(sw / 0.05));
+        for (let k = 1; k <= n; k++) { const a = a0 + (g.ccw ? 1 : -1) * sw * k / n; l.push([g.cx + r * Math.cos(a), g.cy + r * Math.sin(a)]); } }
+      c = [g.x, g.y];
+    });
+    return l;
+  }
+  function compense(paths, o, t) {
+    if (!o.comp || o.comp === 'sur le tracé' || !t || !(t.diameter > 0) || !window.Vecteurs) return paths;
+    // pointe à graver : largeur de coupe à la profondeur demandée (pointe + 2·p·tan(angle/2)), sinon diamètre de l'outil
+    const conique = t.type === 'gravure' && t.tipAngle > 0, prof = Math.abs(+o.depth || 0);
+    const r = (conique ? Math.min(t.diameter, (t.tipDiameter || 0) + 2 * prof * Math.tan(t.tipAngle * Math.PI / 360)) : t.diameter) / 2, out = [];
+    paths.forEach(p => {
+      const l = flatPath(p), ferme = l.length > 3 && Math.hypot(l[0][0] - l[l.length - 1][0], l[0][1] - l[l.length - 1][1]) < 1e-3;
+      if (!ferme) { out.push(p); return; }                  // tracé ouvert : pas de côté à compenser
+      l[l.length - 1] = l[0].slice();
+      Vecteurs.offsetContours([l], o.comp === 'extérieur' ? r : -r).forEach(q => { if (q.length > 1) out.push({ x0: q[0][0], y0: q[0][1], segs: q.slice(1).map(([x, y]) => ({ x, y })) }); });
+    });
+    return out;
+  }
+  function tracePaths(o, t) {                   // tracé suivi par l'outil (compensation de rayon éventuelle)
+    return compense(tracePathsBruts(o), o, t);
+  }
+  function tracePathsBruts(o) {
     switch (o.source) {
       case 'Rectangle': return [roundRect(+o.cx || 0, +o.cy || 0, Math.abs(o.widthX) / 2, Math.abs(o.widthY) / 2, +o.cornerRadius || 0)];
       case 'Cercle': return +o.diameter > 0 ? [circlePath(+o.cx || 0, +o.cy || 0, o.diameter / 2)] : [];
@@ -277,8 +305,8 @@
       default: return transform(chain(parseDXF(o.dxfText || '').paths), o);
     }
   }
-  function traceSequence(name, o) {
-    const paths = tracePaths(o);
+  function traceSequence(name, o, t) {
+    const paths = tracePaths(o, t);
     const depth = Math.abs(+o.depth || 0.1), inf = Math.max(0.01, Math.abs(+o.infeedZ || depth));
     const levels = []; for (let z = inf; z < depth - 1e-6; z += inf) levels.push(z); levels.push(depth);
     const out = [`$$$ ${name}`, 'Spindle On'];
@@ -411,7 +439,7 @@
       if (def.trace) {
         if (o.source === 'DXF' && !o.dxfText) { warn.push(tr('{op} : aucun fichier DXF chargé.', { op: tr(def.label) })); return; }
         const seqName = ident(`${name}_${t.id}`).toUpperCase();
-        const seq = traceSequence(seqName, o);
+        const seq = traceSequence(seqName, o, t);
         if (!seq.count) { warn.push(o.source === 'DXF' ? tr('{op} : aucun tracé exploitable dans « {f} ».', { op: tr(def.label), f: o.dxfName }) : tr('{op} : aucun tracé exploitable.', { op: tr(def.label) })); return; }
         seqs.push({ name: seqName, lines: seq.lines });
         body = [seqName];
@@ -429,7 +457,7 @@
     for (; openIfs > 0; openIfs--) mainLines.push('endif');
 
     const bx = +h.bx, by = +h.by, bz = +h.bz;
-    const [x0, x1, y0, y1] = h.origin === 'coin' ? [0, bx, 0, by] : [-bx / 2, bx / 2, -by / 2, by / 2];
+    const [x0, x1, y0, y1] = [-bx / 2, bx / 2, -by / 2, by / 2];              // origine : centre du brut, dessus de pièce
     const f5 = v => (v >= 0 ? '+' : '') + v.toFixed(5);
     const now = new Date(), stamp = now.toLocaleDateString('fr-FR') + ' ' + now.toLocaleTimeString('fr-FR');
     const out = [
@@ -465,7 +493,7 @@
 
   /* ---------- état et interface ---------- */
   const state = {
-    head: { module: 'CamGeneratedModule', author: 'NeoDrive web', comment: tr('Merci de vérifier le programme avant usinage'), bx: 100, by: 60, bz: 20, origin: 'centre' },
+    head: { module: 'CamGeneratedModule', author: 'NeoDrive web', comment: tr('Merci de vérifier le programme avant usinage'), bx: 100, by: 60, bz: 20 },
     ops: []
   };
   const newOp = type => {
@@ -480,7 +508,7 @@
     const val = o[f.k];
     if (f.type === 'select') return `<label>${esc(tr(f.label))}<select data-k="${f.k}" id="${id}">${f.opts.map(v => `<option value="${esc(v)}"${v === val ? ' selected' : ''}>${esc(tr(v))}</option>`).join('')}</select></label>`;
     if (f.type === 'points') return `<label class="wide">${esc(tr(f.label))}<textarea data-k="${f.k}" id="${id}" spellcheck="false">${esc(val)}</textarea></label>`;
-    if (f.type === 'file') return `<label class="wide">${esc(tr(f.label))}${ST() ? ` <small>(${tr('enregistré dans vos DXF')})</small>` : ''}<input type="file" data-k="${f.k}" id="${id}" accept=".dxf"></label>`;
+    if (f.type === 'file') return `<label class="wide">${esc(tr(f.label))}${ST() ? ` <small>(${tr('enregistré dans vos DXF')})</small>` : ''}<input type="file" data-k="${f.k}" id="${id}" accept=".dxf,.svg,.pdf,.ai,.eps,.ps"></label>`;
     if (f.type === 'dxflib') {
       const lib = ST() ? ST().get('dxf', []) : [];
       if (!lib.length) return '';
@@ -509,7 +537,7 @@
       <label>${tr('Brut X (mm)')}<input type="number" step="any" data-h="bx" value="${H.bx}"></label>
       <label>${tr('Brut Y (mm)')}<input type="number" step="any" data-h="by" value="${H.by}"></label>
       <label>${tr('Brut Z (mm)')}<input type="number" step="any" data-h="bz" value="${H.bz}"></label>
-      <label>${tr('Origine')}<select data-h="origin"><option value="centre"${H.origin === 'centre' ? ' selected' : ''}>${tr('centre, dessus de pièce')}</option><option value="coin"${H.origin === 'coin' ? ' selected' : ''}>${tr('coin avant gauche, dessus')}</option></select></label>
+      <p class="wide" style="margin:0;color:var(--mute);font-size:14px;flex-basis:100%">${tr('Origine du programme : centre du brut, sur le dessus de la pièce.')}</p>
     </div>`;
     headBox.querySelectorAll('[data-h]').forEach(i => i.addEventListener('input', () => { H[i.dataset.h] = i.value; auto(); }));
   }
@@ -574,7 +602,10 @@
       box.querySelectorAll('[data-k]').forEach(i => {
         const k = i.dataset.k;
         if (i.type === 'file') i.onchange = e => { const f = e.target.files[0]; if (!f) return;
-          f.text().then(tx => { o.dxfText = tx; o.dxfName = f.name; o.lib = f.name; saveDxf(f.name, tx); renderOps(); }); };
+          const lire = /\.dxf$/i.test(f.name) || !window.Vecteurs ? f.text()
+            : Vecteurs.read(f).then(r => Vecteurs.toDXF(Vecteurs.join(r.items.map(it => it.poly.map(([x, y]) => [x * (r.unitScale || 1), y * (r.unitScale || 1)])))));
+          lire.then(tx => { o.dxfText = tx; o.dxfName = f.name; o.lib = f.name; saveDxf(f.name, tx); renderOps(); })
+            .catch(err => alert(tr('Lecture impossible : {e}', { e: err.message }))); };
         else if (k === 'lib') i.addEventListener('change', () => { const d = (ST() ? ST().get('dxf', []) : []).find(x => x.nom === i.value);
           o.lib = i.value; if (d) { o.dxfText = d.texte; o.dxfName = d.nom; } renderOps(); });
         else if (k === 'source') i.addEventListener('change', () => { o.source = i.value; renderOps(); });
@@ -594,13 +625,13 @@
     const cv = fig.querySelector('canvas'), cap = fig.querySelector('figcaption'), x = cv.getContext('2d'), css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
     const W = cv.width, H = cv.height; x.clearRect(0, 0, W, H);
     let paths = [];
-    try { paths = o.source === 'DXF' && !o.dxfText ? [] : tracePaths(o); } catch (e) { paths = []; }
+    try { paths = o.source === 'DXF' && !o.dxfText ? [] : tracePaths(o, toolById(o.tool)); } catch (e) { paths = []; }
     const pts = []; const flat = paths.map(p => { const l = [[p.x0, p.y0]]; let c = [p.x0, p.y0];
       p.segs.forEach(g => { if (g.cx === undefined) l.push([g.x, g.y]); else { const r = Math.hypot(c[0] - g.cx, c[1] - g.cy); let a0 = Math.atan2(c[1] - g.cy, c[0] - g.cx), a1 = Math.atan2(g.y - g.cy, g.x - g.cx);
         let sw = g.ccw ? a1 - a0 : a0 - a1; while (sw <= 1e-9) sw += 2 * Math.PI; const n = Math.max(6, Math.ceil(sw / 0.2));
         for (let k = 1; k <= n; k++) { const a = a0 + (g.ccw ? 1 : -1) * sw * k / n; l.push([g.cx + r * Math.cos(a), g.cy + r * Math.sin(a)]); } } c = [g.x, g.y]; });
       l.forEach(q => pts.push(q)); return l; });
-    const H0 = state.head, bx = +H0.bx || 100, by = +H0.by || 60, [bx0, by0] = H0.origin === 'coin' ? [0, 0] : [-bx / 2, -by / 2];
+    const H0 = state.head, bx = +H0.bx || 100, by = +H0.by || 60, [bx0, by0] = [-bx / 2, -by / 2];
     const xs = pts.map(p => p[0]).concat([bx0, bx0 + bx]), ys = pts.map(p => p[1]).concat([by0, by0 + by]);
     const X0 = Math.min(...xs), X1 = Math.max(...xs), Y0 = Math.min(...ys), Y1 = Math.max(...ys), k = Math.min((W - 16) / ((X1 - X0) || 1), (H - 16) / ((Y1 - Y0) || 1));
     const ox = (W - (X1 - X0) * k) / 2, oy = (H - (Y1 - Y0) * k) / 2, SX = v => ox + (v - X0) * k, SY = v => H - oy - (v - Y0) * k;
@@ -642,7 +673,8 @@
   function renderOut() {
     outBox.innerHTML = `<h3>${tr('Programme SimPL')}</h3>
       <div class="addbar" style="margin-bottom:8px"><button type="button" class="primary" id="g-gen">${tr('Générer')}</button>
-      <button type="button" id="g-view">${tr('Voir dans le visualiseur')}</button><button type="button" id="g-dl">${tr('Télécharger .simpl')}</button></div>
+      <button type="button" id="g-view">${tr('Voir dans le visualiseur')}</button><button type="button" id="g-dl">${tr('Télécharger .simpl')}</button>
+      <button type="button" id="g-share">${tr('Partager (lien)')}</button></div>
       <p class="warn" id="g-warn" role="status"></p>
       <div class="genout" id="g-out" aria-label="${tr('Programme SimPL généré')}"></div>`;
     const w = outBox.querySelector('#g-warn'); let ed = null, pending = '';
@@ -653,6 +685,10 @@
       if (state.ops.length && window.simplViewer) window.simplViewer.generated(r.code); return r.code; };
     runGen = run;
     outBox.querySelector('#g-gen').onclick = run;
+    outBox.querySelector('#g-share').onclick = () => {        // en-tête, opérations (DXF compris) et outils utilisés
+      const ops = state.ops.map(({ collapsed, ...o }) => o), ids = new Set(ops.flatMap(o => [o.tool, o.toolArt]).filter(Boolean));
+      window.Partage && Partage.lien('p', { format: 'neodrive-web', version: 1, head: state.head, ops, tools: TOOLS.filter(t => ids.has(t.id)) });
+    };
     outBox.querySelector('#g-view').onclick = () => { const c = out.value || run(); window.simplViewer && window.simplViewer.show(c); };
     outBox.querySelector('#g-dl').onclick = () => {
       const c = out.value || run(), a = el('a', { download: `${ident(state.head.module) || 'Programme'}.simpl`,
@@ -664,6 +700,13 @@
   function init() {
     state.ops = [];                                                 // démarrage vide : l'utilisateur ajoute outils et opérations
     renderHead(); renderTools(); renderOps(); renderAdd(); renderOut();
+    // programme reçu par lien de partage (#p=…) : ses outils s'ajoutent à la bibliothèque
+    const recu = window.Partage && Partage.lire('p');
+    if (recu) recu.then(o => { if (!Array.isArray(o.ops)) return;
+      (o.tools || []).forEach(t => { if (!toolById(t.id)) TOOLS.push(t); });
+      Object.assign(state.head, o.head || {}); state.ops = o.ops.filter(x => OPS[x.type]);
+      renderHead(); renderTools(tr('outils du lien de partage ajoutés')); renderOps(); document.getElementById('sec-gen').scrollIntoView();
+    }).catch(e => alert(tr('Lien de partage illisible : {e}', { e: e.message })));
     document.addEventListener('stockage-change', () => { renderAdd(); renderOps(); });
   }
 

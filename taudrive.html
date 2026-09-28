@@ -76,13 +76,17 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
 footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
 </style>
 <link rel="stylesheet" href="site.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#171b22">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <script src="ui.js" defer></script>
 </head>
 <body>
 <main>
 <header>
-  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html">RomDuch</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html" aria-current="true">TauDrive</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
-  <nav class="subnav" aria-label="TauDrive"><a href="#sec-td-draw" data-i18n>Dessin</a><a href="#sec-td-job" data-i18n>Job</a><a href="#sec-td-viewer" data-i18n>Visualiseur de job</a><a href="tauconvert.html">TauConvert</a></nav>
+  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html" aria-current="true">TauDrive</a><a href="tauconvert.html">TauConvert</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html">RomDuch</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <nav class="subnav" aria-label="TauDrive"><a href="#sec-td-draw" data-i18n>Dessin</a><a href="#sec-td-job" data-i18n>Job</a><a href="#sec-td-viewer" data-i18n>Visualiseur de job</a></nav>
   <h1>TauDrive</h1>
   <p class="tag" data-i18n>Dessin et job de gravure pour laser Cielle</p>
   <p class="lead" data-i18n>Version web de TauDrive : dessine ta gravure (texte, rectangles, ellipses, segments, DXF), règle le cadre en négatif, l'offset, l'épaisseur de trait et le hachurage, puis génère le job : un fichier ISO par passe et le CLJOB qui les enchaîne. Tout est calculé dans ton navigateur.</p>
@@ -92,6 +96,8 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
   <h2 data-i18n>Dessine ta gravure</h2>
   <div class="app">
     <div class="tools" role="toolbar" aria-label="Outils de dessin" data-i18n-attr="aria-label">
+      <button type="button" class="primary" data-td="dxf" data-i18n>Importer un dessin…</button>
+      <span class="sep"></span>
       <button type="button" data-td="undo" title="Annuler (Ctrl+Z)" aria-label="Annuler (Ctrl+Z)" data-i18n-attr="title,aria-label">↶</button>
       <button type="button" data-td="redo" title="Refaire (Ctrl+Y)" aria-label="Refaire (Ctrl+Y)" data-i18n-attr="title,aria-label">↷</button>
       <span class="sep"></span>
@@ -99,8 +105,7 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
       <button type="button" data-td="ellipse" data-i18n>Ellipse</button>
       <button type="button" data-td="text" data-i18n>Texte</button>
       <button type="button" data-td="line" data-i18n>Segment</button>
-      <button type="button" data-td="code" data-i18n>DataMatrix</button>
-      <button type="button" data-td="dxf" data-i18n>Importer un dessin…</button>
+      <button type="button" data-td="code" data-i18n>QR Code</button>
       <button type="button" data-td="coupon" data-i18n>Coupon d'essai…</button>
       <span class="sep"></span>
       <button type="button" data-td="dup" title="Dupliquer (Ctrl+D)" data-i18n-attr="title" data-i18n>Dupliquer</button>
@@ -113,6 +118,7 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
       <button type="button" data-td="nouveau" data-i18n>Nouveau</button>
       <button type="button" data-td="open" data-i18n>Ouvrir…</button>
       <button type="button" data-td="saveFile" data-i18n>Enregistrer (.json)</button>
+      <button type="button" data-td="share" data-i18n>Partager (lien)</button>
       <input type="file" id="td-dxf-file" accept=".dxf,.svg,.pdf,.ai,.eps,.ps" hidden><input type="file" id="td-open-file" accept=".json" hidden>
     </div>
     <div class="work">
@@ -181,13 +187,13 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 </dialog>
 
 <footer><p>RomDuch · <span data-i18n>TauDrive web ne pilote pas la machine : il écrit des fichiers. Vérifie toujours le job avant gravure.</span></p>
-<p><a href="index.html" data-i18n>Accueil</a> · <a href="neodrive.html">NeoDrive</a> · <a href="outils.html" data-i18n>Éditeur d'outils</a> · <a href="coupe.html" data-i18n>Données de coupe</a> · <a href="cv.html" data-i18n>CV</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
+<p><a href="index.html" data-i18n>Accueil</a> · <a href="neodrive.html">NeoDrive</a> · <a href="outils.html" data-i18n>Éditeur d'outils</a> · <a href="coupe.html" data-i18n>Données de coupe</a> · <a href="cv.html">RomDuch</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/opentype.js/1.3.4/opentype.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
 <script src="stockage.js" defer></script>
 <script src="vecteurs.js" defer></script>
-<script src="datamatrix.js" defer></script>
+<script src="codes.js" defer></script>
 <script src="taudrive.js" defer></script>
 </body>
 </html>

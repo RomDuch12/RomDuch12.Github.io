@@ -1,0 +1,15 @@
+{
+  "name": "RomDuch – outils d'atelier",
+  "short_name": "RomDuch",
+  "description": "NeoDrive (générateur SimPL Datron), TauDrive (dessin et job laser), TauConvert (conversion de dessins) : dans le navigateur, même hors ligne.",
+  "lang": "fr",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#171b22",
+  "theme_color": "#171b22",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

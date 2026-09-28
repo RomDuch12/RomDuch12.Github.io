@@ -25,9 +25,27 @@
     // TauConvert
     ['#tc-out [data-f]', 'download'], ['#tc-taudrive', 'zap'], ['#tc-dl', 'download'],
     // commun
-    ['[data-stockage-gerer]', 'database'], ['.datawipe', 'eraser']
+    ['[data-stockage-gerer]', 'database'], ['.datawipe', 'eraser'], ['[data-td=share]', 'share-2'], ['#g-share', 'share-2'], ['#install', 'download']
   ];
   const GLYPHES = /^[\s▲▼↶↷▭◯／▦☆★✕+]*$/;
+  /* partage par lien : objet → JSON compressé (deflate) → base64url, dans le fragment de l'adresse (jamais envoyé au serveur) */
+  const b64 = u8 => { let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000));
+    return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); };
+  const unb64 = t => { const s = atob(t.replace(/-/g, '+').replace(/_/g, '/')); const u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u; };
+  const flux = (u8, T) => new Response(new Blob([u8]).stream().pipeThrough(new T('deflate-raw'))).arrayBuffer().then(b => new Uint8Array(b));
+  window.Partage = {
+    async encoder(obj) { const u = new TextEncoder().encode(JSON.stringify(obj));
+      return window.CompressionStream ? 'z' + b64(await flux(u, CompressionStream)) : 'j' + b64(u); },
+    async decoder(txt) { const u = unb64(txt.slice(1)), d = txt[0] === 'z' ? await flux(u, DecompressionStream) : u; return JSON.parse(new TextDecoder().decode(d)); },
+    async lien(cle, obj) {
+      const url = `${location.origin}${location.pathname}#${cle}=${await this.encoder(obj)}`;
+      if (url.length > 64000) { alert(tr('Trop lourd pour un lien ({k} ko) : enregistre plutôt un fichier.', { k: Math.round(url.length / 1024) })); return null; }
+      try { await navigator.clipboard.writeText(url); alert(tr('Lien copié dans le presse-papiers : il contient tout le travail et s\'ouvre tel quel sur un autre appareil.')); }
+      catch (e) { prompt(tr('Copie ce lien :'), url); }
+      return url;
+    },
+    lire(cle) { const m = location.hash.match(new RegExp('^#' + cle + '=([zj][A-Za-z0-9_-]+)$')); return m ? this.decoder(m[1]).finally(() => history.replaceState(null, '', location.pathname + location.search)) : null; }
+  };
   let lucideOk = false;
   function poser(el, nom) {
     if (el.querySelector(':scope > svg.lucide, :scope > i[data-lucide]')) return;
@@ -59,6 +77,7 @@
     document.body.append(b);
     addEventListener('scroll', () => b.classList.toggle('show', scrollY > 700), { passive: true });
   }
+  if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
   document.addEventListener('DOMContentLoaded', () => {
     tabbar(); totop();
     const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js';

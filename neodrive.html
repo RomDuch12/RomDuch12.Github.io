@@ -8,6 +8,7 @@
 <script src="i18n.js"></script>
 <script src="theme.js"></script>
 <script src="simpl-editeur.js"></script>
+<script src="simpl-lecture.js"></script>
 <link rel="stylesheet" href="themes.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400&display=swap">
 <script>
@@ -133,12 +134,16 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}
 footer a{color:var(--mute)}
 </style>
 <link rel="stylesheet" href="site.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#171b22">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <script src="ui.js" defer></script>
 </head>
 <body>
 <main>
 <header>
-  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html">RomDuch</a><a href="neodrive.html" aria-current="true">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="neodrive.html" aria-current="true">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tauconvert.html">TauConvert</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html">RomDuch</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
   <nav class="subnav" aria-label="NeoDrive"><a href="#sec-gen" data-i18n>Génère ton SimPL</a><a href="#sec-viewer" data-i18n>Visualiseur</a><a href="outils.html" data-i18n>Éditeur d'outils</a><a href="coupe.html" data-i18n>Données de coupe</a><a href="#sec-videos" data-i18n>Vidéo</a></nav>
   <h1>NeoDrive</h1>
   <p class="tag" data-i18n>Générateur et visualiseur SimPL pour Datron</p>
@@ -157,6 +162,7 @@ footer a{color:var(--mute)}
       <select id="prog" aria-label="Programme" data-i18n-attr="aria-label"></select>
       <button class="primary" id="play" data-i18n>Lire</button>
       <input type="range" id="pos" min="0" max="1000" value="1000" aria-label="Avancement" data-i18n-attr="aria-label">
+      <label class="chk"><input type="checkbox" id="matiere"> <span data-i18n>Matière enlevée</span></label>
       <select id="speed" aria-label="Vitesse" data-i18n-attr="aria-label"><option value="0.5">×0,5</option><option value="1" selected>×1</option><option value="3">×3</option></select>
       <label><button id="load" type="button" data-i18n>Ouvrir un fichier…</button><input type="file" id="file" accept=".simpl,.txt,.nc,.mcr,*/*" hidden></label>
     </div>
@@ -171,7 +177,7 @@ footer a{color:var(--mute)}
   <img src="NeoDrive.png" width="1536" height="1024" alt="Plaque gravée NeoDrive : arbre de vie, soleil et lune en relief sur laiton" data-i18n-attr="alt" loading="lazy" decoding="async">
 </figure>
 
-<footer><p id="foot"></p><p><a href="index.html" data-i18n>Accueil</a> · <a href="taudrive.html">TauDrive</a> · <a href="outils.html" data-i18n>Éditeur d’outils</a> · <a href="coupe.html" data-i18n>Données de coupe</a> · <a href="cv.html" data-i18n>CV</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
+<footer><p id="foot"></p><p><a href="index.html" data-i18n>Accueil</a> · <a href="taudrive.html">TauDrive</a> · <a href="outils.html" data-i18n>Éditeur d’outils</a> · <a href="coupe.html" data-i18n>Données de coupe</a> · <a href="cv.html">RomDuch</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
 </main>
 
 <script>
@@ -191,43 +197,7 @@ if(videos.length){
 }
 
 /* ---------- Lecteur de programmes ---------- */
-const NUM='(-?\\d*\\.?\\d+)';
-const reAxyz=new RegExp('^\\s*Axyz\\s+\\d+\\s*,\\s*'+NUM+'\\s*,\\s*'+NUM+'\\s*,\\s*'+NUM,'i');
-const reAxis=new RegExp('\\b([XYZ])\\s*=?\\s*'+NUM,'gi');
-function parse(src){
-  const lines=src.replace(/\r/g,'').split('\n'), pts=[]; let p={x:0,y:0,z:10}, started=false;
-  lines.forEach((raw,i)=>{
-    if(/^\s*(ShiftWcs|#|@)/i.test(raw)) return; // décalages de repère, commentaires, métadonnées : pas un déplacement
-    let l=raw.replace(/\/\/.*$|;.*$|\{[^}]*\}|\([^)]*\)/g,'');
-    let n={...p}, hit=false, m=l.match(reAxyz);
-    const arc=l.match(/^\s*Arc\s+(CW|CCW)\b/i);
-    if(arc){ // Arc CW|CCW X Y dX dY : fin (X,Y), centre = départ + (dX,dY) → interpolation
-      const g=k=>{const r=l.match(new RegExp('\\b'+k+'\\s*=\\s*'+NUM));return r?+r[1]:null;};
-      const ex=g('X')??p.x, ey=g('Y')??p.y, cx=p.x+(g('dX')??0), cy=p.y+(g('dY')??0), r=Math.hypot(p.x-cx,p.y-cy);
-      let a0=Math.atan2(p.y-cy,p.x-cx), a1=Math.atan2(ey-cy,ex-cx), ccw=arc[1].toUpperCase()==='CCW';
-      let sw=ccw?a1-a0:a0-a1; while(sw<=1e-9) sw+=2*Math.PI;
-      const steps=Math.max(4,Math.ceil(sw/0.15));
-      for(let k=1;k<=steps;k++){const a=a0+(ccw?1:-1)*sw*k/steps; pts.push({x:cx+r*Math.cos(a),y:cy+r*Math.sin(a),z:p.z,line:i});}
-      p={...p,x:ex,y:ey}; started=true; return;
-    }
-    const cyc=raw.match(/^\s*(Drill|DrillMilling|CircleFromMid|CircleFace|Thread|RectFromMid|RectangleFace)\s*\(/);
-    if(cyc){ // cycles machine (paramètres entre parenthèses, lus sur la ligne brute) : tracé approché à la profondeur
-      const g=k=>{const r=raw.match(new RegExp('\\b'+k+'\\s*=\\s*'+NUM));return r?+r[1]:null;};
-      const z=-(g('depth')??1), push=(x,y)=>pts.push({x,y,z,line:i});
-      if(cyc[1]==='Drill') push(p.x,p.y);
-      else if(/Rect/.test(cyc[1])){const w=(g('widthX')??10)/2,h=(g('widthY')??10)/2;
-        [[-w,-h],[w,-h],[w,h],[-w,h],[-w,-h]].forEach(([a,b])=>push(p.x+a,p.y+b));}
-      else{const tn=l.match(/threadName="M(\d+(?:\.\d+)?)"/), r=(g('diameter')??(tn?+tn[1]:5))/2;
-        for(let k=0;k<=24;k++){const a=k/24*2*Math.PI; push(p.x+r*Math.cos(a),p.y+r*Math.sin(a));}}
-      pts.push({...p,line:i}); started=true; return;
-    }
-    if(m){n.x=+m[1];n.y=+m[2];n.z=+m[3];hit=true;}
-    else{ let a; reAxis.lastIndex=0; while((a=reAxis.exec(l))){n[a[1].toLowerCase()]=+a[2];hit=true;} }
-    if(hit){ if(!started){pts.push({...n,line:i});started=true;} else pts.push({...n,line:i}); p=n; }
-  });
-  return {lines,pts};
-}
-
+const parse=src=>SimplLecture.parse(src);
 const cv=$('cv'), ctx=cv.getContext('2d');
 let prog=null, segs=[], total=0, prog01=1, playing=false, last=0, curLine=-1, ed=null, pendingSrc='';
 if(window.SimplEditor) SimplEditor.create($('code'),{value:'',onChange:v=>{ const keep=prog01; build(v); prog01=keep; $('pos').value=keep*1000; draw(); }})
@@ -238,9 +208,10 @@ function build(src){
   prog=parse(src); segs=[]; total=0;
   for(let i=1;i<prog.pts.length;i++){const a=prog.pts[i-1],b=prog.pts[i];
     const L=Math.hypot(b.x-a.x,b.y-a.y,b.z-a.z); if(L===0) continue;
-    segs.push({a,b,L,s:total,cut:a.z<=0&&b.z<=0}); total+=L;}
-  const zs=prog.pts.map(p=>p.z);
+    segs.push({a,b,L,s:total,cut:!b.rapid,d:b.d}); total+=L;}
+  const zs=prog.pts.map(p=>p.z), dur=s=>s<60?`${Math.round(s)} s`:s<3600?`${Math.floor(s/60)} min ${String(Math.round(s%60)).padStart(2,'0')} s`:`${Math.floor(s/3600)} h ${String(Math.round(s%3600/60)).padStart(2,'0')} min`;
   $('stats').textContent=prog.pts.length?t('{n} positions · longueur {l} mm · Z min {z} mm',{n:I18N.fmt(prog.pts.length),l:I18N.fmt(Math.round(total)),z:Math.min(...zs).toFixed(2)})
+      +' · '+t('temps estimé {d}',{d:dur(prog.time)})+(prog.feedKnown?'':' ('+t('avance supposée {f} mm/min là où le programme n\'en donne pas',{f:SimplLecture.AVANCE_DEFAUT})+')')
     :t('Aucun déplacement reconnu dans ce fichier.');
 }
 function load(src){ build(src); pendingSrc=src; if(ed) ed.setValue(src); curLine=-1; prog01=1; $('pos').value=1000; stop(); draw(); }
@@ -254,6 +225,15 @@ function draw(){
   const X=x=>ox+(x-x0)*k, Y=y=>r.height-oy-(y-y0)*k;
   const lim=prog01*total; let tool=prog.pts[0], line=prog.pts[0].line;
   ctx.lineCap='round'; ctx.lineJoin='round';
+  if($('matiere').checked){                    // matière enlevée : trait du Ø outil, plus sombre en profondeur
+    const zmin=Math.min(0,...prog.pts.map(p=>p.z))||-1;
+    ctx.setLineDash([]); ctx.globalAlpha=.55;
+    for(const s of segs){ if(s.s>=lim) break; if(!s.cut) continue;
+      const f=Math.min(1,(lim-s.s)/s.L), bx=s.a.x+(s.b.x-s.a.x)*f, by=s.a.y+(s.b.y-s.a.y)*f, zz=Math.min(s.a.z,s.b.z);
+      const q=Math.max(0,Math.min(1,zz/zmin)); ctx.strokeStyle=`hsl(38 ${55+20*q}% ${72-42*q}%)`; ctx.lineWidth=Math.max(1,(s.d||0.5)*k);
+      ctx.beginPath(); ctx.moveTo(X(s.a.x),Y(s.a.y)); ctx.lineTo(X(bx),Y(by)); ctx.stroke(); }
+    ctx.globalAlpha=1;
+  }
   for(const s of segs){
     if(s.s>=lim) break;
     const f=Math.min(1,(lim-s.s)/s.L), b={x:s.a.x+(s.b.x-s.a.x)*f,y:s.a.y+(s.b.y-s.a.y)*f,z:s.a.z+(s.b.z-s.a.z)*f};
@@ -262,6 +242,9 @@ function draw(){
     if(s.a.z>0&&s.b.z<=0&&s.a.x===s.b.x&&s.a.y===s.b.y){ctx.setLineDash([]);ctx.beginPath();ctx.arc(X(s.a.x),Y(s.a.y),3,0,7);ctx.stroke();}
     tool=b; line=s.b.line;
   }
+  ctx.setLineDash([]); ctx.strokeStyle=css('--rapid'); ctx.fillStyle=css('--rapid'); ctx.font='11px Barlow,sans-serif'; ctx.lineWidth=1.2;
+  (prog.origins||[]).forEach(o=>{ const X0=X(o.x),Y0=Y(o.y); ctx.beginPath(); ctx.moveTo(X0-7,Y0); ctx.lineTo(X0+7,Y0); ctx.moveTo(X0,Y0-7); ctx.lineTo(X0,Y0+7); ctx.stroke();
+    ctx.fillText(`ShiftWcsInc ${o.x.toFixed(2)} ; ${o.y.toFixed(2)}`,X0+6,Y0-6); });
   ctx.setLineDash([]); ctx.fillStyle=tool.z<=0?css('--brass'):css('--ink');
   ctx.beginPath(); ctx.arc(X(tool.x),Y(tool.y),5,0,7); ctx.fill();
   ctx.fillStyle=css('--mute'); ctx.font='13px Barlow,sans-serif';
@@ -287,6 +270,7 @@ function pick(i){ const p=CONFIG.programmes[i]; $('prog').value=i;
     .catch(()=>{ if(demo){ pick(CONFIG.programmes.indexOf(demo)); }
       $('stats').textContent=t('« {p} » indisponible : démo générique affichée.',{p:t(p.titre)}); });
 }
+$('matiere').onchange=draw;
 $('prog').onchange=e=>{ if(e.target.value!=='gen') pick(+e.target.value); };
 $('load').onclick=()=>$('file').click();
 $('file').onchange=e=>{const f=e.target.files[0]; if(!f) return; f.text().then(load);};
@@ -310,6 +294,7 @@ window.simplViewer={
 </script>
 <script src="stockage.js" defer></script>
 <script src="outils-format.js" defer></script>
+<script src="vecteurs.js" defer></script>
 <script src="generateur.js" defer></script>
 </body>
 </html>

@@ -42,6 +42,94 @@
     return out;
   }
 
+  /* ======================= décalage exact de contours (partagé par TauDrive et NeoDrive) ======================= */
+  const area = p => { const q = closed(p) ? p.slice(0, -1) : p; let s = 0; for (let i = 0; i < q.length; i++) { const [x, y] = q[i], [nx, ny] = q[(i + 1) % q.length]; s += x * ny - nx * y; } return s / 2; };
+  const inside = ([x, y], poly) => { const q = closed(poly) ? poly.slice(0, -1) : poly; let d = false;
+    for (let i = 0, j = q.length - 1; i < q.length; j = i++) { const [ax, ay] = q[i], [bx, by] = q[j]; if ((ay > y) !== (by > y) && ax + (y - ay) / (by - ay) * (bx - ax) > x) d = !d; } return d; };
+  const plen = p => { let s = 0; for (let i = 1; i < p.length; i++) s += Math.hypot(p[i][0] - p[i - 1][0], p[i][1] - p[i - 1][1]); return s; };
+  const G = { closed, area: area, inside: inside, length: plen };
+  const MITER = 4, OFF_TOL = 0.92, STITCH = 6;
+  const unit = (x, y) => { const l = Math.hypot(x, y); return l > 1e-12 ? [x / l, y / l] : null; };
+  function offsetPoly(poly, off) {
+    if (poly.length < 2) return [];
+    const closed = G.closed(poly), pts = closed ? poly.slice(0, -1) : poly, n = pts.length, out = [];
+    for (let i = 0; i < n; i++) {
+      const [x, y] = pts[i], ns = [];
+      if (i > 0 || closed) { const [ax, ay] = pts[(i - 1 + n) % n]; ns.push(unit(y - ay, ax - x)); }
+      if (i < n - 1 || closed) { const [bx, by] = pts[(i + 1) % n]; ns.push(unit(by - y, x - bx)); }
+      const v = ns.filter(Boolean);
+      if (!v.length) { out.push([x, y]); continue; }
+      if (v.length === 1) { out.push([x + v[0][0] * off, y + v[0][1] * off]); continue; }
+      const [[ax, ay], [bx, by]] = v, den = 1 + ax * bx + ay * by;
+      if (den <= 1 / MITER) { const m = unit(ax + bx, ay + by) || [ax, ay]; out.push([x + m[0] * off * MITER, y + m[1] * off * MITER]); continue; }
+      out.push([x + (ax + bx) / den * off, y + (ay + by) / den * off]);
+    }
+    if (closed) out.push(out[0].slice());
+    return out;
+  }
+  function segDist(px, py, [ax, ay], [bx, by]) {
+    const dx = bx - ax, dy = by - ay, c = dx * dx + dy * dy;
+    if (c <= 1e-18) return Math.hypot(px - ax, py - ay);
+    const t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / c));
+    return Math.hypot(px - ax - dx * t, py - ay - dy * t);
+  }
+  function segGrid(contours, cell) {
+    cell = Math.max(cell, 1e-6); const cases = new Map();
+    for (const p of contours) for (let i = 1; i < p.length; i++) {
+      const a = p[i - 1], b = p[i];
+      for (let cx = Math.floor(Math.min(a[0], b[0]) / cell); cx <= Math.floor(Math.max(a[0], b[0]) / cell); cx++)
+        for (let cy = Math.floor(Math.min(a[1], b[1]) / cell); cy <= Math.floor(Math.max(a[1], b[1]) / cell); cy++) {
+          const k = cx + ',' + cy; if (!cases.has(k)) cases.set(k, []); cases.get(k).push([a, b]);
+        }
+    }
+    return { dist(x, y, cap) {
+      const cx = Math.floor(x / cell), cy = Math.floor(y / cell), r = Math.max(1, Math.floor(cap / cell) + 1); let best = cap;
+      for (let a = -r; a <= r; a++) for (let b = -r; b <= r; b++) { const l = cases.get((cx + a) + ',' + (cy + b)); if (l) for (const [p, q] of l) { const d = segDist(x, y, p, q); if (d < best) best = d; } }
+      return best;
+    } };
+  }
+  function restitch(parts, want) {
+    if (!parts.length) return [];
+    const jump = Math.max(want * STITCH, 1e-6), gap = (a, b) => Math.hypot(b[0] - a[0], b[1] - a[1]);
+    const pieces = parts.map(p => p.slice());
+    if (pieces.length > 1 && gap(pieces[pieces.length - 1][pieces[pieces.length - 1].length - 1], pieces[0][0]) <= jump) pieces[0] = pieces.pop().concat(pieces[0]);
+    const out = []; let cur = [];
+    for (const m of pieces) { if (!cur.length) cur = m; else if (gap(cur[cur.length - 1], m[0]) <= jump) cur = cur.concat(m); else { out.push(cur); cur = m; } }
+    if (cur.length) out.push(cur);
+    return out.filter(c => c.length >= 3).map(c => (gap(c[0], c[c.length - 1]) > 1e-9 ? c.concat([c[0].slice()]) : c));
+  }
+  function pruneOffset(source, dec, dist) {
+    if (!dec || dec.length < 2 || !dist) return dec ? [dec] : [];
+    const want = Math.abs(dist), seuil = want * OFF_TOL, step = Math.max(want / 3, 1e-4), grid = segGrid(source, Math.max(want, step));
+    const parts = []; let cur = [];
+    for (let i = 1; i < dec.length; i++) {
+      const [x1, y1] = dec[i - 1], [x2, y2] = dec[i], n = Math.max(1, Math.floor(Math.hypot(x2 - x1, y2 - y1) / step));
+      for (let k = 0; k <= n; k++) {
+        const t = k / n, x = x1 + (x2 - x1) * t, y = y1 + (y2 - y1) * t;
+        if (grid.dist(x, y, want * 1.5) >= seuil) { if (!cur.length || k === n || cur.length === 1) cur.push([x, y]); }
+        else if (cur.length) { if (cur.length > 1) parts.push(cur); cur = []; }
+      }
+    }
+    if (cur.length > 1) parts.push(cur);
+    if (parts.length === 1 && parts[0].length >= dec.length - 1) return [dec];
+    return restitch(parts.filter(m => G.length(m) > step), want);
+  }
+  function offsetContours(contours, dist) {
+    if (!dist || !contours.length) return contours.slice();
+    const closedOnes = contours.filter(c => c.length >= 4), out = [];
+    for (const poly of contours) {
+      if (poly.length < 4 || Math.abs(G.area(poly)) < 1e-12) { out.push(poly); continue; }
+      const hollow = closedOnes.filter(o => o !== poly && G.inside(poly[0], o)).length % 2 === 1;
+      const grow = (dist > 0) !== hollow, start = Math.abs(G.area(poly));
+      const cand = [offsetPoly(poly, Math.abs(dist)), offsetPoly(poly, -Math.abs(dist))];
+      const ar = cand.map(c => (c.length >= 4 ? Math.abs(G.area(c)) : -1));
+      const i = grow ? (ar[0] > ar[1] ? 0 : 1) : (ar[0] < ar[1] ? 0 : 1);
+      if (ar[i] < 0 || (!grow && ar[i] >= start)) continue;
+      out.push(...pruneOffset(contours, cand[i], dist));
+    }
+    return out;
+  }
+
   /* ======================= DXF ======================= */
   function readDXF(text) {
     const L = text.replace(/\r/g, '').split('\n'), pr = [];
@@ -374,5 +462,5 @@
     const out = new Uint8Array(src.length + 21); out.set(src.subarray(0, 33)); out.set(chunk, 33); out.set(src.subarray(33), 54);   // après IHDR
     return new Blob([out], { type: 'image/png' });
   }
-  window.Vecteurs = { read, readDXF, readSVG, readPDF, readEPS, join, bounds, closed, toDXF, toSVG, toEPS, toPDF, toPNG, circle };
+  window.Vecteurs = { read, readDXF, readSVG, readPDF, readEPS, join, bounds, closed, toDXF, toSVG, toEPS, toPDF, toPNG, circle, offsetPoly, offsetContours, segDist };
 })();

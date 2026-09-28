@@ -35,12 +35,16 @@ kbd{font:600 13px "JetBrains Mono",monospace;padding:2px 6px;border:1px solid va
 footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
 </style>
 <link rel="stylesheet" href="site.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#171b22">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <script src="ui.js" defer></script>
 </head>
 <body>
 <main>
 <header>
-  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html">RomDuch</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tuto.html" aria-current="page" data-i18n>Tuto</a><a href="cv.html" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tauconvert.html">TauConvert</a><a href="tuto.html" aria-current="page" data-i18n>Tuto</a><a href="cv.html">RomDuch</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
   <h1 data-i18n>Tutoriel</h1>
   <p class="tag" data-i18n>Prise en main pas à pas de NeoDrive, TauDrive et TauConvert</p>
   <ul class="toc">
@@ -55,12 +59,13 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
   <h2 data-icon="cpu" data-i18n>NeoDrive en 5 minutes</h2>
   <ol class="steps">
     <li data-i18n>Ouvre <a href="neodrive.html#sec-gen">NeoDrive</a>. Dans « Bibliothèque d'outils », clique <b>Set de démarrage (démo)</b> : fraises Ø8 à Ø1,5, pointes à graver 90° à 20° et fraises à fileter M3 à M10 sont chargées, avec des valeurs à valider.</li>
-    <li data-i18n>Renseigne l'en-tête : module, auteur, commentaire, dimensions du brut et origine (centre ou coin avant gauche, dessus de pièce).</li>
-    <li data-i18n>Ajoute les opérations dans l'ordre d'usinage : surfaçage, perçage, poche, tracé, taraudage… Chaque opération se replie, se déplace avec les flèches et peut devenir un favori.</li>
+    <li data-i18n>Renseigne l'en-tête : module, auteur, commentaire et dimensions du brut. L'origine du programme est toujours le centre du brut, sur le dessus de la pièce.</li>
+    <li data-i18n>Ajoute les opérations dans l'ordre d'usinage : tracé DXF (en tête de liste), surfaçage, perçage, poche, taraudage… Chaque opération se replie, se déplace avec les flèches et peut devenir un favori.</li>
     <li data-i18n>Pour un tracé DXF, importe le fichier : la <b>miniature</b> à côté des champs montre le tracé dans le brut, sa taille et un avertissement s'il déborde. Ajuste l'échelle et les décalages jusqu'à ce qu'elle soit juste.</li>
     <li data-i18n>Pour une reprise, ajoute <b>Retournement pièce</b> : l'outil choisi est monté, arrosage et broche sont coupés, la broche part en parking, la question est posée et, si l'opérateur répond Oui, le brut retourné est palpé avant la suite.</li>
-    <li data-i18n>Le programme se régénère à chaque modification et s'affiche dans le <a href="neodrive.html#sec-viewer">visualiseur</a>. Lis les alertes (outil manquant, profondeur supérieure à la longueur de coupe…), puis clique <b>Télécharger .simpl</b>.</li>
+    <li data-i18n>Le programme se régénère à chaque modification et s'affiche dans le <a href="neodrive.html#sec-viewer">visualiseur</a>, qui suit l'ordre d'exécution (Main puis les programmes appelés) et applique les décalages ShiftWcsInc. Lis les alertes (outil manquant, profondeur supérieure à la longueur de coupe…), puis clique <b>Télécharger .simpl</b>.</li>
   </ol>
+  <p class="note" data-i18n>Le tracé importé (DXF, SVG, PDF, AI ou EPS) peut être compensé du rayon d'outil, vers l'extérieur ou l'intérieur des contours fermés. Le visualiseur estime le temps d'usinage à partir des avances des outils et, avec « Matière enlevée », montre la largeur de l'outil et la profondeur par teinte.</p>
   <p class="note" data-i18n>Le message opérateur reprend les options de NeoDrive : question Oui / Non ou simple information, parking, outil monté avant la question, arrêt du programme si la réponse est Non. Les accents sont retirés, le pupitre ne les affiche pas.</p>
 </section>
 
@@ -81,7 +86,7 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <section id="t-outils">
   <h2 data-icon="wrench" data-i18n>Outils et coupe</h2>
   <ol class="steps">
-    <li data-i18n>Dans l'<a href="outils.html">éditeur d'outils</a>, choisis une catégorie du catalogue DATRON hors ligne (1 010 références) puis affine avec les <b>filtres rapides</b> Cyl8 à Cyl2 et 1 à 4 dents, ou les filtres propres à la catégorie (angle, troncature, type de filetage, rayon…).</li>
+    <li data-i18n>Dans l'<a href="outils.html">éditeur d'outils</a>, choisis « Tous » ou une catégorie du catalogue DATRON hors ligne (1 010 références) puis affine avec les <b>filtres rapides</b> Cyl8 à Cyl2 et 1 à 4 dents, ou les filtres propres à la catégorie (angle, troncature, type de filetage, rayon…).</li>
     <li data-i18n>« Ajouter » place l'outil dans ta bibliothèque. Pour les fraises 1 dent, rotation et avances sont calculées par le modèle ; les autres outils sont à compléter.</li>
     <li data-i18n>Importe ton tools.json : le format du site et celui de NeoDrive bureau sont lus. Exporte dans l'un ou l'autre format, ou enregistre dans le navigateur pour que le générateur l'utilise directement.</li>
     <li data-i18n>Pour des valeurs exactes, charge ton exemplaire du guide DATRON sur la page <a href="coupe.html">Données de coupe</a> : il est lu dans ton navigateur, rien n'est envoyé.</li>
@@ -91,12 +96,13 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <section id="t-tau">
   <h2 data-icon="zap" data-i18n>TauDrive : dessiner une gravure</h2>
   <ol class="steps">
-    <li data-i18n>Dans <a href="taudrive.html">TauDrive</a>, ajoute des formes avec la barre d'outils : rectangle, ellipse, texte, segment, DataMatrix, ou importe un dessin DXF, SVG, PDF, AI ou EPS (choix des calques et des unités).</li>
+    <li data-i18n>Dans <a href="taudrive.html">TauDrive</a>, importe un dessin DXF, SVG, PDF, AI ou EPS avec le premier bouton de la barre (choix des calques et des unités), ou ajoute des formes : rectangle, ellipse, texte, segment, QR Code.</li>
     <li data-i18n>Sur le plan de travail : clic pour sélectionner, glisser pour déplacer, poignée carrée pour redimensionner, poignée ronde pour tourner, molette pour zoomer. Les flèches déplacent de 0,1 mm (1 mm avec Maj).</li>
     <li data-i18n>Dans le panneau de droite, règle la forme : texte et police (ou ta propre police), champs {date} et {heure}, cadre en négatif, offset pour grossir ou amincir le dessin, épaisseur de trait.</li>
     <li data-i18n>Règle la <b>process laser</b> : puissance, fréquence, impulsion, vitesse, passes et profondeur, hachurage (pas, angle, croisé, rotation par passe, retrait) et oscillation. Enregistre-la pour la réutiliser ou l'appliquer à toutes les formes.</li>
-    <li data-i18n>Le DataMatrix (ECC200, carré ou rectangulaire) est gravé plein ; règle la taille du module, et ajoute un cadre pour le graver en négatif.</li>
+    <li data-i18n>La forme QR Code regroupe QR Code, DataMatrix (ECC200), Code 128, Code 39 et EAN-13. Les codes 2D sont gravés pleins ; pour les codes-barres, règle la barre la plus fine et la hauteur des barres. Ajoute un cadre pour graver le code en négatif.</li>
   </ol>
+  <p class="note" data-i18n>Les codes-barres affichent leur texte lisible ; la zone de silence est tracée en pointillés à l'écran, sans être gravée ; une alerte signale un module trop fin pour le spot laser (moins de 3 fois son diamètre).</p>
 </section>
 
 <section id="t-coupon">
@@ -107,10 +113,11 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <section id="t-job">
   <h2 data-icon="file-cog" data-i18n>Job laser et visualiseur</h2>
   <ol class="steps">
-    <li data-i18n>Dans « Génère ton job », indique le nom du travail, la plaque, le centre du travail dans le repère machine et le dossier des ISO vu par la machine.</li>
+    <li data-i18n>Dans « Génère ton job », indique le nom du travail, la plaque, le centre du travail dans le repère machine et le dossier des ISO vu par la machine : le CLJOB appelle ses ISO par ce chemin exact, le dossier du job doit donc être copié à cet endroit.</li>
     <li data-i18n>« Générer le job » écrit un fichier ISO par passe et le CLJOB qui les enchaîne ; télécharge-les un par un ou en .zip, copie le dossier à l'endroit indiqué et ouvre le CLJOB dans ClTerm.</li>
     <li data-i18n>Le visualiseur de job rejoue les trajectoires passe par passe, avec les déplacements à vide, la ligne ISO en cours, les longueurs et la durée estimée. Il ouvre aussi des fichiers .ISO existants.</li>
   </ol>
+  <p class="note" data-i18n>Pour une série, indique le nombre de pièces, le premier numéro et le pas : chaque pièce reçoit son jeu ISO + CLJOB dans son sous-dossier, et le champ {n} d'un texte ou d'un code prend son numéro ({n:04} pour 4 chiffres avec des zéros).</p>
   <p class="note" data-i18n>TauDrive web n'envoie rien à la machine : il écrit des fichiers. Vérifie toujours le job avant gravure.</p>
 </section>
 
@@ -122,6 +129,7 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <section id="t-data">
   <h2 data-icon="database" data-i18n>Tes données</h2>
   <p data-i18n>Rien n'est envoyé : tout est calculé dans ton navigateur. Si tu acceptes le stockage local, tes outils, favoris, DXF, dessins et process TauDrive, thème et langue sont conservés sur cet appareil. « Gérer le stockage local » en bas de page change ce choix ; « Effacer mes données enregistrées » supprime tout ce que le site a enregistré.</p>
+  <p data-i18n>« Partager (lien) », dans NeoDrive et TauDrive, copie une adresse qui contient tout le travail : elle s'ouvre telle quelle sur un autre poste. Le site peut aussi s'installer comme une application (menu du navigateur) et fonctionne ensuite hors ligne, à l'atelier.</p>
 </section>
 
 <footer><p>RomDuch · <a href="index.html" data-i18n>Accueil</a> · <a href="neodrive.html">NeoDrive</a> · <a href="taudrive.html">TauDrive</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>

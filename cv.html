@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>CV – RomDuch</title>
+<title>RomDuch – Programmation UGV Datron & outils logiciels d'atelier</title>
 <meta name="description" content="CV de RomDuch : programmeur-régleur UGV Datron, développeur d'outils de génération SimPL, ancien régleur P2 et professeur de mathématiques.">
 <script src="i18n.js"></script>
 <script src="theme.js"></script>
@@ -17,6 +17,7 @@ main{max-width:980px;margin:0 auto;padding:28px 18px 70px}
 header{display:grid;gap:6px;padding:10px 0 22px;border-bottom:2px solid var(--brass);margin-bottom:10px}
 .top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}.top .prefs{display:flex;flex-wrap:wrap;gap:8px}
 h1{font:700 clamp(2.2rem,6vw,3.6rem)/1 "Barlow Condensed",Arial Narrow,sans-serif;margin:6px 0 0}
+.lead{max-width:62ch;margin:6px 0 0;color:var(--mute)}
 .tag{font:600 1.2rem "Barlow Condensed",sans-serif;color:var(--brass);margin:0}
 a{color:var(--ink);text-decoration-color:var(--brass);text-underline-offset:3px}
 h2{font:700 1.8rem/1.1 "Barlow Condensed",sans-serif;margin:34px 0 12px}
@@ -35,14 +36,19 @@ footer{margin-top:44px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 @media print{.top,footer{display:none}body{background:#fff;color:#000}}
 </style>
 <link rel="stylesheet" href="site.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#171b22">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <script src="ui.js" defer></script>
 </head>
 <body>
 <main>
 <header>
-  <div class="top topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html">RomDuch</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html" aria-current="page" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <div class="top topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tauconvert.html">TauConvert</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html" aria-current="page">RomDuch</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
   <h1>RomDuch</h1>
   <p class="tag" data-i18n>Programmation UGV Datron &amp; outils logiciels d'atelier</p>
+  <p class="lead" data-i18n>Programmeur-régleur sur centres Datron en production. Je développe les outils qui génèrent, vérifient et fiabilisent les programmes SIMPL.</p>
   <p><a href="mailto:romduch@gmail.com">romduch@gmail.com</a></p>
 </header>
 

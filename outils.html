@@ -61,12 +61,16 @@ table.cat button{padding:2px 9px;font-size:13px}
 footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
 </style>
 <link rel="stylesheet" href="site.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#171b22">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <script src="ui.js" defer></script>
 </head>
 <body>
 <main>
 <header>
-  <div class="top topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html">RomDuch</a><a href="neodrive.html" aria-current="true">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html" data-i18n>CV</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <div class="top topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="neodrive.html" aria-current="true">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tauconvert.html">TauConvert</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html">RomDuch</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
   <nav class="subnav" aria-label="NeoDrive"><a href="neodrive.html#sec-gen" data-i18n>Génère ton SimPL</a><a href="neodrive.html#sec-viewer" data-i18n>Visualiseur</a><a href="outils.html" aria-current="page" data-i18n>Éditeur d'outils</a><a href="coupe.html" data-i18n>Données de coupe</a><a href="neodrive.html#sec-videos" data-i18n>Vidéo</a></nav>
   <h1 data-i18n>Éditeur d'outils</h1>
   <p class="lead" data-i18n>Crée ta bibliothèque <em>tools.json</em> : choisis tes outils dans le catalogue DATRON hors ligne, ajuste rotation et avances, puis enregistre ou exporte. Le fichier reste chez toi.</p>
@@ -108,7 +112,7 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <div id="list"></div>
 
 <footer><p data-i18n>Vc = π·D·n / 1000 ; fz = avance / (n · dents). Vérifiez toujours les valeurs en simulation avant usinage.</p>
-<p><a href="index.html" data-i18n>Accueil</a> · <a href="neodrive.html">NeoDrive</a> · <a href="taudrive.html">TauDrive</a> · <a href="coupe.html" data-i18n>Données de coupe</a> · <a href="cv.html" data-i18n>CV</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
+<p><a href="index.html" data-i18n>Accueil</a> · <a href="neodrive.html">NeoDrive</a> · <a href="taudrive.html">TauDrive</a> · <a href="coupe.html" data-i18n>Données de coupe</a> · <a href="cv.html">RomDuch</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
 </main>
 
 <script src="stockage.js" defer></script>
@@ -281,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
   $('b-unfold').onclick = () => { lib.tools.forEach(o => { o._fold = false; }); render(); };
 
   /* =================== catalogue DATRON hors ligne =================== */
-  let CAT = [], CATS = {}, cat = 'fraise';
+  let CAT = [], CATS = {}, cat = 'tous';                        // « tous » : catalogue complet, premier bouton
   const FV = {};                                                    // valeurs des filtres
   const QF = { d: null, z: null };                                  // filtres rapides : Ø de coupe (Cyl) et nombre de dents
   const QUICK_D = [8, 6, 4, 3, 2], QUICK_Z = [1, 2, 3, 4], SANS_CYL = ['conique', 'chanfrein', 'filetage'];
@@ -299,6 +303,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
   const DENTS = F('dents', t('Dents'), 'select');
   const D1 = F('D1', t('Ø de coupe'), 'select', null, { fmt: v => `Ø${nf(v)}` });
   const FACETS = {
+    tous: [F('categorie', t('Catégorie'), 'select', x => x.categorie, { txt: v => t(CATS[v] || v) }), DENTS, D1, L2MIN, QUEUE, PRIX],
     fraise: [DENTS, FAM, D1, L2MIN, QUEUE, PRIX],
     surfacage: [DENTS, D1, F('R', t('Rayon de coin'), 'select', null, { fmt: v => `R${nf(v)}` }), FAM, QUEUE, PRIX],
     boule: [D1, F('R', t('Rayon'), 'select', null, { fmt: v => `R${nf(v)}` }), L2MIN, DENTS, FAM, QUEUE, PRIX],
@@ -317,14 +322,15 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
     fraise: [['L2', 'L2'], ['dents', 'Z'], ['D2', t('Queue')]], surfacage: [['L2', 'L2'], ['R', 'R'], ['dents', 'Z'], ['D2', t('Queue')]], boule: [['R', 'R'], ['L2', 'L2'], ['dents', 'Z']], torique: [['R', 'R'], ['L2', 'L2'], ['dents', 'Z']],
     filetage: [['filetage', t('Filetage')], ['pas', t('Pas')], ['L3', 'L3'], ['dents', 'Z']], chanfrein: [['angle', t('Angle')], ['D3', 'D3'], ['dents', 'Z']],
     foret: [['L2', 'L2'], ['angle', t('Angle')], ['D2', t('Queue')]], conique: [['angle', t('Angle')], ['D2', t('Queue')], ['L1', 'L1']],
-    rayon: [['R', 'R'], ['D3', 'D3'], ['dents', 'Z']]
+    rayon: [['R', 'R'], ['D3', 'D3'], ['dents', 'Z']],
+    tous: [['categorie', t('Catégorie')], ['L2', 'L2'], ['dents', 'Z'], ['D2', t('Queue')]]
   };
   const TYPE_DE = { fraise: 'fraise', surfacage: 'surfacage', boule: 'boule', torique: 'torique', filetage: 'filetage', chanfrein: 'chanfrein', foret: 'foret', conique: 'gravure', rayon: 'rayon' };
-  const sousEns = () => CAT.filter(x => x.categorie === cat);
+  const sousEns = () => (cat === 'tous' ? CAT : CAT.filter(x => x.categorie === cat));
   const uniques = (arr, get) => [...new Set(arr.map(get).filter(v => v !== undefined && v !== null && v !== ''))].sort((a, b) => (typeof a === 'number' && typeof b === 'number') ? a - b : String(a).localeCompare(String(b)));
 
   function renderChips() {
-    $('chips').innerHTML = Object.entries(CATS).map(([k, l]) => `<button type="button" data-cat="${k}" aria-pressed="${k === cat}">${esc(t(l))} <small>(${CAT.filter(x => x.categorie === k).length})</small></button>`).join('');
+    $('chips').innerHTML = `<button type="button" data-cat="tous" aria-pressed="${cat === 'tous'}">${esc(t('Tous'))} <small>(${CAT.length})</small></button>` + Object.entries(CATS).map(([k, l]) => `<button type="button" data-cat="${k}" aria-pressed="${k === cat}">${esc(t(l))} <small>(${CAT.filter(x => x.categorie === k).length})</small></button>`).join('');
     $('chips').querySelectorAll('[data-cat]').forEach(b => b.onclick = () => { cat = b.dataset.cat; Object.keys(FV).forEach(k => delete FV[k]); renderChips(); renderFacets(); filtrer(); });
   }
   function renderQuick() {
@@ -386,11 +392,11 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
     renderQuick();
     const res = sousEns().filter(passe), max = 100, cols = COLS[cat];
     $('cat-head').innerHTML = `<th>${t('Référence')}</th><th>${t('Famille')}</th><th>Ø D1</th>${cols.map(c => `<th>${esc(c[1])}</th>`).join('')}<th>${t('Prix €')}</th>`
-      + (cat === 'fraise' ? `<th title="${esc(t('Rotation proposée (modèle ou guide)'))}">n</th>` : '') + '<th></th>';
+      + ((cat === 'fraise' || cat === 'tous') ? `<th title="${esc(t('Rotation proposée (modèle ou guide)'))}">n</th>` : '') + '<th></th>';
     $('cat-table').tBodies[0].innerHTML = res.slice(0, max).map(x => `<tr><td><b>${esc(x.ref)}</b></td><td>${esc(t(x.famille))}</td><td class="n">${nf(x.D1)}</td>
-      ${cols.map(c => `<td class="n">${c[0] === 'angle' && x.angle ? x.angle + '°' : c[0] === 'filetage' ? esc(x.filetage || '') : nf(x[c[0]])}</td>`).join('')}
+      ${cols.map(c => `<td class="n">${c[0] === 'angle' && x.angle ? x.angle + '°' : c[0] === 'filetage' ? esc(x.filetage || '') : c[0] === 'categorie' ? esc(t(CATS[x.categorie] || x.categorie)) : nf(x[c[0]])}</td>`).join('')}
       <td class="n">${x.prix_eur !== undefined ? I18N.fmt(x.prix_eur, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : ''}</td>
-      ${cat === 'fraise' ? `<td class="n">${rpmPropose(x)}</td>` : ''}
+      ${cat === 'fraise' || cat === 'tous' ? `<td class="n">${rpmPropose(x)}</td>` : ''}
       <td><button type="button" data-ref="${esc(x.ref)}">${t('Ajouter')}</button> <a href="${SHOP(x.ref)}" target="_blank" rel="noopener" title="${esc(t('Fiche sur le webshop DATRON'))}">${t('fiche')}</a></td></tr>`).join('');
     $('st-cat').textContent = res.length ? t('{n} outil(s)', { n: res.length }) + (res.length > max ? ` – ${t('{m} premiers affichés, affinez les filtres', { m: max })}` : '') + '.' : t('Aucun outil ne correspond.');
     $('cat-table').querySelectorAll('[data-ref]').forEach(bt => bt.onclick = () => ajouter(bt.dataset.ref));

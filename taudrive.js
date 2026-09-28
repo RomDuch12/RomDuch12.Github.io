@@ -65,87 +65,8 @@
   };
 
   /* ----- décalage exact (onglet), élagage des boucles et recousage ----- */
-  const MITER = 4, OFF_TOL = 0.92, STITCH = 6;
-  const unit = (x, y) => { const l = Math.hypot(x, y); return l > 1e-12 ? [x / l, y / l] : null; };
-  function offsetPoly(poly, off) {
-    if (poly.length < 2) return [];
-    const closed = G.closed(poly), pts = closed ? poly.slice(0, -1) : poly, n = pts.length, out = [];
-    for (let i = 0; i < n; i++) {
-      const [x, y] = pts[i], ns = [];
-      if (i > 0 || closed) { const [ax, ay] = pts[(i - 1 + n) % n]; ns.push(unit(y - ay, ax - x)); }
-      if (i < n - 1 || closed) { const [bx, by] = pts[(i + 1) % n]; ns.push(unit(by - y, x - bx)); }
-      const v = ns.filter(Boolean);
-      if (!v.length) { out.push([x, y]); continue; }
-      if (v.length === 1) { out.push([x + v[0][0] * off, y + v[0][1] * off]); continue; }
-      const [[ax, ay], [bx, by]] = v, den = 1 + ax * bx + ay * by;
-      if (den <= 1 / MITER) { const m = unit(ax + bx, ay + by) || [ax, ay]; out.push([x + m[0] * off * MITER, y + m[1] * off * MITER]); continue; }
-      out.push([x + (ax + bx) / den * off, y + (ay + by) / den * off]);
-    }
-    if (closed) out.push(out[0].slice());
-    return out;
-  }
-  function segDist(px, py, [ax, ay], [bx, by]) {
-    const dx = bx - ax, dy = by - ay, c = dx * dx + dy * dy;
-    if (c <= 1e-18) return Math.hypot(px - ax, py - ay);
-    const t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / c));
-    return Math.hypot(px - ax - dx * t, py - ay - dy * t);
-  }
-  function segGrid(contours, cell) {
-    cell = Math.max(cell, 1e-6); const cases = new Map();
-    for (const p of contours) for (let i = 1; i < p.length; i++) {
-      const a = p[i - 1], b = p[i];
-      for (let cx = Math.floor(Math.min(a[0], b[0]) / cell); cx <= Math.floor(Math.max(a[0], b[0]) / cell); cx++)
-        for (let cy = Math.floor(Math.min(a[1], b[1]) / cell); cy <= Math.floor(Math.max(a[1], b[1]) / cell); cy++) {
-          const k = cx + ',' + cy; if (!cases.has(k)) cases.set(k, []); cases.get(k).push([a, b]);
-        }
-    }
-    return { dist(x, y, cap) {
-      const cx = Math.floor(x / cell), cy = Math.floor(y / cell), r = Math.max(1, Math.floor(cap / cell) + 1); let best = cap;
-      for (let a = -r; a <= r; a++) for (let b = -r; b <= r; b++) { const l = cases.get((cx + a) + ',' + (cy + b)); if (l) for (const [p, q] of l) { const d = segDist(x, y, p, q); if (d < best) best = d; } }
-      return best;
-    } };
-  }
-  function restitch(parts, want) {
-    if (!parts.length) return [];
-    const jump = Math.max(want * STITCH, 1e-6), gap = (a, b) => Math.hypot(b[0] - a[0], b[1] - a[1]);
-    const pieces = parts.map(p => p.slice());
-    if (pieces.length > 1 && gap(pieces[pieces.length - 1][pieces[pieces.length - 1].length - 1], pieces[0][0]) <= jump) pieces[0] = pieces.pop().concat(pieces[0]);
-    const out = []; let cur = [];
-    for (const m of pieces) { if (!cur.length) cur = m; else if (gap(cur[cur.length - 1], m[0]) <= jump) cur = cur.concat(m); else { out.push(cur); cur = m; } }
-    if (cur.length) out.push(cur);
-    return out.filter(c => c.length >= 3).map(c => (gap(c[0], c[c.length - 1]) > 1e-9 ? c.concat([c[0].slice()]) : c));
-  }
-  function pruneOffset(source, dec, dist) {
-    if (!dec || dec.length < 2 || !dist) return dec ? [dec] : [];
-    const want = Math.abs(dist), seuil = want * OFF_TOL, step = Math.max(want / 3, 1e-4), grid = segGrid(source, Math.max(want, step));
-    const parts = []; let cur = [];
-    for (let i = 1; i < dec.length; i++) {
-      const [x1, y1] = dec[i - 1], [x2, y2] = dec[i], n = Math.max(1, Math.floor(Math.hypot(x2 - x1, y2 - y1) / step));
-      for (let k = 0; k <= n; k++) {
-        const t = k / n, x = x1 + (x2 - x1) * t, y = y1 + (y2 - y1) * t;
-        if (grid.dist(x, y, want * 1.5) >= seuil) { if (!cur.length || k === n || cur.length === 1) cur.push([x, y]); }
-        else if (cur.length) { if (cur.length > 1) parts.push(cur); cur = []; }
-      }
-    }
-    if (cur.length > 1) parts.push(cur);
-    if (parts.length === 1 && parts[0].length >= dec.length - 1) return [dec];
-    return restitch(parts.filter(m => G.length(m) > step), want);
-  }
-  function offsetContours(contours, dist) {
-    if (!dist || !contours.length) return contours.slice();
-    const closedOnes = contours.filter(c => c.length >= 4), out = [];
-    for (const poly of contours) {
-      if (poly.length < 4 || Math.abs(G.area(poly)) < 1e-12) { out.push(poly); continue; }
-      const hollow = closedOnes.filter(o => o !== poly && G.inside(poly[0], o)).length % 2 === 1;
-      const grow = (dist > 0) !== hollow, start = Math.abs(G.area(poly));
-      const cand = [offsetPoly(poly, Math.abs(dist)), offsetPoly(poly, -Math.abs(dist))];
-      const ar = cand.map(c => (c.length >= 4 ? Math.abs(G.area(c)) : -1));
-      const i = grow ? (ar[0] > ar[1] ? 0 : 1) : (ar[0] < ar[1] ? 0 : 1);
-      if (ar[i] < 0 || (!grow && ar[i] >= start)) continue;
-      out.push(...pruneOffset(contours, cand[i], dist));
-    }
-    return out;
-  }
+  /* décalage exact, élagage des boucles et recousage : voir vecteurs.js */
+  const { offsetPoly, offsetContours, segDist } = window.Vecteurs;
   function thicken(polys, width, step) {
     if (!(width > 0) || !(step > 0)) return polys;
     const count = Math.floor(width / step / 2); if (count <= 0) return polys;
@@ -270,9 +191,10 @@
     return placed;
   }
   let userFont = null, userFontName = '';
+  let SERIE = 1;                                          // numéro de la pièce en cours ({n})
   function expand(text) {
     const d = new Date(), p = n => String(n).padStart(2, '0');
-    return text.replace(/\{date\}/g, `${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()}`).replace(/\{annee\}|\{year\}/g, d.getFullYear())
+    return String(text).replace(/\{n(?::0?(\d+))?\}/g, (_, w) => (w ? String(SERIE).padStart(+w, '0') : String(SERIE))).replace(/\{date\}/g, `${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()}`).replace(/\{annee\}|\{year\}/g, d.getFullYear())
       .replace(/\{heure\}|\{time\}/g, `${p(d.getHours())}:${p(d.getMinutes())}`);
   }
 
@@ -282,20 +204,22 @@
   /* ======================= modèle ======================= */
   const RAPID = 420000;                                   // déplacement à vide de la tête galvo, mm/min
   const newId = () => Math.random().toString(36).slice(2, 10);
-  const defRecipe = () => ({ name: tr('Process par défaut'), power: 100, freq: 80, pulse: 100, speed: 40000, passes: 1, depthMode: 'step', depthStep: 0, depthTotal: 0,
+  const defRecipe = () => ({ name: tr('Process par défaut'), power: 100, freq: 80, pulse: 100, speed: 40000, spot: 0.03, passes: 1, depthMode: 'step', depthStep: 0, depthTotal: 0,
     hatch: 0, hatchAngle: 0, hatchStep: 0, cross: false, inset: 0, wobble: 'none', wobAmp: 0, wobPitch: 0, tool: 1 });
-  const defDoc = () => ({ name: 'gravure', plateW: 100, plateH: 100, wcx: 50, wcy: 50, fieldW: 110, fieldH: 110, machineDir: 'C:\\inciwin\\cl_iso', optimize: true, group: false, shapes: [] });
+  const defDoc = () => ({ name: 'gravure', plateW: 100, plateH: 100, wcx: 50, wcy: 50, fieldW: 110, fieldH: 110, machineDir: 'C:\\inciwin\\cl_iso', optimize: true, group: false,
+    copies: 1, serialStart: 1, serialStep: 1, shapes: [] });
   const base = type => ({ id: newId(), type, name: '', x: 0, y: 0, rot: 0, visible: true, frame: 'none', frameMargin: 2, frameW: 0, frameH: 0, offset: 0, lineWidth: 0, lineStep: 0, p: Object.assign({}, lastRecipe || defRecipe()) });
   const MAKE = {
     rect: () => Object.assign(base('rect'), { w: 30, h: 15 }),
     ellipse: () => Object.assign(base('ellipse'), { w: 20, h: 20 }),
     text: () => Object.assign(base('text'), { text: 'TauDrive', size: 6, font: 'roboto', align: 'center', valign: 'middle', spacing: 1.4, stretch: 1 }),
     line: () => Object.assign(base('path'), { polys: [[[-15, 0], [15, 0]]], source: tr('segment') }),
-    code: () => Object.assign(base('code'), { data: 'RomDuch {date}', dm: 'square', module: 0.5, fillStep: 0 })
+    code: () => Object.assign(base('code'), { kind: 'qr', data: 'https://romduch12.github.io', level: 'M', dm: 'square', checksum: false, module: 0.4, barH: 8, hri: true, hriSize: 2, fillStep: 0 })
   };
-  const TYPE_NOM = { rect: 'Rectangle', ellipse: 'Ellipse', text: 'Texte', path: 'Tracé', code: 'DataMatrix' };
+  const TYPE_NOM = { rect: 'Rectangle', ellipse: 'Ellipse', text: 'Texte', path: 'Tracé', code: 'QR Code' };
+  const kindName = s => ((window.Codes && Codes.KINDS.find(k => k[0] === (s.kind || 'datamatrix'))) || [, 'DataMatrix'])[1];
   const shapeName = s => s.name || (s.type === 'text' ? `« ${(s.text || '').split('\n')[0].slice(0, 24)} »` : s.type === 'path' ? (s.source || tr('Tracé'))
-    : s.type === 'code' ? `DataMatrix « ${expand(s.data || '').slice(0, 20)} »` : tr(TYPE_NOM[s.type]));
+    : s.type === 'code' ? `${kindName(s)} « ${expand(s.data || '').slice(0, 20)} »` : tr(TYPE_NOM[s.type]));
 
   let doc = defDoc(), procs = [], lastRecipe = null, sel = null, undo = [], redo = [];
 
@@ -311,11 +235,32 @@
   /* DataMatrix : frontière des modules sombres (arêtes réellement frontalières seulement), centrée */
   const codeErr = {};
   function codeMatrix(s) {
-    try { delete codeErr[s.id]; return DataMatrix.encode(expand(s.data || ''), s.dm || 'square'); }
+    try { delete codeErr[s.id]; return Codes.encode(s.kind || 'datamatrix', expand(s.data || ''), { shape: s.dm || 'square', level: s.level || 'M', checksum: !!s.checksum }); }
     catch (x) { codeErr[s.id] = x.message; return null; }
+  }
+  const eanComplet = d => { d = String(d).replace(/\s/g, ''); if (d.length !== 12) return d; const v = [...d].map(Number);
+    return d + (10 - v.reduce((a, x, i) => a + x * (i % 2 ? 3 : 1), 0) % 10) % 10; };
+  const SILENCE = { qr: 4, datamatrix: 1, code128: 10, code39: 10, ean13: 11 };   // zone de silence minimale, en modules
+  function codeZone(s) {                                  // rectangle de la zone de silence, repère local (rotation comprise)
+    const M = codeMatrix(s); if (!M) return null;
+    const m = +s.module || 0.4, q = (SILENCE[s.kind || 'datamatrix'] || 2) * m, lin = Codes.isLinear(s.kind);
+    const w = M[0].length * m + 2 * q, h = lin ? (+s.barH || 8) + 2 * m : M.length * m + 2 * q;
+    return G.rotate(G.rect(w, h), +s.rot || 0);
   }
   function codeContours(s) {
     const M = codeMatrix(s); if (!M) return [];
+    if (Codes.isLinear(s.kind)) {                          // code-barres : une barre par suite de modules sombres, hauteur réglable
+      const row = M[0], m = Math.max(0.01, +s.module || 0.3), h = Math.max(0.1, +s.barH || 8), n = row.length, out = [];
+      for (let x = 0; x < n;) { if (!row[x]) { x++; continue; } const a = x; while (x < n && row[x]) x++;
+        out.push(G.rect((x - a) * m, h, ((a + x) / 2 - n / 2) * m, 0)); }
+      if (s.hri !== false) {                               // texte lisible sous les barres
+        const donnee = expand(s.data || ''), texte = s.kind === 'ean13' ? eanComplet(donnee) : s.kind === 'code39' ? `*${donnee.toUpperCase()}*` : donnee;
+        const hs = Math.max(0.5, +s.hriSize || 2), tc = textContours({ text: texte, size: hs, font: 'roboto', align: 'center', valign: 'top', spacing: 1.4, stretch: 1 });
+        if (tc === null) return null;                    // police en cours de chargement
+        tc.forEach(c => out.push(G.translate(c, 0, -h / 2 - hs * 0.35)));
+      }
+      return out;
+    }
     const rows = M.length, cols = M[0].length, m = Math.max(0.01, +s.module || 0.5), dark = (r, c) => r >= 0 && c >= 0 && r < rows && c < cols && M[r][c];
     const edges = new Map(), add = (a, b) => { const k = a.join(','); if (!edges.has(k)) edges.set(k, []); edges.get(k).push(b); };
     for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
@@ -367,7 +312,7 @@
   const CACHE = new Map();
   function clearCache() { CACHE.clear(); }
   function local(s, pass = 0) {
-    const k = JSON.stringify([s.type, s.w, s.h, s.text, s.size, s.font, s.align, s.valign, s.spacing, s.stretch, s.data, s.dm, s.module, s.fillStep, s.type === 'path' ? s.id + ':' + s.rev : 0,
+    const k = JSON.stringify([(s.type === 'text' || s.type === 'code') && /\{n/.test((s.text || '') + (s.data || '')) ? SERIE : 0, s.type, s.w, s.h, s.text, s.size, s.font, s.align, s.valign, s.spacing, s.stretch, s.data, s.dm, s.kind, s.level, s.checksum, s.barH, s.hri, s.hriSize, s.module, s.fillStep, s.type === 'path' ? s.id + ':' + s.rev : 0,
       s.frame, s.frameMargin, s.frameW, s.frameH, s.offset, s.lineWidth, s.lineStep, s.rot, s.p, pass]);
     if (CACHE.has(k)) return CACHE.get(k);
     const c = shapeContours(s); if (c === null) return null;                // police en cours de chargement
@@ -463,12 +408,21 @@
         '<ROTAZIONE_ENTITA_PREZIOSA>0.000000</ROTAZIONE_ENTITA_PREZIOSA>', `<DESCRIZIONE_ENTITA>${xmlEsc(comment(p.name, 60))}</DESCRIZIONE_ENTITA>`, '</DESCRIZIONE_LAVORI>'); });
     o.push('</LISTA_LAVORI>'); return o.join('\n') + '\n';
   }
+  /* un jeu ISO + CLJOB par pièce ; en série, chaque pièce a son sous-dossier et son numéro {n} */
   function makeJob() {
-    const passes = buildPasses(); if (!passes.length) return null;
-    const stem = sanitize(doc.name), baseDir = String(doc.machineDir || '').replace(/[\\/]+$/, ''), files = [];
-    const paths = passes.map((p, i) => { const name = `${stem}_Z${String(i + 1).padStart(4, '0')}.ISO`; files.push({ name, text: renderISO(p), pass: i }); return baseDir ? `${baseDir}\\${name}` : name; });
-    files.push({ name: `${stem}.CLJOB`, text: renderCLJOB(paths, passes) });
-    return { stem, passes, files };
+    const n = Math.max(1, Math.round(+doc.copies || 1)), stem = sanitize(doc.name), baseDir = String(doc.machineDir || '').replace(/[\\/]+$/, ''), files = [];
+    let premier = null;
+    for (let i = 0; i < n; i++) {
+      SERIE = (+doc.serialStart || 1) + i * (+doc.serialStep || 1);
+      const passes = buildPasses(); if (!passes.length) { SERIE = +doc.serialStart || 1; return null; }
+      const piece = n > 1 ? `${stem}_p${String(i + 1).padStart(4, '0')}` : stem, dir = n > 1 ? piece + '/' : '', base = n > 1 ? (baseDir ? `${baseDir}\\${piece}` : piece) : baseDir;
+      const paths = passes.map((p, k) => { const name = `${piece}_Z${String(k + 1).padStart(4, '0')}.ISO`; files.push({ name, path: dir + name, text: renderISO(p), pass: k, piece: i });
+        return base ? `${base}\\${name}` : name; });
+      files.push({ name: `${piece}.CLJOB`, path: dir + `${piece}.CLJOB`, text: renderCLJOB(paths, passes), piece: i });
+      if (!premier) premier = passes;
+    }
+    SERIE = +doc.serialStart || 1; clearCache(); redraw();
+    return { stem, passes: premier, files, copies: n };
   }
 
   /* ======================= historique et sauvegarde ======================= */
@@ -482,7 +436,7 @@
   function load() {
     const d = ST() ? ST().get('taudrive', null) : null;
     if (d && d.doc) { doc = Object.assign(defDoc(), d.doc); procs = d.procs || []; }
-    else { const s = MAKE.text(); s.text = 'TauDrive'; s.size = 8; s.frame = 'rect'; s.p.hatch = 0.1; doc.shapes.push(s); sel = s.id; }
+    else { const s = MAKE.text(); s.text = 'TauDrive'; s.size = 8; doc.shapes.push(s); sel = s.id; }
     lastSnap = snap();
   }
 
@@ -533,7 +487,10 @@
       ctx.stroke(); ctx.globalAlpha = 1;
       ctx.strokeStyle = out ? warn : ink; ctx.lineWidth = 1.4 / view.k; ctx.beginPath();
       for (let i = 0; i < l.nc && i < l.polys.length; i++) { const p = l.polys[i]; ctx.moveTo(p[0][0], p[0][1]); for (let j = 1; j < p.length; j++) ctx.lineTo(p[j][0], p[j][1]); }
-      ctx.stroke(); ctx.restore();
+      ctx.stroke();
+      if (s.type === 'code') { const z = codeZone(s);               // zone de silence : à l'écran seulement, jamais gravée
+        if (z) { ctx.setLineDash([3 / view.k, 3 / view.k]); ctx.strokeStyle = mute; ctx.lineWidth = 1 / view.k; ctx.beginPath(); z.forEach(([a, b], i) => (i ? ctx.lineTo(a, b) : ctx.moveTo(a, b))); ctx.stroke(); ctx.setLineDash([]); } }
+      ctx.restore();
     }
     const s = selShape();
     if (s && s.visible) {
@@ -603,7 +560,7 @@
   function scaleShape(s, o, f, anchor) {
     if (s.type === 'rect' || s.type === 'ellipse') { s.w = +(o.w * f).toFixed(3); s.h = +(o.h * f).toFixed(3); }
     else if (s.type === 'text') s.size = +(o.size * f).toFixed(3);
-    else if (s.type === 'code') s.module = +(o.module * f).toFixed(4);
+    else if (s.type === 'code') { s.module = +(o.module * f).toFixed(4); if (o.barH) s.barH = +(o.barH * f).toFixed(3); }
     else if (s.type === 'path') { s.polys = o.polys.map(p => G.scaleXY(p, f, f)); s.rev = (s.rev || 0) + 1; }
     s.x = +(anchor[0] + (o.x - anchor[0]) * f).toFixed(4); s.y = +(anchor[1] + (o.y - anchor[1]) * f).toFixed(4);
     clearCache();
@@ -623,7 +580,7 @@
   function add(s) { doc.shapes.push(s); sel = s.id; commit(); }
   const act = {
     rect: () => add(MAKE.rect()), ellipse: () => add(MAKE.ellipse()), text: () => add(MAKE.text()), line: () => add(MAKE.line()),
-    code: () => { const c = MAKE.code(); c.frame = 'rect'; c.frameMargin = 1; add(c); },
+    code: () => add(MAKE.code()),
     coupon: () => openCoupon(),
     dxf: () => $('td-dxf-file').click(),
     dup() { const s = selShape(); if (!s) return; const c = JSON.parse(JSON.stringify(s)); c.id = newId(); c.x = +s.x + 5; c.y = +s.y - 5; c.name = s.name ? s.name + ' ' + tr('copie') : ''; add(c); },
@@ -634,6 +591,7 @@
     center() { const s = selShape(); if (!s) return; const e = extent(s); s.x = +(+s.x - (e[0] + e[2]) / 2).toFixed(4); s.y = +(+s.y - (e[1] + e[3]) / 2).toFixed(4); commit(); },
     nouveau() { if (doc.shapes.length && !confirm(tr('Effacer le dessin en cours ?'))) return; doc = Object.assign(defDoc(), { name: doc.name, plateW: doc.plateW, plateH: doc.plateH, wcx: doc.wcx, wcy: doc.wcy, machineDir: doc.machineDir }); sel = null; commit(); },
     open: () => $('td-open-file').click(),
+    share() { window.Partage && Partage.lien('d', { format: 'taudrive-web', version: 1, doc, procs }); },
     saveFile() { download(sanitize(doc.name) + '.taudrive.json', JSON.stringify({ format: 'taudrive-web', version: 1, doc, procs }, null, 1), 'application/json'); }
   };
   document.querySelectorAll('[data-td]').forEach(b => b.addEventListener('click', () => act[b.dataset.td]()));
@@ -773,7 +731,7 @@
     F('passes', 'Passes'), F('depthMode', 'Profondeur', 'select', [['step', 'pas par passe'], ['total', 'profondeur totale']]), F('depthStep', 'Pas Z par passe (mm)'), F('depthTotal', 'Profondeur totale (mm)'),
     F('hatch', 'Pas de hachurage (mm, 0 = contour seul)'), F('hatchAngle', 'Angle de hachurage (°)'), F('hatchStep', 'Rotation par passe (°)'), F('cross', 'Hachurage croisé', 'check'),
     F('inset', 'Retrait du hachurage (mm)'), F('wobble', 'Oscillation', 'select', [['none', 'aucune'], ['circle', 'cercle'], ['eight', 'huit'], ['transverse', 'transverse']]),
-    F('wobAmp', 'Amplitude (mm)'), F('wobPitch', 'Pas d\'oscillation (mm)')
+    F('wobAmp', 'Amplitude (mm)'), F('wobPitch', 'Pas d\'oscillation (mm)'), F('spot', 'Diamètre du spot laser (mm)')
   ];
   function shapeFields(s) {
     const f = [F('name', 'Nom', 'text'), F('x', 'Centre X (mm)'), F('y', 'Centre Y (mm)'), F('rot', 'Rotation (°)')];
@@ -784,8 +742,16 @@
       F('valign', 'Ancrage vertical', 'select', [['top', 'haut'], ['middle', 'milieu'], ['baseline', 'ligne de base'], ['bottom', 'bas']]),
       F('spacing', 'Interligne (× hauteur)'), F('stretch', 'Étirement horizontal'));
     if (s.type === 'path') f.push(F('dimX', 'Dim X (mm)'), F('dimY', 'Dim Y (mm)'));
-    if (s.type === 'code') f.push(F('data', 'Donnée encodée', 'text'), F('dm', 'Forme du symbole', 'select', [['square', 'carré'], ['rect', 'rectangulaire'], ['auto', 'au plus juste']]),
-      F('module', 'Module (mm)'), F('fillStep', 'Pas de remplissage (mm, 0 = hachurage de la process)'));
+    if (s.type === 'code') {
+      const k = s.kind || 'datamatrix';
+      f.push(F('kind', 'Symbologie', 'select', Codes.KINDS), F('data', k === 'ean13' ? 'Donnée encodée (12 ou 13 chiffres)' : 'Donnée encodée', 'text'));
+      if (k === 'qr') f.push(F('level', 'Correction d\'erreur', 'select', [['L', 'L – 7 %'], ['M', 'M – 15 %'], ['Q', 'Q – 25 %'], ['H', 'H – 30 %']]));
+      if (k === 'datamatrix') f.push(F('dm', 'Forme du symbole', 'select', [['square', 'carré'], ['rect', 'rectangulaire'], ['auto', 'au plus juste']]));
+      if (k === 'code39') f.push(F('checksum', 'Clé de contrôle modulo 43', 'check'));
+      f.push(F(Codes.isLinear(k) ? 'module' : 'module', Codes.isLinear(k) ? 'Module, barre la plus fine (mm)' : 'Module (mm)'));
+      if (Codes.isLinear(k)) f.push(F('barH', 'Hauteur des barres (mm)'), F('hri', 'Texte lisible sous le code', 'check'), F('hriSize', 'Hauteur du texte lisible (mm)'));
+      f.push(F('fillStep', 'Pas de remplissage (mm, 0 = hachurage de la process)'));
+    }
     f.push(F('frame', 'Cadre (gravure en négatif)', 'select', [['none', 'aucun'], ['rect', 'rectangle'], ['circle', 'cercle']]), F('frameMargin', 'Marge du cadre (mm)'),
       F('frameW', 'Largeur imposée du cadre (mm, 0 = auto)'), F('frameH', 'Hauteur imposée du cadre (mm, 0 = auto)'),
       F('offset', 'Offset du dessin (mm, + grossit, − amincit)'), F('lineWidth', 'Épaisseur de trait (mm)'), F('lineStep', 'Pas des passages (mm, 0 = hachurage)'));
@@ -829,7 +795,10 @@
   }
   function procInfo(s) {
     const el = $('td-proc-info'); if (!el) return; const r = s.p, msgs = [];
-    if (s.type === 'code') { const M = codeMatrix(s); msgs.push(M ? tr('DataMatrix {r} × {c} modules, {w} × {h} mm', { r: M.length, c: M[0].length, w: nf(M[0].length * s.module, 2), h: nf(M.length * s.module, 2) }) : codeErr[s.id]); }
+    if (s.type === 'code' && (+s.p.spot || 0.03) * 3 > (+s.module || 0)) msgs.push('⚠ ' + tr('module plus fin que 3 × le spot laser ({s} mm) : les modules risquent de se toucher, grossis le module', { s: nf(+s.p.spot || 0.03) }));
+    if (s.type === 'code') { const M = codeMatrix(s);
+      msgs.push(!M ? codeErr[s.id] : Codes.isLinear(s.kind) ? tr('{k} : {c} modules, {w} × {h} mm', { k: kindName(s), c: M[0].length, w: nf(M[0].length * s.module, 2), h: nf(s.barH, 2) })
+        : tr('{k} : {r} × {c} modules, {w} × {h} mm', { k: kindName(s), r: M.length, c: M[0].length, w: nf(M[0].length * s.module, 2), h: nf(M.length * s.module, 2) })); }
     const d = depthStep(r); if (r.passes > 1) msgs.push(tr('{n} passes, pas Z {d} mm', { n: r.passes, d: nf(d, 4) }));
     if (r.wobble !== 'none' && r.wobPitch > 0) { const hz = r.speed / 60 / r.wobPitch; msgs.push(tr('oscillation : {hz} Hz au scanner', { hz: nf(hz, 0) }) + (hz > 500 ? ' – ' + tr('au-delà de 500 Hz, réduire la vitesse ou allonger le pas') : '')); }
     if (s.lineWidth > 0) msgs.push(tr('épaisseur {w} mm en {n} passages de chaque côté', { w: nf(s.lineWidth), n: Math.floor(s.lineWidth / (s.lineStep || r.hatch || 0.05) / 2) }));
@@ -863,9 +832,11 @@
   /* ======================= job ======================= */
   const JOB_FIELDS = [F('name', 'Nom du travail', 'text'), F('plateW', 'Plaque X (mm)'), F('plateH', 'Plaque Y (mm)'), F('wcx', 'Centre du travail X (repère machine)'),
     F('wcy', 'Centre du travail Y (repère machine)'), F('fieldW', 'Champ X (mm)'), F('fieldH', 'Champ Y (mm)'), F('machineDir', 'Dossier des ISO vu par la machine', 'text'),
-    F('optimize', 'Optimiser l\'ordre des tracés', 'check'), F('group', 'Grouper les formes par process', 'check')];
+    F('optimize', 'Optimiser l\'ordre des tracés', 'check'), F('group', 'Grouper les formes par process', 'check'),
+    F('copies', 'Nombre de pièces (série)'), F('serialStart', 'Premier numéro {n}'), F('serialStep', 'Pas de numérotation')];
   function renderJobForm() {
     $('td-job-fields').innerHTML = JOB_FIELDS.map(f => input(f, doc[f.k], 'j')).join('');
+    $('td-job-fields').insertAdjacentHTML('beforeend', `<p class="wide small muted" style="flex-basis:100%;margin:0">${tr('Dossier des ISO : le CLJOB appelle ses fichiers ISO par ce chemin exact. Le job ne les trouvera que si son dossier est copié à cet endroit, sur le poste qui pilote la machine (ou si ce chemin désigne un partage réseau que la machine lit).')}</p>`);
     $('td-job-fields').querySelectorAll('[data-g]').forEach(el => el.addEventListener('change', () => {
       doc[el.dataset.k] = el.type === 'checkbox' ? el.checked : el.type === 'number' ? +el.value : el.value; commit();
     }));
@@ -875,19 +846,19 @@
     job = makeJob();
     if (!job) { $('td-job-out').innerHTML = `<p class="warn">${tr('Rien à graver : aucune forme visible.')}</p>`; return; }
     const st = jobStats(job.passes);
-    $('td-job-out').innerHTML = `<p>${tr('{n} passe(s) · gravé {l} mm · à vide {v} mm · durée estimée {d}', { n: job.passes.length, l: nf(st.L, 0), v: nf(st.T, 0), d: dur(st.D) })}</p>
-      <ul class="files">${job.files.map((f, i) => `<li><code>${esc(f.name)}</code> <small>${nf(f.text.length / 1024, 1)} ko</small> <button type="button" data-dl="${i}">${tr('Télécharger')}</button></li>`).join('')}</ul>
+    $('td-job-out').innerHTML = `<p>${tr('{n} passe(s) · gravé {l} mm · à vide {v} mm · durée estimée {d}', { n: job.passes.length, l: nf(st.L, 0), v: nf(st.T, 0), d: dur(st.D) })}${job.copies > 1 ? ' · ' + tr('série de {n} pièces (numéros {a} à {b}), durée totale {d}', { n: job.copies, a: +doc.serialStart || 1, b: (+doc.serialStart || 1) + (job.copies - 1) * (+doc.serialStep || 1), d: dur(st.D * job.copies) }) : ''}</p>
+      <ul class="files">${job.files.map((f, i) => `<li><code>${esc(f.path || f.name)}</code> <small>${nf(f.text.length / 1024, 1)} ko</small> <button type="button" data-dl="${i}">${tr('Télécharger')}</button></li>`).join('')}</ul>
       <div class="addbar"><button type="button" class="primary" id="td-zip">${tr('Télécharger le job (.zip)')}</button><button type="button" id="td-to-viewer">${tr('Voir dans le visualiseur')}</button></div>
-      <p class="muted small">${tr('Copie le dossier dans « {d} » (ou change ce chemin), puis ouvre le .CLJOB dans ClTerm. Vérifie toujours le job avant gravure.', { d: esc(doc.machineDir || '…') })}</p>`;
+      <p class="muted small">${tr('Copie le contenu du dossier du .zip dans « {d} » (ou change ce chemin), puis ouvre le .CLJOB dans ClTerm. Vérifie toujours le job avant gravure.', { d: esc(doc.machineDir || '…') })}</p>`;
     $('td-job-out').querySelectorAll('[data-dl]').forEach(b => b.onclick = () => { const f = job.files[+b.dataset.dl]; download(f.name, f.text); });
     $('td-zip').onclick = zipJob;
-    $('td-to-viewer').onclick = () => { viewerLoad(job.files.filter(f => /\.ISO$/.test(f.name)).map(f => ({ name: f.name, text: f.text }))); $('sec-td-viewer').scrollIntoView({ behavior: 'smooth' }); };
-    viewerLoad(job.files.filter(f => /\.ISO$/.test(f.name)).map(f => ({ name: f.name, text: f.text })));
+    $('td-to-viewer').onclick = () => { viewerLoad(job.files.filter(f => /\.ISO$/.test(f.name) && !f.piece).map(f => ({ name: f.name, text: f.text }))); $('sec-td-viewer').scrollIntoView({ behavior: 'smooth' }); };
+    viewerLoad(job.files.filter(f => /\.ISO$/.test(f.name) && !f.piece).map(f => ({ name: f.name, text: f.text })));
   });
   async function zipJob() {
     if (!window.JSZip) { alert(tr('Bibliothèque de compression indisponible : télécharge les fichiers un par un.')); return; }
     const z = new JSZip(), d = new Date(), p = n => String(n).padStart(2, '0'), folder = `${job.stem}_${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;
-    job.files.forEach(f => z.file(`${folder}/${f.name}`, f.text));
+    job.files.forEach(f => z.file(`${folder}/${f.path || f.name}`, f.text));
     download(folder + '.zip', await z.generateAsync({ type: 'blob' }));
   }
   const dur = s => (s < 60 ? `${nf(s, 1)} s` : `${Math.floor(s / 60)} min ${String(Math.round(s % 60)).padStart(2, '0')} s`);
@@ -962,6 +933,10 @@
   /* ======================= démarrage ======================= */
   load();
   renderJobForm(); refreshPanel();
+  // dessin reçu par lien de partage (#d=…)
+  const recu = window.Partage && Partage.lire('d');
+  if (recu) recu.then(o => { if (!o.doc || !Array.isArray(o.doc.shapes)) return; doc = Object.assign(defDoc(), o.doc); if (Array.isArray(o.procs)) procs = o.procs;
+    sel = null; clearCache(); commit(); fitView(); }).catch(e => alert(tr('Lien de partage illisible : {e}', { e: e.message })));
   const ro = new ResizeObserver(() => { if (!fitted) fitView(); redraw(); vdraw(); }); ro.observe(cv); ro.observe(vc);
   requestAnimationFrame(() => { fitView(); vdraw(); });
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { redraw(); vdraw(); });

@@ -101,3 +101,15 @@ tbody tr:hover{background:color-mix(in srgb,var(--brass) 7%,transparent)}
 div.genout{padding:0!important;min-height:0!important;height:440px;border-radius:var(--radius-s);overflow:hidden;border:1px solid var(--line)}
 .sed .CodeMirror{width:100%}
 @media (max-width:760px){div.genout{height:360px}}
+
+/* bureau : la page occupe toute la largeur de la fenêtre */
+@media (min-width:761px){
+  :root{--gutter:clamp(18px,3vw,48px)}
+  main{max-width:none!important;padding-left:var(--gutter)!important;padding-right:var(--gutter)!important}
+  .topbar{margin-left:calc(-1 * var(--gutter));margin-right:calc(-1 * var(--gutter));padding-left:var(--gutter);padding-right:var(--gutter)}
+  p,li{max-width:120ch}
+  #td-cv{height:min(72vh,860px)}
+  .side{max-height:calc(min(72vh,860px) + 40px)}
+  #cv{height:min(62vh,640px)}
+  #code{height:min(62vh,640px)}
+}
