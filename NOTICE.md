@@ -9,6 +9,11 @@ La licence MIT couvre **uniquement cette version web**. Les applications de bure
 et **TauConvert pour Windows** sont des œuvres distinctes : elles ne sont pas publiées sous licence MIT, leur code n'est pas
 dans ce dépôt, et aucun droit de les copier, modifier ou redistribuer n'est accordé ici.
 
+**TauConvert pour Windows** fait exception pour la diffusion : il est proposé en **téléchargement gratuit** (page TauConvert,
+releases GitHub), pour un usage libre. Seul le programme compilé est distribué ; son code n'est pas publié et n'est pas sous
+licence MIT. Cette version réduite ne contient que la conversion de dessins et le menu contextuel : ni gravure, ni pilotage
+de machine, ni protocole machine, ni recette ou donnée d'atelier.
+
 ## Données DATRON
 
 - `catalogue-datron.json`, `catalogue-datron.csv` et les références d'outils de `tools-demo.json` reprennent des références,
