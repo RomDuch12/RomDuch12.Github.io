@@ -76,6 +76,9 @@
     document.querySelectorAll('[data-stockage-gerer]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); Stockage.banniere(true); }));
     const T = window.t || (x => x), foot = document.querySelector('footer p:last-child');
     if (foot && !document.querySelector('[data-stockage-effacer]')) foot.insertAdjacentHTML('beforeend', ` · <button type="button" class="datawipe" data-stockage-effacer>${T('Effacer mes données enregistrées')}</button>`);
+    const GH = 'https://github.com/RomDuch12/RomDuch12.Github.io/blob/main/';
+    if (foot && !document.querySelector('.licence')) foot.parentElement.insertAdjacentHTML('beforeend',
+      `<p class="licence"><a href="${GH}LICENSE" rel="noopener">${T('Version web sous licence MIT')}</a> · <a href="${GH}NOTICE.md" rel="noopener">${T('Mentions et licences')}</a> · ${T('Données et marques DATRON : © DATRON AG')}</p>`);
     document.querySelectorAll('[data-stockage-effacer]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); Stockage.nettoyer(); }));
   });
 })();
