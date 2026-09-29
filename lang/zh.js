@@ -877,6 +877,8 @@ I18N.add('zh', {
   "Version web sous licence MIT": "网页版采用 MIT 许可证",
   "Mentions et licences": "声明与许可",
   "Données et marques DATRON : © DATRON AG": "DATRON 数据与商标：© DATRON AG",
+  "Conserver les proportions": "保持比例",
+  "Poignées carrées : le coin redimensionne en X et en Y, le bord droit en X seul, le bord bas en Y seul. La case « Conserver les proportions » les lie ; Maj au coin inverse ce choix. Dim X et Dim Y se règlent aussi dans le panneau.": "方形手柄：角点同时缩放 X 和 Y，右边只缩放 X，下边只缩放 Y。勾选“保持比例”时二者联动；在角点按住 Shift 可临时反转。也可在面板中设置尺寸 X 和尺寸 Y。",
   "RomDuch": "RomDuch",
   "Nord": "Nord",
   "Dracula": "Dracula",

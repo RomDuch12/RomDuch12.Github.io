@@ -877,6 +877,8 @@ I18N.add('es', {
   "Version web sous licence MIT": "Versión web bajo licencia MIT",
   "Mentions et licences": "Avisos y licencias",
   "Données et marques DATRON : © DATRON AG": "Datos y marcas DATRON: © DATRON AG",
+  "Conserver les proportions": "Mantener las proporciones",
+  "Poignées carrées : le coin redimensionne en X et en Y, le bord droit en X seul, le bord bas en Y seul. La case « Conserver les proportions » les lie ; Maj au coin inverse ce choix. Dim X et Dim Y se règlent aussi dans le panneau.": "Tiradores cuadrados: la esquina redimensiona en X e Y, el borde derecho solo en X, el borde inferior solo en Y. La casilla «Mantener las proporciones» los vincula; Mayús en la esquina invierte esta elección. Dim X y Dim Y también se ajustan en el panel.",
   "RomDuch": "RomDuch",
   "Nord": "Nord",
   "Dracula": "Dracula",

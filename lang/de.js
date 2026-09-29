@@ -877,6 +877,8 @@ I18N.add('de', {
   "Version web sous licence MIT": "Webversion unter MIT-Lizenz",
   "Mentions et licences": "Hinweise und Lizenzen",
   "Données et marques DATRON : © DATRON AG": "DATRON-Daten und -Marken: © DATRON AG",
+  "Conserver les proportions": "Proportionen beibehalten",
+  "Poignées carrées : le coin redimensionne en X et en Y, le bord droit en X seul, le bord bas en Y seul. La case « Conserver les proportions » les lie ; Maj au coin inverse ce choix. Dim X et Dim Y se règlent aussi dans le panneau.": "Quadratische Griffe: Die Ecke skaliert in X und Y, der rechte Rand nur in X, der untere Rand nur in Y. Das Feld „Proportionen beibehalten“ koppelt sie; Umschalt an der Ecke kehrt diese Wahl um. Maß X und Maß Y lassen sich auch im Bereich einstellen.",
   "RomDuch": "RomDuch",
   "Nord": "Nord",
   "Dracula": "Dracula",

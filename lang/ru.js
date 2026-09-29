@@ -877,6 +877,8 @@ I18N.add('ru', {
   "Version web sous licence MIT": "Веб-версия под лицензией MIT",
   "Mentions et licences": "Уведомления и лицензии",
   "Données et marques DATRON : © DATRON AG": "Данные и товарные знаки DATRON: © DATRON AG",
+  "Conserver les proportions": "Сохранять пропорции",
+  "Poignées carrées : le coin redimensionne en X et en Y, le bord droit en X seul, le bord bas en Y seul. La case « Conserver les proportions » les lie ; Maj au coin inverse ce choix. Dim X et Dim Y se règlent aussi dans le panneau.": "Квадратные маркеры: угол меняет размер по X и Y, правый край — только по X, нижний — только по Y. Флажок «Сохранять пропорции» связывает их; Shift на углу меняет этот выбор. Размеры X и Y можно задать и в панели.",
   "RomDuch": "RomDuch",
   "Nord": "Nord",
   "Dracula": "Dracula",

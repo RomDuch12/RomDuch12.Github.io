@@ -877,6 +877,8 @@ I18N.add('en', {
   "Version web sous licence MIT": "Web version under MIT licence",
   "Mentions et licences": "Notices and licences",
   "Données et marques DATRON : © DATRON AG": "DATRON data and trademarks: © DATRON AG",
+  "Conserver les proportions": "Keep proportions",
+  "Poignées carrées : le coin redimensionne en X et en Y, le bord droit en X seul, le bord bas en Y seul. La case « Conserver les proportions » les lie ; Maj au coin inverse ce choix. Dim X et Dim Y se règlent aussi dans le panneau.": "Square handles: the corner resizes in X and Y, the right edge in X only, the bottom edge in Y only. The “Keep proportions” box links them; Shift at the corner reverses this choice. Dim X and Dim Y can also be set in the panel.",
   "RomDuch": "RomDuch",
   "Nord": "Nord",
   "Dracula": "Dracula",

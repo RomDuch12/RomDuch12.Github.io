@@ -208,7 +208,7 @@
     hatch: 0, hatchAngle: 0, hatchStep: 0, cross: false, inset: 0, wobble: 'none', wobAmp: 0, wobPitch: 0, tool: 1 });
   const defDoc = () => ({ name: 'gravure', plateW: 100, plateH: 100, wcx: 50, wcy: 50, fieldW: 110, fieldH: 110, machineDir: 'C:\\inciwin\\cl_iso', optimize: true, group: false,
     copies: 1, serialStart: 1, serialStep: 1, shapes: [] });
-  const base = type => ({ id: newId(), type, name: '', x: 0, y: 0, rot: 0, visible: true, frame: 'none', frameMargin: 2, frameW: 0, frameH: 0, offset: 0, lineWidth: 0, lineStep: 0, p: Object.assign({}, lastRecipe || defRecipe()) });
+  const base = type => ({ id: newId(), type, name: '', x: 0, y: 0, rot: 0, visible: true, keepRatio: true, frame: 'none', frameMargin: 2, frameW: 0, frameH: 0, offset: 0, lineWidth: 0, lineStep: 0, p: Object.assign({}, lastRecipe || defRecipe()) });
   const MAKE = {
     rect: () => Object.assign(base('rect'), { w: 30, h: 15 }),
     ellipse: () => Object.assign(base('ellipse'), { w: 20, h: 20 }),
@@ -283,7 +283,8 @@
         loops.push(simp.map(([i, j]) => W(i, j)));
       }
     }
-    return loops;
+    const ex = +s.sx || 1;
+    return ex === 1 ? loops : loops.map(p => G.scaleXY(p, ex, 1));
   }
   function frameOf(s, contours) {
     if (!['rect', 'circle'].includes(s.frame) || !contours.length) return null;
@@ -312,7 +313,7 @@
   const CACHE = new Map();
   function clearCache() { CACHE.clear(); }
   function local(s, pass = 0) {
-    const k = JSON.stringify([(s.type === 'text' || s.type === 'code') && /\{n/.test((s.text || '') + (s.data || '')) ? SERIE : 0, s.type, s.w, s.h, s.text, s.size, s.font, s.align, s.valign, s.spacing, s.stretch, s.data, s.dm, s.kind, s.level, s.checksum, s.barH, s.hri, s.hriSize, s.module, s.fillStep, s.type === 'path' ? s.id + ':' + s.rev : 0,
+    const k = JSON.stringify([(s.type === 'text' || s.type === 'code') && /\{n/.test((s.text || '') + (s.data || '')) ? SERIE : 0, s.type, s.w, s.h, s.text, s.size, s.font, s.align, s.valign, s.spacing, s.stretch, s.data, s.dm, s.kind, s.level, s.checksum, s.barH, s.hri, s.hriSize, s.module, s.sx, s.fillStep, s.type === 'path' ? s.id + ':' + s.rev : 0,
       s.frame, s.frameMargin, s.frameW, s.frameH, s.offset, s.lineWidth, s.lineStep, s.rot, s.p, pass]);
     if (CACHE.has(k)) return CACHE.get(k);
     const c = shapeContours(s); if (c === null) return null;                // police en cours de chargement
@@ -454,10 +455,35 @@
     redraw();
   }
   const selShape = () => doc.shapes.find(s => s.id === sel) || null;
+  /* boîte de la forme dans ses propres axes (avant rotation, sans cadre ni offset), relative à son origine */
+  function localBox(s) {
+    const c = ownContours(s); if (!c || !c.length) return null;          // forme seule : ni cadre ni offset
+    return G.bounds(c);
+  }
+  const versMonde = (s, [a, b]) => { const r = (+s.rot || 0) * Math.PI / 180, c = Math.cos(r), n = Math.sin(r); return [+s.x + a * c - b * n, +s.y + a * n + b * c]; };
+  const versLocal = (s, [a, b]) => { const r = -(+s.rot || 0) * Math.PI / 180, c = Math.cos(r), n = Math.sin(r), dx = a - s.x, dy = b - s.y; return [dx * c - dy * n, dx * n + dy * c]; };
   function handles(s) {
-    const e = extent(s); if (!e) return null;
+    const e = extent(s), lb = localBox(s); if (!e || !lb) return null;
     const [x1, y1, x2, y2] = e.map((v, i) => (i % 2 ? sy(v) : sx(v)));
-    return { box: [x1, y2, x2, y1], scale: [x2, y1], rot: [(x1 + x2) / 2, y2 - 22] };
+    const S = p => { const w = versMonde(s, p); return [sx(w[0]), sy(w[1])]; }, cx = (lb[0] + lb[2]) / 2, cy = (lb[1] + lb[3]) / 2;
+    // coin : X et Y ; bord droit : X seul ; bord bas : Y seul (axes propres de la forme)
+    return { box: [x1, y2, x2, y1], lb, xy: S([lb[2], lb[1]]), x: S([lb[2], cy]), y: S([cx, lb[1]]), rot: [(x1 + x2) / 2, y2 - 22] };
+  }
+  /* applique les facteurs fx, fy (axes propres) à partir de l'état d'origine o ; le point local « fixe » ne bouge pas */
+  function resize(s, o, fx, fy, fixe) {
+    fx = Math.max(0.02, fx); fy = Math.max(0.02, fy);
+    if (s.type === 'rect' || s.type === 'ellipse') { s.w = +(o.w * fx).toFixed(3); s.h = +(o.h * fy).toFixed(3); }
+    else if (s.type === 'path') { s.polys = o.polys.map(p => G.scaleXY(p, fx, fy)); s.rev = (s.rev || 0) + 1; }
+    else if (s.type === 'text') { s.size = +(o.size * fy).toFixed(3); s.stretch = +((o.stretch || 1) * fx / fy).toFixed(4); }
+    else if (s.type === 'code') {
+      if (Codes.isLinear(s.kind)) { s.module = +(o.module * fx).toFixed(4); s.barH = +((o.barH || 8) * fy).toFixed(3); if (o.hriSize) s.hriSize = +(o.hriSize * fy).toFixed(3); }
+      else { s.module = +(o.module * fy).toFixed(4); s.sx = +((o.sx || 1) * fx / fy).toFixed(4); }
+    }
+    if (o.frameW > 0) s.frameW = +(o.frameW * fx).toFixed(3);
+    if (o.frameH > 0) s.frameH = +(o.frameH * fy).toFixed(3);
+    const avant = versMonde(o, fixe), apres = versMonde({ ...o, x: 0, y: 0 }, [fixe[0] * fx, fixe[1] * fy]);
+    s.x = +(avant[0] - apres[0]).toFixed(4); s.y = +(avant[1] - apres[1]).toFixed(4);
+    clearCache();
   }
   let raf = 0;
   function redraw() { if (!raf) raf = requestAnimationFrame(() => { raf = 0; paint(); }); }
@@ -497,7 +523,9 @@
       const h = handles(s);
       if (h) {
         const [x1, y1, x2, y2] = h.box; ctx.strokeStyle = brass; ctx.setLineDash([4, 3]); ctx.lineWidth = 1; ctx.strokeRect(x1 - 4, y1 - 4, x2 - x1 + 8, y2 - y1 + 8); ctx.setLineDash([]);
-        ctx.fillStyle = brass; ctx.strokeStyle = ink; ctx.fillRect(h.scale[0] - 1, h.scale[1] - 1, 10, 10); ctx.strokeRect(h.scale[0] - 1, h.scale[1] - 1, 10, 10); ctx.strokeStyle = brass;
+        ctx.fillStyle = brass; ctx.strokeStyle = ink;
+        [['xy', 10], ['x', 8], ['y', 8]].forEach(([k, t]) => { const [a, b] = h[k]; ctx.fillRect(a - t / 2, b - t / 2, t, t); ctx.strokeRect(a - t / 2, b - t / 2, t, t); });
+        ctx.strokeStyle = brass;
         ctx.beginPath(); ctx.moveTo((x1 + x2) / 2, y1 - 4); ctx.lineTo(h.rot[0], h.rot[1]); ctx.stroke();
         ctx.beginPath(); ctx.arc(h.rot[0], h.rot[1], 6, 0, 7); ctx.fill(); ctx.strokeStyle = ink; ctx.stroke();
       }
@@ -524,7 +552,11 @@
     const r = cv.getBoundingClientRect(), px = ev.clientX - r.left, py = ev.clientY - r.top, s = selShape(), h = s && handles(s);
     if (ev.button === 1 || ev.button === 2 || ev.altKey) { drag = { mode: 'pan', px, py, v: { ...view } }; return; }
     if (h && near([px, py], [h.rot[0], h.rot[1]])) { const e = extent(s); drag = { mode: 'rot', s, c: [(e[0] + e[2]) / 2, (e[1] + e[3]) / 2], a0: Math.atan2(wy(py) - (e[1] + e[3]) / 2, wx(px) - (e[0] + e[2]) / 2), orig: JSON.parse(JSON.stringify(s)) }; return; }
-    if (h && near([px, py], [h.scale[0] + 4, h.scale[1] + 4])) { const e = extent(s); drag = { mode: 'scale', s, anchor: [e[0], e[3]], d0: Math.hypot(wx(px) - e[0], wy(py) - e[3]), orig: JSON.parse(JSON.stringify(s)) }; return; }
+    const poignee = h && ['xy', 'x', 'y'].find(k => near([px, py], h[k], 9));
+    if (poignee) {                                         // point fixe : le côté ou le coin opposé
+      const [x1, y1, x2, y2] = h.lb, cx = (x1 + x2) / 2, cy = (y1 + y2) / 2;
+      drag = { mode: 'scale', axe: poignee, s, lb: h.lb, fixe: poignee === 'xy' ? [x1, y2] : poignee === 'x' ? [x1, cy] : [cx, y2], orig: JSON.parse(JSON.stringify(s)) }; return;
+    }
     const t = hit(px, py);
     if (t) { sel = t.id; drag = { mode: 'move', s: t, x0: wx(px), y0: wy(py), ox: +t.x, oy: +t.y, moved: false }; refreshPanel(); redraw(); }
     else { if (sel) { sel = null; refreshPanel(); } drag = { mode: 'pan', px, py, v: { ...view } }; redraw(); }
@@ -541,8 +573,12 @@
       if (!ev.shiftKey) deg = Math.round(deg / 5) * 5; deg = ((deg % 360) + 540) % 360 - 180;
       rotateAbout(drag.s, drag.orig, deg, drag.c); drag.moved = true; refreshInspectorValues();
     } else if (drag.mode === 'scale') {
-      const f = Math.max(0.02, Math.hypot(wx(px) - drag.anchor[0], wy(py) - drag.anchor[1]) / (drag.d0 || 1));
-      scaleShape(drag.s, drag.orig, f, drag.anchor); drag.moved = true; refreshInspectorValues();
+      const [x1, y1, x2, y2] = drag.lb, m = versLocal(drag.orig, [wx(px), wy(py)]);
+      let fx = drag.axe === 'y' ? 1 : (m[0] - x1) / ((x2 - x1) || 1), fy = drag.axe === 'x' ? 1 : (y2 - m[1]) / ((y2 - y1) || 1);
+      // proportions : case « Conserver les proportions », inversée par Maj au coin
+      const lie = drag.axe === 'xy' ? (drag.orig.keepRatio !== false) !== ev.shiftKey : drag.orig.keepRatio !== false;
+      if (lie) { const f = drag.axe === 'x' ? fx : drag.axe === 'y' ? fy : (fx + fy) / 2; fx = fy = f; }
+      resize(drag.s, drag.orig, fx, fy, drag.fixe); drag.moved = true; refreshInspectorValues();
     }
     redraw();
   });
@@ -556,14 +592,6 @@
   function rotateAbout(s, o, deg, c) {
     const d = (deg - (o.rot || 0)) * Math.PI / 180, cs = Math.cos(d), sn = Math.sin(d), dx = o.x - c[0], dy = o.y - c[1];
     s.rot = +deg.toFixed(3); s.x = +(c[0] + dx * cs - dy * sn).toFixed(4); s.y = +(c[1] + dx * sn + dy * cs).toFixed(4);
-  }
-  function scaleShape(s, o, f, anchor) {
-    if (s.type === 'rect' || s.type === 'ellipse') { s.w = +(o.w * f).toFixed(3); s.h = +(o.h * f).toFixed(3); }
-    else if (s.type === 'text') s.size = +(o.size * f).toFixed(3);
-    else if (s.type === 'code') { s.module = +(o.module * f).toFixed(4); if (o.barH) s.barH = +(o.barH * f).toFixed(3); }
-    else if (s.type === 'path') { s.polys = o.polys.map(p => G.scaleXY(p, f, f)); s.rev = (s.rev || 0) + 1; }
-    s.x = +(anchor[0] + (o.x - anchor[0]) * f).toFixed(4); s.y = +(anchor[1] + (o.y - anchor[1]) * f).toFixed(4);
-    clearCache();
   }
   cv.addEventListener('keydown', ev => {
     const s = selShape(), k = ev.key, step = ev.shiftKey ? 1 : 0.1;
@@ -735,13 +763,12 @@
   ];
   function shapeFields(s) {
     const f = [F('name', 'Nom', 'text'), F('x', 'Centre X (mm)'), F('y', 'Centre Y (mm)'), F('rot', 'Rotation (°)')];
-    if (s.type === 'rect' || s.type === 'ellipse') f.push(F('w', 'Largeur (mm)'), F('h', 'Hauteur (mm)'));
+    f.push(F('dimX', 'Dim X (mm)'), F('dimY', 'Dim Y (mm)'), F('keepRatio', 'Conserver les proportions', 'check'));
     if (s.type === 'text') f.push(F('text', 'Texte', 'textarea'), F('size', 'Hauteur des capitales (mm)'),
       F('font', 'Police', 'select', FONTS.map(x => [x.id, x.nom]).concat(userFont ? [['user', userFontName]] : [])),
       F('align', 'Alignement', 'select', [['left', 'gauche'], ['center', 'centré'], ['right', 'droite']]),
       F('valign', 'Ancrage vertical', 'select', [['top', 'haut'], ['middle', 'milieu'], ['baseline', 'ligne de base'], ['bottom', 'bas']]),
       F('spacing', 'Interligne (× hauteur)'), F('stretch', 'Étirement horizontal'));
-    if (s.type === 'path') f.push(F('dimX', 'Dim X (mm)'), F('dimY', 'Dim Y (mm)'));
     if (s.type === 'code') {
       const k = s.kind || 'datamatrix';
       f.push(F('kind', 'Symbologie', 'select', Codes.KINDS), F('data', k === 'ean13' ? 'Donnée encodée (12 ou 13 chiffres)' : 'Donnée encodée', 'text'));
@@ -765,7 +792,8 @@
     return `<label${f.type === 'text' ? ' class="wide"' : ''}>${lab}<input id="${id}" data-g="${grp}" data-k="${f.k}" type="${f.type}"${f.type === 'number' ? ' step="any"' : ''} value="${esc(v ?? '')}"></label>`;
   }
   const valOf = (s, k) => {
-    if (k === 'dimX' || k === 'dimY') { const e = extent(s); return e ? +(k === 'dimX' ? e[2] - e[0] : e[3] - e[1]).toFixed(3) : 0; }
+    if (k === 'dimX' || k === 'dimY') { const b = localBox(s); return b ? +(k === 'dimX' ? b[2] - b[0] : b[3] - b[1]).toFixed(3) : 0; }
+    if (k === 'keepRatio') return s.keepRatio !== false;
     return s[k];
   };
   const rvalOf = (r, k) => (k === 'speedM' ? +(r.speed / 1000).toFixed(4) : r[k]);
@@ -809,9 +837,12 @@
     let v = el.type === 'checkbox' ? el.checked : el.type === 'number' ? (el.value === '' ? null : +el.value) : el.value;
     if (v === null) return;
     if (g === 'r') { if (k === 'speedM') s.p.speed = v * 1000; else if (['passes', 'tool'].includes(k)) s.p[k] = Math.max(k === 'passes' ? 1 : 0, Math.round(v)); else s.p[k] = v; lastRecipe = s.p; }
-    else if (k === 'dimX' || k === 'dimY') {
-      const e = extent(s); if (!e || !(v > 0)) return; const cur = k === 'dimX' ? e[2] - e[0] : e[3] - e[1]; const f = v / cur;
-      s.polys = s.polys.map(p => G.scaleXY(p, f, f)); s.rev = (s.rev || 0) + 1;
+    else if (k === 'dimX' || k === 'dimY') {                // cote imposée, centre fixe, proportions selon la case
+      const b = localBox(s); if (!b || !(v > 0)) return;
+      const f = v / ((k === 'dimX' ? b[2] - b[0] : b[3] - b[1]) || 1), lie = s.keepRatio !== false;
+      const o = JSON.parse(JSON.stringify(s));
+      resize(s, o, k === 'dimX' || lie ? f : 1, k === 'dimY' || lie ? f : 1, [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2]);
+      if (live) refreshInspectorValues(el);
     } else s[k] = v;
     clearCache();
     if (live) { save(); redraw(); refreshInspectorValues(el); refreshList(); procInfo(s); if (!liveT) liveT = setTimeout(() => { liveT = 0; undo.push(lastSnap); redo = []; lastSnap = snap(); }, 600); }
