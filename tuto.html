@@ -51,7 +51,7 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     <li><a href="#t-neo" data-icon="cpu" data-i18n>NeoDrive en 5 minutes</a></li><li><a href="#t-edit" data-icon="code" data-i18n>Éditeur SimPL</a></li>
     <li><a href="#t-outils" data-icon="wrench" data-i18n>Outils et coupe</a></li><li><a href="#t-tau" data-icon="zap" data-i18n>TauDrive</a></li>
     <li><a href="#t-coupon" data-icon="grid-3x3" data-i18n>Coupon d'essai</a></li><li><a href="#t-job" data-icon="file-cog" data-i18n>Job laser</a></li>
-    <li><a href="#t-conv" data-icon="repeat-2" data-i18n>TauConvert</a></li><li><a href="#t-data" data-icon="database" data-i18n>Tes données</a></li>
+    <li><a href="#t-3d" data-icon="box" data-i18n>Plans d'outils, 3D et STEP</a></li><li><a href="#t-conv" data-icon="repeat-2" data-i18n>TauConvert</a></li><li><a href="#t-data" data-icon="database" data-i18n>Tes données</a></li>
   </ul>
 </header>
 
@@ -120,6 +120,14 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
   </ol>
   <p class="note" data-i18n>Pour une série, indique le nombre de pièces, le premier numéro et le pas : chaque pièce reçoit son jeu ISO + CLJOB dans son sous-dossier, et le champ {n} d'un texte ou d'un code prend son numéro ({n:04} pour 4 chiffres avec des zéros).</p>
   <p class="note" data-i18n>TauDrive web n'envoie rien à la machine : il écrit des fichiers. Vérifie toujours le job avant gravure.</p>
+</section>
+
+<section id="t-3d">
+  <h2 data-icon="box" data-i18n>Plans d'outils, vue 3D et STEP</h2>
+  <p data-i18n>Dans l'<a href="outils.html">éditeur d'outils</a>, <b>Plan et 3D</b> ouvre la fiche d'un outil de ta bibliothèque ou d'une référence du catalogue : ses cotes (D1, D2, D3, L1, L2, L3, angle, rayon), le plan coté, outil debout et pointe en bas, et le solide de révolution, partie coupante en or. Les champs vides sont complétés par le catalogue DATRON, puis le nom de l'outil (« Cyl 3 z1L10 », « Con 30° 0.1 »). Chaque modification redessine la fiche.</p>
+  <p data-i18n>Télécharge le plan en <b>DXF</b> (calques CONTOUR, COUPE, AXE, COTES, TEXTE et le demi-profil PROFIL pour une FAO), le solide en <b>STEP</b> AP214 (plans, cylindres et cônes exacts) ou le plan en SVG. « Dessins DXF + STEP (zip) » dessine toute la bibliothèque d'un coup.</p>
+  <p data-i18n>Dans le <a href="neodrive.html#sec-viewer">visualiseur</a>, coche <b>Vue 3D</b> : la trajectoire suit le curseur d'avancement, l'outil est dessiné d'après sa fiche et « Matière enlevée » creuse le brut selon la forme de l'outil (plate, boule, cône). <b>Pièce STEP…</b> superpose ta pièce, dessus en Z0 et centrée sur l'origine si la case est cochée ; un clic sur une face la surligne et donne son orientation et sa cote.</p>
+  <p data-i18n>Un fichier STEP peut aussi être importé comme dessin dans TauConvert, TauDrive et le tracé DXF du générateur : le contour de chaque face plane horizontale tournée vers le haut devient un tracé, sur un calque par cote Z (vue de dessus de ce qu'une fraiseuse usine). Le lecteur STEP (OpenCascade) se charge au premier usage.</p>
 </section>
 
 <section id="t-conv">

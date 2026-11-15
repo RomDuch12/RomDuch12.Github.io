@@ -36,7 +36,7 @@
     trace: {
       label: 'Tracé (DXF, rectangle, cercle, segment)', tool: 'gravure', prefix: 'Trace', trace: true,
       fields: [P('source', 'Source du tracé', 'select', 'DXF', ['DXF', 'Rectangle', 'Cercle', 'Segment']),
-        P('lib', 'DXF enregistré', 'dxflib', '', null, src('DXF')), P('file', 'Importer un dessin (DXF, SVG, PDF, AI, EPS)', 'file', '', null, src('DXF')),
+        P('lib', 'DXF enregistré', 'dxflib', '', null, src('DXF')), P('file', 'Importer un dessin (DXF, SVG, PDF, AI, EPS, STEP)', 'file', '', null, src('DXF')),
         P('scale', 'Échelle', 'number', 1, null, src('DXF')), P('center', 'Centrer le dessin', 'select', 'oui', ['oui', 'non'], src('DXF')),
         P('offX', 'Décalage X (mm)', 'number', 0, null, src('DXF')), P('offY', 'Décalage Y (mm)', 'number', 0, null, src('DXF')),
         P('cx', 'Centre X', 'number', 0, null, src('Rectangle', 'Cercle')), P('cy', 'Centre Y', 'number', 0, null, src('Rectangle', 'Cercle')),
@@ -508,7 +508,7 @@
     const val = o[f.k];
     if (f.type === 'select') return `<label>${esc(tr(f.label))}<select data-k="${f.k}" id="${id}">${f.opts.map(v => `<option value="${esc(v)}"${v === val ? ' selected' : ''}>${esc(tr(v))}</option>`).join('')}</select></label>`;
     if (f.type === 'points') return `<label class="wide">${esc(tr(f.label))}<textarea data-k="${f.k}" id="${id}" spellcheck="false">${esc(val)}</textarea></label>`;
-    if (f.type === 'file') return `<label class="wide">${esc(tr(f.label))}${ST() ? ` <small>(${tr('enregistré dans vos DXF')})</small>` : ''}<input type="file" data-k="${f.k}" id="${id}" accept=".dxf,.svg,.pdf,.ai,.eps,.ps"></label>`;
+    if (f.type === 'file') return `<label class="wide">${esc(tr(f.label))}${ST() ? ` <small>(${tr('enregistré dans vos DXF')})</small>` : ''}<input type="file" data-k="${f.k}" id="${id}" accept=".dxf,.svg,.pdf,.ai,.eps,.ps,.step,.stp"></label>`;
     if (f.type === 'dxflib') {
       const lib = ST() ? ST().get('dxf', []) : [];
       if (!lib.length) return '';

@@ -38,6 +38,11 @@ de machine, ni protocole machine, ni recette ou donnée d'atelier.
 | [opentype.js](https://opentype.js.org/) | vectorisation des textes | MIT |
 | [JSZip](https://stuk.github.io/jszip/) | téléchargement des jobs en .zip | MIT ou GPLv3 (au choix) |
 | [Lucide](https://lucide.dev/) | icônes | ISC |
+| [three.js](https://threejs.org/) 0.160 | vues 3D (fiche outil, visualiseur) | MIT |
+| [occt-import-js](https://github.com/kovacsv/occt-import-js) 0.0.23, avec [Open CASCADE Technology](https://dev.opencascade.org/) | lecture des fichiers STEP (WebAssembly, chargé au premier usage, non modifié) | LGPL-2.1 (occt-import-js) ; LGPL-2.1 avec exception (OCCT) |
+
+Ces bibliothèques sont chargées telles quelles depuis leur CDN, sans modification ; elles restent sous leur propre licence,
+que l'utilisateur peut remplacer par une autre version en changeant l'adresse dans `vue3d.js` ou `vecteurs.js`.
 
 ## Polices
 

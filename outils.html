@@ -59,6 +59,19 @@ table.cat button{padding:2px 9px;font-size:13px}
 .bar label select{min-width:0;max-width:100%;width:auto}
 #p-mat{width:22em;max-width:100%}
 footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
+dialog.fiche{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;width:min(1180px,calc(100vw - 24px));max-width:none;max-height:calc(100vh - 24px);overflow:auto;padding:14px 16px}
+dialog.fiche::backdrop{background:rgba(0,0,0,.5)}
+.fhead{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin-bottom:10px}.fhead h3{flex:1 1 260px;margin:0}.fhead small{color:var(--mute);font-weight:400}
+.fgrid{display:grid;grid-template-columns:minmax(240px,320px) 1fr 1fr;gap:12px}
+@media (max-width:980px){.fgrid{grid-template-columns:1fr 1fr}.fgrid .fspec{grid-column:1/-1}}
+@media (max-width:640px){.fgrid{grid-template-columns:1fr}}
+.fgrid>*{min-width:0}
+.fspec table{border-collapse:collapse;width:100%;font-size:14px}.fspec td{padding:3px 6px;border-bottom:1px solid var(--line)}.fspec td.n{text-align:right;font-family:"JetBrains Mono",monospace}
+.fspec .fields{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));margin-top:10px}
+.fplan,.f3d{background:var(--bg);border:1px solid var(--line);border-radius:6px;min-height:340px;height:min(62vh,560px);position:relative;overflow:hidden}
+.fplan svg{width:100%;height:100%;display:block;color:var(--ink)}
+.f3d .hint{position:absolute;left:8px;bottom:6px;font-size:12px;color:var(--mute);pointer-events:none}
+.fcap{font-size:13px;color:var(--mute);margin:4px 0 0}
 </style>
 <link rel="stylesheet" href="site.css">
 <link rel="manifest" href="manifest.webmanifest">
@@ -111,6 +124,17 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 </div>
 <div id="list"></div>
 
+<dialog id="fiche" class="fiche" aria-labelledby="f-titre">
+  <div class="fhead"><h3 id="f-titre"></h3>
+    <button type="button" id="f-dxf" data-dl>DXF</button><button type="button" id="f-step" data-dl>STEP</button><button type="button" id="f-svg" data-dl>SVG</button>
+    <button type="button" id="f-close" data-i18n>Fermer</button></div>
+  <div class="fgrid">
+    <div class="fspec"><table id="f-cotes"></table><div class="fields" id="f-edit"></div><p class="fcap" id="f-src"></p></div>
+    <div><div class="fplan" id="f-plan"></div><p class="fcap" data-i18n>Plan coté : outil debout, pointe en bas, partie coupante en or. Le DXF ajoute le demi-profil de révolution (calque PROFIL, éteint) pour une FAO.</p></div>
+    <div><div class="f3d" id="f-3d"><span class="hint" data-i18n>Glisser : tourner · clic droit : déplacer · molette : zoom · double-clic : vue iso</span></div><p class="fcap" data-i18n>Solide de révolution exact (STEP AP214 : plans, cylindres, cônes).</p></div>
+  </div>
+</dialog>
+
 <footer><p data-i18n>Vc = π·D·n / 1000 ; fz = avance / (n · dents). Vérifiez toujours les valeurs en simulation avant usinage.</p>
 <p><a href="index.html" data-i18n>Accueil</a> · <a href="neodrive.html">NeoDrive</a> · <a href="taudrive.html">TauDrive</a> · <a href="coupe.html" data-i18n>Données de coupe</a> · <a href="cv.html">RomDuch</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
 </main>
@@ -118,6 +142,9 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <script src="stockage.js" defer></script>
 <script src="outils-format.js" defer></script>
 <script src="coupe.js" defer></script>
+<script src="dessin-outil.js" defer></script>
+<script src="vue3d.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {   // après stockage.js et coupe.js (chargés en différé)
   'use strict';
@@ -146,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
     B.push(`<button type="button" data-l="demo">${t('Set de démarrage (démo)')}</button>`);
     if (n) B.push(`<button type="button" data-l="exp">${t('Exporter tools.json')}</button>`);
     if (n) B.push(`<button type="button" data-l="expb">${t('Exporter au format NeoDrive bureau')}</button>`);
+    if (n) B.push(`<button type="button" data-l="dessins">${t('Dessins DXF + STEP (zip)')}</button>`);
     if (ST()) {
       B.push(`<button type="button" class="primary" data-l="save"${dirty ? '' : ' disabled'}>${dirty ? t('Enregistrer les modifications') : t('Enregistré dans ce navigateur')}</button>`);
       if (dirty) B.push(`<button type="button" data-l="undo">${t('Annuler les modifications')}</button>`);
@@ -164,6 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
   }
   const ACTIONS = {
     imp: () => $('f-imp').click(),
+    dessins: () => zipDessins(),
     demo: () => {
       if (lib.tools.length && !confirm(t('Remplacer la bibliothèque affichée par le set de démarrage ({n} outils) ?', { n: 23 }))) return;
       fetch('tools-demo.json', { cache: 'no-cache' }).then(r => r.json()).then(j => { setLib(j, t('set de démarrage')); setDirty(true); })
@@ -239,6 +268,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
       box.className = 'box tool';
       const al = alerts(o);
       box.innerHTML = `<div class="thead"><h3>${esc(o.name || t('(sans nom)'))} <small>${esc(TYPES[o.type] || o.type || '')} · ${esc(o.articleNr || '—')}</small></h3>
+        <button type="button" data-a="fiche">${t('Plan et 3D')}</button>
         ${o.articleNr ? `<button type="button" data-a="shop">${t('Fiche webshop')}</button>` : ''}
         <button type="button" data-a="fold" aria-expanded="${!o._fold}">${o._fold ? t('Afficher') : t('Masquer')}</button>
         ${o.type === 'fraise' ? `<button type="button" data-a="prop">${t('Proposer (DATRON)')}</button>` : ''}
@@ -272,6 +302,7 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
       box.querySelector('[data-a=dup]').onclick = () => { const c = JSON.parse(JSON.stringify(o)); c.id = uid(o.id + '_copie'); c.name = `${o.name} (${t('copie')})`; delete c._fold;
         lib.tools.splice(i + 1, 0, c); setDirty(true); render(); };
       box.querySelector('[data-a=del]').onclick = () => { if (confirm(t('Supprimer « {n} » ?', { n: o.name }))) { lib.tools.splice(i, 1); setDirty(true); render(); } };
+      box.querySelector('[data-a=fiche]').onclick = () => ouvrirFiche(o, catDe(o), true);
       const sh = box.querySelector('[data-a=shop]'); if (sh) sh.onclick = () => window.open(SHOP(o.articleNr), '_blank', 'noopener');
       list.append(box);
     });
@@ -397,9 +428,10 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
       ${cols.map(c => `<td class="n">${c[0] === 'angle' && x.angle ? x.angle + '°' : c[0] === 'filetage' ? esc(x.filetage || '') : c[0] === 'categorie' ? esc(t(CATS[x.categorie] || x.categorie)) : nf(x[c[0]])}</td>`).join('')}
       <td class="n">${x.prix_eur !== undefined ? I18N.fmt(x.prix_eur, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : ''}</td>
       ${cat === 'fraise' || cat === 'tous' ? `<td class="n">${rpmPropose(x)}</td>` : ''}
-      <td><button type="button" data-ref="${esc(x.ref)}">${t('Ajouter')}</button> <a href="${SHOP(x.ref)}" target="_blank" rel="noopener" title="${esc(t('Fiche sur le webshop DATRON'))}">${t('fiche')}</a></td></tr>`).join('');
+      <td><button type="button" data-ref="${esc(x.ref)}">${t('Ajouter')}</button> <button type="button" data-dessin="${esc(x.ref)}" title="${esc(t('Plan coté, solide 3D, DXF et STEP'))}">${t('Plan et 3D')}</button> <a href="${SHOP(x.ref)}" target="_blank" rel="noopener" title="${esc(t('Fiche sur le webshop DATRON'))}">${t('fiche')}</a></td></tr>`).join('');
     $('st-cat').textContent = res.length ? t('{n} outil(s)', { n: res.length }) + (res.length > max ? ` – ${t('{m} premiers affichés, affinez les filtres', { m: max })}` : '') + '.' : t('Aucun outil ne correspond.');
     $('cat-table').querySelectorAll('[data-ref]').forEach(bt => bt.onclick = () => ajouter(bt.dataset.ref));
+    $('cat-table').querySelectorAll('[data-dessin]').forEach(bt => bt.onclick = () => { const x = CAT.find(c => c.ref === bt.dataset.dessin); if (x) ouvrirFiche(outilDe(x), x, false); });
   }
   const nomOutil = x => {
     const f = t(x.famille);
@@ -416,9 +448,8 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
       default: return `${f} ${x.ref}`;
     }
   };
-  function ajouter(ref) {
-    const x = CAT.find(c => c.ref === ref); if (!x) return;
-    const o = { id: lib.tools.some(v => v.id === ref) ? uid(ref) : ref, name: nomOutil(x), type: TYPE_DE[x.categorie] || 'fraise', articleNr: ref, vendor: 'DATRON',
+  function outilDe(x) {
+    const o = { name: nomOutil(x), type: TYPE_DE[x.categorie] || 'fraise', articleNr: x.ref, vendor: 'DATRON',
       diameter: x.categorie === 'conique' && x.famille.startsWith('Pointe') ? x.D2 : (x.categorie === 'chanfrein' ? dMax(x) : x.D1),
       fluteLength: x.L2, flutes: x.dents || undefined, tipAngle: x.angle || 0, feeds: {} };
     if (x.categorie === 'conique') o.tipDiameter = x.D1;
@@ -426,6 +457,11 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
     if (x.categorie === 'filetage') { o.thread = x.filetage; if (x.pas) o.pitch = x.pas; }
     if (x.prix_eur !== undefined) o.prix_eur = x.prix_eur;
     Object.keys(o).forEach(k => o[k] === undefined && delete o[k]);
+    return o;
+  }
+  function ajouter(ref) {
+    const x = CAT.find(c => c.ref === ref); if (!x) return;
+    const o = { id: lib.tools.some(v => v.id === ref) ? uid(ref) : ref, ...outilDe(x) };
     lib.tools.unshift(o);
     const prop = o.type === 'fraise' && (o.flutes || 1) === 1 ? appliquer(o) : null;
     setDirty(true); render();
@@ -436,6 +472,67 @@ document.addEventListener('DOMContentLoaded', function () {   // après stockage
   $('f-search').onsubmit = e => { e.preventDefault(); filtrer(); };
   $('q').addEventListener('input', filtrer);
   $('b-reset').onclick = () => { Object.keys(FV).forEach(k => delete FV[k]); QF.d = QF.z = null; $('q').value = ''; renderFacets(); filtrer(); };
+
+  /* =================== fiche outil : plan coté, solide 3D, DXF / STEP (comme la fiche de NeoDrive bureau) =================== */
+  const catDe = o => (o && o.articleNr && CAT.find(c => c.ref === o.articleNr)) || null;
+  const FAM_LBL = { fraise: t('Fraise'), surfacage: t('Surfaçage'), torique: t('Fraise torique'), boule: t('Fraise boule'), foret: t('Foret'), conique: t('Conique (gravure, rainure en V)'),
+    chanfrein: t('Chanfrein / lamage'), rayon: t('Rayon extérieur (fraise à rayonner)'), filetage: t('Filetage (fraise à fileter)'), tslot: t('Fraise en T') };
+  const SRC_TR = s => String(s || '').split(' + ').map(x => x.replace("fiche de l'outil", t("fiche de l'outil")).replace('catalogue DATRON', t('catalogue DATRON'))
+    .replace("nom de l'outil", t("nom de l'outil")).replace("valeurs d'atelier par défaut", t("valeurs d'atelier par défaut"))).join(' + ');
+  const GEO = [['diameter', t('Ø de coupe (mm)')], ['fluteLength', t('Longueur de coupe (mm)')], ['tipAngle', t('Angle de pointe (°)')], ['tipDiameter', t('Ø de pointe (mm)')],
+    ['radius', t('Rayon (mm)')], ['flutes', t('Dents')], ['shankDiameter', t('Ø de queue (mm)')], ['overallLength', t('Longueur totale (mm)')],
+    ['neckDiameter', t('Ø de dégagement (mm)')], ['neckLength', t('Longueur utile (mm)')]];
+  let FO = null, vue = null, vueP = null, minuteur = 0;
+  function telecharger(nom, contenu, type) {
+    const a = document.createElement('a'); a.download = nom;
+    a.href = URL.createObjectURL(contenu instanceof Blob ? contenu : new Blob([contenu], { type }));
+    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  }
+  function ouvrirFiche(o, e, editable) {
+    FO = { o, e, editable, cadre: false };
+    $('f-edit').innerHTML = editable ? GEO.map(([k, l]) => `<label>${esc(l)}<input type="number" step="any" min="0" data-g="${k}" value="${esc(o[k] ?? '')}" inputmode="decimal"></label>`).join('') : '';
+    $('f-edit').querySelectorAll('[data-g]').forEach(inp => inp.addEventListener('input', () => {
+      const k = inp.dataset.g; if (inp.value === '') delete o[k]; else o[k] = Number(inp.value);
+      setDirty(true); clearTimeout(minuteur); minuteur = setTimeout(dessinerFiche, 250);           // redessin 250 ms après la saisie
+    }));
+    $('fiche').showModal(); dessinerFiche();
+  }
+  function dessinerFiche() {
+    const { o, e } = FO, d = FO.d = DessinOutil.dessiner(o, e), c = d.cotes;
+    $('f-titre').innerHTML = `${esc(o.name || d.reference)} <small>${esc(FAM_LBL[c.famille] || c.famille)} · ${esc(d.reference || '—')}</small>`;
+    const L = (k, v, u = 'mm') => v ? `<tr><td>${esc(k)}</td><td class="n">${nf(v)} ${u}</td></tr>` : '';
+    $('f-cotes').innerHTML = L(c.famille === 'conique' && c.gravure ? t('Ø de pointe D1') : t('Ø de coupe D1'), c.D1) + L(t('Ø de queue D2'), c.D2) + L(t('Ø de dégagement D3'), c.D3)
+      + L(t('Longueur totale L1'), c.L1) + L(t('Longueur de coupe L2'), c.L2) + L(t('Longueur utile L3'), c.L3) + L(t('Angle'), c.angle, '°') + L(t('Rayon R'), c.R)
+      + L(t('Troncature'), c.pointe) + (c.dents ? `<tr><td>${t('Dents')}</td><td class="n">${c.dents}</td></tr>` : '') + L(t('Pas'), c.pas)
+      + `<tr><td>${t('Partie coupante')}</td><td class="n">${nf(+d.profil.zCoupe.toFixed(3))} mm</td></tr>`;
+    $('f-src').textContent = `${t('Cotes')} : ${SRC_TR(c.source)}.` + (FO.editable ? ' ' + t("Les champs vides sont complétés par le catalogue DATRON (même référence), puis le nom de l'outil, puis des valeurs d'atelier courantes.") : '');
+    $('f-plan').innerHTML = d.svg();
+    if (!window.Vue3D) return;
+    const poser = v => {
+      v.vider(); const g = Vue3D.outil(v.T, d.profil.points, d.profil.zCoupe); v.racine.add(g);
+      v.cadrer(new v.T.Box3().setFromObject(g), !FO.cadre); FO.cadre = true;
+    };
+    if (vue) poser(vue);
+    else (vueP = vueP || Vue3D.creer($('f-3d'))).then(v => { vue = v; poser(v); })
+      .catch(err => { vueP = null; $('f-3d').insertAdjacentHTML('afterbegin', `<p class="status" style="padding:10px">${esc(err.message)}</p>`); });
+  }
+  const nomF = () => DessinOutil.nomFichier(FO.o, FO.e);
+  $('f-dxf').onclick = () => telecharger(nomF() + '.dxf', FO.d.dxf(), 'application/dxf');
+  $('f-step').onclick = () => telecharger(nomF() + '.step', FO.d.step(), 'application/step');
+  $('f-svg').onclick = () => telecharger(nomF() + '.svg', FO.d.svg().replace(/currentColor/g, '#222'), 'image/svg+xml');
+  $('f-close').onclick = () => $('fiche').close();
+  $('fiche').addEventListener('close', () => { if (FO && FO.editable) render(); });
+  async function zipDessins() {
+    if (!window.JSZip) { status(t('Bibliothèque de compression indisponible : télécharge les fichiers un par un.')); return; }
+    const z = new JSZip(), dos = z.folder('outils'), vus = new Set();
+    lib.tools.forEach(o => {
+      const d = DessinOutil.dessiner(o, catDe(o)); let n = DessinOutil.nomFichier(o, null), k = 1;
+      while (vus.has(n)) n = `${DessinOutil.nomFichier(o, null)}_${++k}`; vus.add(n);
+      dos.file(n + '.dxf', d.dxf()); dos.file(n + '.step', d.step());
+    });
+    telecharger('dessins-outils.zip', await z.generateAsync({ type: 'blob', compression: 'DEFLATE' }));
+    status(t('{n} outil(s) dessiné(s) : DXF + STEP dans dessins-outils.zip.', { n: lib.tools.length }));
+  }
 
   /* =================== données de coupe DATRON =================== */
   $('p-broche').innerHTML = C.BROCHES.map(b => `<option${b === '2 kW neo' ? ' selected' : ''}>${b}</option>`).join('');

@@ -92,6 +92,11 @@ h2{font:700 1.8rem/1.1 "Barlow Condensed",sans-serif;margin:44px 0 14px}
 canvas{width:100%;height:420px;display:block;background:var(--bg)}
 @media (max-width:760px){canvas{height:320px}}
 #code{border-left:1px solid var(--line);height:420px;min-width:0}
+#cv[hidden]{display:none}.cvwrap{position:relative;min-width:0}#cv3d{height:420px;background:var(--bg);position:relative}
+#cv3d .hint{position:absolute;left:8px;bottom:6px;font-size:12px;color:var(--mute);pointer-events:none;z-index:1}
+@media (max-width:760px){#cv3d{height:320px}}
+@media (min-width:761px){#cv3d{height:min(62vh,640px)}}
+#v3d-info{color:var(--ink)}
 @media (max-width:760px){#code{height:360px;border-left:0;border-top:1px solid var(--line)}}
 .vid.only-desktop,.vid.only-mobile{max-width:none}
 @media (max-width:760px){.only-desktop{display:none!important}.vid.vertical{max-width:420px;margin:0 auto}}
@@ -163,11 +168,16 @@ footer a{color:var(--mute)}
       <button class="primary" id="play" data-i18n>Lire</button>
       <input type="range" id="pos" min="0" max="1000" value="1000" aria-label="Avancement" data-i18n-attr="aria-label">
       <label class="chk"><input type="checkbox" id="matiere"> <span data-i18n>Matière enlevée</span></label>
+      <label class="chk"><input type="checkbox" id="v3d"> <span data-i18n>Vue 3D</span></label>
+      <span id="v3d-bar" hidden><label><button id="v3d-step" type="button" data-i18n>Pièce STEP…</button><input type="file" id="v3d-file" accept=".step,.stp,.STEP,.STP" hidden></label>
+        <label class="chk"><input type="checkbox" id="v3d-recal" checked> <span data-i18n>Dessus en Z0, centre en X0 Y0</span></label>
+        <label class="chk" id="v3d-vis-l" hidden><input type="checkbox" id="v3d-vis" checked> <span data-i18n>Pièce</span></label>
+        <button id="v3d-cadrer" type="button" data-i18n>Vue iso</button></span>
       <select id="speed" aria-label="Vitesse" data-i18n-attr="aria-label"><option value="0.5">×0,5</option><option value="1" selected>×1</option><option value="3">×3</option></select>
       <label><button id="load" type="button" data-i18n>Ouvrir un fichier…</button><input type="file" id="file" accept=".simpl,.txt,.nc,.mcr,*/*" hidden></label>
     </div>
-    <div class="vbody"><canvas id="cv"></canvas><div id="code" aria-label="Code du programme" data-i18n-attr="aria-label"></div></div>
-    <div class="info"><span class="leg"><i style="background:var(--brass)"></i><span data-i18n>Usinage (Z ≤ 0)</span></span><span class="leg"><i style="background:var(--rapid)"></i><span data-i18n>Hors matière</span></span><span id="stats"></span></div>
+    <div class="vbody"><div class="cvwrap"><canvas id="cv"></canvas><div id="cv3d" hidden><span class="hint" data-i18n>Glisser : tourner · clic droit : déplacer · molette : zoom · double-clic : vue iso · clic sur la pièce : face</span></div></div><div id="code" aria-label="Code du programme" data-i18n-attr="aria-label"></div></div>
+    <div class="info"><span class="leg"><i style="background:var(--brass)"></i><span data-i18n>Usinage (Z ≤ 0)</span></span><span class="leg"><i style="background:var(--rapid)"></i><span data-i18n>Hors matière</span></span><span id="stats"></span><span id="v3d-info"></span></div>
   </div>
 </section>
 
@@ -217,6 +227,7 @@ function build(src){
 function load(src){ build(src); pendingSrc=src; if(ed) ed.setValue(src); curLine=-1; prog01=1; $('pos').value=1000; stop(); draw(); }
 function fit(){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1; cv.width=r.width*d; cv.height=r.height*d; ctx.setTransform(d,0,0,d,0,0); return r;}
 function draw(){
+  if(mode3d){ draw3d(); return; }
   const r=fit(); ctx.clearRect(0,0,r.width,r.height); if(!prog||!prog.pts.length) return;
   const xs=prog.pts.map(p=>p.x), ys=prog.pts.map(p=>p.y);
   const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
@@ -251,6 +262,30 @@ function draw(){
   ctx.fillText(`X ${tool.x.toFixed(2)}  Y ${tool.y.toFixed(2)}  Z ${tool.z.toFixed(2)}`,10,r.height-10);
   if(line!==curLine){ if(ed) ed.mark(line, playing); curLine=line; }
 }
+let mode3d=false;
+function draw3d(){
+  if(!prog||!window.Neo3D) return;
+  const lim=prog01*total; let pt=prog.pts[0]||{x:0,y:0,z:0}, line=pt.line;
+  for(const s of segs){ if(s.s>=lim) break; const f=Math.min(1,(lim-s.s)/s.L); pt={x:s.a.x+(s.b.x-s.a.x)*f,y:s.a.y+(s.b.y-s.a.y)*f,z:s.a.z+(s.b.z-s.a.z)*f}; line=s.b.line; }
+  Neo3D.maj({prog,segs,lim,matiere:$('matiere').checked,playing});
+  $('v3d-info').textContent=`  X ${pt.x.toFixed(2)}  Y ${pt.y.toFixed(2)}  Z ${pt.z.toFixed(2)}`+(info3d?`  ·  ${info3d}`:'');
+  if(line!==curLine){ if(ed) ed.mark(line, playing); curLine=line; }
+}
+let info3d='';
+$('v3d').onchange=async e=>{
+  mode3d=e.target.checked; $('cv').hidden=mode3d; $('cv3d').hidden=!mode3d; $('v3d-bar').hidden=!mode3d; $('v3d-info').textContent='';
+  if(!mode3d){ draw(); return; }
+  try{ await Neo3D.activer($('cv3d'),{info:m=>{info3d=m; draw3d();}}); draw(); }
+  catch(err){ $('v3d-info').textContent=err.message; }
+};
+$('v3d-step').onclick=()=>$('v3d-file').click();
+$('v3d-file').onchange=async e=>{ const f=e.target.files[0]; e.target.value=''; if(!f) return;
+  $('v3d-info').textContent=t('Lecture du STEP…');
+  try{ const r=await Neo3D.chargerPiece(f,$('v3d-recal').checked); $('v3d-vis-l').hidden=false; $('v3d-vis').checked=true;
+    info3d=t('{n} : {f} faces, {x} × {y} × {z} mm',{n:f.name,f:r.faces,x:r.taille[0].toFixed(1),y:r.taille[1].toFixed(1),z:r.taille[2].toFixed(1)}); draw3d(); }
+  catch(err){ $('v3d-info').textContent=t('Lecture impossible : {e}',{e:err.message}); } };
+$('v3d-vis').onchange=e=>Neo3D.montrerPiece(e.target.checked);
+$('v3d-cadrer').onclick=()=>Neo3D.cadrer();
 function tick(t){ if(!playing) return; const dt=(t-last)/1000; last=t;
   const dur=Math.max(6,Math.min(40,total/15))/(+$('speed').value);
   prog01=Math.min(1,prog01+dt/dur); $('pos').value=prog01*1000; draw();
@@ -295,6 +330,9 @@ window.simplViewer={
 <script src="stockage.js" defer></script>
 <script src="outils-format.js" defer></script>
 <script src="vecteurs.js" defer></script>
+<script src="dessin-outil.js" defer></script>
+<script src="vue3d.js" defer></script>
+<script src="neodrive-3d.js" defer></script>
 <script src="generateur.js" defer></script>
 </body>
 </html>

@@ -13,18 +13,19 @@
     const lines = String(src).replace(/\r/g, '').split('\n'), pts = [], origins = [];
     let p = { x: 0, y: 0, z: 10 }, off = { x: 0, y: 0, z: 0 };
     let feeds = {}, mode = 'roughing', tool = null, rapidLine = false, feedKnown = false;
-    const tools = {};                                   // article → diamètre
+    const tools = {}, geo = {};                         // article → diamètre ; article → fiche (Diameter, TipAngle…) pour la vue 3D
     const progs = {}, seqs = {};
     lines.forEach((l, i) => {
       const td = l.match(/@\s*ToolDescription\s*:(.*)@/);
-      if (td) { const a = td[1].match(/"ArticleNr"\s*:\s*"([^"]*)"/), d = td[1].match(/"Diameter"\s*:\s*(-?[\d.]+)/); if (a && d) tools[a[1]] = +d[1]; }
+      if (td) { const a = td[1].match(/"ArticleNr"\s*:\s*"([^"]*)"/), d = td[1].match(/"Diameter"\s*:\s*(-?[\d.]+)/); if (a && d) tools[a[1]] = +d[1];
+        if (a) { const g = {}; td[1].replace(/"(\w+)"\s*:\s*(-?[\d.]+)/g, (_, k, v) => { g[k] = +v; }); const n = td[1].match(/"Name"\s*:\s*"([^"]*)"/); geo[a[1]] = { name: n ? n[1] : a[1], geometry: g }; } }
       const m = l.match(/^\s*(?:export\s+)?program\s+(\w+)/i);
       if (m) { let e = i + 1; while (e < lines.length && !/^\s*endprogram\b/i.test(lines[e])) e++; progs[m[1]] = [i + 1, e]; }
       const q = l.match(/^\s*\$\$\$\s+(\w+)/);
       if (q) { let e = i + 1; while (e < lines.length && !/^\s*\$\$\$/.test(lines[e]) && !/^\s*sequence\s/i.test(lines[e])) e++; seqs[q[1]] = [i + 1, e]; }
     });
     const dia = () => (tool && tools[tool] !== undefined ? tools[tool] : null);
-    const push = (pt, i, cut) => pts.push({ ...pt, line: i, rapid: !cut, f: cut ? (feeds[mode] || null) : null, d: dia() });
+    const push = (pt, i, cut) => pts.push({ ...pt, line: i, rapid: !cut, f: cut ? (feeds[mode] || null) : null, d: dia(), t: tool });
     function step(raw, i) {
       const sh = raw.match(/^\s*ShiftWcsInc\b(.*)/i);
       if (sh) {
@@ -68,7 +69,7 @@
       for (let i = a; i < b; i++) { const r = call(lines[i]); if (r) { if (depth < 20) run(r[0], r[1], depth + 1); continue; } step(lines[i], i); }
     }
     if (progs.Main) run(progs.Main[0], progs.Main[1], 0); else run(0, lines.length, 0);
-    return { lines, pts, origins, tools, ...stats(pts, feedKnown) };
+    return { lines, pts, origins, tools, geo, ...stats(pts, feedKnown) };
   }
   /* longueurs et temps : coupe à l'avance du mode en cours, rapides à RAPIDE */
   function stats(pts, feedKnown) {

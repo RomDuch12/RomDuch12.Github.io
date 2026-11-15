@@ -392,11 +392,94 @@
     return { items, ignored: [] };
   }
 
+  /* ======================= STEP (occt-import-js, OpenCascade en WebAssembly) ======================= */
+  const OCCT = 'https://cdn.jsdelivr.net/npm/occt-import-js@0.0.23/dist/';
+  let occtP = null;
+  function occt() {
+    if (occtP) return occtP;
+    const init = () => window.occtimportjs(typeof document === 'undefined' ? {} : { locateFile: f => OCCT + f });
+    if (window.occtimportjs) return (occtP = init());
+    return (occtP = new Promise((ok, ko) => { const s = document.createElement('script'); s.src = OCCT + 'occt-import-js.js';
+      s.onload = () => init().then(ok, ko); s.onerror = () => { occtP = null; ko(new Error(tr('Lecteur STEP indisponible (connexion requise au premier usage).'))); }; document.head.append(s); }));
+  }
+  /* le solide : maillages triangulés, une plage de triangles par face B-rep (avec sa couleur) */
+  async function readSTEP3D(buffer) {
+    const o = await occt();
+    const r = o.ReadStepFile(new Uint8Array(buffer), { linearUnit: 'millimeter', linearDeflectionType: 'bounding_box_ratio', linearDeflection: 0.0015, angularDeflection: 0.35 });
+    if (!r || !r.success) throw new Error(tr('Fichier STEP illisible.'));
+    const meshes = r.meshes.filter(m => m.index && m.index.array.length).map(m => ({ name: m.name || '', color: m.color || null,
+      pos: Float32Array.from(m.attributes.position.array), normal: m.attributes.normal ? Float32Array.from(m.attributes.normal.array) : null,
+      index: Uint32Array.from(m.index.array), faces: (m.brep_faces || []).map(f => ({ first: f.first, last: f.last, color: f.color || null })) }));
+    if (!meshes.length) throw new Error(tr('Aucun solide dans ce fichier STEP.'));
+    let b = [Infinity, Infinity, Infinity, -Infinity, -Infinity, -Infinity];
+    for (const m of meshes) for (let i = 0; i < m.pos.length; i += 3) for (let k = 0; k < 3; k++) { b[k] = Math.min(b[k], m.pos[i + k]); b[k + 3] = Math.max(b[k + 3], m.pos[i + k]); }
+    return { meshes, bounds: b };
+  }
+  /* vue de dessus pour l'usinage : le bord de chaque face plane horizontale tournée vers le haut, un calque par Z */
+  function stepDessus(s, tolN = 0.999) {
+    const parZ = new Map();
+    for (const m of s.meshes) {
+      const P = m.pos, I = m.index, faces = m.faces.length ? m.faces : [{ first: 0, last: I.length / 3 - 1 }];
+      for (const f of faces) {
+        let ok = true, z = null; const tris = [];
+        for (let t = f.first; t <= f.last && ok; t++) {
+          const a = I[3 * t], b = I[3 * t + 1], c = I[3 * t + 2];
+          const ux = P[3 * b] - P[3 * a], uy = P[3 * b + 1] - P[3 * a + 1], uz = P[3 * b + 2] - P[3 * a + 2];
+          const vx = P[3 * c] - P[3 * a], vy = P[3 * c + 1] - P[3 * a + 1], vz = P[3 * c + 2] - P[3 * a + 2];
+          const nx = uy * vz - uz * vy, ny = uz * vx - ux * vz, nz = ux * vy - uy * vx, l = Math.hypot(nx, ny, nz);
+          if (l < 1e-12) continue;
+          if (nz / l < tolN) { ok = false; break; }
+          const za = P[3 * a + 2]; if (z === null) z = za; else if (Math.abs(za - z) > 1e-3) ok = false;
+          tris.push([a, b, c]);
+        }
+        if (!ok || !tris.length) continue;
+        // arêtes de bord : celles qu'un seul triangle porte (sommets soudés par position)
+        const key = i => `${Math.round(P[3 * i] * 1e5)},${Math.round(P[3 * i + 1] * 1e5)}`, pt = {}, cpt = new Map();
+        for (const tri of tris) for (let k = 0; k < 3; k++) {
+          const i = tri[k], j = tri[(k + 1) % 3], ki = key(i), kj = key(j); pt[ki] = [P[3 * i], P[3 * i + 1]]; pt[kj] = [P[3 * j], P[3 * j + 1]];
+          const e = ki < kj ? ki + '|' + kj : kj + '|' + ki; cpt.set(e, (cpt.get(e) || 0) + 1);
+        }
+        const voisins = new Map(), lie = (a, b) => { if (!voisins.has(a)) voisins.set(a, []); voisins.get(a).push(b); };
+        for (const [e, n] of cpt) if (n === 1) { const [a, b] = e.split('|'); lie(a, b); lie(b, a); }
+        const vu = new Set(), boucles = [];
+        for (const depart of voisins.keys()) {
+          if (vu.has(depart)) continue;
+          const poly = [pt[depart]]; let prec = null, cur = depart; vu.add(depart);
+          for (;;) {
+            const suiv = (voisins.get(cur) || []).find(v => v !== prec && !vu.has(v));
+            if (!suiv) break;
+            poly.push(pt[suiv]); vu.add(suiv); prec = cur; cur = suiv;
+          }
+          if (poly.length > 2) { poly.push(poly[0].slice()); boucles.push(poly); }
+        }
+        const zk = Math.round(z * 1000) / 1000;
+        if (!parZ.has(zk)) parZ.set(zk, []);
+        parZ.get(zk).push(...boucles);
+      }
+    }
+    const items = [];
+    [...parZ.keys()].sort((a, b) => b - a).forEach(z => {
+      const vus = new Set();
+      for (const p of parZ.get(z)) {
+        const sig = p.length + ':' + bounds([p]).map(v => v.toFixed(3)).join(',');
+        if (vus.has(sig)) continue; vus.add(sig);
+        items.push({ layer: `Z ${f(z, 3)}`, poly: p, z });
+      }
+    });
+    return items;
+  }
+  async function readSTEP(buffer) {
+    const s = await readSTEP3D(buffer), items = stepDessus(s);
+    if (!items.length) throw new Error(tr('Aucune face plane horizontale tournée vers le haut dans ce STEP.'));
+    return { items, ignored: [], solide: s };
+  }
+
   /* ======================= lecture automatique ======================= */
   async function read(file) {
     const name = file.name || '', ext = (name.match(/\.(\w+)$/) || [, ''])[1].toLowerCase(), buf = await file.arrayBuffer(), head = new TextDecoder('latin1').decode(new Uint8Array(buf.slice(0, 1024)));
     let r, format;
-    if (head.startsWith('%PDF') || (ext === 'ai' && head.includes('%PDF'))) { r = await readPDF(buf); format = ext === 'ai' ? 'AI (PDF)' : 'PDF'; }
+    if (['step', 'stp'].includes(ext) || /^\s*ISO-10303-21/.test(head)) { r = await readSTEP(buf); format = 'STEP'; }
+    else if (head.startsWith('%PDF') || (ext === 'ai' && head.includes('%PDF'))) { r = await readPDF(buf); format = ext === 'ai' ? 'AI (PDF)' : 'PDF'; }
     else if (ext === 'dxf' || /^\s*0\s*\r?\n\s*SECTION/.test(head)) { r = readDXF(new TextDecoder('utf-8').decode(buf)); format = 'DXF'; }
     else if (ext === 'svg' || /<svg[\s>]/i.test(head)) { r = readSVG(new TextDecoder('utf-8').decode(buf)); format = 'SVG'; }
     else if (['eps', 'ps', 'ai', 'epsf'].includes(ext) || head.startsWith('%!') || (new Uint8Array(buf)[0] === 0xC5)) { r = readEPS(buf); format = ext === 'ai' ? 'AI (PostScript)' : 'EPS'; }
@@ -462,5 +545,5 @@
     const out = new Uint8Array(src.length + 21); out.set(src.subarray(0, 33)); out.set(chunk, 33); out.set(src.subarray(33), 54);   // après IHDR
     return new Blob([out], { type: 'image/png' });
   }
-  window.Vecteurs = { read, readDXF, readSVG, readPDF, readEPS, join, bounds, closed, toDXF, toSVG, toEPS, toPDF, toPNG, circle, offsetPoly, offsetContours, segDist };
+  window.Vecteurs = { read, readDXF, readSVG, readPDF, readEPS, readSTEP, readSTEP3D, stepDessus, occt, join, bounds, closed, toDXF, toSVG, toEPS, toPDF, toPNG, circle, offsetPoly, offsetContours, segDist };
 })();

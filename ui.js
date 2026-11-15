@@ -21,7 +21,7 @@
     // éditeur d'outils
     ['[data-l=imp]', 'upload'], ['[data-l=demo]', 'package'], ['[data-l=exp]', 'download'], ['[data-l=expb]', 'hard-drive-download'], ['[data-l=save]', 'save'],
     ['[data-l=undo]', 'rotate-ccw'], ['[data-l=consent]', 'database'], ['[data-l=clear]', 'trash-2'], ['#b-new', 'plus'], ['#b-reset', 'filter-x'], ['#b-prop-all', 'sparkles'],
-    ['#b-fold', 'fold-vertical'], ['#b-unfold', 'unfold-vertical'], ['[data-a=prop]', 'sparkles'], ['[data-a=dup]', 'copy'], ['[data-a=shop]', 'external-link'], ['[data-ref]', 'plus'],
+    ['[data-a=fiche]', 'box'], ['[data-dessin]', 'box'], ['[data-l=dessins]', 'file-box'], ['#f-close', 'x'], ['#v3d-step', 'box'], ['#v3d-cadrer', 'maximize'], ['#b-fold', 'fold-vertical'], ['#b-unfold', 'unfold-vertical'], ['[data-a=prop]', 'sparkles'], ['[data-a=dup]', 'copy'], ['[data-a=shop]', 'external-link'], ['[data-ref]', 'plus'],
     // TauConvert
     ['#tc-out [data-f]', 'download'], ['#tc-taudrive', 'zap'], ['#tc-dl', 'download'],
     // commun

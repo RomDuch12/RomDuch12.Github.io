@@ -1,11 +1,11 @@
 /* Fonctionnement hors ligne (atelier sans réseau).
    Fichiers du site : réseau d'abord (toujours la dernière version), cache en secours.
    Bibliothèques et polices externes (CDN) : cache d'abord, elles ne changent pas pour une version donnée. */
-const CACHE = 'romduch-v1';
+const CACHE = 'romduch-v3';
 const SITE = ['./', 'index.html', 'neodrive.html', 'taudrive.html', 'tauconvert.html', 'outils.html', 'coupe.html', 'cv.html', 'tuto.html',
   'themes.css', 'site.css', 'i18n.js', 'theme.js', 'ui.js', 'stockage.js', 'generateur.js', 'simpl-editeur.js', 'simpl-lecture.js', 'outils-format.js',
-  'coupe.js', 'taudrive.js', 'vecteurs.js', 'codes.js', 'catalogue-datron.json', 'tools.json', 'tools-demo.json', 'NeoDrive.png',
-  'icon-192.png', 'icon-512.png', 'manifest.webmanifest', 'lang/en.js', 'lang/de.js', 'lang/it.js', 'lang/es.js', 'lang/zh.js', 'lang/ru.js'];
+  'coupe.js', 'taudrive.js', 'vecteurs.js', 'codes.js', 'dessin-outil.js', 'vue3d.js', 'neodrive-3d.js', 'catalogue-datron.json', 'tools.json', 'tools-demo.json', 'NeoDrive.png',
+  'icon-192.png', 'icon-512.png', 'vectordrive.png', 'manifest.webmanifest', 'lang/en.js', 'lang/de.js', 'lang/it.js', 'lang/es.js', 'lang/zh.js', 'lang/ru.js'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => Promise.all(SITE.map(u => c.add(u).catch(() => null)))).then(() => self.skipWaiting()));
