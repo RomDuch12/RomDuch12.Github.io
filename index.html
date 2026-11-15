@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Outils en ligne – RomDuch</title>
-<meta name="description" content="RomDuch – programmeur-régleur UGV Datron : NeoDrive (générateur SimPL), TauDrive (dessin et job laser), éditeur d'outils DATRON, données de coupe et CV.">
+<title>VectorDrive et outils en ligne – RomDuch</title>
+<meta name="description" content="VectorDrive : logiciel libre de dessin et de FAO pour la gravure (fraisage et laser), Windows et macOS. Et les outils en ligne de RomDuch : NeoDrive (SimPL Datron), TauDrive (job laser), TauConvert.">
 <script src="i18n.js"></script>
 <script src="theme.js"></script>
 <link rel="stylesheet" href="themes.css">
@@ -14,22 +14,41 @@
 *,*::before,*::after{box-sizing:inherit}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Barlow,"Segoe UI",Roboto,"Noto Sans SC","Microsoft YaHei",Arial,sans-serif}
 main{max-width:980px;margin:0 auto;padding:28px 18px 70px}
-header{display:grid;gap:6px;padding:10px 0 26px;border-bottom:2px solid var(--brass);margin-bottom:10px}
-h1{font:700 clamp(2.4rem,7vw,4rem)/1 "Barlow Condensed",Arial Narrow,sans-serif;margin:6px 0 0}
-.tag{font:600 1.25rem "Barlow Condensed",sans-serif;color:var(--brass);margin:0}
-.lead{max-width:62ch;margin:6px 0 0;color:var(--mute)}
-.contact a{color:var(--ink);font-weight:600;text-decoration-color:var(--brass);text-underline-offset:3px}
-h2{font:700 1.8rem/1.1 "Barlow Condensed",sans-serif;margin:38px 0 14px}
+header{padding:10px 0 0}
+h2{font:700 1.8rem/1.1 "Barlow Condensed",sans-serif;margin:44px 0 14px}
+:focus-visible{outline:3px solid var(--brass-l);outline-offset:2px}
+/* VectorDrive en tête */
+.hero{display:grid;grid-template-columns:auto 1fr;gap:18px 26px;align-items:center;padding:26px 0 30px;border-bottom:2px solid var(--brass)}
+.hero img{width:clamp(84px,14vw,132px);height:auto;filter:drop-shadow(0 6px 18px rgba(0,0,0,.25))}
+.hero .kicker{font:600 1rem "Barlow Condensed",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--brass);margin:0}
+.hero h1{font:700 clamp(2.6rem,8vw,4.6rem)/.95 "Barlow Condensed",Arial Narrow,sans-serif;margin:2px 0 6px}
+.hero .lead{grid-column:1/-1;font-size:1.2rem;max-width:64ch;margin:0;color:var(--ink)}
+.hero .lead small{display:block;font-size:1rem;color:var(--mute);margin-top:6px}
+@media (max-width:560px){.hero{grid-template-columns:1fr}.hero img{width:84px}}
+.actions{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:6px}
+.btn{display:inline-grid;gap:1px;padding:10px 16px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none;font-weight:600;line-height:1.2}
+.btn small{font-weight:400;color:var(--mute);font-size:.82rem}
+.btn.primary{background:var(--brass);border-color:var(--brass);color:var(--on-accent)}.btn.primary small{color:inherit;opacity:.85}
+.btn:hover{border-color:var(--brass)}
+.actions .btn{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:1px!important}
+.version{color:var(--mute);font-size:.95rem}
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(270px,100%),1fr));gap:12px}
+.feat{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px 16px}
+.feat h3{margin:0 0 4px;font:700 1.3rem/1.1 "Barlow Condensed",sans-serif;display:flex;gap:8px;align-items:center}
+.feat p{margin:0;color:var(--mute)}
+.formats{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0;padding:0;list-style:none}
+.formats li{font:600 13px "JetBrains Mono",ui-monospace,monospace;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--card)}
+.note{color:var(--mute);font-size:.95rem;margin:12px 0 0;max-width:80ch}
+/* outils en ligne */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:14px}
 .card{display:grid;align-content:start;gap:6px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brass);border-radius:6px;padding:16px 18px;color:var(--ink);text-decoration:none;transition:border-color .15s,transform .15s}
 .card:hover{border-color:var(--brass);transform:translateY(-2px)}
 .card h3{margin:0;font:700 1.5rem/1.1 "Barlow Condensed",sans-serif}
 .card p{margin:0;color:var(--mute)}
-.card .go{color:var(--brass);font-weight:600;margin-top:4px}
 .card.main h3{font-size:1.9rem}.card h3 a{color:inherit;text-decoration:none}
 .card .sub{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:4px}.card .sub li{padding-left:12px;border-left:2px solid var(--line)}
 .card .sub a{font-weight:600;color:var(--ink);text-decoration-color:var(--brass);text-underline-offset:3px}.card .sub small{color:var(--mute)}
-:focus-visible{outline:3px solid var(--brass-l);outline-offset:2px}
+.lead2{color:var(--mute);margin:-4px 0 14px;max-width:70ch}
 footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
 </style>
 <link rel="stylesheet" href="site.css">
@@ -43,11 +62,45 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <main>
 <header>
   <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-current="page" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tauconvert.html">TauConvert</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html">RomDuch</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
-  <h1 data-i18n>Outils en ligne</h1>
-  <p class="lead" data-i18n>Programmation Datron, gravure laser et conversion de dessins : des outils d'atelier qui tournent dans ton navigateur, sans installation et sans rien envoyer.</p>
 </header>
 
-<section>
+<section class="hero" id="vectordrive" aria-labelledby="vd-titre">
+  <img src="vectordrive.png" width="256" height="256" alt="">
+  <div>
+    <p class="kicker" data-i18n>Logiciel libre · Windows et macOS</p>
+    <h1 id="vd-titre">VectorDrive</h1>
+  </div>
+  <p class="lead"><span data-i18n>Dessin et FAO pour la gravure, en fraisage comme au laser : on dessine, on prépare les parcours d'outil, on les voit et on les simule, de la plaque gravée au relief 3D.</span>
+    <small data-i18n>Gratuit, sous double licence MIT ou Apache-2.0. Version portable pour Windows, sans installation.</small></p>
+  <div class="actions">
+    <a class="btn primary" id="dl-win" href="https://github.com/RomDuch12/VectorDrive/releases/latest"><span data-i18n>Télécharger pour Windows</span><small id="dl-win-info" data-i18n>portable, sans installation</small></a>
+    <a class="btn" id="dl-mac-arm64" href="https://github.com/RomDuch12/VectorDrive/releases/latest"><span>macOS Apple Silicon</span><small id="dl-mac-arm64-info" data-i18n>version d'essai, macOS 14+</small></a>
+    <a class="btn" id="dl-mac-x86_64" href="https://github.com/RomDuch12/VectorDrive/releases/latest"><span>macOS Intel</span><small id="dl-mac-x86_64-info" data-i18n>version d'essai, macOS 14+</small></a>
+    <a class="btn" href="https://github.com/RomDuch12/VectorDrive"><span data-i18n>Code source</span><small>GitHub</small></a>
+    <span class="version" id="version"></span>
+  </div>
+</section>
+
+<section aria-labelledby="vd-quoi">
+  <h2 id="vd-quoi" data-i18n>Ce que fait VectorDrive</h2>
+  <div class="feats">
+    <div class="feat"><h3 data-icon="pen-tool" data-i18n>Dessin vectoriel</h3><p data-i18n>Formes, textes et polices (TrueType, OpenType, monotrait de gravure), calques, accrochage aux nœuds et intersections, cotation, décalages exacts, opérations booléennes, codes QR et DataMatrix, braille, cadrans, photo tramée.</p></div>
+    <div class="feat"><h3 data-icon="route" data-i18n>Parcours d'outil 2D</h3><p data-i18n>Contour, poche, gravure, V-carve, perçage, surfaçage, chanfrein, reprise de matière ; outils coniques, droits ou boule ; temps d'usinage estimé et vérification avant gravure.</p></div>
+    <div class="feat"><h3 data-icon="box" data-i18n>3D et simulation</h3><p data-i18n>Pièces STEP, ébauche, finition et reliefs sur un modèle 3D, brut matière, simulation 2D et 3D de l'enlèvement de matière avant d'usiner.</p></div>
+    <div class="feat"><h3 data-icon="zap" data-i18n>Laser</h3><p data-i18n>Marquages laser : remplissages, découpe des grands dessins en zones, repères de recalage, aperçu de gravure.</p></div>
+    <div class="feat"><h3 data-icon="plug" data-i18n>Plugins</h3><p data-i18n>Le cœur ne contient aucune donnée d'atelier. Post-processeurs, bibliothèques d'outils, gabarits ou devis s'ajoutent par plugin : VectorDrive calcule, montre et simule les parcours, le plugin de la machine écrit son programme.</p></div>
+    <div class="feat"><h3 data-icon="languages" data-i18n>Prise en main</h3><p data-i18n>Ruban personnalisable, raccourcis clavier, interface en français et en anglais, mises à jour vérifiées et récupération après un arrêt anormal.</p></div>
+  </div>
+  <ul class="formats" aria-label="Formats" data-i18n-attr="aria-label">
+    <li>DXF</li><li>SVG</li><li>PDF</li><li>AI</li><li>EPS</li><li>STEP</li><li>PNG · JPEG</li><li>VND · GVT · SMB</li><li>VDZ</li>
+  </ul>
+  <p class="note" data-i18n>Compatibilité : VectorDrive ouvre et enregistre les fichiers VND, GVT (lecture) et SMB de TypeEdit, ce qui permet de reprendre des dessins et des bibliothèques de symboles existants. TypeEdit est une marque de son éditeur ; VectorDrive n'y est pas affilié.</p>
+  <p class="note" data-i18n>Logiciel fourni tel quel, sans garantie : vérifie toujours un parcours en simulation avant d'usiner.</p>
+</section>
+
+<section aria-labelledby="t-outils">
+  <h2 id="t-outils" data-i18n>Outils en ligne</h2>
+  <p class="lead2" data-i18n>Programmation Datron, gravure laser et conversion de dessins : des outils d'atelier qui tournent dans ton navigateur, sans installation et sans rien envoyer.</p>
   <div class="cards">
     <div class="card main"><h3><a href="neodrive.html">NeoDrive</a></h3><p data-i18n>Génère ton programme SimPL pour Datron à partir d'opérations de base, puis visualise les trajectoires.</p>
       <ul class="sub"><li><a href="neodrive.html#sec-gen" data-i18n>Génère ton SimPL</a></li><li><a href="neodrive.html#sec-viewer" data-i18n>Visualiseur</a></li>
@@ -64,5 +117,30 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <footer><p>RomDuch · <span data-i18n>Programmes présentés sur pièces de démonstration, sans données clients.</span></p><p><a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
 </main>
 <script src="stockage.js" defer></script>
+<script>
+/* VectorDrive : dernière version publiée sur GitHub (liens directs, numéro et taille) ; sinon, la page des versions */
+(function () {
+  'use strict';
+  const mo = n => `${Math.round(n / 1048576)} Mo`, $ = id => document.getElementById(id), T = (s, v) => (window.t ? t(s, v) : s);
+  fetch('https://api.github.com/repos/RomDuch12/VectorDrive/releases/latest', { headers: { Accept: 'application/vnd.github+json' } })
+    .then(r => (r.ok ? r.json() : Promise.reject(r.status)))
+    .then(rel => {
+      const v = String(rel.tag_name || '').replace(/^v/, '');
+      if (v) $('version').textContent = T('Version {v}', { v });
+      for (const a of rel.assets || []) {
+        const n = a.name.toLowerCase();
+        if (/mac|darwin/.test(n)) {
+          const arch = /x86_64|intel/.test(n) ? 'x86_64' : 'arm64';
+          $('dl-mac-' + arch).href = a.browser_download_url;
+          $('dl-mac-' + arch + '-info').textContent = T('version d\'essai, zip, {t}', { t: mo(a.size) });
+        } else if (/win|portable/.test(n) && /\.zip$/.test(n)) {
+          $('dl-win').href = a.browser_download_url;
+          $('dl-win-info').textContent = T('portable, zip, {t}', { t: mo(a.size) });
+        }
+      }
+    })
+    .catch(() => { /* hors ligne : les boutons mènent à la page des versions */ });
+})();
+</script>
 </body>
 </html>
