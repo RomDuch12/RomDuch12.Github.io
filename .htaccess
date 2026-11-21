@@ -1,0 +1,41 @@
+# vectordrive.fr (hébergement OVH, Apache) : HTTPS, adresse sans www, types et cache.
+# Ignoré par GitHub Pages.
+Options -Indexes
+AddDefaultCharset utf-8
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # HTTPS obligatoire
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://vectordrive.fr%{REQUEST_URI} [L,R=301]
+  # www.vectordrive.fr -> vectordrive.fr
+  RewriteCond %{HTTP_HOST} ^www\.vectordrive\.fr$ [NC]
+  RewriteRule ^ https://vectordrive.fr%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType text/javascript .js .mjs
+  AddType application/json .json
+  AddType application/wasm .wasm
+  AddType application/zip .vdz
+  AddCharset utf-8 .js .mjs .json .css .html .xml .txt .md .webmanifest
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/json application/manifest+json image/svg+xml text/xml text/plain
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Strict-Transport-Security "max-age=31536000"
+  # pages, scripts et service worker : toujours revalidés (le service worker gère le hors-ligne)
+  <FilesMatch "\.(html|js|mjs|json|css|webmanifest|xml)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.(png|jpg|jpeg|webp|svg|ico|woff2?|vdz)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>
