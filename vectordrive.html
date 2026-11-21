@@ -62,6 +62,24 @@ button.on{background:var(--brass);border-color:var(--brass);color:var(--on-accen
 .info{margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:12px}
 .info div{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
 .info h2{margin:0 0 4px;font:700 1.25rem "Barlow Condensed",sans-serif}.info p,.info ul{margin:0;color:var(--mute)}.info ul{padding-left:1.1em}
+.onglets{display:flex;gap:4px;border-bottom:1px solid var(--line);padding-bottom:6px}.onglets button{flex:1 1 0;min-width:0;padding:4px 5px;font-size:13px;justify-content:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.onglets button.on{background:var(--brass);border-color:var(--brass);color:var(--on-accent)}
+.panneau[hidden],.cote label[hidden],.cote button[hidden]{display:none}.panneau{display:grid;gap:12px;align-content:start}
+.ops{display:grid;gap:8px}.op{border:1px solid var(--line);border-left:3px solid var(--brass);border-radius:5px;padding:6px 8px;background:var(--bg)}
+.op .tete{display:flex;gap:6px;align-items:center;font-weight:600}.op .tete input[type=text]{flex:1;min-width:0;font:600 14px Barlow,sans-serif;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:2px 5px}.op .champs{margin-top:4px}
+.op .coul{display:flex;gap:3px;flex-wrap:wrap}.op .coul label{display:inline-flex;align-items:center;gap:2px;font-size:12px}.op .coul i{display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid var(--line)}
+#ia-log{display:grid;gap:6px;max-height:340px;overflow:auto;font-size:14px;padding:6px;border:1px solid var(--line);border-radius:5px;background:var(--bg);min-height:80px}
+#ia-log .u{justify-self:end;background:var(--brass);color:var(--on-accent);border-radius:8px 8px 2px 8px;padding:4px 8px;max-width:90%;white-space:pre-wrap}
+#ia-log .ia{background:var(--card);border-radius:8px 8px 8px 2px;padding:4px 8px;max-width:95%;white-space:pre-wrap}
+#ia-log .outil{font:12px "JetBrains Mono",ui-monospace,monospace;color:var(--mute);overflow-wrap:anywhere}#ia-log .erreur{color:var(--warn);font-size:13px}
+#ia-demande{width:100%;min-height:62px;font:400 14px Barlow,sans-serif;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:6px;resize:vertical}
+.ex-ia{display:flex;flex-wrap:wrap;gap:4px}.ex-ia button{font-weight:400;font-size:12px;white-space:normal;text-align:left}
+.ligne{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+dialog#vd-dlg{border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);padding:14px 16px;min-width:min(380px,92vw)}
+dialog#vd-dlg::backdrop{background:rgba(0,0,0,.45)}dialog#vd-dlg h3{margin:0 0 8px;font:700 1.2rem "Barlow Condensed",sans-serif}
+dialog#vd-dlg .champs{grid-template-columns:1fr}dialog#vd-dlg textarea{width:100%;min-height:60px;font:400 15px Barlow,sans-serif;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px}
+dialog#vd-dlg menu{display:flex;flex-direction:row-reverse;justify-content:flex-start;gap:6px;margin:12px 0 0;padding:0}
+#vd-symboles{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:6px;max-height:55vh;overflow:auto}
+#vd-symboles button{display:grid;justify-items:center;white-space:normal;font-size:12px;font-weight:400}#vd-symboles canvas{width:90px;height:60px}
 footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
 </style>
 <link rel="stylesheet" href="site.css">
@@ -76,7 +94,7 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <header>
   <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="vectordrive.html" aria-current="page">VectorDrive</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tauconvert.html">TauConvert</a><a href="visualiseur.html" data-i18n>Visualiseur STEP</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html">RomDuch</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
   <h1><img src="vectordrive.png" width="40" height="40" alt="">VectorDrive <small data-i18n>version web</small></h1>
-  <p class="lead" data-i18n>Ouvre, dessine et enregistre tes dessins VectorDrive (.vdz) dans le navigateur, importe DXF, SVG, PDF, EPS, AI et STEP, exporte en DXF, SVG, PDF, EPS ou PNG. Tout reste sur ton appareil.</p>
+  <p class="lead" data-i18n>Ouvre, dessine et enregistre tes dessins VectorDrive (.vdz) dans le navigateur, importe DXF, SVG, PDF, EPS, AI, STEP et les fichiers TypeEdit, ajoute textes, booléens et parcours d'outil, avec un assistant IA. Tout reste sur ton appareil.</p>
 </header>
 
 <div class="ruban" role="toolbar" aria-label="Ruban" data-i18n-attr="aria-label">
@@ -88,6 +106,7 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     <span class="menu" id="vd-export"><button type="button" data-icon="download" data-i18n>Exporter</button><div>
       <button type="button" data-ex="dxf">DXF</button><button type="button" data-ex="svg">SVG</button><button type="button" data-ex="pdf">PDF</button><button type="button" data-ex="eps">EPS</button><button type="button" data-ex="png">PNG</button></div></span>
     <button id="vd-exemple" type="button" data-icon="sparkles" data-i18n>Exemple</button>
+    <input type="file" id="vd-police-fichier" accept=".ttf,.otf,.woff" hidden>
     <input type="file" id="vd-fichier" accept=".vdz,.dxf,.svg,.pdf,.eps,.ps,.ai,.step,.stp,.vnd,.gvt,.smb" hidden>
   </div>
   <div class="groupe"><b data-i18n>Édition</b>
@@ -102,6 +121,29 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     <button type="button" data-outil="ellipse" data-icon="circle" title="E" data-i18n>Ellipse</button>
     <button type="button" data-outil="ligne" data-icon="slash" title="L" data-i18n>Ligne</button>
     <button type="button" data-outil="poly" data-icon="spline" title="P" data-i18n>Polyligne</button>
+    <button type="button" data-outil="polygone" data-icon="hexagon" title="G" data-i18n>Polygone</button>
+    <button type="button" data-outil="etoile" data-icon="star" data-i18n>Étoile</button>
+    <button type="button" data-outil="arc" data-icon="circle-dashed" data-i18n>Arc</button>
+    <button type="button" data-outil="texte" data-icon="type" title="T" data-i18n>Texte</button>
+    <button type="button" data-outil="code" data-icon="qr-code" data-i18n>Code</button>
+    <label class="case" title="Côtés du polygone, branches de l'étoile" data-i18n-attr="title"><span data-i18n>Côtés</span> <input type="number" id="vd-cotes" min="3" max="64" value="6" style="width:4em"></label>
+  </div>
+  <div class="groupe"><b data-i18n>Modifier</b>
+    <button type="button" data-bool="union" data-icon="squares-unite" data-i18n>Union</button>
+    <button type="button" data-bool="difference" data-icon="squares-subtract" data-i18n>Soustraction</button>
+    <button type="button" data-bool="intersection" data-icon="squares-intersect" data-i18n>Intersection</button>
+    <button type="button" data-bool="xor" data-icon="squares-exclude" data-i18n>Exclusion</button>
+    <button type="button" id="vd-decaler" data-icon="square-dashed" data-i18n>Décaler…</button>
+    <button type="button" id="vd-symh" data-icon="flip-horizontal-2" data-i18n>Symétrie H</button>
+    <button type="button" id="vd-symv" data-icon="flip-vertical-2" data-i18n>Symétrie V</button>
+    <button type="button" id="vd-rot90" data-icon="rotate-ccw-square" data-i18n>Rotation 90°</button>
+    <span class="menu" id="vd-aligner"><button type="button" data-icon="align-center-horizontal" data-i18n>Aligner</button><div>
+      <button type="button" data-al="gauche" data-i18n>À gauche</button><button type="button" data-al="centreX" data-i18n>Centre (horizontal)</button><button type="button" data-al="droite" data-i18n>À droite</button>
+      <button type="button" data-al="haut" data-i18n>En haut</button><button type="button" data-al="centreY" data-i18n>Centre (vertical)</button><button type="button" data-al="bas" data-i18n>En bas</button>
+      <button type="button" data-al="plaque" data-i18n>Centrer sur la plaque</button></div></span>
+    <button type="button" id="vd-grouper" data-icon="group" title="Ctrl+G" data-i18n>Grouper</button>
+    <button type="button" id="vd-degrouper" data-icon="ungroup" data-i18n>Dégrouper</button>
+    <button type="button" id="vd-reseau" data-icon="grid-2x2-plus" data-i18n>Réseau…</button>
   </div>
   <div class="groupe"><b data-i18n>Vue</b>
     <button id="vd-cadrer" type="button" data-icon="maximize" title="F" data-i18n>Cadrer</button>
@@ -116,6 +158,8 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     <div id="vd-etat"><span id="vd-pos">X 0 Y 0</span><span id="vd-zoom"></span><span id="vd-nb"></span><span class="msg" id="vd-msg" role="status"></span></div>
   </div>
   <aside class="cote">
+    <div class="onglets" role="tablist"><button type="button" data-onglet="props" class="on" data-icon="sliders-horizontal" data-i18n>Dessin</button><button type="button" data-onglet="fao" data-icon="route" data-i18n>FAO</button><button type="button" data-onglet="ia" data-icon="sparkles" data-i18n>Assistant IA</button></div>
+    <div class="panneau" id="pan-props">
     <section aria-labelledby="h-sel"><h3 id="h-sel" data-i18n>Sélection</h3>
       <div class="champs" id="vd-props">
         <label>X <input type="number" step="0.1" data-p="x"></label><label>Y <input type="number" step="0.1" data-p="y"></label>
@@ -135,41 +179,86 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
         <label class="case plein"><input type="checkbox" data-q="visible"> <span data-i18n>Plaque visible</span></label>
       </div>
     </section>
+    </div>
+    <div class="panneau" id="pan-fao" hidden>
+      <section><h3 data-i18n>Machine</h3><div class="champs" id="fao-machine">
+        <label><span data-i18n>Z de sécurité (mm)</span> <input type="number" step="0.5" data-m="zSecu"></label><label><span data-i18n>Rapide (mm/min)</span> <input type="number" step="100" data-m="rapide"></label></div></section>
+      <section><h3><span data-i18n>Opérations</span><span class="menu" id="fao-ajout"><button type="button" data-icon="plus" data-i18n>Ajouter</button><div>
+        <button type="button" data-op="contour" data-i18n>Contour</button><button type="button" data-op="poche" data-i18n>Poche</button><button type="button" data-op="gravure" data-i18n>Gravure</button><button type="button" data-op="percage" data-i18n>Perçage</button></div></span></h3>
+        <div class="ops" id="fao-ops"></div><p class="aide" data-i18n>Une opération usine les objets des couleurs d'outil cochées. Diamètres, vitesses et profondeurs : tes valeurs.</p></section>
+      <div class="ligne"><button type="button" id="fao-calc" class="on" data-icon="play" data-i18n>Calculer</button><button type="button" id="fao-gcode" data-icon="file-code" data-i18n>Programme ISO</button>
+        <label class="case"><input type="checkbox" id="fao-voir" checked> <span data-i18n>Voir les parcours</span></label></div>
+      <p class="aide" id="fao-res" style="white-space:pre-line"></p>
+      <p class="aide" data-i18n>Programme ISO générique (G-code) : à vérifier et à adapter au post-processeur de ta machine avant d'usiner.</p>
+    </div>
+    <div class="panneau" id="pan-ia" hidden>
+      <div class="champs">
+        <label><span data-i18n>Fournisseur</span> <select id="ia-four"></select></label><label><span data-i18n>Modèle</span> <input id="ia-modele" list="ia-modeles"><datalist id="ia-modeles"></datalist></label>
+        <label class="plein"><span data-i18n>Clé d'API</span> <input id="ia-cle" type="password" autocomplete="off" spellcheck="false"></label>
+        <label class="plein" id="ia-url-l" hidden><span data-i18n>Adresse du serveur (format Mistral)</span> <input id="ia-url"></label>
+      </div>
+      <div class="ligne"><label class="case"><input type="checkbox" id="ia-retenir"> <span data-i18n>Retenir sur cet appareil</span></label><button type="button" id="ia-verifier" data-icon="plug-zap" data-i18n>Vérifier</button><a id="ia-lien" target="_blank" rel="noopener" data-i18n>Obtenir une clé d'API</a></div>
+      <div id="ia-log" aria-live="polite"></div>
+      <div class="ex-ia" id="ia-exemples"></div>
+      <textarea id="ia-demande" placeholder="Décris ce que tu veux dessiner ou modifier…" data-i18n-attr="placeholder"></textarea>
+      <div class="ligne"><button type="button" class="on" id="ia-envoyer" data-icon="send" data-i18n>Envoyer</button><button type="button" id="ia-arreter" data-icon="square" disabled data-i18n>Arrêter</button>
+        <button type="button" id="ia-garder" data-icon="check" hidden data-i18n>Garder</button><button type="button" id="ia-defaire" data-icon="undo-2" hidden data-i18n>Défaire</button></div>
+      <p class="aide" id="ia-credits"></p>
+      <div class="champs"><label><span data-i18n>Plafond par session ($, 0 = aucun)</span> <input type="number" id="ia-plafond" min="0" step="0.5" value="2"></label><label><span data-i18n>Tours au plus</span> <input type="number" id="ia-tours" min="1" max="100" value="25"></label>
+        <label class="plein"><span data-i18n>Consignes personnelles</span> <textarea id="ia-consignes" rows="2" style="width:100%;font:400 14px Barlow,sans-serif;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px"></textarea></label></div>
+      <p class="aide" data-i18n>Ce que l'assistant lit du dessin part directement de ton navigateur chez le fournisseur choisi, avec ta clé. Un abonnement Claude.ai, ChatGPT ou Le Chat ne donne pas de clé d'API : elle s'obtient dans la console du fournisseur. Sans « Retenir », la clé est oubliée en fermant l'onglet.</p>
+    </div>
     <p class="aide" data-i18n>Molette : zoom · clic droit ou du milieu : déplacer la vue · Maj : ajouter à la sélection · flèches : déplacer de 1 mm (Maj : 10 mm) · polyligne : double-clic ou Entrée pour finir.</p>
   </aside>
 </div>
 
+<dialog id="vd-dlg"><form method="dialog"><h3 id="dlg-titre"></h3><div class="champs" id="dlg-champs"></div><div id="dlg-extra"></div><menu><button value="ok" type="submit" class="on" data-i18n>OK</button><button value="annuler" type="submit" formnovalidate data-i18n>Annuler</button></menu></form></dialog>
+
 <div class="info">
   <div><h2 data-i18n>Le même fichier que l'application</h2><p data-i18n>Le .vdz enregistré ici s'ouvre dans VectorDrive pour Windows ou macOS, et inversement : plaque, calques, outils, textes, volumes 3D et réglages inconnus de la version web sont gardés tels quels.</p></div>
   <div><h2 data-i18n>Ce que fait la version web</h2><ul>
-    <li data-i18n>dessin de base : rectangles arrondis, ellipses, lignes, polylignes ;</li>
-    <li data-i18n>sélection, déplacement, échelle, rotation, duplication, couleurs d'outil ;</li>
-    <li data-i18n>calques, plaque, annulation sur 300 pas, vue 3D des volumes.</li></ul></div>
-  <div><h2 data-i18n>Ce qui reste dans l'application de bureau</h2><p data-i18n>FAO et parcours d'outil, assistant IA, textes et polices, fichiers VND, GVT et SMB, booléens et décalages, relief 3D. <a href="index.html#vectordrive">Télécharger VectorDrive</a></p></div>
+    <li data-i18n>dessin : rectangles arrondis, ellipses, lignes, polylignes, polygones, étoiles, arcs, codes QR, DataMatrix et linéaires ;</li>
+    <li data-i18n>textes avec les polices de ton poste (Chrome, Edge), des polices web ou un fichier de police ;</li>
+    <li data-i18n>booléens, décalages, symétries, alignements, groupes, réseaux ;</li>
+    <li data-i18n>fichiers VND, GVT et SMB de TypeEdit à l'ouverture ;</li>
+    <li data-i18n>parcours d'outil 2D (contour, poche, gravure, perçage), temps estimé et programme ISO générique ;</li>
+    <li data-i18n>assistant IA avec ta clé d'API (Claude, ChatGPT, Mistral) ;</li>
+    <li data-i18n>exports DXF, SVG, PDF, EPS et PNG avec calques et couleurs.</li></ul></div>
+  <div><h2 data-i18n>Ce qui reste dans l'application de bureau</h2><p data-i18n>Stratégies d'usinage avancées, relief et usinage 3D, simulation de matière, post-processeurs machine, enregistrement VND, scripts de forme et pièces STEP de l'assistant. <a href="index.html#vectordrive">Télécharger VectorDrive</a></p></div>
 </div>
 
 <footer><p>RomDuch · <span data-i18n>VectorDrive est un logiciel libre (MIT ou Apache-2.0). Lecture STEP : occt-import-js (OpenCascade, LGPL-2.1) ; vue 3D : three.js (MIT), chargés au premier usage.</span></p><p><a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
 </main>
 <script src="vecteurs.js"></script>
 <script src="vdz.js"></script>
+<script src="codes.js"></script>
 <script src="vd-web.js"></script>
+<script src="vd-outils.js"></script>
+<script src="vd-fao.js"></script>
+<script src="vd-ia.js"></script>
+<script src="vd-te.js"></script>
 <script src="vue3d.js"></script>
 <script src="stockage.js" defer></script>
 <script>
 /* VectorDrive web : vue 2D (Y vers le haut, mm), outils de dessin, sélection, annulation, fichiers */
 (function () {
   'use strict';
-  const W = VDWeb, $ = id => document.getElementById(id), T = (s, v) => (window.t ? t(s, v) : s);
+  const W = VDWeb, O = VDOutils, F = VDFao, $ = id => document.getElementById(id), T = (s, v) => (window.t ? t(s, v) : s);
   const cv = $('vd-cv'), zone = $('vd-zone'), ctx = cv.getContext('2d');
   let doc = W.nouveau(100, 50), nom = 'dessin', calqueActif = doc.layers[0].id, outilCourant = 0, modifie = false;
   let sel = new Set(), outil = 'sel', grille = true, mode3d = false;
   const vue = { cx: 50, cy: 25, k: 5 };                                       // centre (mm) et échelle (px/mm)
   const pile = [], refaire = [];
+  let version = 0, parcours = null;
 
   /* ---------- annulation : instantanés (objets partagés, jamais modifiés en place) ---------- */
-  const instant = () => ({ layers: doc.layers.map(L => ({ ...L, items: L.items.slice() })), plate: { ...doc.plate }, tools: doc.tools.slice(), sel: [...sel], calqueActif });
-  function restaurer(s) { doc = { ...doc, layers: s.layers, plate: s.plate, tools: s.tools }; sel = new Set(s.sel); calqueActif = s.calqueActif; maj(); }
-  function changer(f) { pile.push(instant()); if (pile.length > 300) pile.shift(); refaire.length = 0; f(); modifie = true; maj(); }
+  const instant = () => ({ layers: doc.layers.map(L => ({ ...L, items: L.items.slice() })), plate: { ...doc.plate }, tools: doc.tools.slice(), extra: { ...doc.extra }, sel: [...sel], calqueActif });
+  function restaurer(s) {                                                   // les dépenses de l'assistant ne s'annulent pas
+    const ia = doc.extra && doc.extra.ia_credits, extra = { ...s.extra }; if (ia) extra.ia_credits = ia; else delete extra.ia_credits;
+    doc = { ...doc, layers: s.layers, plate: s.plate, tools: s.tools, extra }; sel = new Set(s.sel); calqueActif = s.calqueActif; perime(); maj();
+  }
+  function perime() { version++; if (parcours) { parcours = null; $('fao-res').textContent = T('Dessin modifié : recalcule les parcours.'); } }
+  function changer(f) { pile.push(instant()); if (pile.length > 300) pile.shift(); refaire.length = 0; f(); modifie = true; perime(); maj(); }
   const annuler = () => { if (!pile.length) return; refaire.push(instant()); restaurer(pile.pop()); modifie = true; };
   const retablir = () => { if (!refaire.length) return; pile.push(instant()); restaurer(refaire.pop()); modifie = true; };
 
@@ -178,8 +267,9 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
   const actif = () => calque(calqueActif) || doc.layers[0];
   const tous = () => doc.layers.flatMap(L => L.items.map(it => ({ it, L })));
   const choisis = () => tous().filter(({ it }) => sel.has(it.id)).map(o => o.it);
+  const choisisOrdre = () => { const m = new Map(tous().map(o => [o.it.id, o.it])); return [...sel].map(id => m.get(id)).filter(Boolean); };   // ordre des clics
   function remplacer(f) {                                                   // f(objet) -> objet ou null (retiré) pour la sélection
-    doc = { ...doc, layers: doc.layers.map(L => ({ ...L, items: L.items.flatMap(it => (sel.has(it.id) ? [f(it)].filter(Boolean) : [it])) })) };
+    doc = { ...doc, layers: doc.layers.map(L => ({ ...L, items: L.items.flatMap(it => (sel.has(it.id) ? [f(it)].flat().filter(Boolean) : [it])) })) };
   }
   const couleur = it => (doc.tools[it.tool] || doc.tools[0] || { color: '#000' }).color;
 
@@ -233,6 +323,16 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
         ctx.strokeStyle = choisi ? C('--brass') : col; ctx.lineWidth = choisi ? 2.2 : 1.2; ctx.stroke();
       }
     }
+    if (parcours && $('fao-voir').checked) {                                // parcours d'outil calculés
+      ctx.lineWidth = 1; ctx.setLineDash([3, 3]); ctx.globalAlpha = 0.9;
+      ctx.strokeStyle = C('--brass');
+      for (const r of parcours) { if (!r.op.actif) continue; ctx.beginPath();
+        const vus = new Set();
+        for (const c of r.chemins) { const cle = c.pts.length + ':' + c.pts[0]; if (vus.has(cle)) continue; vus.add(cle);
+          if (c.percage) { const [X, Y] = ecran(...c.pts[0]); ctx.moveTo(X + r.op.diametre / 2 * vue.k, Y); ctx.arc(X, Y, Math.max(2, r.op.diametre / 2 * vue.k), 0, 7); } else trace(c.pts); }
+        ctx.stroke(); }
+      ctx.setLineDash([]); ctx.globalAlpha = 1;
+    }
     const b = W.boite(choisis());                                            // cadre et poignées de la sélection
     if (b) {
       const [x0, y1] = ecran(b[0], b[1]), [x1, y0] = ecran(b[2], b[3]);
@@ -276,6 +376,10 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     const P = doc.plate || {};
     document.querySelectorAll('#vd-plaque [data-q]').forEach(i => { if (document.activeElement === i) return; if (i.type === 'checkbox') i.checked = P.visible !== false; else i.value = P[i.dataset.q] ?? 0; });
     $('vd-annuler').disabled = !pile.length; $('vd-retablir').disabled = !refaire.length; $('vd-dupliquer').disabled = $('vd-supprimer').disabled = !sel.size;
+    document.querySelectorAll('[data-bool]').forEach(bt => (bt.disabled = sel.size < (bt.dataset.bool === 'union' ? 1 : 2)));
+    ['vd-decaler', 'vd-symh', 'vd-symv', 'vd-rot90', 'vd-reseau'].forEach(id => ($(id).disabled = !sel.size)); $('vd-aligner').querySelector('button').disabled = !sel.size;
+    $('vd-grouper').disabled = sel.size < 2; $('vd-degrouper').disabled = !ch.some(i => i.kind === 'group');
+    if (!$('pan-fao').hidden) majFao(); majCredits();
     document.querySelectorAll('[data-outil]').forEach(bt => bt.classList.toggle('on', bt.dataset.outil === outil));
     document.title = `${modifie ? '• ' : ''}${nom} – VectorDrive web`;
     dessiner(); if (mode3d) maj3d();
@@ -307,6 +411,8 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
       enCours = { type: 'cadre', a: p, b: p }; maj(); return;
     }
     const a = accroche(p);
+    if (outil === 'texte') { dialogueTexte(null, a); return; }
+    if (outil === 'code') { dialogueCode(a); return; }
     if (outil === 'poly') { if (!enCours) enCours = { type: 'poly', pts: [a, a] }; else { const q = enCours.pts, d = Math.hypot(q[0][0] - a[0], q[0][1] - a[1]) * vue.k;
       if (q.length > 3 && d < 8) { finirPoly(true); return; } q.push(a); } enCours.apercu = W.polyligne(enCours.pts, false); dessiner(); return; }
     enCours = { type: outil, a, b: a };
@@ -339,6 +445,10 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     const [a, b] = [o.a, o.b];
     if (o.type === 'rect') return W.rectangle(a[0], a[1], b[0], b[1], 0, outilCourant);
     if (o.type === 'ellipse') return W.ellipse((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, Math.abs(b[0] - a[0]) / 2, Math.abs(b[1] - a[1]) / 2, outilCourant);
+    const r = Math.hypot(b[0] - a[0], b[1] - a[1]), ang = Math.atan2(b[1] - a[1], b[0] - a[0]) * 180 / Math.PI, n = Math.max(3, Math.min(64, parseInt($('vd-cotes').value, 10) || 6));
+    if (o.type === 'polygone') return O.polygone(a[0], a[1], r, n, outilCourant, ang);
+    if (o.type === 'etoile') return W.transformer(O.etoile(a[0], a[1], r, r * 0.45, n, outilCourant), W.rotation(ang - 90, a[0], a[1]));
+    if (o.type === 'arc') return O.arc(a[0], a[1], r, 0, ang > 0.5 ? ang : ang + 360, outilCourant);
     return W.polyligne([a, b], false, outilCourant);
   }
   function ajouter(it) {
@@ -357,7 +467,7 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     enCours = null; $('vd-msg').textContent = '';
     if (o.type === 'deplacer' || o.type === 'echelle') {
       const fait = instant(); restaurer(o.avant);
-      if (o.type === 'echelle' || o.d[0] || o.d[1]) { pile.push(o.avant); refaire.length = 0; restaurer(fait); modifie = true; maj(); }
+      if (o.type === 'echelle' || o.d[0] || o.d[1]) { pile.push(o.avant); refaire.length = 0; restaurer(fait); modifie = true; perime(); maj(); }
       return;
     }
     if (o.type === 'cadre') {
@@ -369,7 +479,13 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     if (Math.hypot(o.b[0] - o.a[0], o.b[1] - o.a[1]) * vue.k < 3) { dessiner(); return; }
     ajouter(forme(o));
   });
-  cv.addEventListener('dblclick', () => { if (enCours && enCours.type === 'poly') { enCours.pts.pop(); finirPoly(false); } });
+  cv.addEventListener('dblclick', e => {
+    if (enCours && enCours.type === 'poly') { enCours.pts.pop(); finirPoly(false); return; }
+    if (outil !== 'sel') return;
+    const r = cv.getBoundingClientRect(), it = toucher(...monde(e.clientX - r.left, e.clientY - r.top));
+    if (it && it.kind === 'text') dialogueTexte(it);
+    else if (it && it.kind === 'group') { changer(() => { sel = new Set([it.id]); remplacer(g => g.children); sel = new Set(it.children.map(c => c.id)); }); }
+  });
   cv.addEventListener('wheel', e => {
     e.preventDefault(); const r = cv.getBoundingClientRect(), px = e.clientX - r.left, py = e.clientY - r.top, [x, y] = monde(px, py);
     vue.k = Math.max(0.01, Math.min(2000, vue.k * Math.exp(-e.deltaY * 0.0015)));
@@ -390,15 +506,17 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     else if (c && k === 'a') { e.preventDefault(); sel = new Set(tous().filter(({ L, it }) => L.visible && !L.locked && it.visible !== false).map(o => o.it.id)); maj(); }
     else if (c && k === 's') { e.preventDefault(); enregistrer(); }
     else if (c && k === 'o') { e.preventDefault(); ouvrir(false); }
+    else if (c && k === 'g') { e.preventDefault(); e.shiftKey ? degrouper() : grouper(); }
     else if (c) return;
     else if (k === 'delete' || k === 'backspace') { if (sel.size) { e.preventDefault(); supprimer(); } }
     else if (k === 'escape') { enCours = null; if (!sel.size) choisirOutil('sel'); sel.clear(); maj(); }
     else if (k === 'enter' && enCours && enCours.type === 'poly') finirPoly(false);
     else if (k.startsWith('arrow') && sel.size) { e.preventDefault(); const s = e.shiftKey ? 10 : 1, d = { arrowleft: [-s, 0], arrowright: [s, 0], arrowup: [0, s], arrowdown: [0, -s] }[k]; changer(() => remplacer(it => W.transformer(it, W.translation(...d)))); }
-    else if ({ v: 'sel', r: 'rect', e: 'ellipse', l: 'ligne', p: 'poly' }[k]) choisirOutil({ v: 'sel', r: 'rect', e: 'ellipse', l: 'ligne', p: 'poly' }[k]);
+    else if (RACC[k]) choisirOutil(RACC[k]);
     else if (k === 'f') cadrer();
   });
 
+  const RACC = { v: 'sel', r: 'rect', e: 'ellipse', l: 'ligne', p: 'poly', g: 'polygone', t: 'texte' };
   /* ---------- commandes ---------- */
   function choisirOutil(o) { outil = o; enCours = null; maj(); }
   function supprimer() { if (!sel.size) return; changer(() => { remplacer(() => null); sel.clear(); }); }
@@ -412,22 +530,23 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     try { telecharger(await W.versVDZ(doc), nom + '.vdz', 'application/x-vectordrive'); modifie = false; maj(); message(T('Enregistré : {f}', { f: nom + '.vdz' })); }
     catch (e) { message(e.message, true); }
   }
-  async function exporter(f) {
-    const q = W.toutesPolys(doc); if (!q.length) { message(T('Rien à exporter.'), true); return; }
+  async function exporter(f) {                                              // calques et couleurs d'outil gardés
+    if (!W.toutesPolys(doc).length) { message(T('Rien à exporter.'), true); return; }
     try {
-      if (f === 'png') telecharger(await Vecteurs.toPNG(q, { pxmm: 20 }), nom + '.png');
-      else telecharger(Vecteurs['to' + f.toUpperCase()](q), `${nom}.${f}`, { dxf: 'application/dxf', svg: 'image/svg+xml', pdf: 'application/pdf', eps: 'application/postscript' }[f]);
+      if (f === 'png') telecharger(await O.png(doc, 20), nom + '.png');
+      else telecharger(O[f](doc), `${nom}.${f}`, { dxf: 'application/dxf', svg: 'image/svg+xml', pdf: 'application/pdf', eps: 'application/postscript' }[f]);
     } catch (e) { message(e.message, true); }
   }
   function charger(d, n) {
     doc = d; nom = n; sel.clear(); pile.length = refaire.length = 0; modifie = false; calqueActif = (d.layers.find(L => L.id === d.active) || d.layers[0]).id;
+    perime(); faoSig = ''; IA.discussion = []; IA.avant = null; IA.depense = IA.depense || 0;
     maj(); cadrer(); message(T('Ouvert : {f}', { f: n }));
   }
   async function lireFichier(f, ajout) {
     const n = f.name || 'dessin', base = n.replace(/\.[^.]+$/, ''), ext = (n.match(/\.(\w+)$/) || [, ''])[1].toLowerCase();
     message(T('Lecture de {f}…', { f: n }));
     try {
-      if (['vnd', 'gvt', 'smb'].includes(ext)) throw new Error(T('Les fichiers {e} s\'ouvrent dans VectorDrive pour Windows ou macOS ; la version web ne les lit pas encore.', { e: ext.toUpperCase() }));
+      if (['vnd', 'gvt', 'smb'].includes(ext)) return lireTypeEdit(f, ext, base, ajout);
       if (ext === 'vdz') { const d = await W.lireVDZ(await f.arrayBuffer()); if (!ajout) return charger(d, base);
         changer(() => { doc = { ...doc, layers: [...doc.layers, ...d.layers.map(L => ({ ...L, id: W.uid(), items: L.items.map(W.copie) }))] }; }); cadrer(); return; }
       const r = await Vecteurs.read(f);
@@ -447,10 +566,9 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
   $('vd-enregistrer').onclick = enregistrer;
   $('vd-exemple').onclick = async () => { if (modifie && !confirm(T('Le dessin n\'est pas enregistré. Continuer ?'))) return;
     try { charger(await W.lireVDZ(await (await fetch('exemples/echecs-ia.vdz')).arrayBuffer()), 'echecs-ia'); } catch (e) { message(e.message, true); } };
-  const menu = $('vd-export');
-  menu.querySelector('button').onclick = e => { e.stopPropagation(); menu.classList.toggle('ouvert'); };
-  document.addEventListener('click', () => menu.classList.remove('ouvert'));
-  menu.querySelectorAll('[data-ex]').forEach(b => (b.onclick = () => exporter(b.dataset.ex)));
+  document.querySelectorAll('.menu').forEach(m => (m.querySelector('button').onclick = e => { e.stopPropagation(); const o = m.classList.contains('ouvert'); document.querySelectorAll('.menu.ouvert').forEach(x => x.classList.remove('ouvert')); m.classList.toggle('ouvert', !o); }));
+  document.addEventListener('click', () => document.querySelectorAll('.menu.ouvert').forEach(x => x.classList.remove('ouvert')));
+  document.querySelectorAll('[data-ex]').forEach(b => (b.onclick = () => exporter(b.dataset.ex)));
   $('vd-annuler').onclick = annuler; $('vd-retablir').onclick = retablir; $('vd-dupliquer').onclick = dupliquer; $('vd-supprimer').onclick = supprimer;
   document.querySelectorAll('[data-outil]').forEach(b => (b.onclick = () => choisirOutil(b.dataset.outil)));
   $('vd-cadrer').onclick = () => (mode3d ? v3 && v3.cadrer(null, true) : cadrer());
@@ -478,7 +596,293 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
   zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('over'); const f = e.dataTransfer.files[0]; if (f) lireFichier(f, e.shiftKey); });
   window.addEventListener('beforeunload', e => { if (modifie) { e.preventDefault(); e.returnValue = ''; } });
 
-  /* ---------- 3D : plaque, contours à Z0, volumes du dessin ---------- */
+
+  /* ---------- dialogue générique ---------- */
+  function formulaire(titre, champs, extra) {
+    const dlg = $('vd-dlg'); $('dlg-titre').textContent = titre;
+    $('dlg-champs').replaceChildren(...champs.map(c => {
+      const l = document.createElement('label'), sp = document.createElement('span'); let i; sp.textContent = c.label;
+      if (c.type === 'select') { i = document.createElement('select'); c.options.forEach(([v, x]) => i.add(new Option(x, v))); if (c.valeur != null && ![...i.options].some(o => o.value === String(c.valeur))) i.add(new Option(c.valeur, c.valeur)); }
+      else if (c.type === 'textarea') i = document.createElement('textarea');
+      else { i = document.createElement('input'); i.type = c.type || 'number'; if (i.type === 'number') { i.step = c.step || 'any'; if (c.min != null) i.min = c.min; } }
+      if (i.type === 'checkbox') { i.checked = !!c.valeur; l.className = 'case'; l.append(i, ' ', sp); } else { i.value = c.valeur ?? ''; l.append(sp, ' ', i); }
+      i.dataset.k = c.k; return l;
+    }));
+    $('dlg-extra').replaceChildren(); if (extra) extra($('dlg-extra'));
+    return new Promise(ok => {
+      dlg.onclose = () => { if (dlg.returnValue !== 'ok') return ok(null); const r = {};
+        dlg.querySelectorAll('#dlg-champs [data-k]').forEach(i => (r[i.dataset.k] = i.type === 'checkbox' ? i.checked : i.type === 'number' ? parseFloat(i.value) : i.value)); ok(r); };
+      dlg.returnValue = ''; dlg.showModal(); const f = dlg.querySelector('#dlg-champs [data-k]'); if (f) { f.focus(); f.select && f.select(); }
+    });
+  }
+  const bouton = (txt, icone, f) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = txt; if (icone) b.dataset.icon = icone; b.onclick = f; return b; };
+
+  /* ---------- textes : polices web, du poste ou d'un fichier ---------- */
+  let dernierePolice = 'Roboto';
+  const optionsPolices = () => [...O.polices].sort((a, b) => (b[1].source === 'web') - (a[1].source === 'web') || a[0].localeCompare(b[0]))
+    .map(([n, p]) => [n, p.source === 'web' ? n + ' (web)' : p.source === 'fichier' ? n + ' (' + T('fichier') + ')' : n]);
+  function remplirPolices(choix) { const s = document.querySelector('#dlg-champs [data-k="font"]'); if (!s) return; const v = choix || s.value; s.replaceChildren(...optionsPolices().map(([n, x]) => new Option(x, n))); s.value = v; }
+  async function dialogueTexte(it, p) {
+    const v = await formulaire(it ? T('Modifier le texte') : T('Nouveau texte'), [
+      { k: 'text', label: T('Texte'), type: 'textarea', valeur: it ? it.text : '' },
+      { k: 'font', label: T('Police'), type: 'select', options: optionsPolices(), valeur: it ? it.font : dernierePolice },
+      { k: 'size', label: T('Hauteur des capitales (mm)'), valeur: it ? +it.size.toFixed(3) : 10, min: 0.01 },
+      { k: 'align', label: T('Alignement'), type: 'select', options: [['left', T('À gauche')], ['center', T('Centré')], ['right', T('À droite')]], valeur: it ? it.align : 'left' },
+      { k: 'spacing', label: T('Espacement des lettres (mm)'), valeur: it ? it.spacing || 0 : 0 },
+      { k: 'width_ratio', label: T('Largeur des lettres (%)'), valeur: it ? Math.round((it.width_ratio || 1) * 100) : 100, min: 1 }
+    ], el => { const d = document.createElement('div'); d.className = 'ligne'; el.append(d); d.append(
+      bouton(T('Polices du poste'), 'hard-drive', async () => { try { const n = await O.policesDuPoste(); remplirPolices(); message(T('{n} polices du poste ajoutées.', { n })); } catch (e) { message(e.message, true); } }),
+      bouton(T('Charger une police'), 'upload', () => $('vd-police-fichier').click())); });
+    if (!v || !v.text.trim()) return;
+    const champs = { text: v.text, font: v.font, size: v.size > 0 ? v.size : 10, align: v.align, spacing: v.spacing || 0, width_ratio: (v.width_ratio > 0 ? v.width_ratio : 100) / 100 };
+    dernierePolice = v.font; message(T('Chargement de la police…'));
+    try {
+      if (it) { const n = await O.retexter(it, champs); changer(() => { sel = new Set([it.id]); remplacer(() => n); }); }
+      else ajouter(await O.texte({ ...champs, x: p[0], y: p[1], tool: outilCourant }));
+      message('');
+    } catch (e) { message(e.message, true); }
+  }
+  $('vd-police-fichier').onchange = async e => { const f = e.target.files[0]; e.target.value = ''; if (!f) return;
+    try { const n = await O.policeFichier(f); remplirPolices(n); message(T('Police chargée : {n}', { n })); } catch (err) { message(T('Police illisible : {e}', { e: err.message }), true); } };
+  async function dialogueCode(p) {
+    const v = await formulaire(T('Code-barres'), [
+      { k: 'kind', label: T('Type'), type: 'select', options: [['qr', 'QR code'], ['datamatrix', 'DataMatrix'], ['code128', 'Code 128'], ['code39', 'Code 39'], ['ean13', 'EAN-13']], valeur: 'qr' },
+      { k: 'text', label: T('Contenu'), type: 'text', valeur: 'https://' },
+      { k: 'module', label: T('Module (mm)'), valeur: 0.5, min: 0.01 }, { k: 'height', label: T('Hauteur des codes linéaires (mm)'), valeur: 15, min: 0.1 }]);
+    if (!v || !v.text) return;
+    try { ajouter(O.code(v.kind, v.text, p[0], p[1], v.module > 0 ? v.module : 0.5, v.height > 0 ? v.height : 15, outilCourant)); } catch (e) { message(e.message, true); }
+  }
+
+  /* ---------- modifier : booléens, décalages, symétries, alignements, groupes, réseaux ---------- */
+  async function booleen(op) {
+    const its = choisisOrdre().filter(it => it.kind !== 'image');
+    try {
+      message(T('Calcul…')); const r = await O.booleen(its, op);
+      if (!W.polys(r).length) { message(T('Résultat vide.'), true); return; }
+      const premier = its[0].id, ids = new Set(its.map(i => i.id));
+      changer(() => { sel = ids; remplacer(it => (it.id === premier ? r : null)); sel = new Set([r.id]); }); message('');
+    } catch (e) { message(e.message, true); }
+  }
+  async function decaler() {
+    const its = choisis(); if (!its.length) return;
+    const v = await formulaire(T('Décaler'), [{ k: 'd', label: T('Distance (mm, négatif vers l\'intérieur)'), valeur: 2 },
+      { k: 'joint', label: T('Angles'), type: 'select', options: [['round', T('Arrondis')], ['miter', T('Vifs')], ['square', T('Biseautés')]], valeur: 'round' },
+      { k: 'garder', label: T('Garder les originaux'), type: 'checkbox', valeur: true }]);
+    if (!v || !v.d) return;
+    try {
+      const res = []; for (const it of its) { const r = await O.decaler(it, v.d, v.joint); if (W.polys(r).length) res.push([it.id, r]); }
+      if (!res.length) { message(T('Résultat vide.'), true); return; }
+      const m = new Map(res);
+      changer(() => { remplacer(it => (m.has(it.id) ? (v.garder ? [it, m.get(it.id)] : m.get(it.id)) : v.garder ? it : null)); sel = new Set(res.map(x => x[1].id)); });
+    } catch (e) { message(e.message, true); }
+  }
+  function enBloc(f) { const its = choisis(), b = W.boite(its); if (!b) return; const m = new Map(f(its, b).map((x, i) => [its[i].id, x])); changer(() => remplacer(it => m.get(it.id) || it)); }
+  function aligner(mode) {
+    const its = choisis(), b = W.boite(its), P = doc.plate; if (!b) return;
+    if (mode === 'plaque' || its.length === 1) {
+      if (!P) return; const ref = [P.x, P.y, P.x + P.width, P.y + P.height];
+      const dx = mode === 'plaque' || mode === 'centreX' ? (ref[0] + ref[2] - b[0] - b[2]) / 2 : mode === 'gauche' ? ref[0] - b[0] : mode === 'droite' ? ref[2] - b[2] : 0;
+      const dy = mode === 'plaque' || mode === 'centreY' ? (ref[1] + ref[3] - b[1] - b[3]) / 2 : mode === 'bas' ? ref[1] - b[1] : mode === 'haut' ? ref[3] - b[3] : 0;
+      changer(() => remplacer(it => W.transformer(it, W.translation(dx, dy)))); return;
+    }
+    enBloc(items => O.aligner(items, mode, b));
+  }
+  function grouper() {
+    const its = choisis(); if (its.length < 2) return; const g = O.grouper(its), premier = its[0].id;
+    changer(() => { remplacer(it => (it.id === premier ? g : null)); sel = new Set([g.id]); });
+  }
+  function degrouper() {
+    const gs = choisis().filter(i => i.kind === 'group'); if (!gs.length) return;
+    changer(() => { remplacer(it => (it.kind === 'group' ? it.children : it)); sel = new Set(gs.flatMap(g => g.children.map(c => c.id)).concat(choisis().filter(i => i.kind !== 'group').map(i => i.id))); });
+  }
+  async function reseau() {
+    const its = choisis(), b = W.boite(its); if (!b) return;
+    const v = await formulaire(T('Réseau'), [{ k: 'l', label: T('Lignes'), valeur: 2, min: 1, step: 1 }, { k: 'c', label: T('Colonnes'), valeur: 3, min: 1, step: 1 },
+      { k: 'dx', label: T('Pas horizontal (mm)'), valeur: +(b[2] - b[0] + 5).toFixed(2) }, { k: 'dy', label: T('Pas vertical (mm)'), valeur: +(b[3] - b[1] + 5).toFixed(2) }]);
+    if (!v) return; const l = Math.max(1, v.l | 0), c = Math.max(1, v.c | 0);
+    if (l * c * its.length > 5000) { message(T('Trop de copies.'), true); return; }
+    const copies = O.reseau(its, l, c, v.dx || 0, v.dy || 0); if (!copies.length) return;
+    changer(() => { const id = actif().id; doc = { ...doc, layers: doc.layers.map(L => (L.id === id ? { ...L, items: [...L.items, ...copies] } : L)) }; sel = new Set([...its.map(i => i.id), ...copies.map(i => i.id)]); });
+  }
+  document.querySelectorAll('[data-bool]').forEach(b => (b.onclick = () => booleen(b.dataset.bool)));
+  $('vd-decaler').onclick = decaler; $('vd-grouper').onclick = grouper; $('vd-degrouper').onclick = degrouper; $('vd-reseau').onclick = reseau;
+  $('vd-symh').onclick = () => enBloc((its, b) => O.symetrie(its, 'h', b));
+  $('vd-symv').onclick = () => enBloc((its, b) => O.symetrie(its, 'v', b));
+  $('vd-rot90').onclick = () => enBloc((its, b) => its.map(it => W.transformer(it, W.rotation(90, (b[0] + b[2]) / 2, (b[1] + b[3]) / 2))));
+  document.querySelectorAll('[data-al]').forEach(b => (b.onclick = () => aligner(b.dataset.al)));
+
+  /* ---------- fichiers TypeEdit (VND, GVT, SMB) ---------- */
+  async function retextes(items) {                                          // TypeEdit ne garde pas les glyphes : contours recalculés avec la police
+    const out = [];
+    for (const it of items) {
+      if (it.kind === 'group') out.push({ ...it, children: await retextes(it.children || []) });
+      else if (it.kind === 'text' && !it.outline) { try { out.push({ ...(await O.retexter(it, {})), name: it.name, visible: it.visible !== false, locked: !!it.locked }); } catch (e) { out.push({ ...it, outline: [] }); } }
+      else out.push(it);
+    }
+    return out;
+  }
+  async function lireTypeEdit(f, ext, base, ajout) {
+    if (!window.VDTypeEdit) throw new Error(T('Lecteur TypeEdit indisponible.'));
+    const buf = await f.arrayBuffer();
+    if (ext === 'smb') {
+      const syms = VDTypeEdit.lireSMB(buf, base).symboles || [];
+      for (const sy of syms) sy.items = await retextes(sy.items || []);
+      return choisirSymbole(syms, base);
+    }
+    const d = W.verifier(VDTypeEdit.lireVND(buf));
+    d.layers = await Promise.all(d.layers.map(async L => ({ ...L, items: await retextes(L.items) })));
+    if (!d.plate) { const b = W.boite(d.layers.flatMap(L => L.items)) || [0, 0, 100, 50]; d.plate = { ...W.nouveau().plate, x: Math.floor(b[0] - 5), y: Math.floor(b[1] - 5), width: Math.ceil(b[2] - b[0] + 10), height: Math.ceil(b[3] - b[1] + 10) }; }
+    const ign = (d.extra.te_ignores || []).length;
+    if (!ajout) { charger(d, base); if (ign) message(T('Ouvert : {f}', { f: base }) + ' · ' + T('{n} élément(s) non repris (images, reliefs, solides…).', { n: ign })); return; }
+    changer(() => { doc = { ...doc, layers: [...doc.layers, ...d.layers.map(L => ({ ...L, id: W.uid(), items: L.items.map(W.copie) }))] }; }); cadrer();
+  }
+  function insererSymbole(sy) {
+    const items = sy.items.map(W.copie);
+    if (actif().locked) { message(T('Calque verrouillé.'), true); return; }
+    changer(() => { const id = actif().id; doc = { ...doc, layers: doc.layers.map(L => (L.id === id ? { ...L, items: [...L.items, ...items] } : L)) }; sel = new Set(items.map(i => i.id)); });
+    cadrer(); message(T('Symbole ajouté : {n}', { n: sy.nom || '' }));
+  }
+  function choisirSymbole(syms, base) {
+    if (!syms.length) { message(T('Aucun symbole dans ce fichier.'), true); return; }
+    if (syms.length === 1) return insererSymbole(syms[0]);
+    const grille = document.createElement('div'); grille.id = 'vd-symboles';
+    formulaire(T('Symboles de {f} ({n})', { f: base, n: syms.length }), [], el => el.append(grille));
+    syms.forEach(sy => {
+      const b = document.createElement('button'), c = document.createElement('canvas'), bb = W.boite(sy.items);
+      b.type = 'button'; c.width = 180; c.height = 120; b.append(c, sy.nom || '');
+      if (bb) { const x = c.getContext('2d'), k = Math.min(170 / Math.max(bb[2] - bb[0], 1e-3), 110 / Math.max(bb[3] - bb[1], 1e-3)); x.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--ink'); x.lineWidth = 1.5; x.beginPath();
+        sy.items.forEach(it => W.polys(it).forEach(q => q.forEach(([px, py], i) => (i ? x.lineTo : x.moveTo).call(x, 5 + (px - bb[0]) * k, 115 - (py - bb[1]) * k)))); x.stroke(); }
+      b.onclick = () => { $('vd-dlg').close('annuler'); insererSymbole(sy); };
+      grille.append(b);
+    });
+  }
+
+  /* ---------- FAO : opérations, parcours, programme ISO ---------- */
+  let faoSig = '';
+  const nomType = ty => ({ contour: T('Contour'), poche: T('Poche'), gravure: T('Gravure'), percage: T('Perçage') }[ty] || ty);
+  const duree = m => (m < 1 ? `${Math.round(m * 60)} s` : `${Math.floor(m)} min ${String(Math.round((m % 1) * 60)).padStart(2, '0')} s`);
+  function ecrireFao(R) { changer(() => (doc = F.avecReglages(doc, R))); }
+  function majOp(id, champs) { const R = F.reglages(doc); ecrireFao({ ...R, operations: R.operations.map(o => (o.id === id ? { ...o, ...champs } : o)) }); }
+  const CHAMPS_OP = { contour: ['cote', 'diametre', 'profondeur', 'passe', 'avance', 'plongee', 'rotation'], poche: ['diametre', 'profondeur', 'passe', 'recouvrement', 'avance', 'plongee', 'rotation'],
+    gravure: ['diametre', 'profondeur', 'passe', 'avance', 'plongee', 'rotation'], percage: ['diametre', 'profondeur', 'passe', 'plongee', 'rotation'] };
+  const LIB_OP = () => ({ cote: T('Côté'), diametre: T('Ø outil (mm)'), profondeur: T('Profondeur (mm)'), passe: T('Passe (mm)'), recouvrement: T('Recouvrement (%)'), avance: T('Avance (mm/min)'), plongee: T('Plongée (mm/min)'), rotation: T('Rotation (tr/min)') });
+  function carteOp(op, k, R) {
+    const d = document.createElement('div'), tete = document.createElement('div'), coul = document.createElement('div'), ch = document.createElement('div');
+    d.className = 'op'; tete.className = 'tete'; coul.className = 'coul'; ch.className = 'champs'; d.style.borderLeftColor = (doc.tools[op.outils[0]] || {}).color || '';
+    const act = document.createElement('input'); act.type = 'checkbox'; act.checked = op.actif; act.title = T('Active'); act.onchange = () => majOp(op.id, { actif: act.checked });
+    const n = document.createElement('input'); n.type = 'text'; n.value = op.nom; n.placeholder = nomType(op.type); n.onchange = () => majOp(op.id, { nom: n.value });
+    const haut = bouton('', 'arrow-up', () => { if (!k) return; const o = R.operations.slice(); [o[k - 1], o[k]] = [o[k], o[k - 1]]; ecrireFao({ ...R, operations: o }); }); haut.title = T('Monter'); haut.disabled = !k;
+    const sup = bouton('', 'trash-2', () => ecrireFao({ ...R, operations: R.operations.filter(o => o.id !== op.id) })); sup.title = T('Supprimer');
+    tete.append(act, n, haut, sup);
+    doc.tools.forEach((o, i) => { const l = document.createElement('label'), c = document.createElement('input'), sw = document.createElement('i'); c.type = 'checkbox'; c.checked = op.outils.includes(i); sw.style.background = o.color;
+      l.title = o.name || T('Outil {n}', { n: i + 1 }); c.onchange = () => { const s = new Set(op.outils); c.checked ? s.add(i) : s.delete(i); majOp(op.id, { outils: [...s].sort((a, b) => a - b) }); }; l.append(c, sw, i + 1); coul.append(l); });
+    const L = LIB_OP();
+    for (const f of CHAMPS_OP[op.type]) {
+      const l = document.createElement('label'), sp = document.createElement('span'); sp.textContent = L[f]; let i;
+      if (f === 'cote') { i = document.createElement('select'); [['ext', T('Extérieur')], ['int', T('Intérieur')], ['sur', T('Sur le trait')]].forEach(([v, x]) => i.add(new Option(x, v))); i.value = op.cote; i.onchange = () => majOp(op.id, { cote: i.value }); }
+      else { i = document.createElement('input'); i.type = 'number'; i.step = 'any'; i.min = 0; i.value = op[f]; i.onchange = () => { const v = parseFloat(i.value); if (v > 0 || (f === 'recouvrement' && v >= 0)) majOp(op.id, { [f]: v }); else i.value = op[f]; }; }
+      l.append(sp, ' ', i); ch.append(l);
+    }
+    const ty = document.createElement('div'); ty.className = 'aide'; ty.textContent = nomType(op.type);
+    d.append(tete, ty, coul, ch); return d;
+  }
+  function majFao(force) {
+    const R = F.reglages(doc), sig = JSON.stringify([R, doc.tools.map(o => o.color)]);
+    document.querySelectorAll('#fao-machine [data-m]').forEach(i => { if (document.activeElement !== i) i.value = R.machine[i.dataset.m]; });
+    if (!force && sig === faoSig) return; faoSig = sig;
+    const liste = R.operations.map((op, k) => carteOp(op, k, R));
+    if (!liste.length) { const p = document.createElement('p'); p.className = 'aide'; p.textContent = T('Aucune opération : ajoute un contour, une poche, une gravure ou un perçage.'); liste.push(p); }
+    $('fao-ops').replaceChildren(...liste);
+  }
+  document.querySelectorAll('#fao-machine [data-m]').forEach(i => (i.onchange = () => { const R = F.reglages(doc), v = parseFloat(i.value); if (!(v > 0)) return majFao(true); ecrireFao({ ...R, machine: { ...R.machine, [i.dataset.m]: v } }); }));
+  document.querySelectorAll('[data-op]').forEach(b => (b.onclick = () => { const R = F.reglages(doc), ch = choisis(), outil = ch.length ? ch[0].tool : outilCourant;
+    ecrireFao({ ...R, operations: [...R.operations, F.operationDefaut(b.dataset.op, outil)] }); }));
+  function montrerResultats(res) {
+    parcours = res; const tot = res.reduce((s, r) => s + (r.minutes || 0), 0);
+    $('fao-res').textContent = res.map(r => `${r.op.nom || nomType(r.op.type)} : ${r.op.actif ? T('{n} passage(s)', { n: r.chemins.length }) + ', ' + duree(r.minutes) : T('inactive')}${r.avis ? ' — ' + r.avis : ''}`).join('\n')
+      + (res.length ? '\n' + T('Total estimé : {t}', { t: duree(tot) }) : '');
+    dessiner(); if (mode3d) maj3d();
+  }
+  async function calculerFao() {
+    if (!F.reglages(doc).operations.length) { message(T('Ajoute d\'abord une opération.'), true); return null; }
+    $('fao-res').textContent = T('Calcul…');
+    try { const res = await F.toutCalculer(doc); montrerResultats(res); return res; } catch (e) { $('fao-res').textContent = ''; message(e.message, true); return null; }
+  }
+  $('fao-calc').onclick = calculerFao;
+  $('fao-gcode').onclick = async () => { const res = parcours || (await calculerFao()); if (!res) return;
+    if (!res.some(r => r.op.actif && r.chemins.length)) { message(T('Aucun parcours à écrire.'), true); return; }
+    telecharger(F.gcode(doc, res), nom + '.nc', 'text/plain'); message(T('Programme ISO enregistré : {f}', { f: nom + '.nc' })); };
+  $('fao-voir').onchange = () => { dessiner(); if (mode3d) maj3d(); };
+
+  /* ---------- onglets ---------- */
+  document.querySelectorAll('[data-onglet]').forEach(b => (b.onclick = () => {
+    document.querySelectorAll('[data-onglet]').forEach(x => x.classList.toggle('on', x === b));
+    ['props', 'fao', 'ia'].forEach(o => ($('pan-' + o).hidden = o !== b.dataset.onglet));
+    if (b.dataset.onglet === 'fao') majFao(true);
+  }));
+
+  /* ---------- assistant IA ---------- */
+  const A = VDIA, IA = { discussion: [], depense: 0, ctrl: null, avant: null };
+  const hote = {
+    lire: () => doc, ecrire: d => changer(() => { doc = d; }), calqueActif: id => { if (id) { calqueActif = id; maj(); } return calqueActif; },
+    selection: () => [...sel], choisir: ids => { sel = new Set(ids); maj(); }, annuler, resultats: montrerResultats,
+    credits: (c, cout) => { doc = { ...doc, extra: { ...doc.extra, ia_credits: c } }; IA.depense += cout; modifie = true; majCredits(); },
+    depense: () => IA.depense, version: () => version
+  };
+  const argent = v => (v || 0).toLocaleString(document.documentElement.lang || 'fr', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' $';
+  function majCredits() {
+    const c = doc.extra && doc.extra.ia_credits;
+    $('ia-credits').textContent = T('Session : {s}', { s: argent(IA.depense) }) + (c ? ' · ' + T('ce dessin : {d} ({t} tours)', { d: argent(c.cout), t: c.tours }) : '');
+    const bouge = !!IA.avant && version !== IA.avant.version; $('ia-garder').hidden = $('ia-defaire').hidden = !bouge || !!IA.ctrl;
+  }
+  function journal(type, texte) { const d = document.createElement('div'); d.className = type; d.textContent = texte; $('ia-log').append(d); $('ia-log').scrollTop = $('ia-log').scrollHeight; }
+  const configIA = () => ({ fournisseur: $('ia-four').value, modele: $('ia-modele').value.trim() || A.FOURNISSEURS[$('ia-four').value].modele, cle: $('ia-cle').value.trim(), url: $('ia-url').value.trim(),
+    consignes: $('ia-consignes').value.trim(), tours: Math.max(1, parseInt($('ia-tours').value, 10) || 25), plafond: Math.max(0, parseFloat($('ia-plafond').value) || 0) });
+  const CLE_IA = 'romduch.vdia';
+  function sauverIA() {
+    const c = configIA(), o = { fournisseur: c.fournisseur, modele: c.modele, cle: c.cle, url: c.url, consignes: c.consignes, tours: c.tours, plafond: c.plafond };
+    try { sessionStorage.setItem(CLE_IA, JSON.stringify(o)); } catch (e) { /* */ }
+    if ($('ia-retenir').checked) { if (window.Stockage && Stockage.actif()) Stockage.set('vdia', o); else if (window.Stockage) { $('ia-retenir').checked = false; Stockage.banniere(true); message(T('Accepte le stockage local pour retenir la clé sur cet appareil.'), true); } }
+    else try { localStorage.removeItem(CLE_IA); } catch (e) { /* */ }
+  }
+  function chargerIA() {
+    let o = window.Stockage && Stockage.get('vdia'); $('ia-retenir').checked = !!o;
+    if (!o) try { o = JSON.parse(sessionStorage.getItem(CLE_IA) || 'null'); } catch (e) { o = null; }
+    o = o || {};
+    $('ia-four').replaceChildren(...Object.entries(A.FOURNISSEURS).map(([k, f]) => new Option(f.nom, k)));
+    $('ia-four').value = A.FOURNISSEURS[o.fournisseur] ? o.fournisseur : 'anthropic'; majFournisseur(o.modele);
+    $('ia-cle').value = o.cle || ''; $('ia-url').value = o.url || ''; $('ia-consignes').value = o.consignes || '';
+    if (o.tours) $('ia-tours').value = o.tours; if (o.plafond != null) $('ia-plafond').value = o.plafond;
+  }
+  function majFournisseur(modele) {
+    const f = A.FOURNISSEURS[$('ia-four').value];
+    $('ia-modeles').replaceChildren(...f.modeles.map(m => new Option(m, m)));
+    $('ia-modele').value = modele || f.modele; $('ia-lien').href = f.cle; $('ia-url-l').hidden = $('ia-four').value !== 'mistral';
+  }
+  $('ia-four').onchange = () => { majFournisseur(); sauverIA(); };
+  ['ia-modele', 'ia-cle', 'ia-url', 'ia-consignes', 'ia-tours', 'ia-plafond', 'ia-retenir'].forEach(id => $(id).addEventListener('change', sauverIA));
+  $('ia-verifier').onclick = async () => { const c = configIA(); if (!c.cle) { message(T('Saisis ta clé d\'API.'), true); $('ia-cle').focus(); return; }
+    $('ia-verifier').disabled = true; try { await A.verifier(c); message(T('Clé acceptée par {f}.', { f: A.FOURNISSEURS[c.fournisseur].nom })); } catch (e) { message(e.message, true); } finally { $('ia-verifier').disabled = false; } };
+  function etatIA(enCoursIA) { $('ia-envoyer').disabled = enCoursIA; $('ia-arreter').disabled = !enCoursIA; majCredits(); }
+  async function envoyerIA() {
+    const demande = $('ia-demande').value.trim(); if (!demande || IA.ctrl) return;
+    const c = configIA(); if (!c.cle) { message(T('Saisis ta clé d\'API.'), true); $('ia-cle').focus(); return; }
+    sauverIA(); journal('u', demande); $('ia-demande').value = '';
+    if (!IA.avant) IA.avant = { inst: instant(), version };
+    const n = IA.discussion.length; IA.ctrl = new AbortController(); etatIA(true);
+    try { const r = await A.demander(c, hote, IA.discussion, demande, { journal, signal: IA.ctrl.signal }); if (!r.texte) journal('ia', r.modifie ? T('C\'est fait.') : T('(pas de réponse)')); }
+    catch (e) { IA.discussion.length = n; journal('erreur', e.name === 'AbortError' ? T('Arrêté.') : e.message); }
+    finally { IA.ctrl = null; etatIA(false); }
+  }
+  $('ia-envoyer').onclick = envoyerIA;
+  $('ia-arreter').onclick = () => IA.ctrl && IA.ctrl.abort();
+  $('ia-demande').addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); envoyerIA(); } });
+  $('ia-garder').onclick = () => { IA.avant = null; majCredits(); };
+  $('ia-defaire').onclick = () => { if (!IA.avant) return; pile.push(instant()); refaire.length = 0; const s = IA.avant.inst; IA.avant = null; modifie = true; restaurer(s); journal('outil', T('Modifications de l\'assistant défaites.')); };
+  $('ia-exemples').replaceChildren(...A.EXEMPLES.map(x => bouton(T(x), null, () => { $('ia-demande').value = T(x); $('ia-demande').focus(); })));
+  chargerIA();
+
+  /* ---------- 3D : plaque, contours à Z0, volumes du dessin, parcours ---------- */
   let v3 = null, rev = 0;
   async function maj3d() {
     const n = ++rev;
@@ -498,6 +902,10 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
           const pts = []; for (const q of W.polys(it)) for (let i = 0; i < q.length - 1; i++) pts.push(q[i][0], q[i][1], 0.02, q[i + 1][0], q[i + 1][1], 0.02);
           if (!pts.length) continue; const geo = new T3.BufferGeometry(); geo.setAttribute('position', new T3.Float32BufferAttribute(pts, 3));
           g.add(new T3.LineSegments(geo, new T3.LineBasicMaterial({ color: couleur(it) }))); } }
+      if (parcours && $('fao-voir').checked) for (const r of parcours) { if (!r.op.actif) continue; const pts = [];
+        for (const c of r.chemins) { if (c.percage) { pts.push(...c.pts[0], 0, ...c.pts[0], c.z); continue; } for (let i = 0; i < c.pts.length - 1; i++) pts.push(...c.pts[i], c.z, ...c.pts[i + 1], c.z); }
+        if (!pts.length) continue; const geo = new T3.BufferGeometry(); geo.setAttribute('position', new T3.Float32BufferAttribute(pts, 3));
+        g.add(new T3.LineSegments(geo, new T3.LineBasicMaterial({ color: (doc.tools[r.op.outils[0]] || {}).color || '#c9a24a' }))); }
       if (vol.meshes.length) g.add(Vue3D.solide(T3, vol, { aretes: false }));
       v3.racine.add(g);
       const bb = new T3.Box3().setFromObject(g); v3.cadrer(bb, !maj3d.fait); maj3d.fait = true;

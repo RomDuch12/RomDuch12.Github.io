@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   const P = 'romduch.';
-  const KEYS = ['tools', 'favoris', 'dxf', 'theme', 'coupe', 'lang', 'taudrive'];
+  const KEYS = ['tools', 'favoris', 'dxf', 'theme', 'coupe', 'lang', 'taudrive', 'vdia'];
   const ls = (() => { try { const s = window.localStorage; s.setItem(P + 't', '1'); s.removeItem(P + 't'); return s; } catch (e) { return null; } })();
   const ss = (() => { try { return window.sessionStorage; } catch (e) { return null; } })();
 

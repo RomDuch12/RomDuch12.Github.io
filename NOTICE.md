@@ -36,6 +36,7 @@ de machine, ni protocole machine, ni recette ou donnée d'atelier.
 | [CodeMirror 5](https://codemirror.net/5/) | éditeur SimPL | MIT |
 | [pdf.js](https://mozilla.github.io/pdf.js/) | lecture des PDF et AI | Apache 2.0 |
 | [opentype.js](https://opentype.js.org/) | vectorisation des textes | MIT |
+| [Clipper](https://sourceforge.net/projects/polyclipping/) d'Angus Johnson (clipper-lib 6.4.2) | booléens, décalages et parcours d'outil de VectorDrive web | Boost Software License 1.0 |
 | [JSZip](https://stuk.github.io/jszip/) | téléchargement des jobs en .zip | MIT ou GPLv3 (au choix) |
 | [Lucide](https://lucide.dev/) | icônes | ISC |
 | [three.js](https://threejs.org/) 0.160 | vues 3D (fiche outil, visualiseur) | MIT |
