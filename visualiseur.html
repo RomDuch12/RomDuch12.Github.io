@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Visualiseur STEP – RomDuch</title>
+<meta name="description" content="Visualiseur STEP en ligne : ouvre un fichier .step / .stp ou un dessin VectorDrive (.vdz) en 3D dans le navigateur, sans rien envoyer. Exemple : un jeu d'échecs 3D créé par l'assistant IA de VectorDrive pour 1,92 $.">
+<script src="i18n.js"></script>
+<script src="theme.js"></script>
+<link rel="stylesheet" href="themes.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Barlow,"Segoe UI",Roboto,"Noto Sans SC","Microsoft YaHei",Arial,sans-serif}
+main{max-width:1200px;margin:0 auto;padding:28px 18px 70px}
+header{display:grid;gap:6px;padding:10px 0 22px;border-bottom:2px solid var(--brass);margin-bottom:14px}
+h1{font:700 clamp(2.2rem,6vw,3.6rem)/1 "Barlow Condensed",Arial Narrow,sans-serif;margin:6px 0 0}
+.lead{max-width:80ch;margin:6px 0 0;color:var(--mute)}
+h2{font:700 1.8rem/1.1 "Barlow Condensed",sans-serif;margin:40px 0 12px}
+a{color:var(--ink);text-decoration-color:var(--brass);text-underline-offset:3px}
+button,.btn{font:600 15px Barlow,sans-serif;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 12px;border-radius:5px;cursor:pointer;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+button.primary,.btn.primary{background:var(--brass);border-color:var(--brass);color:var(--on-accent)}
+button:disabled{opacity:.5;cursor:default}
+:focus-visible{outline:3px solid var(--brass-l);outline-offset:2px}
+.muted{color:var(--mute)}.small{font-size:14px}.bad{color:var(--warn)}
+.barre{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.barre label{display:inline-flex;gap:6px;align-items:center;font-size:15px}
+.vue{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:12px}
+@media (max-width:860px){.vue{grid-template-columns:1fr}}
+#vs-3d{position:relative;height:min(68vh,620px);min-height:340px;border:1px solid var(--line);border-radius:6px;background:radial-gradient(ellipse at 50% 30%,var(--card),var(--bg));overflow:hidden}
+#vs-3d.over{border-color:var(--brass);box-shadow:inset 0 0 0 2px var(--brass)}
+#vs-vide{position:absolute;inset:0;display:grid;place-content:center;gap:10px;text-align:center;color:var(--mute);padding:20px;pointer-events:none}
+#vs-vide[hidden]{display:none}
+#vs-vide b{font:700 1.5rem "Barlow Condensed",sans-serif;color:var(--ink)}
+#vs-attente{position:absolute;left:12px;bottom:10px;font-size:14px;color:var(--mute)}
+.aide{position:absolute;right:10px;bottom:8px;font-size:12px;color:var(--mute);pointer-events:none}
+.panneau{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:grid;gap:10px;align-content:start;max-height:min(68vh,620px);overflow:auto}
+.panneau h3{margin:0;font:700 1.15rem "Barlow Condensed",sans-serif}
+.panneau dl{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin:0;font-size:14px}.panneau dt{color:var(--mute)}.panneau dd{margin:0;font-variant-numeric:tabular-nums}
+#vs-corps{list-style:none;margin:0;padding:0;display:grid;gap:2px;font-size:14px}
+#vs-corps li{display:flex;gap:6px;align-items:center;padding:2px 4px;border-radius:4px;cursor:pointer}
+#vs-corps li.on{background:var(--bg);box-shadow:inset 3px 0 0 var(--brass)}
+#vs-corps .pastille{width:12px;height:12px;border-radius:3px;border:1px solid var(--line);flex:none}
+#vs-corps span.n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#vs-choix{font-size:14px;margin:0}
+/* présentation de l'exemple */
+.ex{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:860px){.ex{grid-template-columns:1fr}}
+.chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:12px 0}
+.chiffres div{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--brass);border-radius:6px;padding:10px 12px}
+.chiffres b{display:block;font:700 1.9rem/1 "Barlow Condensed",sans-serif}
+.chiffres span{color:var(--mute);font-size:14px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px 16px}
+.box ul{margin:6px 0 0;padding-left:1.1em}.box li{margin:3px 0}
+table{border-collapse:collapse;font-size:14px;width:100%}td,th{text-align:left;padding:4px 8px;border-bottom:1px solid var(--line)}td.n{text-align:right;font-variant-numeric:tabular-nums}
+footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
+</style>
+<link rel="stylesheet" href="site.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#171b22">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<script src="ui.js" defer></script>
+</head>
+<body>
+<main>
+<header>
+  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tauconvert.html">TauConvert</a><a href="visualiseur.html" aria-current="page" data-i18n>Visualiseur STEP</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html">RomDuch</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <h1 data-i18n>Visualiseur STEP</h1>
+  <p class="lead" data-i18n>Ouvre un fichier STEP (.step, .stp) ou un dessin VectorDrive (.vdz) avec ses volumes, et tourne autour en 3D. Tout est lu dans ton navigateur : rien n'est envoyé.</p>
+</header>
+
+<div class="barre">
+  <button class="primary" id="vs-ouvrir" type="button" data-i18n>Ouvrir un fichier</button>
+  <input type="file" id="vs-fichier" accept=".step,.stp,.vdz" hidden>
+  <button id="vs-exemple" type="button" data-i18n>Exemple : jeu d'échecs (assistant IA)</button>
+  <button id="vs-cadrer" type="button" data-i18n>Cadrer</button>
+  <button id="vs-iso" type="button" data-i18n>Vue iso</button>
+  <button id="vs-dessus" type="button" data-i18n>Dessus</button>
+  <label><input type="checkbox" id="vs-aretes" checked> <span data-i18n>Arêtes</span></label>
+</div>
+
+<div class="vue">
+  <div id="vs-3d" aria-label="Vue 3D" data-i18n-attr="aria-label">
+    <div id="vs-vide"><b data-i18n>Dépose un fichier STEP ou VDZ ici</b><span data-i18n>ou ouvre l'exemple du jeu d'échecs</span></div>
+    <span id="vs-attente" role="status"></span>
+    <span class="aide" data-i18n>Gauche : tourner · droit : déplacer · molette : zoom · double-clic : vue iso · clic : choisir</span>
+  </div>
+  <aside class="panneau" aria-live="polite">
+    <div><h3 id="vs-nom" data-i18n>Aucun fichier</h3></div>
+    <dl id="vs-infos"></dl>
+    <p id="vs-choix" class="muted"></p>
+    <div><h3 data-i18n>Corps</h3><ul id="vs-corps"></ul></div>
+  </aside>
+</div>
+
+<section id="exemple" aria-labelledby="ex-titre">
+  <h2 id="ex-titre" data-i18n>Exemple : un jeu d'échecs 3D pour 1,92 $</h2>
+  <div class="ex">
+    <div>
+      <p data-i18n>Ce jeu d'échecs a été créé dans VectorDrive par son assistant IA, à partir d'une demande de quelques mots : l'échiquier, puis les 32 pièces en volumes, chacune à sa case de départ.</p>
+      <div class="chiffres">
+        <div><b>1,92 $</b><span data-i18n>de crédits API</span></div>
+        <div><b>21</b><span data-i18n>tours de l'assistant</span></div>
+        <div><b>47</b><span data-i18n>corps 3D</span></div>
+        <div><b>18 min</b><span data-i18n>de travail sur le dessin</span></div>
+      </div>
+      <p><button class="primary" type="button" data-vs-exemple data-i18n>Voir le jeu d'échecs en 3D</button> <a class="btn" href="exemples/echecs-ia.vdz" download="echecs-ia.vdz" data-i18n>Télécharger le dessin (.vdz)</a></p>
+      <p class="muted small" data-i18n>Le dessin s'ouvre dans VectorDrive avec ses volumes ; les crédits dépensés par l'assistant y sont gardés et s'affichent sous la discussion.</p>
+    </div>
+    <div class="box">
+      <h3 style="margin:0;font:700 1.2rem 'Barlow Condensed',sans-serif" data-i18n>Ce que l'assistant a fait</h3>
+      <ul>
+        <li data-i18n>un échiquier de 224 × 224 mm, cases de 28 mm ;</li>
+        <li data-i18n>16 pions, 4 fous et 2 dames d'un seul corps ;</li>
+        <li data-i18n>4 tours avec leurs créneaux, 2 rois avec leur croix ;</li>
+        <li data-i18n>4 cavaliers en trois corps : socle, tête et crinière ;</li>
+        <li data-i18n>blancs et noirs de deux couleurs, chaque corps nommé par sa case (TB_a1, RN_e8…).</li>
+      </ul>
+      <table aria-label="Jetons" data-i18n-attr="aria-label">
+        <tr><th data-i18n>Modèle</th><td class="n">Claude Sonnet 5.5</td></tr>
+        <tr><th data-i18n>Jetons en sortie</th><td class="n">127 318</td></tr>
+        <tr><th data-i18n>Jetons lus en cache</th><td class="n">935 434</td></tr>
+        <tr><th data-i18n>Jetons écrits en cache</th><td class="n">221 620</td></tr>
+      </table>
+      <p class="muted small" style="margin:8px 0 0" data-i18n>Coût calculé par VectorDrive aux prix publics du fournisseur ; il dépend du modèle et du fournisseur choisis.</p>
+    </div>
+  </div>
+  <p><a href="index.html#assistant" data-i18n>L'assistant IA de VectorDrive : ce qu'il sait faire</a></p>
+</section>
+
+<footer><p>RomDuch · <span data-i18n>Lecture STEP : occt-import-js (OpenCascade, LGPL-2.1), chargé à la première ouverture. Vue 3D : three.js (MIT).</span></p><p><a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
+</main>
+<script src="vecteurs.js"></script>
+<script src="vdz.js"></script>
+<script src="vue3d.js"></script>
+<script src="stockage.js" defer></script>
+<script>
+/* Visualiseur : STEP par OpenCascade (Vecteurs.readSTEP3D), VDZ par vdz.js ; une vue Vue3D, un corps par maillage */
+(function () {
+  'use strict';
+  const $ = id => document.getElementById(id), T = (s, v) => (window.t ? t(s, v) : s);
+  const zone = $('vs-3d'), attente = $('vs-attente');
+  let v = null, groupe = null, aretes = [], choix = null, corps = [];
+  const nb = (x, d = 1) => Number(x).toLocaleString(document.documentElement.lang || 'fr', { maximumFractionDigits: d });
+
+  async function vue() {
+    if (v) return v;
+    v = await Vue3D.creer(zone, { onPick: choisir });
+    return v;
+  }
+  function vider() {
+    if (!v) return; v.vider(); groupe = null; aretes = []; choix = null; corps = [];
+  }
+  async function afficher(s, nom) {
+    await vue(); vider();
+    const T3 = v.T;
+    groupe = new T3.Group();
+    s.meshes.forEach((m, k) => {
+      const g = Vue3D.solide(T3, { meshes: [m] }, { aretes: true });
+      const mesh = g.children.find(o => o.isMesh), ar = g.children.find(o => o.isLineSegments);
+      mesh.userData.corps = k; if (ar) aretes.push(ar);
+      corps.push({ nom: m.name || T('Corps {n}', { n: k + 1 }), couleur: m.color, g, tri: m.index.length / 3 });
+      groupe.add(g);
+    });
+    aretes.forEach(a => (a.visible = $('vs-aretes').checked));
+    v.racine.add(groupe);
+    const b = s.bounds, boite = new T3.Box3(new T3.Vector3(b[0], b[1], b[2]), new T3.Vector3(b[3], b[4], b[5]));
+    v.cadrer(boite, true);
+    $('vs-vide').hidden = true;
+    $('vs-nom').textContent = nom;
+    const tri = corps.reduce((a, c) => a + c.tri, 0);
+    const lignes = [[T('Corps'), nb(corps.length, 0)], [T('Triangles'), nb(tri, 0)],
+      [T('Dimensions'), `${nb(b[3] - b[0])} × ${nb(b[4] - b[1])} × ${nb(b[5] - b[2])} mm`]];
+    if (s.credits && s.credits.cout != null) lignes.push([T('Crédits IA'), `${nb(s.credits.cout, 2)} ${s.credits.devise || '$'} · ${T('{n} tours', { n: s.credits.tours })}`]);
+    $('vs-infos').replaceChildren(...lignes.flatMap(([a, c]) => { const dt = document.createElement('dt'), dd = document.createElement('dd'); dt.textContent = a; dd.textContent = c; return [dt, dd]; }));
+    $('vs-corps').replaceChildren(...corps.map((c, k) => {
+      const li = document.createElement('li'), cb = document.createElement('input'), p = document.createElement('span'), n = document.createElement('span');
+      cb.type = 'checkbox'; cb.checked = true; cb.title = T('Montrer ou cacher'); cb.onclick = e => { e.stopPropagation(); c.g.visible = cb.checked; v.rendre(); };
+      p.className = 'pastille'; if (c.couleur) p.style.background = `rgb(${c.couleur.map(x => Math.round(x * 255)).join(',')})`;
+      n.className = 'n'; n.textContent = c.nom;
+      li.append(cb, p, n); li.onclick = () => selectionner(k, null); li.dataset.k = k;
+      return li;
+    }));
+    $('vs-choix').textContent = T('Clique sur un corps pour le choisir.');
+  }
+  function selectionner(k, hit) {
+    if (choix) { v.racine.remove(choix); Vue3D.liberer(choix); choix = null; }
+    document.querySelectorAll('#vs-corps li').forEach(li => li.classList.toggle('on', +li.dataset.k === k));
+    if (k == null) { $('vs-choix').textContent = T('Clique sur un corps pour le choisir.'); v.rendre(); return; }
+    const c = corps[k], mesh = c.g.children.find(o => o.isMesh);
+    const h = hit || { object: mesh, faceIndex: 0 }, nf = mesh.userData.source.faces.length;
+    // une seule face (maillage VDZ) : tout le corps ; sinon la face B-rep touchée
+    choix = nf > 1 && hit ? Vue3D.surligner(v.T, h) : Vue3D.surligner(v.T, { object: mesh, faceIndex: 0 });
+    if (choix) v.racine.add(choix);
+    const bb = new v.T.Box3().setFromObject(mesh), d = bb.getSize(new v.T.Vector3());
+    let txt = `${c.nom} — ${nb(d.x)} × ${nb(d.y)} × ${nb(d.z)} mm`;
+    if (nf > 1 && hit) txt += ' · ' + T('face {n} sur {m}', { n: mesh.userData.faceDe[hit.faceIndex] + 1, m: nf });
+    if (hit) txt += ' · ' + T('point X {x} Y {y} Z {z}', { x: nb(hit.point.x, 2), y: nb(hit.point.y, 2), z: nb(hit.point.z, 2) });
+    $('vs-choix').textContent = txt;
+    const li = document.querySelector(`#vs-corps li[data-k="${k}"]`); if (li && hit) li.scrollIntoView({ block: 'nearest' });
+    v.rendre();
+  }
+  function choisir(hit) { selectionner(hit ? hit.object.userData.corps : null, hit); }
+
+  async function charger(fichier, nom) {
+    attente.textContent = T('Lecture de {f}…', { f: nom }); attente.classList.remove('bad');
+    try {
+      const buf = await fichier.arrayBuffer(), u8 = new Uint8Array(buf, 0, Math.min(64, buf.byteLength));
+      const zip = u8[0] === 0x50 && u8[1] === 0x4b;
+      const s = zip || /\.vdz$/i.test(nom) ? await VDZ.lire(buf) : await Vecteurs.readSTEP3D(buf);
+      await afficher(s, nom);
+      attente.textContent = '';
+    } catch (e) { attente.textContent = e.message || String(e); attente.classList.add('bad'); }
+  }
+  const exemple = () => charger({ arrayBuffer: () => fetch('exemples/echecs-ia.vdz').then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); }) }, T('Jeu d\'échecs (assistant IA)'));
+
+  $('vs-ouvrir').onclick = () => $('vs-fichier').click();
+  $('vs-fichier').onchange = e => { const f = e.target.files[0]; if (f) charger(f, f.name); e.target.value = ''; };
+  $('vs-exemple').onclick = exemple;
+  document.querySelectorAll('[data-vs-exemple]').forEach(b => (b.onclick = () => { zone.scrollIntoView({ behavior: 'smooth', block: 'center' }); exemple(); }));
+  $('vs-cadrer').onclick = () => v && v.cadrer(null, false);
+  $('vs-iso').onclick = () => v && v.cadrer(null, true);
+  $('vs-dessus').onclick = () => { if (!v) return; v.cadrer(null, false); v.etat.az = -Math.PI / 2; v.etat.el = 1.55; v.rendre(); };
+  $('vs-aretes').onchange = e => { aretes.forEach(a => (a.visible = e.target.checked)); v && v.rendre(); };
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+  zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('over'); const f = e.dataTransfer.files[0]; if (f) charger(f, f.name); });
+  if (location.hash === '#jeu') exemple();
+})();
+</script>
+</body>
+</html>

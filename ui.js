@@ -4,7 +4,7 @@
   'use strict';
   const tr = (s, v) => (window.t ? window.t(s, v) : s);
   const NAV = { 'index.html': 'house', 'neodrive.html': 'cpu', 'taudrive.html': 'zap', 'tuto.html': 'graduation-cap', 'cv.html': 'user-round',
-    'outils.html': 'wrench', 'coupe.html': 'gauge', 'tauconvert.html': 'repeat-2' };
+    'outils.html': 'wrench', 'coupe.html': 'gauge', 'tauconvert.html': 'repeat-2', 'visualiseur.html': 'box' };
   const ANCRES = { 'sec-gen': 'wand-sparkles', 'sec-viewer': 'scan-eye', 'sec-videos': 'clapperboard', 'sec-td-draw': 'pen-tool', 'sec-td-job': 'file-cog', 'sec-td-viewer': 'scan-eye' };
   const ICONES = [
     // TauDrive
@@ -24,6 +24,8 @@
     ['[data-a=fiche]', 'box'], ['[data-dessin]', 'box'], ['[data-l=dessins]', 'file-box'], ['#f-close', 'x'], ['#v3d-step', 'box'], ['#v3d-cadrer', 'maximize'], ['#b-fold', 'fold-vertical'], ['#b-unfold', 'unfold-vertical'], ['[data-a=prop]', 'sparkles'], ['[data-a=dup]', 'copy'], ['[data-a=shop]', 'external-link'], ['[data-ref]', 'plus'],
     // TauConvert
     ['#tc-out [data-f]', 'download'], ['#tc-taudrive', 'zap'], ['#tc-dl', 'download'],
+    // visualiseur STEP
+    ['#vs-ouvrir', 'folder-open'], ['#vs-exemple', 'sparkles'], ['#vs-cadrer', 'maximize'], ['#vs-dessus', 'arrow-down-to-line'], ['#vs-iso', 'box'],
     // commun
     ['[data-stockage-gerer]', 'database'], ['.datawipe', 'eraser'], ['[data-td=share]', 'share-2'], ['#g-share', 'share-2'], ['#install', 'download']
   ];

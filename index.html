@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>VectorDrive et outils en ligne – RomDuch</title>
-<meta name="description" content="VectorDrive : logiciel libre de dessin et de FAO pour la gravure (fraisage et laser), Windows et macOS. Et les outils en ligne de RomDuch : NeoDrive (SimPL Datron), TauDrive (job laser), TauConvert.">
+<meta name="description" content="VectorDrive : logiciel libre de dessin et de FAO pour la gravure (fraisage et laser), Windows et macOS, avec assistant IA intégré (Claude, ChatGPT, Mistral). Et les outils en ligne de RomDuch : NeoDrive (SimPL Datron), TauDrive (job laser), TauConvert.">
 <script src="i18n.js"></script>
 <script src="theme.js"></script>
 <link rel="stylesheet" href="themes.css">
@@ -23,6 +23,7 @@ h2{font:700 1.8rem/1.1 "Barlow Condensed",sans-serif;margin:44px 0 14px}
 .hero .kicker{font:600 1rem "Barlow Condensed",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--brass);margin:0}
 .hero h1{font:700 clamp(2.6rem,8vw,4.6rem)/.95 "Barlow Condensed",Arial Narrow,sans-serif;margin:2px 0 6px}
 .hero .lead{grid-column:1/-1;font-size:1.2rem;max-width:64ch;margin:0;color:var(--ink)}
+.hero .lead .lead-ia{display:block;margin-top:6px;font-weight:600;color:var(--brass)}
 .hero .lead small{display:block;font-size:1rem;color:var(--mute);margin-top:6px}
 @media (max-width:560px){.hero{grid-template-columns:1fr}.hero img{width:84px}}
 .actions{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:6px}
@@ -39,6 +40,20 @@ h2{font:700 1.8rem/1.1 "Barlow Condensed",sans-serif;margin:44px 0 14px}
 .formats{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0;padding:0;list-style:none}
 .formats li{font:600 13px "JetBrains Mono",ui-monospace,monospace;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--card)}
 .note{color:var(--mute);font-size:.95rem;margin:12px 0 0;max-width:80ch}
+/* assistant IA */
+.ia{margin-top:34px;padding:22px 22px 18px;border:1px solid var(--brass);border-radius:10px;background:linear-gradient(135deg,color-mix(in srgb,var(--brass) 12%,var(--card)),var(--card) 60%)}
+.ia h2{margin:0 0 6px;display:flex;gap:10px;align-items:center}
+.ia .tag{display:inline-block;font:600 .8rem "Barlow Condensed",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--on-accent);background:var(--brass);border-radius:999px;padding:2px 10px;vertical-align:middle}
+.ia .intro{font-size:1.12rem;max-width:72ch;margin:0 0 14px}
+.ia .feats{grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr))}
+.ia .feats .feat{background:var(--bg)}
+.ia-ex{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 20px;align-items:center;margin-top:14px;padding:14px 16px;border-radius:8px;background:var(--bg);border:1px solid var(--line);color:var(--ink);text-decoration:none}
+.ia-ex:hover{border-color:var(--brass)}
+.ia-ex .muted{display:block;color:var(--mute);margin-top:4px}
+.ia-ex b{font:700 1.35rem/1.1 "Barlow Condensed",sans-serif;display:block}
+.ia-ex .chiffres{display:flex;gap:18px;flex-wrap:wrap}.ia-ex .chiffres span{display:grid;text-align:center;color:var(--mute);font-size:.85rem}
+.ia-ex .chiffres strong{font:700 1.7rem/1 "Barlow Condensed",sans-serif;color:var(--brass)}
+@media (max-width:640px){.ia-ex{grid-template-columns:1fr}}
 /* outils en ligne */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:14px}
 .card{display:grid;align-content:start;gap:6px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brass);border-radius:6px;padding:16px 18px;color:var(--ink);text-decoration:none;transition:border-color .15s,transform .15s}
@@ -61,7 +76,7 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <body>
 <main>
 <header>
-  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-current="page" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tauconvert.html">TauConvert</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html">RomDuch</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-current="page" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tauconvert.html">TauConvert</a><a href="visualiseur.html" data-i18n>Visualiseur STEP</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html">RomDuch</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
 </header>
 
 <section class="hero" id="vectordrive" aria-labelledby="vd-titre">
@@ -71,6 +86,7 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     <h1 id="vd-titre">VectorDrive</h1>
   </div>
   <p class="lead"><span data-i18n>Dessin et FAO pour la gravure, en fraisage comme au laser : on dessine, on prépare les parcours d'outil, on les voit et on les simule, de la plaque gravée au relief 3D.</span>
+    <span class="lead-ia" data-i18n>Avec un assistant IA intégré : tu décris, il dessine, prépare la FAO et crée des pièces STEP.</span>
     <small data-i18n>Gratuit, sous double licence MIT ou Apache-2.0. Version portable pour Windows, sans installation.</small></p>
   <div class="actions">
     <a class="btn primary" id="dl-win" href="https://github.com/RomDuch12/VectorDrive/releases/latest"><span data-i18n>Télécharger pour Windows</span><small id="dl-win-info" data-i18n>portable, sans installation</small></a>
@@ -79,6 +95,24 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     <a class="btn" href="https://github.com/RomDuch12/VectorDrive"><span data-i18n>Code source</span><small>GitHub</small></a>
     <span class="version" id="version"></span>
   </div>
+</section>
+
+<section class="ia" id="assistant" aria-labelledby="ia-titre">
+  <h2 id="ia-titre"><span data-icon="sparkles" data-i18n>Assistant IA intégré</span> <span class="tag" data-i18n>ta clé d'API</span></h2>
+  <p class="intro" data-i18n>Un panneau de discussion dans VectorDrive, avec Claude (Anthropic), ChatGPT (OpenAI) ou Mistral : tu décris ce que tu veux, l'assistant lit le dessin ouvert et le modifie lui-même.</p>
+  <div class="feats">
+    <div class="feat"><h3 data-icon="pen-tool" data-i18n>Il dessine et modifie</h3><p data-i18n>Formes, textes, booléens, déplacements, courbes lissées, scripts de forme et commandes du ruban. Chaque modification s'annule (Ctrl+Z) et, à la fin d'une demande, tu choisis Garder ou Défaire.</p></div>
+    <div class="feat"><h3 data-icon="route" data-i18n>Il prépare la FAO</h3><p data-i18n>Il choisit la machine, ajoute et règle les opérations, calcule les parcours et relit le programme. Il ne l'écrit jamais sur le disque : le post-traitement reste à toi.</p></div>
+    <div class="feat"><h3 data-icon="box" data-i18n>Il crée des pièces STEP</h3><p data-i18n>Pièces exactes du catalogue (visserie, transmission, bridage…), pièces extrudées ou tournées depuis le dessin, assemblages décrits corps par corps, vérifiés avant d'être écrits.</p></div>
+    <div class="feat"><h3 data-icon="key-round" data-i18n>Ta clé, tes coûts</h3><p data-i18n>Avec la clé d'API de ton fournisseur, gardée dans le gestionnaire d'identifiants de Windows. Le coût s'affiche par session et par dessin, avec un plafond de dépenses.</p></div>
+    <div class="feat"><h3 data-icon="mouse-pointer-click" data-i18n>Boutons IA et mémoire</h3><p data-i18n>Des demandes toutes prêtes en un clic (centrer sur la plaque, vérifier avant la FAO, préparer la FAO…), une mémoire des habitudes de l'atelier, des profils, un mode Débutant ou Avancé.</p></div>
+    <div class="feat"><h3 data-icon="plug" data-i18n>Ouvert</h3><p data-i18n>Mistral ou un serveur local du même format ; un serveur MCP local pour brancher un autre assistant, comme Claude Desktop ou Claude Code.</p></div>
+  </div>
+  <a class="ia-ex" href="visualiseur.html#jeu">
+    <span><b data-i18n>Exemple : un jeu d'échecs 3D en une demande</b><span class="muted" data-i18n>L'échiquier et les 32 pièces en volumes, créés par l'assistant à partir d'une demande de quelques mots. Voir en 3D dans le visualiseur STEP →</span></span>
+    <span class="chiffres"><span><strong>1,92 $</strong><span data-i18n>crédits API</span></span><span><strong>21</strong><span data-i18n>tours</span></span><span><strong>47</strong><span data-i18n>corps 3D</span></span></span>
+  </a>
+  <p class="note" data-i18n>Ce que l'assistant lit du dessin part chez le fournisseur choisi, et le panneau le dit. Un abonnement Claude.ai, ChatGPT ou Le Chat ne donne pas de clé d'API : elle s'obtient dans la console du fournisseur.</p>
 </section>
 
 <section aria-labelledby="vd-quoi">
@@ -109,6 +143,7 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
       <ul class="sub"><li><a href="taudrive.html#sec-td-draw" data-i18n>Dessin</a></li><li><a href="taudrive.html#sec-td-job" data-i18n>Job</a></li>
         <li><a href="taudrive.html#sec-td-viewer" data-i18n>Visualiseur de job</a></li></ul></div>
     <a class="card" href="tauconvert.html"><h3>TauConvert</h3><p data-i18n>Convertis tes dessins AI, PDF, EPS, SVG et DXF en DXF, SVG, EPS, PDF ou PNG : en ligne, dans ton navigateur, ou avec le programme Windows et son menu contextuel.</p></a>
+    <a class="card" href="visualiseur.html"><h3 data-i18n>Visualiseur STEP</h3><p data-i18n>Ouvre un fichier STEP ou un dessin VectorDrive (.vdz) en 3D dans ton navigateur : corps, dimensions, faces. Avec l'exemple du jeu d'échecs créé par l'assistant IA.</p></a>
     <a class="card" href="tuto.html"><h3 data-i18n>Tuto</h3><p data-i18n>Prise en main pas à pas de NeoDrive, TauDrive et TauConvert</p></a>
     <a class="card" href="cv.html"><h3>RomDuch</h3><p data-i18n>Parcours, compétences et outils développés.</p></a>
   </div>
