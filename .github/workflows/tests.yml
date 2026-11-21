@@ -48,4 +48,4 @@ jobs:
             googlefeab245c91ce1fc1.html
       - name: Identifiants absents
         if: steps.ident.outputs.ok != 'oui'
-        run: echo "::notice::Secrets OVH_FTP_* absents : envoi vers vectordrive.fr sauté."
+        run: echo '::notice::Secrets OVH_FTP_* absents, envoi vers vectordrive.fr sauté.'
