@@ -37,6 +37,15 @@ jobs:
       - name: Construction de _ovh (VectorDrive web seul)
         if: steps.ident.outputs.ok == 'oui'
         run: node .github/ovh.mjs
+      - name: Diagnostic de connexion FTP
+        if: steps.ident.outputs.ok == 'oui'
+        continue-on-error: true
+        env:
+          SERVEUR: ${{ secrets.OVH_FTP_SERVEUR }}
+        run: |
+          echo "IP du runner : $(curl -s --max-time 5 https://api.ipify.org)"
+          getent ahosts "$SERVEUR" || echo "DNS : nom introuvable"
+          timeout 15 curl -sv --max-time 12 "telnet://$SERVEUR:21" 2>&1 | grep -E "Trying|Connected|220|timed out|refused" || true
       - name: Envoi FTP vers vectordrive.fr
         if: steps.ident.outputs.ok == 'oui'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
