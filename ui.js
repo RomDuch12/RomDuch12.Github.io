@@ -58,7 +58,7 @@
   }
   function decorer() {
     document.querySelectorAll('.sitenav a, .subnav a, #tabbar a').forEach(a => {
-      const h = a.getAttribute('href') || '', f = h.split('#')[0] || location.pathname.split('/').pop() || 'index.html', an = h.split('#')[1];
+      const h = a.getAttribute('href') || '', f = h.split('#')[0].split('/').pop() || location.pathname.split('/').pop() || 'index.html', an = h.split('#')[1];
       const nom = (an && ANCRES[an]) || NAV[f]; if (nom) poser(a, nom);
     });
     ICONES.forEach(([sel, nom]) => document.querySelectorAll(sel).forEach(el => poser(el, nom)));

@@ -15,7 +15,7 @@ jobs:
       - name: Tests (codes, dessins, lecteur SimPL, outils, traductions)
         run: node --test tests/*.test.mjs
 
-  # Copie du site sur vectordrive.fr (hébergement OVH) après les tests, à chaque envoi sur main.
+  # vectordrive.fr (hébergement OVH) : l'onglet VectorDrive web seul, construit dans _ovh/, envoyé après les tests à chaque envoi sur main.
   # Identifiants FTP dans Settings > Secrets and variables > Actions : OVH_FTP_SERVEUR, OVH_FTP_UTILISATEUR, OVH_FTP_MOT_DE_PASSE.
   # GitHub Pages (romduch12.github.io) reste publié comme avant.
   ovh:
@@ -30,6 +30,13 @@ jobs:
         env:
           SERVEUR: ${{ secrets.OVH_FTP_SERVEUR }}
         run: echo "ok=$([ -n "$SERVEUR" ] && echo oui || echo non)" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-node@v4
+        if: steps.ident.outputs.ok == 'oui'
+        with:
+          node-version: 22
+      - name: Construction de _ovh (VectorDrive web seul)
+        if: steps.ident.outputs.ok == 'oui'
+        run: node .github/ovh.mjs
       - name: Envoi FTP vers vectordrive.fr
         if: steps.ident.outputs.ok == 'oui'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -38,14 +45,8 @@ jobs:
           username: ${{ secrets.OVH_FTP_UTILISATEUR }}
           password: ${{ secrets.OVH_FTP_MOT_DE_PASSE }}
           protocol: ftps
+          local-dir: ./_ovh/
           server-dir: www/
-          exclude: |
-            **/.git*
-            **/.git*/**
-            .github/**
-            tests/**
-            Programmes/**
-            googlefeab245c91ce1fc1.html
       - name: Identifiants absents
         if: steps.ident.outputs.ok != 'oui'
         run: echo '::notice::Secrets OVH_FTP_* absents, envoi vers vectordrive.fr sauté.'
