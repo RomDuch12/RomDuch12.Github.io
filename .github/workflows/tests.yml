@@ -44,7 +44,7 @@ jobs:
           server: ${{ secrets.OVH_FTP_SERVEUR }}
           username: ${{ secrets.OVH_FTP_UTILISATEUR }}
           password: ${{ secrets.OVH_FTP_MOT_DE_PASSE }}
-          protocol: ftps
+          protocol: ftp   # hébergement gratuit OVH 100M : FTPS non accepté (choix validé, mot de passe en clair)
           local-dir: ./_ovh/
           server-dir: www/
       - name: Identifiants absents
