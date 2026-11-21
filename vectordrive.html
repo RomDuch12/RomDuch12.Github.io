@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VectorDrive web – RomDuch</title>
+<meta name="description" content="VectorDrive dans le navigateur : ouvre, dessine et enregistre des dessins VectorDrive (.vdz), importe DXF, SVG, PDF, EPS, AI et STEP, exporte en DXF, SVG, PDF, EPS ou PNG. Sans installation, rien n'est envoyé.">
+<script src="i18n.js"></script>
+<script src="theme.js"></script>
+<link rel="stylesheet" href="themes.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.45 Barlow,"Segoe UI",Roboto,"Noto Sans SC","Microsoft YaHei",Arial,sans-serif}
+main{max-width:1500px;margin:0 auto;padding:18px 14px 50px}
+header{display:grid;gap:4px;padding:6px 0 12px}
+h1{font:700 clamp(1.9rem,4vw,2.8rem)/1 "Barlow Condensed",Arial Narrow,sans-serif;margin:6px 0 0;display:flex;gap:12px;align-items:center}
+h1 img{width:40px;height:40px}
+h1 small{font:600 1rem Barlow,sans-serif;color:var(--brass);border:1px solid var(--brass);border-radius:999px;padding:1px 10px}
+.lead{max-width:95ch;margin:2px 0 0;color:var(--mute)}
+a{color:var(--ink);text-decoration-color:var(--brass);text-underline-offset:3px}
+button,select,input{font:600 14px Barlow,sans-serif;color:var(--ink)}
+button{border:1px solid var(--line);background:var(--card);padding:5px 9px;border-radius:5px;cursor:pointer;display:inline-flex;gap:5px;align-items:center;white-space:nowrap}
+button:hover{border-color:var(--brass)}button:disabled{opacity:.45;cursor:default}
+button.on{background:var(--brass);border-color:var(--brass);color:var(--on-accent)}
+:focus-visible{outline:3px solid var(--brass-l);outline-offset:2px}
+.muted{color:var(--mute)}.bad{color:var(--warn)}
+/* ruban */
+.ruban{display:flex;flex-wrap:wrap;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:8px 8px 0 0;padding:8px}
+.groupe{display:flex;flex-wrap:wrap;gap:4px;align-items:center;padding:0 8px 0 0;border-right:1px solid var(--line)}
+.groupe:last-child{border-right:0}
+.groupe>b{width:100%;font:600 11px Barlow,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.menu{position:relative}.menu>div{position:absolute;z-index:5;top:100%;left:0;display:none;flex-direction:column;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:4px;min-width:140px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.menu.ouvert>div{display:flex}.menu>div button{justify-content:flex-start;border:0}
+/* espace de travail */
+.atelier{display:grid;grid-template-columns:minmax(0,1fr) 270px;border:1px solid var(--line);border-top:0;border-radius:0 0 8px 8px;overflow:hidden}
+@media (max-width:900px){.atelier{grid-template-columns:1fr}}
+#vd-zone{position:relative;height:min(74vh,760px);min-height:380px;background:var(--bg);overflow:hidden}
+#vd-cv{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+#vd-3d{position:absolute;inset:0;background:var(--bg)}#vd-3d[hidden]{display:none}
+#vd-zone.over{box-shadow:inset 0 0 0 3px var(--brass)}
+#vd-etat{display:flex;flex-wrap:wrap;gap:4px 16px;padding:4px 10px;border-top:1px solid var(--line);font:500 13px "JetBrains Mono",ui-monospace,monospace;color:var(--mute);background:var(--card)}
+#vd-etat .msg{margin-left:auto;font-family:Barlow,sans-serif}
+.cote{background:var(--card);border-left:1px solid var(--line);padding:10px 12px;display:grid;gap:12px;align-content:start;overflow:auto;max-height:calc(min(74vh,760px) + 28px)}
+@media (max-width:900px){.cote{border-left:0;border-top:1px solid var(--line);max-height:none}}
+.cote h3{margin:0 0 4px;font:700 1.05rem "Barlow Condensed",sans-serif;display:flex;justify-content:space-between;align-items:center}
+.champs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 8px}
+.champs label{display:grid;font-size:12px;color:var(--mute);gap:1px}
+.champs input,.champs select{width:100%;font:500 14px Barlow,sans-serif;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:3px 6px}
+.champs .plein{grid-column:1/-1}
+.case{display:flex;gap:6px;align-items:center;font-size:14px}
+#vd-calques{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+#vd-calques li{display:flex;gap:4px;align-items:center;padding:2px 4px;border-radius:4px;font-size:14px;cursor:pointer}
+#vd-calques li.actif{background:var(--bg);box-shadow:inset 3px 0 0 var(--brass)}
+#vd-calques li span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#vd-calques button{padding:1px 4px;border:0;background:none}
+#vd-outils{display:flex;flex-wrap:wrap;gap:4px}
+#vd-outils button{width:28px;height:28px;padding:0;border-radius:5px;border:2px solid var(--line);justify-content:center;font-size:11px;color:#fff;text-shadow:0 0 2px #000}
+#vd-outils button.on{border-color:var(--brass);box-shadow:0 0 0 2px var(--brass)}
+.aide{font-size:13px;color:var(--mute);margin:0}
+.info{margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:12px}
+.info div{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.info h2{margin:0 0 4px;font:700 1.25rem "Barlow Condensed",sans-serif}.info p,.info ul{margin:0;color:var(--mute)}.info ul{padding-left:1.1em}
+footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
+</style>
+<link rel="stylesheet" href="site.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#171b22">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<script src="ui.js" defer></script>
+</head>
+<body>
+<main>
+<header>
+  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="vectordrive.html" aria-current="page">VectorDrive</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tauconvert.html">TauConvert</a><a href="visualiseur.html" data-i18n>Visualiseur STEP</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html">RomDuch</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <h1><img src="vectordrive.png" width="40" height="40" alt="">VectorDrive <small data-i18n>version web</small></h1>
+  <p class="lead" data-i18n>Ouvre, dessine et enregistre tes dessins VectorDrive (.vdz) dans le navigateur, importe DXF, SVG, PDF, EPS, AI et STEP, exporte en DXF, SVG, PDF, EPS ou PNG. Tout reste sur ton appareil.</p>
+</header>
+
+<div class="ruban" role="toolbar" aria-label="Ruban" data-i18n-attr="aria-label">
+  <div class="groupe"><b data-i18n>Fichier</b>
+    <button id="vd-nouveau" type="button" data-icon="file-plus" data-i18n>Nouveau</button>
+    <button id="vd-ouvrir" type="button" data-icon="folder-open" data-i18n>Ouvrir</button>
+    <button id="vd-importer" type="button" data-icon="file-input" data-i18n>Importer</button>
+    <button id="vd-enregistrer" type="button" data-icon="save" data-i18n>Enregistrer</button>
+    <span class="menu" id="vd-export"><button type="button" data-icon="download" data-i18n>Exporter</button><div>
+      <button type="button" data-ex="dxf">DXF</button><button type="button" data-ex="svg">SVG</button><button type="button" data-ex="pdf">PDF</button><button type="button" data-ex="eps">EPS</button><button type="button" data-ex="png">PNG</button></div></span>
+    <button id="vd-exemple" type="button" data-icon="sparkles" data-i18n>Exemple</button>
+    <input type="file" id="vd-fichier" accept=".vdz,.dxf,.svg,.pdf,.eps,.ps,.ai,.step,.stp,.vnd,.gvt,.smb" hidden>
+  </div>
+  <div class="groupe"><b data-i18n>Édition</b>
+    <button id="vd-annuler" type="button" data-icon="undo-2" title="Ctrl+Z" data-i18n>Annuler</button>
+    <button id="vd-retablir" type="button" data-icon="redo-2" title="Ctrl+Y" data-i18n>Rétablir</button>
+    <button id="vd-dupliquer" type="button" data-icon="copy" title="Ctrl+D" data-i18n>Dupliquer</button>
+    <button id="vd-supprimer" type="button" data-icon="trash-2" title="Suppr" data-i18n>Supprimer</button>
+  </div>
+  <div class="groupe"><b data-i18n>Dessin</b>
+    <button type="button" data-outil="sel" data-icon="mouse-pointer-2" title="V" data-i18n>Sélection</button>
+    <button type="button" data-outil="rect" data-icon="square" title="R" data-i18n>Rectangle</button>
+    <button type="button" data-outil="ellipse" data-icon="circle" title="E" data-i18n>Ellipse</button>
+    <button type="button" data-outil="ligne" data-icon="slash" title="L" data-i18n>Ligne</button>
+    <button type="button" data-outil="poly" data-icon="spline" title="P" data-i18n>Polyligne</button>
+  </div>
+  <div class="groupe"><b data-i18n>Vue</b>
+    <button id="vd-cadrer" type="button" data-icon="maximize" title="F" data-i18n>Cadrer</button>
+    <button id="vd-grille" type="button" data-icon="grid-3x3" data-i18n>Grille</button>
+    <button id="vd-mode3d" type="button" data-icon="box" data-i18n>3D</button>
+  </div>
+</div>
+
+<div class="atelier">
+  <div>
+    <div id="vd-zone"><canvas id="vd-cv" tabindex="0" aria-label="Dessin" data-i18n-attr="aria-label"></canvas><div id="vd-3d" hidden></div></div>
+    <div id="vd-etat"><span id="vd-pos">X 0 Y 0</span><span id="vd-zoom"></span><span id="vd-nb"></span><span class="msg" id="vd-msg" role="status"></span></div>
+  </div>
+  <aside class="cote">
+    <section aria-labelledby="h-sel"><h3 id="h-sel" data-i18n>Sélection</h3>
+      <div class="champs" id="vd-props">
+        <label>X <input type="number" step="0.1" data-p="x"></label><label>Y <input type="number" step="0.1" data-p="y"></label>
+        <label><span data-i18n>Largeur</span> <input type="number" step="0.1" min="0" data-p="w"></label><label><span data-i18n>Hauteur</span> <input type="number" step="0.1" min="0" data-p="h"></label>
+        <label><span data-i18n>Rotation (°)</span> <input type="number" step="1" data-p="rot" value="0"></label>
+        <label class="case" style="align-self:end"><input type="checkbox" id="vd-prop-lie" checked> <span data-i18n>Proportions</span></label>
+        <label class="case plein"><input type="checkbox" id="vd-rempli"> <span data-i18n>Rempli</span></label>
+      </div>
+      <p class="aide" id="vd-sel-info"></p>
+    </section>
+    <section aria-labelledby="h-outils"><h3 id="h-outils" data-i18n>Outils (couleurs)</h3><div id="vd-outils"></div></section>
+    <section aria-labelledby="h-calques"><h3 id="h-calques"><span data-i18n>Calques</span><button id="vd-calque-plus" type="button" data-icon="plus" title="Nouveau calque" data-i18n-attr="title"></button></h3><ul id="vd-calques"></ul></section>
+    <section aria-labelledby="h-plaque"><h3 id="h-plaque" data-i18n>Plaque</h3>
+      <div class="champs" id="vd-plaque">
+        <label><span data-i18n>Largeur</span> <input type="number" step="1" min="1" data-q="width"></label><label><span data-i18n>Hauteur</span> <input type="number" step="1" min="1" data-q="height"></label>
+        <label><span data-i18n>Rayon</span> <input type="number" step="0.5" min="0" data-q="corner_radius"></label><label><span data-i18n>Épaisseur</span> <input type="number" step="0.5" min="0" data-q="thickness"></label>
+        <label class="case plein"><input type="checkbox" data-q="visible"> <span data-i18n>Plaque visible</span></label>
+      </div>
+    </section>
+    <p class="aide" data-i18n>Molette : zoom · clic droit ou du milieu : déplacer la vue · Maj : ajouter à la sélection · flèches : déplacer de 1 mm (Maj : 10 mm) · polyligne : double-clic ou Entrée pour finir.</p>
+  </aside>
+</div>
+
+<div class="info">
+  <div><h2 data-i18n>Le même fichier que l'application</h2><p data-i18n>Le .vdz enregistré ici s'ouvre dans VectorDrive pour Windows ou macOS, et inversement : plaque, calques, outils, textes, volumes 3D et réglages inconnus de la version web sont gardés tels quels.</p></div>
+  <div><h2 data-i18n>Ce que fait la version web</h2><ul>
+    <li data-i18n>dessin de base : rectangles arrondis, ellipses, lignes, polylignes ;</li>
+    <li data-i18n>sélection, déplacement, échelle, rotation, duplication, couleurs d'outil ;</li>
+    <li data-i18n>calques, plaque, annulation sur 300 pas, vue 3D des volumes.</li></ul></div>
+  <div><h2 data-i18n>Ce qui reste dans l'application de bureau</h2><p data-i18n>FAO et parcours d'outil, assistant IA, textes et polices, fichiers VND, GVT et SMB, booléens et décalages, relief 3D. <a href="index.html#vectordrive">Télécharger VectorDrive</a></p></div>
+</div>
+
+<footer><p>RomDuch · <span data-i18n>VectorDrive est un logiciel libre (MIT ou Apache-2.0). Lecture STEP : occt-import-js (OpenCascade, LGPL-2.1) ; vue 3D : three.js (MIT), chargés au premier usage.</span></p><p><a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
+</main>
+<script src="vecteurs.js"></script>
+<script src="vdz.js"></script>
+<script src="vd-web.js"></script>
+<script src="vue3d.js"></script>
+<script src="stockage.js" defer></script>
+<script>
+/* VectorDrive web : vue 2D (Y vers le haut, mm), outils de dessin, sélection, annulation, fichiers */
+(function () {
+  'use strict';
+  const W = VDWeb, $ = id => document.getElementById(id), T = (s, v) => (window.t ? t(s, v) : s);
+  const cv = $('vd-cv'), zone = $('vd-zone'), ctx = cv.getContext('2d');
+  let doc = W.nouveau(100, 50), nom = 'dessin', calqueActif = doc.layers[0].id, outilCourant = 0, modifie = false;
+  let sel = new Set(), outil = 'sel', grille = true, mode3d = false;
+  const vue = { cx: 50, cy: 25, k: 5 };                                       // centre (mm) et échelle (px/mm)
+  const pile = [], refaire = [];
+
+  /* ---------- annulation : instantanés (objets partagés, jamais modifiés en place) ---------- */
+  const instant = () => ({ layers: doc.layers.map(L => ({ ...L, items: L.items.slice() })), plate: { ...doc.plate }, tools: doc.tools.slice(), sel: [...sel], calqueActif });
+  function restaurer(s) { doc = { ...doc, layers: s.layers, plate: s.plate, tools: s.tools }; sel = new Set(s.sel); calqueActif = s.calqueActif; maj(); }
+  function changer(f) { pile.push(instant()); if (pile.length > 300) pile.shift(); refaire.length = 0; f(); modifie = true; maj(); }
+  const annuler = () => { if (!pile.length) return; refaire.push(instant()); restaurer(pile.pop()); modifie = true; };
+  const retablir = () => { if (!refaire.length) return; pile.push(instant()); restaurer(refaire.pop()); modifie = true; };
+
+  /* ---------- accès ---------- */
+  const calque = id => doc.layers.find(L => L.id === id);
+  const actif = () => calque(calqueActif) || doc.layers[0];
+  const tous = () => doc.layers.flatMap(L => L.items.map(it => ({ it, L })));
+  const choisis = () => tous().filter(({ it }) => sel.has(it.id)).map(o => o.it);
+  function remplacer(f) {                                                   // f(objet) -> objet ou null (retiré) pour la sélection
+    doc = { ...doc, layers: doc.layers.map(L => ({ ...L, items: L.items.flatMap(it => (sel.has(it.id) ? [f(it)].filter(Boolean) : [it])) })) };
+  }
+  const couleur = it => (doc.tools[it.tool] || doc.tools[0] || { color: '#000' }).color;
+
+  /* ---------- vue ---------- */
+  const ecran = (x, y) => [(x - vue.cx) * vue.k + cv.clientWidth / 2, cv.clientHeight / 2 - (y - vue.cy) * vue.k];
+  const monde = (px, py) => [(px - cv.clientWidth / 2) / vue.k + vue.cx, (cv.clientHeight / 2 - py) / vue.k + vue.cy];
+  const accroche = p => (grille && !evt.alt ? p.map(v => Math.round(v / pas()) * pas()) : p);
+  const pas = () => { const m = 8 / vue.k; return [0.1, 0.5, 1, 2, 5, 10, 20, 50, 100].find(v => v >= m) || 100; };
+  function cadrer() {
+    const P = doc.plate, b = W.boite(W.visibles(doc)) || (P ? [P.x, P.y, P.x + P.width, P.y + P.height] : [0, 0, 100, 50]);
+    const bb = P && P.visible !== false ? [Math.min(b[0], P.x), Math.min(b[1], P.y), Math.max(b[2], P.x + P.width), Math.max(b[3], P.y + P.height)] : b;
+    vue.cx = (bb[0] + bb[2]) / 2; vue.cy = (bb[1] + bb[3]) / 2;
+    vue.k = Math.max(0.01, Math.min((cv.clientWidth - 60) / Math.max(bb[2] - bb[0], 1), (cv.clientHeight - 60) / Math.max(bb[3] - bb[1], 1)));
+    dessiner();
+  }
+  let evt = { alt: false };
+  let enCours = null;                                                       // forme en train d'être tracée, glisser, cadre de sélection
+
+  function trace(q) { q.forEach(([x, y], i) => { const [X, Y] = ecran(x, y); i ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y); }); }
+  function dessiner() {
+    const dpr = Math.min(2, devicePixelRatio || 1), w = cv.clientWidth, h = cv.clientHeight;
+    if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const st = getComputedStyle(document.documentElement), C = v => st.getPropertyValue(v).trim();
+    ctx.fillStyle = C('--bg'); ctx.fillRect(0, 0, w, h);
+    const P = doc.plate;
+    if (P && P.visible !== false) {                                          // plaque
+      const [x0, y1] = ecran(P.x, P.y), [x1, y0] = ecran(P.x + P.width, P.y + P.height), r = Math.min(P.corner_radius || 0, P.width / 2, P.height / 2) * vue.k;
+      ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x0, y0, x1 - x0, y1 - y0, r) : ctx.rect(x0, y0, x1 - x0, y1 - y0);
+      ctx.fillStyle = C('--card'); ctx.fill(); ctx.strokeStyle = C('--line'); ctx.lineWidth = 1.5; ctx.stroke();
+      const m = P.margins || [0, 0, 0, 0];
+      if (m.some(v => v > 0)) { const [a, d] = ecran(P.x + m[0], P.y + m[2]), [c, b] = ecran(P.x + P.width - m[1], P.y + P.height - m[3]); ctx.setLineDash([4, 4]); ctx.strokeRect(a, b, c - a, d - b); ctx.setLineDash([]); }
+    }
+    if (grille) {                                                            // grille
+      const s = pas() * (pas() * vue.k < 14 ? 5 : 1), [ax, ay] = monde(0, h), [bx, by] = monde(w, 0);
+      ctx.strokeStyle = C('--line'); ctx.globalAlpha = 0.45; ctx.lineWidth = 1; ctx.beginPath();
+      if ((bx - ax) / s < 400) for (let x = Math.ceil(ax / s) * s; x <= bx; x += s) { const X = Math.round(ecran(x, 0)[0]) + 0.5; ctx.moveTo(X, 0); ctx.lineTo(X, h); }
+      if ((by - ay) / s < 400) for (let y = Math.ceil(ay / s) * s; y <= by; y += s) { const Y = Math.round(ecran(0, y)[1]) + 0.5; ctx.moveTo(0, Y); ctx.lineTo(w, Y); }
+      ctx.stroke(); ctx.globalAlpha = 1;
+      const [ox, oy] = ecran(0, 0); ctx.strokeStyle = C('--brass'); ctx.beginPath(); ctx.moveTo(ox - 8, oy); ctx.lineTo(ox + 8, oy); ctx.moveTo(ox, oy - 8); ctx.lineTo(ox, oy + 8); ctx.stroke();
+    }
+    ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    for (const L of doc.layers) {
+      if (!L.visible) continue;
+      for (const it of L.items) {
+        if (it.visible === false) continue;
+        const q = W.polys(it); if (!q.length) continue;
+        const col = couleur(it), choisi = sel.has(it.id);
+        ctx.beginPath(); q.forEach(trace);
+        if (it.filled || it.kind === 'text') { ctx.globalAlpha = it.kind === 'text' ? 0.85 : 0.3; ctx.fillStyle = col; ctx.fill('evenodd'); ctx.globalAlpha = 1; }
+        ctx.strokeStyle = choisi ? C('--brass') : col; ctx.lineWidth = choisi ? 2.2 : 1.2; ctx.stroke();
+      }
+    }
+    const b = W.boite(choisis());                                            // cadre et poignées de la sélection
+    if (b) {
+      const [x0, y1] = ecran(b[0], b[1]), [x1, y0] = ecran(b[2], b[3]);
+      ctx.strokeStyle = C('--brass'); ctx.lineWidth = 1; ctx.setLineDash([5, 4]); ctx.strokeRect(x0 - 4, y0 - 4, x1 - x0 + 8, y1 - y0 + 8); ctx.setLineDash([]);
+      ctx.fillStyle = C('--brass'); poignees(b).forEach(([X, Y]) => ctx.fillRect(X - 4, Y - 4, 8, 8));
+    }
+    if (enCours && enCours.apercu) { ctx.strokeStyle = C('--brass'); ctx.lineWidth = 1.5; ctx.beginPath(); W.polys(enCours.apercu).forEach(trace); ctx.stroke(); }
+    if (enCours && enCours.type === 'cadre') { const [a, c] = [enCours.a, enCours.b], [X0, Y0] = ecran(a[0], a[1]), [X1, Y1] = ecran(c[0], c[1]);
+      ctx.fillStyle = C('--brass'); ctx.globalAlpha = 0.1; ctx.fillRect(X0, Y0, X1 - X0, Y1 - Y0); ctx.globalAlpha = 1; ctx.strokeStyle = C('--brass'); ctx.strokeRect(X0, Y0, X1 - X0, Y1 - Y0); }
+    $('vd-zoom').textContent = `${Math.round(vue.k / 3.78 * 100)} %`;
+  }
+  const poignees = b => { const [x0, y1] = ecran(b[0], b[1]), [x1, y0] = ecran(b[2], b[3]); return [[x0 - 4, y1 + 4, 2, 3], [x1 + 4, y1 + 4, 0, 3], [x1 + 4, y0 - 4, 0, 1], [x0 - 4, y0 - 4, 2, 1]]; };
+
+  /* ---------- panneaux ---------- */
+  function maj() {
+    if (!calque(calqueActif)) calqueActif = doc.layers[0].id;
+    const ch = choisis(), b = W.boite(ch);
+    $('vd-nb').textContent = T('{n} objet(s)', { n: tous().length }) + (ch.length ? ' · ' + T('{n} choisi(s)', { n: ch.length }) : '');
+    document.querySelectorAll('#vd-props input[data-p]').forEach(i => {
+      i.disabled = !b; if (document.activeElement === i) return;
+      i.value = !b ? '' : { x: +b[0].toFixed(3), y: +b[1].toFixed(3), w: +(b[2] - b[0]).toFixed(3), h: +(b[3] - b[1]).toFixed(3), rot: 0 }[i.dataset.p];
+    });
+    $('vd-rempli').disabled = !ch.some(i => i.kind === 'shape'); $('vd-rempli').checked = ch.length > 0 && ch.every(i => i.filled);
+    $('vd-sel-info').textContent = ch.length === 1 ? [ch[0].name, { shape: T('forme'), text: T('texte') + (ch[0].text ? ` « ${ch[0].text} »` : ''), group: T('groupe'), image: T('image') }[ch[0].kind], ch[0].extra && ch[0].extra.solide ? T('avec volume 3D') : ''].filter(Boolean).join(' · ') : '';
+    $('vd-outils').replaceChildren(...doc.tools.map((o, k) => { const bt = document.createElement('button'); bt.type = 'button'; bt.style.background = o.color; bt.textContent = k + 1; bt.title = o.name || T('Outil {n}', { n: k + 1 });
+      bt.classList.toggle('on', ch.length ? ch.every(i => i.tool === k) : k === outilCourant);
+      bt.onclick = () => { outilCourant = k; if (sel.size) changer(() => remplacer(it => ({ ...it, tool: k }))); else maj(); }; return bt; }));
+    $('vd-calques').replaceChildren(...doc.layers.slice().reverse().map(L => {
+      const li = document.createElement('li'); li.classList.toggle('actif', L.id === calqueActif);
+      const vis = document.createElement('button'), ver = document.createElement('button'), n = document.createElement('span'), del = document.createElement('button');
+      vis.type = ver.type = del.type = 'button'; vis.dataset.icon = L.visible ? 'eye' : 'eye-off'; vis.title = T('Montrer ou cacher'); ver.dataset.icon = L.locked ? 'lock' : 'lock-open'; ver.title = T('Verrouiller');
+      del.dataset.icon = 'trash-2'; del.title = T('Supprimer le calque'); n.textContent = `${L.name || T('Calque')} (${L.items.length})`; n.title = T('Double-clic : renommer');
+      vis.onclick = e => { e.stopPropagation(); changer(() => (doc = { ...doc, layers: doc.layers.map(x => (x.id === L.id ? { ...x, visible: !x.visible } : x)) })); };
+      ver.onclick = e => { e.stopPropagation(); changer(() => (doc = { ...doc, layers: doc.layers.map(x => (x.id === L.id ? { ...x, locked: !x.locked } : x)) })); };
+      del.onclick = e => { e.stopPropagation(); if (doc.layers.length < 2) return; if (L.items.length && !confirm(T('Supprimer le calque « {n} » et ses {k} objets ?', { n: L.name, k: L.items.length }))) return;
+        changer(() => { doc = { ...doc, layers: doc.layers.filter(x => x.id !== L.id) }; L.items.forEach(i => sel.delete(i.id)); }); };
+      n.ondblclick = () => { const v = prompt(T('Nom du calque'), L.name); if (v != null) changer(() => (doc = { ...doc, layers: doc.layers.map(x => (x.id === L.id ? { ...x, name: v } : x)) })); };
+      li.onclick = () => { calqueActif = L.id; maj(); };
+      li.append(vis, ver, n, del); return li;
+    }));
+    const P = doc.plate || {};
+    document.querySelectorAll('#vd-plaque [data-q]').forEach(i => { if (document.activeElement === i) return; if (i.type === 'checkbox') i.checked = P.visible !== false; else i.value = P[i.dataset.q] ?? 0; });
+    $('vd-annuler').disabled = !pile.length; $('vd-retablir').disabled = !refaire.length; $('vd-dupliquer').disabled = $('vd-supprimer').disabled = !sel.size;
+    document.querySelectorAll('[data-outil]').forEach(bt => bt.classList.toggle('on', bt.dataset.outil === outil));
+    document.title = `${modifie ? '• ' : ''}${nom} – VectorDrive web`;
+    dessiner(); if (mode3d) maj3d();
+  }
+
+  /* ---------- souris ---------- */
+  function toucher(x, y) {
+    const tol = 5 / vue.k;
+    for (const L of doc.layers.slice().reverse()) { if (!L.visible || L.locked) continue;
+      for (const it of L.items.slice().reverse()) if (it.visible !== false && !it.locked && W.distance(it, x, y) <= tol) return it; }
+    return null;
+  }
+  let pan = null;
+  cv.addEventListener('contextmenu', e => e.preventDefault());
+  cv.addEventListener('pointerdown', e => {
+    cv.focus(); cv.setPointerCapture(e.pointerId); evt = { alt: e.altKey };
+    const r = cv.getBoundingClientRect(), px = e.clientX - r.left, py = e.clientY - r.top, p = monde(px, py);
+    if (e.button === 1 || e.button === 2 || (e.button === 0 && espace)) { pan = { px, py, cx: vue.cx, cy: vue.cy }; cv.style.cursor = 'grabbing'; return; }
+    if (e.button !== 0) return;
+    if (outil === 'sel') {
+      const b = W.boite(choisis());
+      if (b) { const h = poignees(b).findIndex(([X, Y]) => Math.abs(X - px) < 8 && Math.abs(Y - py) < 8);
+        if (h >= 0) { const c = poignees(b)[h], fixe = [c[2] === 2 ? b[2] : b[0], c[3] === 3 ? b[3] : b[1]]; enCours = { type: 'echelle', fixe, b, depart: p, avant: instant() }; return; } }
+      const it = toucher(...p);
+      if (it) { if (e.shiftKey) { sel.has(it.id) ? sel.delete(it.id) : sel.add(it.id); maj(); return; }
+        if (!sel.has(it.id)) { sel = new Set([it.id]); maj(); }
+        enCours = { type: 'deplacer', depart: accroche(p), avant: instant(), d: [0, 0] }; return; }
+      if (!e.shiftKey) sel.clear();
+      enCours = { type: 'cadre', a: p, b: p }; maj(); return;
+    }
+    const a = accroche(p);
+    if (outil === 'poly') { if (!enCours) enCours = { type: 'poly', pts: [a, a] }; else { const q = enCours.pts, d = Math.hypot(q[0][0] - a[0], q[0][1] - a[1]) * vue.k;
+      if (q.length > 3 && d < 8) { finirPoly(true); return; } q.push(a); } enCours.apercu = W.polyligne(enCours.pts, false); dessiner(); return; }
+    enCours = { type: outil, a, b: a };
+  });
+  cv.addEventListener('pointermove', e => {
+    const r = cv.getBoundingClientRect(), px = e.clientX - r.left, py = e.clientY - r.top, p = monde(px, py); evt = { alt: e.altKey };
+    $('vd-pos').textContent = `X ${p[0].toFixed(2)}  Y ${p[1].toFixed(2)}`;
+    if (pan) { vue.cx = pan.cx - (px - pan.px) / vue.k; vue.cy = pan.cy + (py - pan.py) / vue.k; dessiner(); return; }
+    if (!enCours) { if (outil === 'sel') { const b = W.boite(choisis()), h = b && poignees(b).some(([X, Y]) => Math.abs(X - px) < 8 && Math.abs(Y - py) < 8); cv.style.cursor = h ? 'nwse-resize' : toucher(...p) ? 'move' : 'default'; } else cv.style.cursor = 'crosshair'; return; }
+    const a = accroche(p);
+    if (enCours.type === 'deplacer') {
+      const d = [a[0] - enCours.depart[0], a[1] - enCours.depart[1]], m = W.translation(d[0] - enCours.d[0], d[1] - enCours.d[1]);
+      enCours.d = d; remplacer(it => W.transformer(it, m)); dessiner(); $('vd-msg').textContent = `ΔX ${d[0].toFixed(2)}  ΔY ${d[1].toFixed(2)}`; return;
+    }
+    if (enCours.type === 'echelle') {
+      const { fixe, b } = enCours, w0 = b[2] - b[0] || 1, h0 = b[3] - b[1] || 1;
+      let sx = Math.abs(p[0] - fixe[0]) / w0, sy = Math.abs(p[1] - fixe[1]) / h0;
+      if ($('vd-prop-lie').checked !== e.shiftKey) sx = sy = Math.max(sx, sy);
+      sx = Math.max(sx, 1e-3); sy = Math.max(sy, 1e-3);
+      restaurerSel(enCours.avant); remplacer(it => W.transformer(it, W.echelle(sx, sy, fixe[0], fixe[1]))); dessiner();
+      $('vd-msg').textContent = `${(w0 * sx).toFixed(2)} × ${(h0 * sy).toFixed(2)} mm`; return;
+    }
+    if (enCours.type === 'cadre') { enCours.b = p; dessiner(); return; }
+    if (enCours.type === 'poly') { enCours.pts[enCours.pts.length - 1] = a; enCours.apercu = W.polyligne(enCours.pts, false); dessiner(); return; }
+    enCours.b = a; enCours.apercu = forme(enCours); dessiner();
+    $('vd-msg').textContent = `${Math.abs(a[0] - enCours.a[0]).toFixed(2)} × ${Math.abs(a[1] - enCours.a[1]).toFixed(2)} mm`;
+  });
+  const restaurerSel = s => { doc = { ...doc, layers: s.layers.map(L => ({ ...L, items: L.items.slice() })) }; };
+  function forme(o) {
+    const [a, b] = [o.a, o.b];
+    if (o.type === 'rect') return W.rectangle(a[0], a[1], b[0], b[1], 0, outilCourant);
+    if (o.type === 'ellipse') return W.ellipse((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, Math.abs(b[0] - a[0]) / 2, Math.abs(b[1] - a[1]) / 2, outilCourant);
+    return W.polyligne([a, b], false, outilCourant);
+  }
+  function ajouter(it) {
+    if (actif().locked) { message(T('Calque verrouillé.'), true); return; }
+    changer(() => { const id = actif().id; doc = { ...doc, layers: doc.layers.map(L => (L.id === id ? { ...L, items: [...L.items, it] } : L)) }; sel = new Set([it.id]); });
+  }
+  function finirPoly(ferme) {
+    const q = enCours.pts.slice(0, -1); enCours = null;
+    if (q.length >= 2) ajouter(W.polyligne(q, ferme, outilCourant)); else dessiner();
+  }
+  cv.addEventListener('pointerup', e => {
+    if (pan) { pan = null; cv.style.cursor = 'default'; return; }
+    if (!enCours) return;
+    const o = enCours;
+    if (o.type === 'poly') return;
+    enCours = null; $('vd-msg').textContent = '';
+    if (o.type === 'deplacer' || o.type === 'echelle') {
+      const fait = instant(); restaurer(o.avant);
+      if (o.type === 'echelle' || o.d[0] || o.d[1]) { pile.push(o.avant); refaire.length = 0; restaurer(fait); modifie = true; maj(); }
+      return;
+    }
+    if (o.type === 'cadre') {
+      const x0 = Math.min(o.a[0], o.b[0]), x1 = Math.max(o.a[0], o.b[0]), y0 = Math.min(o.a[1], o.b[1]), y1 = Math.max(o.a[1], o.b[1]);
+      if ((x1 - x0) * vue.k > 3 || (y1 - y0) * vue.k > 3)
+        for (const { it, L } of tous()) { if (!L.visible || L.locked || it.visible === false) continue; const b = W.boite([it]); if (b && b[0] >= x0 && b[2] <= x1 && b[1] >= y0 && b[3] <= y1) sel.add(it.id); }
+      maj(); return;
+    }
+    if (Math.hypot(o.b[0] - o.a[0], o.b[1] - o.a[1]) * vue.k < 3) { dessiner(); return; }
+    ajouter(forme(o));
+  });
+  cv.addEventListener('dblclick', () => { if (enCours && enCours.type === 'poly') { enCours.pts.pop(); finirPoly(false); } });
+  cv.addEventListener('wheel', e => {
+    e.preventDefault(); const r = cv.getBoundingClientRect(), px = e.clientX - r.left, py = e.clientY - r.top, [x, y] = monde(px, py);
+    vue.k = Math.max(0.01, Math.min(2000, vue.k * Math.exp(-e.deltaY * 0.0015)));
+    const [x2, y2] = monde(px, py); vue.cx += x - x2; vue.cy += y - y2; dessiner();
+  }, { passive: false });
+  new ResizeObserver(() => dessiner()).observe(zone);
+
+  /* ---------- clavier ---------- */
+  let espace = false;
+  document.addEventListener('keyup', e => { if (e.code === 'Space') espace = false; });
+  document.addEventListener('keydown', e => {
+    if (/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) return;
+    const c = e.ctrlKey || e.metaKey, k = e.key.toLowerCase();
+    if (e.code === 'Space') { espace = true; if (document.activeElement === cv) e.preventDefault(); return; }
+    if (c && k === 'z' && !e.shiftKey) { e.preventDefault(); annuler(); }
+    else if (c && (k === 'y' || (k === 'z' && e.shiftKey))) { e.preventDefault(); retablir(); }
+    else if (c && k === 'd') { e.preventDefault(); dupliquer(); }
+    else if (c && k === 'a') { e.preventDefault(); sel = new Set(tous().filter(({ L, it }) => L.visible && !L.locked && it.visible !== false).map(o => o.it.id)); maj(); }
+    else if (c && k === 's') { e.preventDefault(); enregistrer(); }
+    else if (c && k === 'o') { e.preventDefault(); ouvrir(false); }
+    else if (c) return;
+    else if (k === 'delete' || k === 'backspace') { if (sel.size) { e.preventDefault(); supprimer(); } }
+    else if (k === 'escape') { enCours = null; if (!sel.size) choisirOutil('sel'); sel.clear(); maj(); }
+    else if (k === 'enter' && enCours && enCours.type === 'poly') finirPoly(false);
+    else if (k.startsWith('arrow') && sel.size) { e.preventDefault(); const s = e.shiftKey ? 10 : 1, d = { arrowleft: [-s, 0], arrowright: [s, 0], arrowup: [0, s], arrowdown: [0, -s] }[k]; changer(() => remplacer(it => W.transformer(it, W.translation(...d)))); }
+    else if ({ v: 'sel', r: 'rect', e: 'ellipse', l: 'ligne', p: 'poly' }[k]) choisirOutil({ v: 'sel', r: 'rect', e: 'ellipse', l: 'ligne', p: 'poly' }[k]);
+    else if (k === 'f') cadrer();
+  });
+
+  /* ---------- commandes ---------- */
+  function choisirOutil(o) { outil = o; enCours = null; maj(); }
+  function supprimer() { if (!sel.size) return; changer(() => { remplacer(() => null); sel.clear(); }); }
+  function dupliquer() {
+    if (!sel.size) return;
+    changer(() => { const nv = new Set(); doc = { ...doc, layers: doc.layers.map(L => ({ ...L, items: L.items.flatMap(it => { if (!sel.has(it.id)) return [it]; const c = W.transformer(W.copie(it), W.translation(5, -5)); nv.add(c.id); return [it, c]; }) })) }; sel = nv; });
+  }
+  function message(s, mauvais) { const m = $('vd-msg'); m.textContent = s; m.classList.toggle('bad', !!mauvais); clearTimeout(message.t); message.t = setTimeout(() => (m.textContent = ''), 6000); }
+  const telecharger = (data, f, type) => { const a = document.createElement('a'); a.href = URL.createObjectURL(data instanceof Blob ? data : new Blob([data], { type })); a.download = f; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); };
+  async function enregistrer() {
+    try { telecharger(await W.versVDZ(doc), nom + '.vdz', 'application/x-vectordrive'); modifie = false; maj(); message(T('Enregistré : {f}', { f: nom + '.vdz' })); }
+    catch (e) { message(e.message, true); }
+  }
+  async function exporter(f) {
+    const q = W.toutesPolys(doc); if (!q.length) { message(T('Rien à exporter.'), true); return; }
+    try {
+      if (f === 'png') telecharger(await Vecteurs.toPNG(q, { pxmm: 20 }), nom + '.png');
+      else telecharger(Vecteurs['to' + f.toUpperCase()](q), `${nom}.${f}`, { dxf: 'application/dxf', svg: 'image/svg+xml', pdf: 'application/pdf', eps: 'application/postscript' }[f]);
+    } catch (e) { message(e.message, true); }
+  }
+  function charger(d, n) {
+    doc = d; nom = n; sel.clear(); pile.length = refaire.length = 0; modifie = false; calqueActif = (d.layers.find(L => L.id === d.active) || d.layers[0]).id;
+    maj(); cadrer(); message(T('Ouvert : {f}', { f: n }));
+  }
+  async function lireFichier(f, ajout) {
+    const n = f.name || 'dessin', base = n.replace(/\.[^.]+$/, ''), ext = (n.match(/\.(\w+)$/) || [, ''])[1].toLowerCase();
+    message(T('Lecture de {f}…', { f: n }));
+    try {
+      if (['vnd', 'gvt', 'smb'].includes(ext)) throw new Error(T('Les fichiers {e} s\'ouvrent dans VectorDrive pour Windows ou macOS ; la version web ne les lit pas encore.', { e: ext.toUpperCase() }));
+      if (ext === 'vdz') { const d = await W.lireVDZ(await f.arrayBuffer()); if (!ajout) return charger(d, base);
+        changer(() => { doc = { ...doc, layers: [...doc.layers, ...d.layers.map(L => ({ ...L, id: W.uid(), items: L.items.map(W.copie) }))] }; }); cadrer(); return; }
+      const r = await Vecteurs.read(f);
+      if (ajout) { changer(() => (doc = W.importer(doc, r, base))); cadrer(); message(T('{n} contours importés ({f}).', { n: r.items.length, f: r.format })); return; }
+      let d = W.importer({ ...W.nouveau(), layers: [] }, r, base);
+      const b = W.boite(d.layers.flatMap(L => L.items));
+      if (b) d.plate = { ...d.plate, x: Math.floor(b[0] - 5), y: Math.floor(b[1] - 5), width: Math.ceil(b[2] - b[0] + 10), height: Math.ceil(b[3] - b[1] + 10) };
+      charger(d, base); message(T('{n} contours importés ({f}).', { n: r.items.length, f: r.format }));
+    } catch (e) { message(e.message || String(e), true); }
+  }
+  let ajoutDemande = false;
+  function ouvrir(ajout) { if (!ajout && modifie && !confirm(T('Le dessin n\'est pas enregistré. Continuer ?'))) return; ajoutDemande = ajout; $('vd-fichier').click(); }
+  $('vd-fichier').onchange = e => { const f = e.target.files[0]; if (f) lireFichier(f, ajoutDemande); e.target.value = ''; };
+  $('vd-nouveau').onclick = () => { if (modifie && !confirm(T('Le dessin n\'est pas enregistré. Continuer ?'))) return; charger(W.nouveau(100, 50), 'dessin'); };
+  $('vd-ouvrir').onclick = () => ouvrir(false);
+  $('vd-importer').onclick = () => ouvrir(true);
+  $('vd-enregistrer').onclick = enregistrer;
+  $('vd-exemple').onclick = async () => { if (modifie && !confirm(T('Le dessin n\'est pas enregistré. Continuer ?'))) return;
+    try { charger(await W.lireVDZ(await (await fetch('exemples/echecs-ia.vdz')).arrayBuffer()), 'echecs-ia'); } catch (e) { message(e.message, true); } };
+  const menu = $('vd-export');
+  menu.querySelector('button').onclick = e => { e.stopPropagation(); menu.classList.toggle('ouvert'); };
+  document.addEventListener('click', () => menu.classList.remove('ouvert'));
+  menu.querySelectorAll('[data-ex]').forEach(b => (b.onclick = () => exporter(b.dataset.ex)));
+  $('vd-annuler').onclick = annuler; $('vd-retablir').onclick = retablir; $('vd-dupliquer').onclick = dupliquer; $('vd-supprimer').onclick = supprimer;
+  document.querySelectorAll('[data-outil]').forEach(b => (b.onclick = () => choisirOutil(b.dataset.outil)));
+  $('vd-cadrer').onclick = () => (mode3d ? v3 && v3.cadrer(null, true) : cadrer());
+  $('vd-grille').onclick = () => { grille = !grille; $('vd-grille').classList.toggle('on', grille); dessiner(); };
+  $('vd-grille').classList.toggle('on', grille);
+  $('vd-calque-plus').onclick = () => changer(() => { const L = { id: W.uid(), name: T('Plan') + ' ' + (doc.layers.length + 1), visible: true, locked: false, tool: outilCourant, items: [] }; doc = { ...doc, layers: [...doc.layers, L] }; calqueActif = L.id; });
+  // propriétés de la sélection : position, taille, rotation
+  document.querySelectorAll('#vd-props input[data-p]').forEach(i => i.addEventListener('change', () => {
+    const b = W.boite(choisis()); if (!b) return; const v = parseFloat(i.value); if (!isFinite(v)) return maj();
+    const w0 = b[2] - b[0], h0 = b[3] - b[1], cx = (b[0] + b[2]) / 2, cy = (b[1] + b[3]) / 2; let m;
+    if (i.dataset.p === 'x') m = W.translation(v - b[0], 0);
+    else if (i.dataset.p === 'y') m = W.translation(0, v - b[1]);
+    else if (i.dataset.p === 'rot') { m = W.rotation(v, cx, cy); i.value = 0; }
+    else { const s = i.dataset.p === 'w' ? v / (w0 || 1) : v / (h0 || 1), lie = $('vd-prop-lie').checked; if (!(s > 0)) return maj();
+      m = i.dataset.p === 'w' ? W.echelle(s, lie ? s : 1, b[0], b[1]) : W.echelle(lie ? s : 1, s, b[0], b[1]); }
+    changer(() => remplacer(it => W.transformer(it, m)));
+  }));
+  $('vd-rempli').onchange = e => changer(() => remplacer(it => (it.kind === 'shape' ? { ...it, filled: e.target.checked } : it)));
+  document.querySelectorAll('#vd-plaque [data-q]').forEach(i => i.addEventListener('change', () => {
+    const q = i.dataset.q, v = i.type === 'checkbox' ? i.checked : Math.max(0, parseFloat(i.value) || 0);
+    changer(() => (doc = { ...doc, plate: { ...(doc.plate || W.nouveau().plate), [q]: v } }));
+  }));
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+  zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('over'); const f = e.dataTransfer.files[0]; if (f) lireFichier(f, e.shiftKey); });
+  window.addEventListener('beforeunload', e => { if (modifie) { e.preventDefault(); e.returnValue = ''; } });
+
+  /* ---------- 3D : plaque, contours à Z0, volumes du dessin ---------- */
+  let v3 = null, rev = 0;
+  async function maj3d() {
+    const n = ++rev;
+    try {
+      if (!v3) v3 = await Vue3D.creer($('vd-3d'));
+      const T3 = v3.T, g = new T3.Group(), vol = await VDZ.volumes(doc);
+      if (n !== rev) return;
+      v3.vider();
+      const P = doc.plate;
+      if (P && P.visible !== false) {
+        const e = Math.max(P.thickness || 0, 0.5), geo = new T3.BoxGeometry(P.width, P.height, e);
+        const m = new T3.Mesh(geo, new T3.MeshStandardMaterial({ color: 0xb9bec7, metalness: 0.3, roughness: 0.6, transparent: true, opacity: 0.55 }));
+        m.position.set(P.x + P.width / 2, P.y + P.height / 2, -e / 2); g.add(m);
+      }
+      for (const L of doc.layers) { if (!L.visible) continue;
+        for (const it of L.items) { if (it.visible === false || (it.extra && it.extra.solide)) continue;
+          const pts = []; for (const q of W.polys(it)) for (let i = 0; i < q.length - 1; i++) pts.push(q[i][0], q[i][1], 0.02, q[i + 1][0], q[i + 1][1], 0.02);
+          if (!pts.length) continue; const geo = new T3.BufferGeometry(); geo.setAttribute('position', new T3.Float32BufferAttribute(pts, 3));
+          g.add(new T3.LineSegments(geo, new T3.LineBasicMaterial({ color: couleur(it) }))); } }
+      if (vol.meshes.length) g.add(Vue3D.solide(T3, vol, { aretes: false }));
+      v3.racine.add(g);
+      const bb = new T3.Box3().setFromObject(g); v3.cadrer(bb, !maj3d.fait); maj3d.fait = true;
+    } catch (e) { message(e.message, true); }
+  }
+  $('vd-mode3d').onclick = () => {
+    mode3d = !mode3d; $('vd-mode3d').classList.toggle('on', mode3d); $('vd-3d').hidden = !mode3d;
+    document.querySelectorAll('[data-outil]').forEach(b => (b.disabled = mode3d));
+    if (mode3d) maj3d();
+  };
+
+  choisirOutil('sel'); requestAnimationFrame(cadrer);
+  if (location.hash === '#exemple') $('vd-exemple').click();
+})();
+</script>
+</body>
+</html>
