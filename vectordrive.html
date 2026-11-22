@@ -85,6 +85,10 @@ button.on{background:var(--brass);border-color:var(--brass);color:var(--on-accen
 .ops{display:grid;gap:8px}.op{border:1px solid var(--line);border-left:3px solid var(--brass);border-radius:5px;padding:6px 8px;background:var(--bg)}
 .op .tete{display:flex;gap:6px;align-items:center;font-weight:600}.op .tete input[type=text]{flex:1;min-width:0;font:600 14px Barlow,sans-serif;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:2px 5px}.op .champs{margin-top:4px}
 .op .coul{display:flex;gap:3px;flex-wrap:wrap}.op .coul label{display:inline-flex;align-items:center;gap:2px;font-size:12px}.op .coul i{display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid var(--line)}
+#ia-ollama{font-size:14px;border:1px solid var(--line);border-radius:5px;padding:6px 8px;background:var(--bg)}#ia-ollama summary{cursor:pointer;font-weight:600}
+#ia-ollama ol{padding-left:1.2em;margin:6px 0;display:grid;gap:6px}#ia-ollama p{margin:6px 0}
+#ia-ollama .cmd{display:flex;gap:4px;align-items:center;margin:3px 0}#ia-ollama code{flex:1;min-width:0;overflow-wrap:anywhere;font:12px "JetBrains Mono",ui-monospace,monospace;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:3px 5px}
+#ia-ollama .cmd button{font-size:12px;padding:2px 6px}
 #ia-log{display:grid;gap:6px;max-height:340px;overflow:auto;font-size:14px;padding:6px;border:1px solid var(--line);border-radius:5px;background:var(--bg);min-height:80px}
 #ia-log .u{justify-self:end;background:var(--brass);color:var(--on-accent);border-radius:8px 8px 2px 8px;padding:4px 8px;max-width:90%;white-space:pre-wrap}
 #ia-log .ia{background:var(--card);border-radius:8px 8px 8px 2px;padding:4px 8px;max-width:95%;white-space:pre-wrap}
@@ -221,9 +225,26 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     <div class="panneau" id="pan-ia" hidden>
       <div class="champs">
         <label><span data-i18n>Fournisseur</span> <select id="ia-four"></select></label><label><span data-i18n>Modèle</span> <input id="ia-modele" list="ia-modeles"><datalist id="ia-modeles"></datalist></label>
-        <label class="plein"><span data-i18n>Clé d'API</span> <input id="ia-cle" type="password" autocomplete="off" spellcheck="false"></label>
-        <label class="plein" id="ia-url-l" hidden><span data-i18n>Adresse du serveur (format Mistral)</span> <input id="ia-url"></label>
+        <label class="plein" id="ia-cle-l"><span data-i18n>Clé d'API</span> <input id="ia-cle" type="password" autocomplete="off" spellcheck="false"></label>
+        <label class="plein" id="ia-url-l" hidden><span data-i18n>Adresse du serveur</span> <input id="ia-url"></label>
       </div>
+      <details id="ia-ollama" hidden>
+        <summary data-i18n>Installer Ollama, pas à pas</summary>
+        <p data-i18n>Ollama fait tourner une IA directement sur ton ordinateur : gratuit, sans compte ni clé, et rien ne sort de ton PC. Il faut un PC récent (16 Go de mémoire conseillés) ; c'est plus lent et moins précis que Claude ou ChatGPT pour les dessins compliqués.</p>
+        <ol>
+          <li><span data-i18n>Télécharge Ollama sur</span> <a href="https://ollama.com/download" target="_blank" rel="noopener">ollama.com/download</a> <span data-i18n>et installe-le comme un programme ordinaire (Windows, macOS ou Linux).</span>
+            <span data-i18n>Sous Windows, tu peux aussi coller dans PowerShell la commande d'installation officielle donnée sur ollama.com :</span>
+            <span class="cmd"><code id="ia-cmd-inst">irm https://ollama.com/install.ps1 | iex</code><button type="button" data-copier="ia-cmd-inst" data-i18n>Copier</button></span></li>
+          <li><span data-i18n>Autorise ce site à parler à Ollama. Sous Windows, ouvre PowerShell (touche Windows, tape « PowerShell ») et colle :</span>
+            <span class="cmd"><code id="ia-cmd-win"></code><button type="button" data-copier="ia-cmd-win" data-i18n>Copier</button></span>
+            <span data-i18n>Sous macOS, dans le Terminal :</span>
+            <span class="cmd"><code id="ia-cmd-mac"></code><button type="button" data-copier="ia-cmd-mac" data-i18n>Copier</button></span>
+            <span data-i18n>Puis quitte Ollama (clic droit sur son icône près de l'horloge, « Quit ») et relance-le.</span></li>
+          <li><span data-i18n>Télécharge le modèle choisi ci-dessus (environ 5 Go pour qwen3:8b ; sur un petit PC, prends qwen3:4b) :</span>
+            <span class="cmd"><code id="ia-cmd-pull"></code><button type="button" data-copier="ia-cmd-pull" data-i18n>Copier</button></span></li>
+          <li data-i18n>Clique sur « Vérifier ». Si le navigateur demande l'accès aux appareils du réseau local, accepte : c'est Ollama, sur ton PC. Chrome, Edge ou Firefox conseillés.</li>
+        </ol>
+      </details>
       <div class="ligne"><label class="case"><input type="checkbox" id="ia-retenir"> <span data-i18n>Retenir sur cet appareil</span></label><button type="button" id="ia-verifier" data-icon="plug-zap" data-i18n>Vérifier</button><a id="ia-lien" target="_blank" rel="noopener" data-i18n>Obtenir une clé d'API</a></div>
       <div id="ia-log" aria-live="polite"></div>
       <div class="ex-ia" id="ia-exemples"></div>
@@ -919,16 +940,30 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
   function majFournisseur(modele) {
     const f = A.FOURNISSEURS[$('ia-four').value];
     $('ia-modeles').replaceChildren(...f.modeles.map(m => new Option(m, m)));
-    $('ia-modele').value = modele || f.modele; $('ia-lien').href = f.cle; $('ia-url-l').hidden = $('ia-four').value !== 'mistral';
+    $('ia-modele').value = modele || f.modele; $('ia-lien').href = f.cle;
+    const k = $('ia-four').value, ol = k === 'ollama';
+    $('ia-url-l').hidden = k !== 'mistral' && !ol; $('ia-url').placeholder = f.url || ''; $('ia-cle-l').hidden = ol; $('ia-ollama').hidden = !ol;
+    $('ia-lien').textContent = ol ? T('Télécharger Ollama') : T('Obtenir une clé d\'API'); majOllama();
   }
+  function majOllama() {                                                    // commandes prêtes à copier, pour l'adresse de ce site et le modèle choisi
+    const o = location.origin, m = $('ia-modele').value.trim() || 'qwen3:8b';
+    $('ia-cmd-win').textContent = `setx OLLAMA_ORIGINS "${o}"`;
+    $('ia-cmd-mac').textContent = `launchctl setenv OLLAMA_ORIGINS "${o}"`;
+    $('ia-cmd-pull').textContent = `ollama pull ${m}`;
+  }
+  $('ia-modele').addEventListener('input', majOllama);
+  document.querySelectorAll('[data-copier]').forEach(b => (b.onclick = async () => {
+    try { await navigator.clipboard.writeText($(b.dataset.copier).textContent); message(T('Copié : {t}', { t: $(b.dataset.copier).textContent })); } catch (e) { message(e.message, true); }
+  }));
   $('ia-four').onchange = () => { majFournisseur(); sauverIA(); };
   ['ia-modele', 'ia-cle', 'ia-url', 'ia-consignes', 'ia-tours', 'ia-plafond', 'ia-retenir'].forEach(id => $(id).addEventListener('change', sauverIA));
-  $('ia-verifier').onclick = async () => { const c = configIA(); if (!c.cle) { message(T('Saisis ta clé d\'API.'), true); $('ia-cle').focus(); return; }
-    $('ia-verifier').disabled = true; try { await A.verifier(c); message(T('Clé acceptée par {f}.', { f: A.FOURNISSEURS[c.fournisseur].nom })); } catch (e) { message(e.message, true); } finally { $('ia-verifier').disabled = false; } };
+  const sansCle = c => A.FOURNISSEURS[c.fournisseur].sansCle;
+  $('ia-verifier').onclick = async () => { const c = configIA(); if (!c.cle && !sansCle(c)) { message(T('Saisis ta clé d\'API.'), true); $('ia-cle').focus(); return; }
+    $('ia-verifier').disabled = true; try { await A.verifier(c); message(sansCle(c) ? T('{f} est prêt, avec le modèle {m}.', { f: 'Ollama', m: c.modele }) : T('Clé acceptée par {f}.', { f: A.FOURNISSEURS[c.fournisseur].nom })); } catch (e) { message(e.message, true); } finally { $('ia-verifier').disabled = false; } };
   function etatIA(enCoursIA) { $('ia-envoyer').disabled = enCoursIA; $('ia-arreter').disabled = !enCoursIA; majCredits(); }
   async function envoyerIA() {
     const demande = $('ia-demande').value.trim(); if (!demande || IA.ctrl) return;
-    const c = configIA(); if (!c.cle) { message(T('Saisis ta clé d\'API.'), true); $('ia-cle').focus(); return; }
+    const c = configIA(); if (!c.cle && !sansCle(c)) { message(T('Saisis ta clé d\'API.'), true); $('ia-cle').focus(); return; }
     sauverIA(); journal('u', demande); $('ia-demande').value = '';
     if (!IA.avant) IA.avant = { inst: instant(), version };
     const n = IA.discussion.length; IA.ctrl = new AbortController(); etatIA(true);

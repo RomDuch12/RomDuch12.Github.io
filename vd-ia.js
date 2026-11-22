@@ -1,4 +1,4 @@
-/* VectorDrive web : assistant IA. Discussion avec Claude (Anthropic), ChatGPT (OpenAI) ou Mistral, avec la clé d'API
+/* VectorDrive web : assistant IA. Discussion avec Claude (Anthropic), ChatGPT (OpenAI), Mistral ou Ollama (modèle local), avec la clé d'API
    de l'utilisateur, appelée directement depuis le navigateur (aucun serveur intermédiaire). L'assistant lit le dessin
    et le modifie par des outils (mêmes noms que l'assistant de l'application de bureau) ; chaque modification est un pas
    d'annulation. Les dépenses sont comptées comme dans l'application (extra.ia_credits du .vdz). */
@@ -10,8 +10,21 @@
   const FOURNISSEURS = {
     anthropic: { nom: 'Claude (Anthropic)', modele: 'claude-sonnet-5-5', modeles: ['claude-opus-5-5', 'claude-sonnet-5-5', 'claude-haiku-5-5'], cle: 'https://console.anthropic.com/settings/keys' },
     openai: { nom: 'ChatGPT (OpenAI)', modele: 'gpt-6-astra', modeles: ['gpt-6-astra', 'gpt-6.1-terra', 'gpt-6-luna'], cle: 'https://platform.openai.com/api-keys', url: 'https://api.openai.com/v1/chat/completions' },
-    mistral: { nom: 'Mistral', modele: 'mistral-large-latest', modeles: ['mistral-large-latest', 'mistral-medium-latest', 'mistral-small-latest'], cle: 'https://console.mistral.ai/api-keys', url: 'https://api.mistral.ai/v1/chat/completions' }
+    mistral: { nom: 'Mistral', modele: 'mistral-large-latest', modeles: ['mistral-large-latest', 'mistral-medium-latest', 'mistral-small-latest'], cle: 'https://console.mistral.ai/api-keys', url: 'https://api.mistral.ai/v1/chat/completions' },
+    /* Ollama : modèle installé sur le poste, sans clé ni coût ; API compatible OpenAI. Modèles qui savent appeler des outils. */
+    ollama: { nom: 'Ollama (sur ton PC, gratuit)', modele: 'qwen3:8b', modeles: ['qwen3:8b', 'qwen3:4b', 'qwen3:14b', 'llama3.1:8b', 'mistral-nemo'], cle: 'https://ollama.com/download',
+      url: 'http://localhost:11434/v1/chat/completions', sansCle: true }
   };
+  const adresse = cfg => (cfg.fournisseur === 'mistral' || cfg.fournisseur === 'ollama' ? (cfg.url || FOURNISSEURS[cfg.fournisseur].url) : FOURNISSEURS.openai.url);
+  const entetes = cfg => (FOURNISSEURS[cfg.fournisseur].sansCle && !cfg.cle ? { 'content-type': 'application/json' } : { 'content-type': 'application/json', authorization: 'Bearer ' + cfg.cle });
+  /* Ollama injoignable : lancé ? site autorisé (OLLAMA_ORIGINS) ? */
+  async function joindre(cfg, url, init) {
+    try { return await fetch(url, init); }
+    catch (e) {
+      if (e.name === 'AbortError' || cfg.fournisseur !== 'ollama') throw e;
+      throw new Error(tr('Ollama ne répond pas. Vérifie qu\'il est lancé (icône près de l\'horloge) et que ce site est autorisé : voir « Installer Ollama, pas à pas ».'));
+    }
+  }
   /* prix d'office par million de jetons (entrée, sortie, entrée lue en cache) : ceux de l'application (agent/credits.py,
      relevés le 19/11/2026), à vérifier chez le fournisseur ; ChatGPT : pas de prix sûr, jetons comptés seulement */
   const PRIX = {
@@ -131,9 +144,8 @@ Answer briefly, in the user's language.`;
       return { texte: (j.content || []).filter(c => c.type === 'text').map(c => c.text).join('\n'), appels: (j.content || []).filter(c => c.type === 'tool_use').map(c => ({ id: c.id, nom: c.name, args: c.input || {} })),
         brut: { role: 'assistant', content: j.content }, usage: { entree: u.input_tokens || 0, sortie: u.output_tokens || 0, cache: u.cache_read_input_tokens || 0, ecrit: u.cache_creation_input_tokens || 0 } };
     }
-    const url = cfg.fournisseur === 'mistral' ? (cfg.url || FOURNISSEURS.mistral.url) : FOURNISSEURS.openai.url;
     const msgs = [{ role: 'system', content: SYSTEME + (cfg.consignes ? '\n\nUser instructions:\n' + cfg.consignes : '') }, ...messages];
-    const r = await fetch(url, { method: 'POST', signal, headers: { 'content-type': 'application/json', authorization: 'Bearer ' + cfg.cle },
+    const r = await joindre(cfg, adresse(cfg), { method: 'POST', signal, headers: entetes(cfg),
       body: JSON.stringify({ model: cfg.modele, messages: msgs, tools: specs.map(s => ({ type: 'function', function: { name: s.name, description: s.description, parameters: s.input_schema } })) }) });
     const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(erreur(r.status, (j.error && (j.error.message || j.error)) || j.message));
     const m = (j.choices && j.choices[0] && j.choices[0].message) || {}, u = j.usage || {}, cache = (u.prompt_tokens_details && u.prompt_tokens_details.cached_tokens) || 0;
@@ -175,8 +187,15 @@ Answer briefly, in the user's language.`;
         body: JSON.stringify({ model: cfg.modele, max_tokens: 5, messages: [{ role: 'user', content: 'ok' }] }) });
       if (!r.ok) { const j = await r.json().catch(() => ({})); throw new Error(erreur(r.status, j.error && j.error.message)); } return true;
     }
-    const url = cfg.fournisseur === 'mistral' ? (cfg.url || FOURNISSEURS.mistral.url) : FOURNISSEURS.openai.url;
-    const r = await fetch(url, { method: 'POST', headers: { 'content-type': 'application/json', authorization: 'Bearer ' + cfg.cle }, body: JSON.stringify({ model: cfg.modele, max_tokens: 5, messages: [{ role: 'user', content: 'ok' }] }) });
+    if (cfg.fournisseur === 'ollama') {                                     // Ollama lancé, modèle téléchargé ?
+      const base = adresse(cfg).replace(/\/v1\/.*$/, ''), r = await joindre(cfg, base + '/api/tags', {});
+      const j = await r.json().catch(() => ({})), noms = (j.models || []).map(m => m.name || m.model);
+      const ok = noms.some(n => n === cfg.modele || n === cfg.modele + ':latest' || n.split(':')[0] === cfg.modele);
+      if (!ok) throw new Error(noms.length ? tr('Ollama fonctionne, mais le modèle {m} n\'est pas téléchargé. Dans un terminal : ollama pull {m} (modèles présents : {l}).', { m: cfg.modele, l: noms.join(', ') })
+        : tr('Ollama fonctionne, mais aucun modèle n\'est téléchargé. Dans un terminal : ollama pull {m}', { m: cfg.modele }));
+      return true;
+    }
+    const r = await fetch(adresse(cfg), { method: 'POST', headers: entetes(cfg), body: JSON.stringify({ model: cfg.modele, max_tokens: 5, messages: [{ role: 'user', content: 'ok' }] }) });
     if (!r.ok) { const j = await r.json().catch(() => ({})); throw new Error(erreur(r.status, j.error && (j.error.message || j.error))); } return true;
   }
   const EXEMPLES = ['Dessine une plaque de 80 × 40 mm aux coins arrondis de 3 mm avec « BONJOUR » centré, 10 mm de haut.', 'Centre tous les objets sur la plaque.',
