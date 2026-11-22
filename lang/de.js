@@ -1298,5 +1298,10 @@ I18N.add('de', {
   "{n} calque(s)": "{n} Ebene(n)",
   "Dessin trop lourd pour être transmis : exporte-le en VDZ puis ouvre-le dans VectorDrive web.": "Zeichnung zu groß für die Übergabe: als VDZ exportieren und dann in VectorDrive web öffnen.",
   "Sur <a href=\"vdconvert.html\">VDConvert</a>, dépose un ou plusieurs fichiers (VectorDrive, TypeEdit, DXF, SVG, PDF, AI, EPS, STEP) : l'aperçu donne la taille et le nombre de contours, en couleurs par calque. Exporte en DXF, SVG, EPS ou PDF, calques et couleurs gardés, en PNG à la résolution choisie, ou en VDZ pour VectorDrive. « Ouvrir dans VectorDrive web » envoie le dessin à l'éditeur. Pour CorelDRAW et les fichiers complexes, télécharge VDConvert pour Windows : il ajoute « Convertir en… » au clic droit.": "Lege auf <a href=\"vdconvert.html\">VDConvert</a> eine oder mehrere Dateien ab (VectorDrive, TypeEdit, DXF, SVG, PDF, AI, EPS, STEP): die Vorschau zeigt Größe und Anzahl der Konturen, farbig nach Ebene. Exportiere nach DXF, SVG, EPS oder PDF mit Ebenen und Farben, nach PNG in der gewählten Auflösung oder nach VDZ für VectorDrive. „In VectorDrive web öffnen“ schickt die Zeichnung in den Editor. Für CorelDRAW und komplexe Dateien lade VDConvert für Windows herunter: es fügt dem Rechtsklick „Konvertieren in…“ hinzu.",
-  "CorelDRAW (.cdr) : exporte en SVG, PDF ou DXF depuis CorelDRAW, ou utilise VDConvert pour Windows avec Inkscape.": "CorelDRAW (.cdr): aus CorelDRAW als SVG, PDF oder DXF exportieren oder VDConvert für Windows mit Inkscape verwenden."
+  "CorelDRAW (.cdr) : exporte en SVG, PDF ou DXF depuis CorelDRAW, ou utilise VDConvert pour Windows avec Inkscape.": "CorelDRAW (.cdr): aus CorelDRAW als SVG, PDF oder DXF exportieren oder VDConvert für Windows mit Inkscape verwenden.",
+  "Outils": "Werkzeuge",
+  "Rétablir (Ctrl+Y)": "Wiederholen (Strg+Y)",
+  "Vue 2D ou 3D": "2D- oder 3D-Ansicht",
+  "Fichiers ouverts": "Geöffnete Dateien",
+  "« {n} » n'est pas enregistré. Fermer quand même ?": "„{n}“ ist nicht gespeichert. Trotzdem schließen?"
 });

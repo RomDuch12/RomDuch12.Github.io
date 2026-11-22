@@ -32,6 +32,23 @@ button.on{background:var(--brass);border-color:var(--brass);color:var(--on-accen
 .groupe{display:flex;flex-wrap:wrap;gap:4px;align-items:center;padding:0 8px 0 0;border-right:1px solid var(--line)}
 .groupe:last-child{border-right:0}
 .groupe>b{width:100%;font:600 11px Barlow,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+/* onglets du ruban, 2D / 3D */
+.ruban-tete{display:flex;flex-wrap:wrap;align-items:flex-end;gap:4px;background:var(--card);border:1px solid var(--line);border-bottom:0;border-radius:8px 8px 0 0;padding:6px 8px 0}
+.ruban-tete [data-ruban]{border:1px solid transparent;border-bottom:0;border-radius:6px 6px 0 0;background:none;padding:6px 14px;font-weight:600;color:var(--mute)}
+.ruban-tete [data-ruban].on{background:var(--bg);border-color:var(--line);color:var(--ink);box-shadow:inset 0 3px 0 var(--brass)}
+.ruban-tete .rapide{display:flex;gap:4px;margin-left:auto;padding-bottom:4px;align-items:center}
+.vue23{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}.vue23 button{border:0;border-radius:0;min-width:3.2em;justify-content:center}
+.vue23 button.on{background:var(--brass);color:var(--on-accent)}
+.ruban-tete+.ruban{border-radius:0;background:var(--bg)}
+.ruban .groupe[hidden]{display:none}
+/* onglets des fichiers ouverts */
+#vd-fichiers{display:flex;align-items:stretch;gap:2px;overflow-x:auto;background:var(--card);border-bottom:1px solid var(--line);padding:4px 6px 0;scrollbar-width:thin}
+#vd-fichiers .fo{display:inline-flex;align-items:center;gap:6px;max-width:220px;border:1px solid var(--line);border-bottom:0;border-radius:6px 6px 0 0;padding:4px 6px 4px 10px;background:var(--card);color:var(--mute);cursor:pointer;font:500 14px Barlow,sans-serif;white-space:nowrap}
+#vd-fichiers .fo.on{background:var(--bg);color:var(--ink);box-shadow:inset 0 2px 0 var(--brass)}
+#vd-fichiers .fo span{overflow:hidden;text-overflow:ellipsis}
+#vd-fichiers .fo button{border:0;background:none;padding:0 4px;line-height:1;color:inherit;font-size:16px}
+#vd-fichiers .fo button:hover{color:var(--warn)}
+#vd-fichiers .plus{border:0;background:none;padding:2px 8px;font-size:18px;color:var(--mute)}
 .menu{position:relative}.menu>div{position:absolute;z-index:5;top:100%;left:0;display:none;flex-direction:column;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:4px;min-width:140px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
 .menu.ouvert>div{display:flex}.menu>div button{justify-content:flex-start;border:0}
 /* espace de travail */
@@ -98,8 +115,19 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
   <p class="lead" data-i18n>Ouvre, dessine et enregistre tes dessins VectorDrive (.vdz) dans le navigateur, importe DXF, SVG, PDF, EPS, AI, STEP et les fichiers TypeEdit, ajoute textes, booléens et parcours d'outil, avec un assistant IA. Tout reste sur ton appareil.</p>
 </header>
 
-<div class="ruban" role="toolbar" aria-label="Ruban" data-i18n-attr="aria-label">
-  <div class="groupe"><b data-i18n>Fichier</b>
+<div class="ruban-tete" role="tablist" aria-label="Ruban" data-i18n-attr="aria-label">
+  <button type="button" role="tab" data-ruban="fichier" data-i18n>Fichier</button>
+  <button type="button" role="tab" data-ruban="dessin" class="on" data-i18n>Dessin</button>
+  <button type="button" role="tab" data-ruban="modifier" data-i18n>Modifier</button>
+  <button type="button" role="tab" data-ruban="vue" data-i18n>Vue</button>
+  <span class="rapide">
+    <button id="vd-annuler" type="button" data-icon="undo-2" title="Annuler (Ctrl+Z)" aria-label="Annuler" data-i18n-attr="title,aria-label"></button>
+    <button id="vd-retablir" type="button" data-icon="redo-2" title="Rétablir (Ctrl+Y)" aria-label="Rétablir" data-i18n-attr="title,aria-label"></button>
+    <span class="vue23" role="group" aria-label="Vue 2D ou 3D" data-i18n-attr="aria-label"><button id="vd-mode2d" type="button" class="on" aria-pressed="true">2D</button><button id="vd-mode3d" type="button" aria-pressed="false">3D</button></span>
+  </span>
+</div>
+<div class="ruban" role="toolbar" aria-label="Outils" data-i18n-attr="aria-label">
+  <div class="groupe" data-groupe="fichier" hidden><b data-i18n>Fichier</b>
     <button id="vd-nouveau" type="button" data-icon="file-plus" data-i18n>Nouveau</button>
     <button id="vd-ouvrir" type="button" data-icon="folder-open" data-i18n>Ouvrir</button>
     <button id="vd-importer" type="button" data-icon="file-input" data-i18n>Importer</button>
@@ -110,13 +138,11 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     <input type="file" id="vd-police-fichier" accept=".ttf,.otf,.woff" hidden>
     <input type="file" id="vd-fichier" accept=".vdz,.dxf,.svg,.pdf,.eps,.ps,.ai,.step,.stp,.vnd,.gvt,.smb" hidden>
   </div>
-  <div class="groupe"><b data-i18n>Édition</b>
-    <button id="vd-annuler" type="button" data-icon="undo-2" title="Ctrl+Z" data-i18n>Annuler</button>
-    <button id="vd-retablir" type="button" data-icon="redo-2" title="Ctrl+Y" data-i18n>Rétablir</button>
+  <div class="groupe" data-groupe="dessin"><b data-i18n>Édition</b>
     <button id="vd-dupliquer" type="button" data-icon="copy" title="Ctrl+D" data-i18n>Dupliquer</button>
     <button id="vd-supprimer" type="button" data-icon="trash-2" title="Suppr" data-i18n>Supprimer</button>
   </div>
-  <div class="groupe"><b data-i18n>Dessin</b>
+  <div class="groupe" data-groupe="dessin"><b data-i18n>Dessin</b>
     <button type="button" data-outil="sel" data-icon="mouse-pointer-2" title="V" data-i18n>Sélection</button>
     <button type="button" data-outil="rect" data-icon="square" title="R" data-i18n>Rectangle</button>
     <button type="button" data-outil="ellipse" data-icon="circle" title="E" data-i18n>Ellipse</button>
@@ -129,7 +155,7 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     <button type="button" data-outil="code" data-icon="qr-code" data-i18n>Code</button>
     <label class="case" title="Côtés du polygone, branches de l'étoile" data-i18n-attr="title"><span data-i18n>Côtés</span> <input type="number" id="vd-cotes" min="3" max="64" value="6" style="width:4em"></label>
   </div>
-  <div class="groupe"><b data-i18n>Modifier</b>
+  <div class="groupe" data-groupe="modifier" hidden><b data-i18n>Modifier</b>
     <button type="button" data-bool="union" data-icon="squares-unite" data-i18n>Union</button>
     <button type="button" data-bool="difference" data-icon="squares-subtract" data-i18n>Soustraction</button>
     <button type="button" data-bool="intersection" data-icon="squares-intersect" data-i18n>Intersection</button>
@@ -146,15 +172,15 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     <button type="button" id="vd-degrouper" data-icon="ungroup" data-i18n>Dégrouper</button>
     <button type="button" id="vd-reseau" data-icon="grid-2x2-plus" data-i18n>Réseau…</button>
   </div>
-  <div class="groupe"><b data-i18n>Vue</b>
+  <div class="groupe" data-groupe="vue" hidden><b data-i18n>Vue</b>
     <button id="vd-cadrer" type="button" data-icon="maximize" title="F" data-i18n>Cadrer</button>
     <button id="vd-grille" type="button" data-icon="grid-3x3" data-i18n>Grille</button>
-    <button id="vd-mode3d" type="button" data-icon="box" data-i18n>3D</button>
   </div>
 </div>
 
 <div class="atelier">
   <div>
+    <div id="vd-fichiers" role="tablist" aria-label="Fichiers ouverts" data-i18n-attr="aria-label"></div>
     <div id="vd-zone"><canvas id="vd-cv" tabindex="0" aria-label="Dessin" data-i18n-attr="aria-label"></canvas><div id="vd-3d" hidden></div></div>
     <div id="vd-etat"><span id="vd-pos">X 0 Y 0</span><span id="vd-zoom"></span><span id="vd-nb"></span><span class="msg" id="vd-msg" role="status"></span></div>
   </div>
@@ -383,6 +409,7 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     if (!$('pan-fao').hidden) majFao(); majCredits();
     document.querySelectorAll('[data-outil]').forEach(bt => bt.classList.toggle('on', bt.dataset.outil === outil));
     document.title = `${modifie ? '• ' : ''}${nom} – VectorDrive web`;
+    const fo = document.querySelector('#vd-fichiers .fo.on span'); if (fo) fo.textContent = (modifie ? '• ' : '') + nom;
     dessiner(); if (mode3d) maj3d();
   }
 
@@ -538,10 +565,44 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
       else telecharger(O[f](doc), `${nom}.${f}`, { dxf: 'application/dxf', svg: 'image/svg+xml', pdf: 'application/pdf', eps: 'application/postscript' }[f]);
     } catch (e) { message(e.message, true); }
   }
-  function charger(d, n) {
+  /* ---------- fichiers ouverts : un onglet par dessin (historique, sélection, vue, discussion IA) ---------- */
+  const onglets = []; let courant = 0;
+  const etat = () => ({ doc, nom, modifie, pile: pile.slice(), refaire: refaire.slice(), sel: [...sel], calqueActif, vue: { ...vue }, discussion: IA.discussion, avant: IA.avant, vu3d: false });
+  const vierge = () => !modifie && !pile.length && !tous().length && nom === 'dessin';
+  function poser(o) {
+    doc = o.doc; nom = o.nom; modifie = o.modifie; pile.length = refaire.length = 0; pile.push(...o.pile); refaire.push(...o.refaire);
+    sel = new Set(o.sel); calqueActif = o.calqueActif; Object.assign(vue, o.vue); IA.discussion = o.discussion || []; IA.avant = o.avant || null;
+    perime(); faoSig = ''; maj3d.fait = false; maj(); dessiner();
+  }
+  function activer(i) {
+    if (i === courant || !onglets[i]) return;
+    onglets[courant] = etat(); courant = i; poser(onglets[i]); majFichiers();
+  }
+  function fermer(i) {
+    const o = i === courant ? etat() : onglets[i];
+    if (o.modifie && !confirm(T('« {n} » n\'est pas enregistré. Fermer quand même ?', { n: o.nom }))) return;
+    if (onglets.length === 1) { doc = W.nouveau(100, 50); nom = 'dessin'; modifie = false; pile.length = refaire.length = 0; charger(W.nouveau(100, 50), 'dessin'); return; }
+    onglets[courant] = etat(); onglets.splice(i, 1);
+    if (courant >= onglets.length || i < courant) courant = Math.max(0, courant - (i <= courant ? 1 : 0));
+    courant = Math.min(courant, onglets.length - 1); poser(onglets[courant]); majFichiers();
+  }
+  function nouvelOnglet() { onglets[courant] = etat(); onglets.push(null); courant = onglets.length - 1; }
+  function majFichiers() {
+    onglets[courant] = etat();
+    $('vd-fichiers').replaceChildren(...onglets.map((o, i) => {
+      const b = document.createElement('div'); b.className = 'fo' + (i === courant ? ' on' : ''); b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', i === courant); b.title = o.nom;
+      const n = document.createElement('span'); n.textContent = (o.modifie ? '• ' : '') + o.nom;
+      const x = document.createElement('button'); x.type = 'button'; x.textContent = '×'; x.title = T('Fermer'); x.setAttribute('aria-label', T('Fermer') + ' ' + o.nom);
+      x.onclick = e => { e.stopPropagation(); fermer(i); };
+      b.onclick = () => activer(i); b.onauxclick = e => { if (e.button === 1) fermer(i); };
+      b.append(n, x); return b;
+    }), Object.assign(document.createElement('button'), { type: 'button', className: 'plus', textContent: '+', title: T('Nouveau'), onclick: () => charger(W.nouveau(100, 50), 'dessin', true) }));
+  }
+  function charger(d, n, neuf) {
+    if (onglets.length && (neuf || !vierge())) nouvelOnglet();
     doc = d; nom = n; sel.clear(); pile.length = refaire.length = 0; modifie = false; calqueActif = (d.layers.find(L => L.id === d.active) || d.layers[0]).id;
     perime(); faoSig = ''; IA.discussion = []; IA.avant = null; IA.depense = IA.depense || 0;
-    maj(); cadrer(); message(T('Ouvert : {f}', { f: n }));
+    maj(); cadrer(); majFichiers(); message(T('Ouvert : {f}', { f: n }));
   }
   async function lireFichier(f, ajout) {
     const n = f.name || 'dessin', base = n.replace(/\.[^.]+$/, ''), ext = (n.match(/\.(\w+)$/) || [, ''])[1].toLowerCase();
@@ -559,13 +620,13 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
     } catch (e) { message(e.message || String(e), true); }
   }
   let ajoutDemande = false;
-  function ouvrir(ajout) { if (!ajout && modifie && !confirm(T('Le dessin n\'est pas enregistré. Continuer ?'))) return; ajoutDemande = ajout; $('vd-fichier').click(); }
+  function ouvrir(ajout) { ajoutDemande = ajout; $('vd-fichier').click(); }
   $('vd-fichier').onchange = e => { const f = e.target.files[0]; if (f) lireFichier(f, ajoutDemande); e.target.value = ''; };
-  $('vd-nouveau').onclick = () => { if (modifie && !confirm(T('Le dessin n\'est pas enregistré. Continuer ?'))) return; charger(W.nouveau(100, 50), 'dessin'); };
+  $('vd-nouveau').onclick = () => charger(W.nouveau(100, 50), 'dessin', true);
   $('vd-ouvrir').onclick = () => ouvrir(false);
   $('vd-importer').onclick = () => ouvrir(true);
   $('vd-enregistrer').onclick = enregistrer;
-  $('vd-exemple').onclick = async () => { if (modifie && !confirm(T('Le dessin n\'est pas enregistré. Continuer ?'))) return;
+  $('vd-exemple').onclick = async () => {
     try { charger(await W.lireVDZ(await (await fetch('exemples/echecs-ia.vdz')).arrayBuffer()), 'echecs-ia'); } catch (e) { message(e.message, true); } };
   document.querySelectorAll('.menu').forEach(m => (m.querySelector('button').onclick = e => { e.stopPropagation(); const o = m.classList.contains('ouvert'); document.querySelectorAll('.menu.ouvert').forEach(x => x.classList.remove('ouvert')); m.classList.toggle('ouvert', !o); }));
   document.addEventListener('click', () => document.querySelectorAll('.menu.ouvert').forEach(x => x.classList.remove('ouvert')));
@@ -595,7 +656,7 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
   zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
   zone.addEventListener('dragleave', () => zone.classList.remove('over'));
   zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('over'); const f = e.dataTransfer.files[0]; if (f) lireFichier(f, e.shiftKey); });
-  window.addEventListener('beforeunload', e => { if (modifie) { e.preventDefault(); e.returnValue = ''; } });
+  window.addEventListener('beforeunload', e => { if (modifie || onglets.some((o, i) => i !== courant && o && o.modifie)) { e.preventDefault(); e.returnValue = ''; } });
 
 
   /* ---------- dialogue générique ---------- */
@@ -914,11 +975,22 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
       const bb = new T3.Box3().setFromObject(g); v3.cadrer(bb, !maj3d.fait); maj3d.fait = true;
     } catch (e) { message(e.message, true); }
   }
-  $('vd-mode3d').onclick = () => {
-    mode3d = !mode3d; $('vd-mode3d').classList.toggle('on', mode3d); $('vd-3d').hidden = !mode3d;
-    document.querySelectorAll('[data-outil]').forEach(b => (b.disabled = mode3d));
-    if (mode3d) maj3d();
-  };
+  function vue3d(oui) {
+    mode3d = oui; $('vd-3d').hidden = !oui;
+    [['vd-mode2d', !oui], ['vd-mode3d', oui]].forEach(([id, on]) => { $(id).classList.toggle('on', on); $(id).setAttribute('aria-pressed', on); });
+    document.querySelectorAll('[data-outil]').forEach(b => (b.disabled = oui));
+    if (oui) maj3d(); else dessiner();
+  }
+  $('vd-mode2d').onclick = () => vue3d(false);
+  $('vd-mode3d').onclick = () => vue3d(true);
+  function ruban(nomR) {
+    document.querySelectorAll('[data-ruban]').forEach(b => { b.classList.toggle('on', b.dataset.ruban === nomR); b.setAttribute('aria-selected', b.dataset.ruban === nomR); });
+    document.querySelectorAll('.ruban [data-groupe]').forEach(g => (g.hidden = g.dataset.groupe !== nomR));
+    try { sessionStorage.setItem('vd-ruban', nomR); } catch (e) { /* */ }
+  }
+  document.querySelectorAll('[data-ruban]').forEach(b => (b.onclick = () => ruban(b.dataset.ruban)));
+  ruban((() => { try { return sessionStorage.getItem('vd-ruban'); } catch (e) { return null; } })() || 'dessin');
+  majFichiers();
 
   choisirOutil('sel'); requestAnimationFrame(cadrer);
   if (location.hash === '#exemple') $('vd-exemple').click();

@@ -1298,5 +1298,10 @@ I18N.add('it', {
   "{n} calque(s)": "{n} livello/i",
   "Dessin trop lourd pour être transmis : exporte-le en VDZ puis ouvre-le dans VectorDrive web.": "Disegno troppo pesante da trasmettere: esportalo in VDZ e aprilo in VectorDrive web.",
   "Sur <a href=\"vdconvert.html\">VDConvert</a>, dépose un ou plusieurs fichiers (VectorDrive, TypeEdit, DXF, SVG, PDF, AI, EPS, STEP) : l'aperçu donne la taille et le nombre de contours, en couleurs par calque. Exporte en DXF, SVG, EPS ou PDF, calques et couleurs gardés, en PNG à la résolution choisie, ou en VDZ pour VectorDrive. « Ouvrir dans VectorDrive web » envoie le dessin à l'éditeur. Pour CorelDRAW et les fichiers complexes, télécharge VDConvert pour Windows : il ajoute « Convertir en… » au clic droit.": "Su <a href=\"vdconvert.html\">VDConvert</a>, trascina uno o più file (VectorDrive, TypeEdit, DXF, SVG, PDF, AI, EPS, STEP): l'anteprima mostra dimensioni e numero di contorni, colorati per livello. Esporta in DXF, SVG, EPS o PDF mantenendo livelli e colori, in PNG alla risoluzione scelta, o in VDZ per VectorDrive. «Apri in VectorDrive web» invia il disegno all'editor. Per CorelDRAW e i file complessi, scarica VDConvert per Windows: aggiunge «Converti in…» al clic destro.",
-  "CorelDRAW (.cdr) : exporte en SVG, PDF ou DXF depuis CorelDRAW, ou utilise VDConvert pour Windows avec Inkscape.": "CorelDRAW (.cdr): esporta in SVG, PDF o DXF da CorelDRAW, oppure usa VDConvert per Windows con Inkscape."
+  "CorelDRAW (.cdr) : exporte en SVG, PDF ou DXF depuis CorelDRAW, ou utilise VDConvert pour Windows avec Inkscape.": "CorelDRAW (.cdr): esporta in SVG, PDF o DXF da CorelDRAW, oppure usa VDConvert per Windows con Inkscape.",
+  "Outils": "Strumenti",
+  "Rétablir (Ctrl+Y)": "Ripristina (Ctrl+Y)",
+  "Vue 2D ou 3D": "Vista 2D o 3D",
+  "Fichiers ouverts": "File aperti",
+  "« {n} » n'est pas enregistré. Fermer quand même ?": "«{n}» non è salvato. Chiudere comunque?"
 });
