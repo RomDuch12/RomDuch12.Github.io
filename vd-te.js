@@ -1,4 +1,4 @@
-/* Lecture des fichiers TypeEdit / Gravostyle dans le navigateur : dessins (.vnd, .gvt) et symboles (.smb).
+/* Lecture des fichiers TypeEdit dans le navigateur : dessins (.vnd, .gvt) et symboles (.smb).
    Portage fidèle des lecteurs Python de VectorDrive (vectordrive/io/mfc.py, vnd.py, smb.py) : archive MFC (CArchive),
    calques, zones, courbes, contours (droites, coniques, Bézier cubiques), textes, cotes, codes-barres, cadrans,
    braille, trous, plaque et outils. Rend le JSON du format natif (document.json d'un .vdz).
