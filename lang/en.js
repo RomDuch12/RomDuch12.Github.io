@@ -1321,5 +1321,6 @@ I18N.add('en', {
   "Ollama fonctionne, mais aucun modèle n'est téléchargé. Dans un terminal : ollama pull {m}": "Ollama is running, but no model is downloaded. In a terminal: ollama pull {m}",
   "Télécharger Ollama": "Download Ollama",
   "Copié : {t}": "Copied: {t}",
-  "{f} est prêt, avec le modèle {m}.": "{f} is ready, with the model {m}."
+  "{f} est prêt, avec le modèle {m}.": "{f} is ready, with the model {m}.",
+  "Télécharger VDConvert {v} (Windows 64 bits, .zip)": "Download VDConvert {v} (Windows 64-bit, .zip)"
 });

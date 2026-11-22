@@ -1321,5 +1321,6 @@ I18N.add('ru', {
   "Ollama fonctionne, mais aucun modèle n'est téléchargé. Dans un terminal : ollama pull {m}": "Ollama работает, но ни одна модель не скачана. В терминале: ollama pull {m}",
   "Télécharger Ollama": "Скачать Ollama",
   "Copié : {t}": "Скопировано: {t}",
-  "{f} est prêt, avec le modèle {m}.": "{f} готов, модель {m}."
+  "{f} est prêt, avec le modèle {m}.": "{f} готов, модель {m}.",
+  "Télécharger VDConvert {v} (Windows 64 bits, .zip)": "Скачать VDConvert {v} (Windows, 64 бита, .zip)"
 });

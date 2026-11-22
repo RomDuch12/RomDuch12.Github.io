@@ -1321,5 +1321,6 @@ I18N.add('zh', {
   "Ollama fonctionne, mais aucun modèle n'est téléchargé. Dans un terminal : ollama pull {m}": "Ollama 正在运行，但尚未下载任何模型。在终端中运行：ollama pull {m}",
   "Télécharger Ollama": "下载 Ollama",
   "Copié : {t}": "已复制：{t}",
-  "{f} est prêt, avec le modèle {m}.": "{f} 已就绪，模型为 {m}。"
+  "{f} est prêt, avec le modèle {m}.": "{f} 已就绪，模型为 {m}。",
+  "Télécharger VDConvert {v} (Windows 64 bits, .zip)": "下载 VDConvert {v}（Windows 64 位，.zip）"
 });

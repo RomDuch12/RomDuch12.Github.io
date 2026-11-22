@@ -207,6 +207,13 @@ document.addEventListener('DOMContentLoaded', () => {
   dz.addEventListener('drop', e => add(e.dataTransfer.files));
   $('tc-scale').oninput = draw; $('tc-join').onchange = draw; addEventListener('resize', draw);
   render();
+  /* lien de téléchargement : la dernière version publiée de VD-convert (le lien écrit reste si GitHub ne répond pas) */
+  fetch('https://api.github.com/repos/RomDuch12/VectorDrive/releases/latest').then(r => (r.ok ? r.json() : null)).then(j => {
+    const a = j && (j.assets || []).find(x => /^VD-convert-[\d.]+-windows\.zip$/.test(x.name)), v = a && a.name.match(/^VD-convert-([\d.]+)-/)[1];
+    if (!a) return;
+    const b = $('tc-dl'); b.href = a.browser_download_url;
+    b.dataset.i18n = null; b.removeAttribute('data-i18n'); b.textContent = tr('Télécharger VDConvert {v} (Windows 64 bits, .zip)', { v });
+  }).catch(() => {});
 });
 </script>
 </body>
