@@ -93,7 +93,7 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <body>
 <main>
 <header>
-  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="vectordrive.html" aria-current="page">VectorDrive</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tauconvert.html">TauConvert</a><a href="visualiseur.html" data-i18n>Visualiseur STEP</a><a href="tuto.html" data-i18n>Tuto</a><a href="cv.html">RomDuch</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="vectordrive.html" aria-current="page">VectorDrive</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="vdconvert.html">VDConvert</a><a href="visualiseur.html" data-i18n>Visualiseur STEP</a><a href="tuto.html" data-i18n>Tuto</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
   <h1><img src="vectordrive.png" width="40" height="40" alt="">VectorDrive <small data-i18n>version web</small></h1>
   <p class="lead" data-i18n>Ouvre, dessine et enregistre tes dessins VectorDrive (.vdz) dans le navigateur, importe DXF, SVG, PDF, EPS, AI, STEP et les fichiers TypeEdit, ajoute textes, booléens et parcours d'outil, avec un assistant IA. Tout reste sur ton appareil.</p>
 </header>
@@ -882,6 +882,8 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
   $('ia-defaire').onclick = () => { if (!IA.avant) return; pile.push(instant()); refaire.length = 0; const s = IA.avant.inst; IA.avant = null; modifie = true; restaurer(s); journal('outil', T('Modifications de l\'assistant défaites.')); };
   $('ia-exemples').replaceChildren(...A.EXEMPLES.map(x => bouton(T(x), null, () => { $('ia-demande').value = T(x); $('ia-demande').focus(); })));
   chargerIA();
+  /* dessin transmis par VDConvert en ligne (même onglet) */
+  try { const imp = JSON.parse(sessionStorage.getItem('vd-import') || 'null'); sessionStorage.removeItem('vd-import'); if (imp && imp.doc) charger(W.verifier(imp.doc), imp.nom || 'import'); } catch (e) { /* */ }
 
   /* ---------- 3D : plaque, contours à Z0, volumes du dessin, parcours ---------- */
   let v3 = null, rev = 0;

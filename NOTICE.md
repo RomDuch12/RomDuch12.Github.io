@@ -6,10 +6,10 @@ Les éléments ci-dessous ne sont **pas** couverts par cette licence : ils reste
 ## Versions bureau : hors licence
 
 La licence MIT couvre **uniquement cette version web**. Les applications de bureau **NeoDrive**, **DaThread**, **TauDrive**
-et **TauConvert pour Windows** sont des œuvres distinctes : elles ne sont pas publiées sous licence MIT, leur code n'est pas
+et **VDConvert pour Windows** (qui remplace TauConvert) sont des œuvres distinctes : elles ne sont pas publiées sous licence MIT, leur code n'est pas
 dans ce dépôt, et aucun droit de les copier, modifier ou redistribuer n'est accordé ici.
 
-**TauConvert pour Windows** fait exception pour la diffusion : il est proposé en **téléchargement gratuit** (page TauConvert,
+**VDConvert pour Windows** fait exception pour la diffusion : il est proposé en **téléchargement gratuit** (page VDConvert,
 releases GitHub), pour un usage libre. Seul le programme compilé est distribué ; son code n'est pas publié et n'est pas sous
 licence MIT. Cette version réduite ne contient que la conversion de dessins et le menu contextuel : ni gravure, ni pilotage
 de machine, ni protocole machine, ni recette ou donnée d'atelier.
@@ -27,6 +27,7 @@ de machine, ni protocole machine, ni recette ou donnée d'atelier.
 ## Autres marques et formats
 
 - **Cielle**, **ClTerm** : marques de leurs propriétaires. Les formats ISO et CLJOB sont reproduits à des fins d'interopérabilité.
+- **TypeEdit** : marque de son propriétaire, citée uniquement pour la compatibilité des fichiers (VND, GVT, SMB).
 - **Notepad++**, **CorelDRAW**, **Illustrator**, **Inkscape**, **LibreOffice** : marques de leurs propriétaires, citées pour décrire des fonctions.
 
 ## Bibliothèques chargées depuis des CDN (non incluses dans le dépôt)

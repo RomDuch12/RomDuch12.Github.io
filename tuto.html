@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tutoriel – RomDuch</title>
-<meta name="description" content="Tutoriel pas à pas : générer un programme SimPL avec NeoDrive, gérer ses outils DATRON, dessiner et générer un job laser avec TauDrive, convertir ses dessins avec TauConvert.">
+<meta name="description" content="Tutoriel pas à pas : générer un programme SimPL avec NeoDrive, gérer ses outils DATRON, dessiner et générer un job laser avec TauDrive, convertir ses dessins avec VDConvert.">
 <script src="i18n.js"></script>
 <script src="theme.js"></script>
 <link rel="stylesheet" href="themes.css">
@@ -44,14 +44,14 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
 <body>
 <main>
 <header>
-  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="vectordrive.html">VectorDrive</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="tauconvert.html">TauConvert</a><a href="visualiseur.html" data-i18n>Visualiseur STEP</a><a href="tuto.html" aria-current="page" data-i18n>Tuto</a><a href="cv.html">RomDuch</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="vectordrive.html">VectorDrive</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="vdconvert.html">VDConvert</a><a href="visualiseur.html" data-i18n>Visualiseur STEP</a><a href="tuto.html" aria-current="page" data-i18n>Tuto</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
   <h1 data-i18n>Tutoriel</h1>
-  <p class="tag" data-i18n>Prise en main pas à pas de NeoDrive, TauDrive et TauConvert</p>
+  <p class="tag" data-i18n>Prise en main pas à pas de NeoDrive, TauDrive et VDConvert</p>
   <ul class="toc">
     <li><a href="#t-neo" data-icon="cpu" data-i18n>NeoDrive en 5 minutes</a></li><li><a href="#t-edit" data-icon="code" data-i18n>Éditeur SimPL</a></li>
     <li><a href="#t-outils" data-icon="wrench" data-i18n>Outils et coupe</a></li><li><a href="#t-tau" data-icon="zap" data-i18n>TauDrive</a></li>
     <li><a href="#t-coupon" data-icon="grid-3x3" data-i18n>Coupon d'essai</a></li><li><a href="#t-job" data-icon="file-cog" data-i18n>Job laser</a></li>
-    <li><a href="#t-3d" data-icon="box" data-i18n>Plans d'outils, 3D et STEP</a></li><li><a href="#t-conv" data-icon="repeat-2" data-i18n>TauConvert</a></li><li><a href="#t-data" data-icon="database" data-i18n>Tes données</a></li>
+    <li><a href="#t-3d" data-icon="box" data-i18n>Plans d'outils, 3D et STEP</a></li><li><a href="#t-conv" data-icon="repeat-2">VDConvert</a></li><li><a href="#t-data" data-icon="database" data-i18n>Tes données</a></li>
   </ul>
 </header>
 
@@ -127,12 +127,12 @@ footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mut
   <p data-i18n>Dans l'<a href="outils.html">éditeur d'outils</a>, <b>Plan et 3D</b> ouvre la fiche d'un outil de ta bibliothèque ou d'une référence du catalogue : ses cotes (D1, D2, D3, L1, L2, L3, angle, rayon), le plan coté, outil debout et pointe en bas, et le solide de révolution, partie coupante en or. Les champs vides sont complétés par le catalogue DATRON, puis le nom de l'outil (« Cyl 3 z1L10 », « Con 30° 0.1 »). Chaque modification redessine la fiche.</p>
   <p data-i18n>Télécharge le plan en <b>DXF</b> (calques CONTOUR, COUPE, AXE, COTES, TEXTE et le demi-profil PROFIL pour une FAO), le solide en <b>STEP</b> AP214 (plans, cylindres et cônes exacts) ou le plan en SVG. « Dessins DXF + STEP (zip) » dessine toute la bibliothèque d'un coup.</p>
   <p data-i18n>Dans le <a href="neodrive.html#sec-viewer">visualiseur</a>, coche <b>Vue 3D</b> : la trajectoire suit le curseur d'avancement, l'outil est dessiné d'après sa fiche et « Matière enlevée » creuse le brut selon la forme de l'outil (plate, boule, cône). <b>Pièce STEP…</b> superpose ta pièce, dessus en Z0 et centrée sur l'origine si la case est cochée ; un clic sur une face la surligne et donne son orientation et sa cote.</p>
-  <p data-i18n>Un fichier STEP peut aussi être importé comme dessin dans TauConvert, TauDrive et le tracé DXF du générateur : le contour de chaque face plane horizontale tournée vers le haut devient un tracé, sur un calque par cote Z (vue de dessus de ce qu'une fraiseuse usine). Le lecteur STEP (OpenCascade) se charge au premier usage.</p>
+  <p data-i18n>Un fichier STEP peut aussi être importé comme dessin dans VDConvert, TauDrive et le tracé DXF du générateur : le contour de chaque face plane horizontale tournée vers le haut devient un tracé, sur un calque par cote Z (vue de dessus de ce qu'une fraiseuse usine). Le lecteur STEP (OpenCascade) se charge au premier usage.</p>
 </section>
 
 <section id="t-conv">
-  <h2 data-icon="repeat-2" data-i18n>TauConvert : convertir un dessin</h2>
-  <p data-i18n>Sur <a href="tauconvert.html">TauConvert</a>, dépose un ou plusieurs fichiers (DXF, SVG, PDF, AI, EPS) : l'aperçu donne la taille et le nombre de contours. Exporte en DXF, SVG, EPS ou PDF (traits les plus fins possibles, vectoriels à tout zoom) ou en PNG à la résolution choisie, avec remplissage des contours fermés si besoin. « Ouvrir dans TauDrive » envoie le dessin au plan de travail. Pour CorelDRAW et les fichiers complexes, télécharge TauConvert pour Windows : il ajoute « Convertir en… » au clic droit.</p>
+  <h2 data-icon="repeat-2" data-i18n>VDConvert : convertir un dessin</h2>
+  <p data-i18n>Sur <a href="vdconvert.html">VDConvert</a>, dépose un ou plusieurs fichiers (VectorDrive, TypeEdit, DXF, SVG, PDF, AI, EPS, STEP) : l'aperçu donne la taille et le nombre de contours, en couleurs par calque. Exporte en DXF, SVG, EPS ou PDF, calques et couleurs gardés, en PNG à la résolution choisie, ou en VDZ pour VectorDrive. « Ouvrir dans VectorDrive web » envoie le dessin à l'éditeur. Pour CorelDRAW et les fichiers complexes, télécharge VDConvert pour Windows : il ajoute « Convertir en… » au clic droit.</p>
 </section>
 
 <section id="t-data">

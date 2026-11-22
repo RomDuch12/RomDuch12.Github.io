@@ -113,3 +113,7 @@ div.genout{padding:0!important;min-height:0!important;height:440px;border-radius
   #cv{height:min(62vh,640px)}
   #code{height:min(62vh,640px)}
 }
+
+/* pied de page : lien discret vers la page RomDuch */
+.licence a.discret{text-decoration:none;color:inherit}
+.licence a.discret:hover{text-decoration:underline}

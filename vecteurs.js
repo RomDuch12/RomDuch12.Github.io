@@ -1,4 +1,4 @@
-/* Lecture et écriture de dessins vectoriels, dans le navigateur (TauDrive web, TauConvert en ligne).
+/* Lecture et écriture de dessins vectoriels, dans le navigateur (TauDrive web, VDConvert en ligne).
    Entrées : DXF, SVG, PDF et AI (Illustrator 9+ = PDF), EPS / AI anciens (PostScript simple).
    Sorties : DXF (R12), SVG, EPS, PDF. Unités : mm, Y vers le haut. Tracés = polylignes [[x, y], …]. */
 (function () {
@@ -483,7 +483,7 @@
     else if (ext === 'dxf' || /^\s*0\s*\r?\n\s*SECTION/.test(head)) { r = readDXF(new TextDecoder('utf-8').decode(buf)); format = 'DXF'; }
     else if (ext === 'svg' || /<svg[\s>]/i.test(head)) { r = readSVG(new TextDecoder('utf-8').decode(buf)); format = 'SVG'; }
     else if (['eps', 'ps', 'ai', 'epsf'].includes(ext) || head.startsWith('%!') || (new Uint8Array(buf)[0] === 0xC5)) { r = readEPS(buf); format = ext === 'ai' ? 'AI (PostScript)' : 'EPS'; }
-    else if (ext === 'cdr') throw new Error(tr('CorelDRAW (.cdr) : exporte en SVG, PDF ou DXF depuis CorelDRAW, ou utilise TauConvert avec Inkscape.'));
+    else if (ext === 'cdr') throw new Error(tr('CorelDRAW (.cdr) : exporte en SVG, PDF ou DXF depuis CorelDRAW, ou utilise VDConvert pour Windows avec Inkscape.'));
     else throw new Error(tr('Format non reconnu : {e}', { e: ext || '?' }));
     return { ...r, format, name: name.replace(/\.\w+$/, '') };
   }
@@ -508,7 +508,7 @@
   }
   function toEPS(polys, margin = 1) {
     const b = bounds(polys) || [0, 0, 1, 1], k = 72 / 25.4, x0 = b[0] - margin, y0 = b[1] - margin, w = (b[2] - b[0] + 2 * margin) * k, h = (b[3] - b[1] + 2 * margin) * k;
-    const L = ['%!PS-Adobe-3.0 EPSF-3.0', `%%BoundingBox: 0 0 ${Math.ceil(w)} ${Math.ceil(h)}`, `%%HiResBoundingBox: 0 0 ${f(w)} ${f(h)}`, '%%Creator: TauConvert web (RomDuch)', '%%EndComments',
+    const L = ['%!PS-Adobe-3.0 EPSF-3.0', `%%BoundingBox: 0 0 ${Math.ceil(w)} ${Math.ceil(h)}`, `%%HiResBoundingBox: 0 0 ${f(w)} ${f(h)}`, '%%Creator: VDConvert web (RomDuch)', '%%EndComments',
       '0 setlinewidth 1 setlinejoin 1 setlinecap'];
     for (const p of polys) { L.push('newpath ' + p.map(([x, y], i) => (i && closed(p) && i === p.length - 1 ? 'closepath' : `${f((x - x0) * k)} ${f((y - y0) * k)} ${i ? 'lineto' : 'moveto'}`)).join(' ') + ' stroke'); }
     L.push('showpage', '%%EOF'); return L.join('\n') + '\n';
@@ -520,7 +520,7 @@
     const content = s.join('\n');
     const objs = ['<< /Type /Catalog /Pages 2 0 R >>', '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
       `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${f(w)} ${f(h)}] /Contents 4 0 R /Resources << >> >>`,
-      `<< /Length ${content.length} >>\nstream\n${content}\nendstream`, '<< /Producer (TauConvert web - RomDuch) >>'];
+      `<< /Length ${content.length} >>\nstream\n${content}\nendstream`, '<< /Producer (VDConvert web - RomDuch) >>'];
     let out = '%PDF-1.4\n'; const off = [];
     objs.forEach((o, i) => { off.push(out.length); out += `${i + 1} 0 obj\n${o}\nendobj\n`; });
     const x = out.length;

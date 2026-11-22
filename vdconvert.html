@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VDConvert – RomDuch</title>
+<meta name="description" content="VDConvert – conversion de dessins vectoriels : VectorDrive (.vdz), TypeEdit (VND, GVT, SMB), DXF, SVG, PDF, AI, EPS et STEP vers DXF, SVG, EPS, PDF, PNG ou VDZ, calques et couleurs gardés, en ligne ou avec le programme Windows.">
+<script src="i18n.js"></script>
+<script src="theme.js"></script>
+<link rel="stylesheet" href="themes.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Barlow,"Segoe UI",Roboto,"Noto Sans SC","Microsoft YaHei",Arial,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 18px 70px}
+header{display:grid;gap:6px;padding:10px 0 22px;border-bottom:2px solid var(--brass);margin-bottom:10px}
+h1{font:700 clamp(2.2rem,6vw,3.6rem)/1 "Barlow Condensed",Arial Narrow,sans-serif;margin:6px 0 0}
+.tag{font:600 1.2rem "Barlow Condensed",sans-serif;color:var(--brass);margin:0}
+.lead{max-width:75ch;margin:6px 0 0;color:var(--mute)}
+h2{font:700 1.8rem/1.1 "Barlow Condensed",sans-serif;margin:40px 0 12px}
+a{color:var(--ink);text-decoration-color:var(--brass);text-underline-offset:3px}
+select,button,input{font:600 15px Barlow,sans-serif}
+select,button,.btn{max-width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 12px;border-radius:5px;cursor:pointer;text-decoration:none;display:inline-block}
+button.primary,.btn.primary{background:var(--brass);border-color:var(--brass);color:var(--on-accent)}
+button:disabled{opacity:.5;cursor:default}
+:focus-visible{outline:3px solid var(--brass-l);outline-offset:2px}
+.muted{color:var(--mute)}.small{font-size:14px}.bad{color:var(--warn)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px 16px}
+.drop{display:block;border:2px dashed var(--line);border-radius:6px;padding:22px;text-align:center;color:var(--mute);cursor:pointer}
+.drop.over{border-color:var(--brass);color:var(--ink)}
+.conv{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:14px;margin-top:14px}
+@media (max-width:800px){.conv{grid-template-columns:1fr}}
+#tc-cv{width:100%;height:380px;display:block;background:var(--bg);border:1px solid var(--line);border-radius:5px}
+#tc-files{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:4px}
+#tc-files li{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline;padding:6px 8px;border:1px solid var(--line);border-radius:5px;cursor:pointer}
+#tc-files li.on{border-color:var(--brass);box-shadow:inset 3px 0 0 var(--brass)}
+#tc-files small{color:var(--mute)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
+.row label{display:inline-flex;gap:6px;align-items:center;font-size:15px}
+.row input[type=number]{width:7em;font:400 15px Barlow,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:5px 7px}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:10px;margin:10px 0}
+.feat div{border-left:3px solid var(--brass);padding:4px 10px}
+footer{margin-top:50px;color:var(--mute);font-size:14px}footer a{color:var(--mute)}
+</style>
+<link rel="stylesheet" href="site.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#171b22">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<script src="ui.js" defer></script>
+</head>
+<body>
+<main>
+<header>
+  <div class="topbar"><nav class="sitenav" aria-label="Site" data-i18n-attr="aria-label"><a href="index.html" class="home" aria-label="Accueil" title="Accueil" data-i18n-attr="aria-label,title"></a><a href="vectordrive.html">VectorDrive</a><a href="neodrive.html">NeoDrive</a><a href="taudrive.html">TauDrive</a><a href="vdconvert.html" aria-current="page">VDConvert</a><a href="visualiseur.html" data-i18n>Visualiseur STEP</a><a href="tuto.html" data-i18n>Tuto</a></nav><span class="prefs"><span data-lang-select></span><span data-theme-select></span></span></div>
+  <h1>VDConvert</h1>
+  <p class="tag" data-i18n>Conversion de dessins vectoriels</p>
+  <p class="lead" data-i18n>Convertis tes dessins VectorDrive, TypeEdit, DXF, SVG, PDF, AI, EPS et STEP en DXF, SVG, EPS, PDF, PNG ou VDZ, calques et couleurs gardés : en ligne, dans ton navigateur, ou avec le programme Windows et son menu contextuel.</p>
+</header>
+
+<section id="sec-tc-online">
+  <h2 data-i18n>Convertir en ligne</h2>
+  <div class="box">
+    <label class="drop" id="tc-drop"><input type="file" id="tc-file" accept=".vdz,.vnd,.gvt,.smb,.dxf,.svg,.pdf,.ai,.eps,.ps,.step,.stp" multiple hidden><span data-i18n>Dépose tes fichiers ici ou clique pour les choisir (VDZ, VND, GVT, SMB, DXF, SVG, PDF, AI, EPS, STEP).</span></label>
+    <div class="conv">
+      <div><canvas id="tc-cv"></canvas><p class="small muted" id="tc-info"></p></div>
+      <div>
+        <ul id="tc-files"></ul>
+        <div class="row"><label><span data-i18n>Échelle</span> <input type="number" id="tc-scale" value="1" step="any" min="0"></label>
+          <label><input type="checkbox" id="tc-join" checked> <span data-i18n>Raccorder les tracés</span></label></div>
+        <div class="row"><label><span data-i18n>Résolution PNG</span> <select id="tc-dpi"><option value="11.811">300 dpi</option><option value="23.622" selected>600 dpi</option><option value="47.244">1200 dpi</option><option value="94.488">2400 dpi</option></select></label>
+          <label><input type="checkbox" id="tc-fill"> <span data-i18n>Remplir les contours fermés (PNG)</span></label></div>
+        <div class="row" id="tc-out">
+          <button type="button" data-f="dxf" class="primary">DXF</button><button type="button" data-f="svg" class="primary">SVG</button>
+          <button type="button" data-f="eps" class="primary">EPS</button><button type="button" data-f="pdf" class="primary">PDF</button><button type="button" data-f="png" class="primary">PNG</button><button type="button" data-f="vdz" class="primary">VDZ</button>
+          <button type="button" id="tc-vd" data-i18n>Ouvrir dans VectorDrive web</button>
+        </div>
+        <p class="small muted" data-i18n>Tout se passe dans ton navigateur : rien n'est envoyé. Calques et couleurs sont gardés en DXF, SVG, EPS et PDF. Les textes TypeEdit sont recomposés avec la police du poste ou une police web proche ; images et reliefs ne sont pas repris. Les textes non vectorisés des PDF sont ignorés ; l'EPS est lu pour les tracés simples. Pour les fichiers complexes, CorelDRAW compris, utilise VDConvert pour Windows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sec-tc-download">
+  <h2 data-i18n>VDConvert pour Windows</h2>
+  <div class="box">
+    <p data-i18n>Le convertisseur de VectorDrive, seul : conversion et menu contextuel, sans dessin ni FAO. Il remplace TauConvert.</p>
+    <div class="feat">
+      <div data-i18n><b>Formats en entrée</b> : VectorDrive, TypeEdit, DXF, SVG, PDF, AI, EPS, PS, STEP et CorelDRAW (avec Inkscape ou LibreOffice).</div>
+      <div data-i18n><b>Formats en sortie</b> : DXF, SVG, EPS, AI, PDF, PNG et VDZ.</div>
+      <div data-i18n><b>Clic droit dans Windows</b> : « Convertir en… » sur un ou plusieurs fichiers ; pose et retrait sans résidu.</div>
+      <div data-i18n><b>Calques, couleurs et textes</b> gardés ; textes et cotations DXF rendus en contours.</div>
+    </div>
+    <div class="row"><a class="btn primary" id="tc-dl" href="https://github.com/RomDuch12/RomDuch12.Github.io/releases" data-i18n>Télécharger VDConvert (Windows 64 bits)</a>
+      <a class="btn" href="https://github.com/RomDuch12/RomDuch12.Github.io/releases" target="_blank" rel="noopener" data-i18n>Toutes les versions</a></div>
+    <p class="small muted" data-i18n>Décompresse l'archive, puis lance VDConvert.exe. Aucune installation, aucun droit administrateur. Windows peut afficher un avertissement SmartScreen : le programme n'est pas signé.</p>
+  </div>
+</section>
+
+<footer><p><a href="index.html" data-i18n>Accueil</a> · <a href="vectordrive.html">VectorDrive</a> · <a href="#" data-stockage-gerer data-i18n>Gérer le stockage local</a></p></footer>
+</main>
+<script src="stockage.js" defer></script>
+<script src="vecteurs.js"></script>
+<script src="vdz.js"></script>
+<script src="codes.js"></script>
+<script src="vd-web.js"></script>
+<script src="vd-outils.js"></script>
+<script src="vd-te.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const $ = id => document.getElementById(id), V = window.Vecteurs, W = window.VDWeb, O = window.VDOutils, tr = (s, v) => (window.t ? t(s, v) : s);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const nf = (n, d = 2) => (window.I18N ? I18N.fmt(+(+n).toFixed(d)) : (+n).toFixed(d));
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  let files = [], cur = -1;
+
+  /* TypeEdit ne garde pas les glyphes : contours recalculés avec la police */
+  async function retextes(items) {
+    const out = [];
+    for (const it of items) {
+      if (it.kind === 'group') out.push({ ...it, children: await retextes(it.children || []) });
+      else if (it.kind === 'text' && !it.outline) { try { out.push({ ...(await O.retexter(it, {})), name: it.name, visible: it.visible !== false }); } catch (e) { out.push({ ...it, outline: [] }); } }
+      else out.push(it);
+    }
+    return out;
+  }
+  const sansPlaque = d => ({ ...d, plate: { ...(d.plate || W.nouveau().plate), visible: false } });
+  /* chaque fichier devient un dessin VectorDrive (calques, couleurs d'outil) */
+  async function lire(f) {
+    const n = f.name || 'dessin', base = n.replace(/\.[^.]+$/, ''), ext = (n.match(/\.(\w+)$/) || [, ''])[1].toLowerCase();
+    if (ext === 'vdz') return { name: base, format: 'VectorDrive', doc: await W.lireVDZ(await f.arrayBuffer()) };
+    if (ext === 'vnd' || ext === 'gvt') {
+      const d = W.verifier(VDTypeEdit.lireVND(await f.arrayBuffer())), ign = (d.extra.te_ignores || []).length;
+      d.layers = await Promise.all(d.layers.map(async L => ({ ...L, items: await retextes(L.items) })));
+      return { name: base, format: 'TypeEdit ' + ext.toUpperCase(), doc: sansPlaque(d), ignored: ign ? [tr('{n} élément(s) non repris (images, reliefs, solides…).', { n: ign })] : [] };
+    }
+    if (ext === 'smb') {
+      const syms = VDTypeEdit.lireSMB(await f.arrayBuffer(), base).symboles || [], d = W.nouveau();
+      d.layers = await Promise.all(syms.map(async sy => ({ id: W.uid(), name: sy.nom || base, visible: true, locked: false, tool: 0, items: await retextes(sy.items || []) })));
+      if (!d.layers.length) throw new Error(tr('Aucun symbole dans ce fichier.'));
+      return { name: base, format: 'TypeEdit SMB', doc: sansPlaque(d) };
+    }
+    const r = await V.read(f), u = r.unitScale || 1, d0 = W.nouveau(); d0.layers = [];
+    const items = r.items.map(i => ({ ...i, poly: i.poly.map(([x, y]) => [x * u, y * u]) }));
+    return { name: base, format: r.format, doc: sansPlaque(W.importer(d0, { items }, base)), brut: items, ignored: r.ignored || [] };
+  }
+  /* dessin à exporter : raccord des tracés (fichiers lus par Vecteurs), échelle, remplissage PNG */
+  function dessin(f, png) {
+    let d = f.doc;
+    if (f.brut && $('tc-join').checked) {
+      const parCalque = new Map(); for (const i of f.brut) { const k = i.layer || f.name; if (!parCalque.has(k)) parCalque.set(k, []); parCalque.get(k).push(i.poly); }
+      const items = [...parCalque].flatMap(([layer, p]) => V.join(p).map(poly => ({ layer, poly }))), d0 = W.nouveau(); d0.layers = [];
+      d = sansPlaque(W.importer(d0, { items }, f.name));
+    }
+    const k = +$('tc-scale').value || 1, m = W.echelle(k, k, 0, 0), fill = png && $('tc-fill').checked;
+    const map = it => { const o = k !== 1 ? W.transformer(it, m) : it; return fill && it.kind === 'shape' && (it.path || []).every(c => c.closed) ? { ...o, filled: true } : o; };
+    return { ...d, layers: d.layers.map(L => ({ ...L, items: L.items.map(map) })) };
+  }
+  function add(list) {
+    Promise.all([...list].map(f => lire(f).then(r => r, e => ({ name: f.name, error: e.message })))).then(rs => {
+      files = files.concat(rs); if (cur < 0 || !files[cur] || files[cur].error) cur = files.findIndex(f => !f.error); render();
+    });
+  }
+  function render() {
+    $('tc-files').innerHTML = files.map((f, i) => `<li class="${i === cur ? 'on' : ''}" data-i="${i}"><b>${esc(f.name)}</b>` + (f.error ? ` <small class="bad">${esc(f.error)}</small>`
+      : ` <small>${esc(f.format)} · ${tr('{n} calque(s)', { n: f.doc.layers.length })}</small>`) + '</li>').join('');
+    $('tc-files').querySelectorAll('li').forEach(li => li.onclick = () => { cur = +li.dataset.i; render(); });
+    const ok = cur >= 0 && files[cur] && !files[cur].error;
+    document.querySelectorAll('#tc-out button').forEach(b => { b.disabled = !ok; });
+    draw();
+  }
+  function draw() {
+    const cv = $('tc-cv'), r = cv.getBoundingClientRect(), dp = devicePixelRatio || 1, x = cv.getContext('2d');
+    cv.width = r.width * dp; cv.height = r.height * dp; x.setTransform(dp, 0, 0, dp, 0, 0); x.clearRect(0, 0, r.width, r.height);
+    const f = files[cur]; if (!f || f.error) { $('tc-info').textContent = ''; return; }
+    const L = O.lots(dessin(f)), p = L.flatMap(l => l.polys), b = V.bounds(p); if (!b) { $('tc-info').textContent = tr('Aucun tracé exploitable.'); return; }
+    const k = Math.min((r.width - 20) / ((b[2] - b[0]) || 1), (r.height - 20) / ((b[3] - b[1]) || 1)), ox = (r.width - (b[2] - b[0]) * k) / 2, oy = (r.height - (b[3] - b[1]) * k) / 2;
+    const ink = css('--ink'), teinte = c => (/^#?0{3}(0{3})?$/i.test(c) ? ink : c);
+    x.lineWidth = 1;
+    for (const l of L) { x.strokeStyle = teinte(l.couleur); x.beginPath(); for (const q of l.polys) q.forEach(([a, c], i) => { const X = ox + (a - b[0]) * k, Y = r.height - oy - (c - b[1]) * k; i ? x.lineTo(X, Y) : x.moveTo(X, Y); }); x.stroke(); }
+    $('tc-info').textContent = tr('{w} × {h} mm · {n} tracé(s), dont {c} fermé(s)', { w: nf(b[2] - b[0]), h: nf(b[3] - b[1]), n: p.length, c: p.filter(V.closed).length })
+      + (f.ignored && f.ignored.length ? ' · ' + tr('Entités ignorées : {l}', { l: f.ignored.join(', ') }) : '');
+  }
+  function download(name, data, type) {
+    const a = document.createElement('a'); a.href = URL.createObjectURL(data instanceof Blob ? data : new Blob([data], { type })); a.download = name; document.body.append(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  }
+  document.querySelectorAll('#tc-out [data-f]').forEach(b => b.onclick = async () => {
+    const f = files[cur], k = b.dataset.f, d = dessin(f, k === 'png');
+    try {
+      if (k === 'png') return download(`${f.name}.png`, await O.png(d, +$('tc-dpi').value), 'image/png');
+      if (k === 'vdz') return download(`${f.name}.vdz`, await W.versVDZ(d), 'application/x-vectordrive');
+      const T = { dxf: 'application/dxf', svg: 'image/svg+xml', eps: 'application/postscript', pdf: 'application/pdf' };
+      download(`${f.name}.${k}`, O[k](d), T[k]);
+    } catch (e) { alert(e.message); }
+  });
+  $('tc-vd').onclick = () => {
+    const f = files[cur], d = dessin(f);
+    try { sessionStorage.setItem('vd-import', JSON.stringify({ nom: f.name, doc: { ...d, plate: { ...d.plate, visible: true } } })); location.href = 'vectordrive.html'; }
+    catch (e) { alert(tr('Dessin trop lourd pour être transmis : exporte-le en VDZ puis ouvre-le dans VectorDrive web.')); }
+  };
+  $('tc-file').onchange = e => { add(e.target.files); e.target.value = ''; };
+  const dz = $('tc-drop');
+  ['dragenter', 'dragover'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove('over'); }));
+  dz.addEventListener('drop', e => add(e.dataTransfer.files));
+  $('tc-scale').oninput = draw; $('tc-join').onchange = draw; addEventListener('resize', draw);
+  render();
+});
+</script>
+</body>
+</html>
