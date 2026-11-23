@@ -117,3 +117,9 @@ div.genout{padding:0!important;min-height:0!important;height:440px;border-radius
 /* pied de page : lien discret vers la page RomDuch */
 .licence a.discret{text-decoration:none;color:inherit}
 .licence a.discret:hover{text-decoration:underline}
+
+/* bandeau « logiciel libre » (NeoDrive, TauDrive) et points clés de VectorDrive */
+.libre{margin:8px 0 0;padding:7px 11px;border:1px solid var(--line);border-left:3px solid var(--brass,#c9a227);border-radius:5px;background:var(--card);font-size:14px}
+.libre a{white-space:nowrap}
+ul.points{margin:8px 0 4px;padding-left:1.2em;display:grid;gap:4px;font-size:15px}
+p.marque{margin:2px 0 0;font-size:12px;opacity:.7}

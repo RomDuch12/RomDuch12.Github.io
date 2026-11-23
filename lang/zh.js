@@ -1323,5 +1323,16 @@ I18N.add('zh', {
   "Copié : {t}": "已复制：{t}",
   "{f} est prêt, avec le modèle {m}.": "{f} 已就绪，模型为 {m}。",
   "Télécharger VDConvert {v} (Windows 64 bits, .zip)": "下载 VDConvert {v}（Windows 64 位，.zip）",
-  "La 3D ne peut pas démarrer : WebGL est désactivé ou indisponible dans ce navigateur. Active l'accélération matérielle (Chrome ou Edge : Paramètres › Système), mets à jour le pilote graphique, puis relance le navigateur.": "无法启动 3D：此浏览器中的 WebGL 已禁用或不可用。请开启硬件加速（Chrome 或 Edge：设置 › 系统），更新显卡驱动，然后重启浏览器。"
+  "La 3D ne peut pas démarrer : WebGL est désactivé ou indisponible dans ce navigateur. Active l'accélération matérielle (Chrome ou Edge : Paramètres › Système), mets à jour le pilote graphique, puis relance le navigateur.": "无法启动 3D：此浏览器中的 WebGL 已禁用或不可用。请开启硬件加速（Chrome 或 Edge：设置 › 系统），更新显卡驱动，然后重启浏览器。",
+  "NeoDrive est un logiciel libre : gratuit, sous double licence MIT ou Apache-2.0.": "NeoDrive 是自由软件：免费，采用 MIT 或 Apache-2.0 双重许可。",
+  "TauDrive est un logiciel libre : gratuit, sous double licence MIT ou Apache-2.0.": "TauDrive 是自由软件：免费，采用 MIT 或 Apache-2.0 双重许可。",
+  "Compatibilité très large : DXF, SVG, PDF, EPS, AI et STEP à l'ouverture, DXF, SVG, EPS et PDF à l'export.": "兼容性极广：可打开 DXF、SVG、PDF、EPS、AI 和 STEP，可导出 DXF、SVG、EPS 和 PDF。",
+  "Unique : il ouvre les dessins et les symboles TypeEdit (VND, GVT, SMB), sans TypeEdit.": "独一无二：无需 TypeEdit 即可打开 TypeEdit 图纸和符号（VND、GVT、SMB）。",
+  "Unique : il ouvre les dessins TypeEdit (VND, GVT) et ouvre et enregistre ses symboles (SMB), sans TypeEdit.": "独一无二：无需 TypeEdit 即可打开 TypeEdit 图纸（VND、GVT），并打开和保存其符号（SMB）。",
+  "L'IA directement dans le dessin : tu décris, l'assistant dessine. Avec Ollama sur ton PC (gratuit, rien ne sort) ou ta clé d'API Claude, ChatGPT ou Mistral.": "AI 直接融入绘图：你描述，助手来画。可使用你电脑上的 Ollama（免费，数据不出电脑），或你的 Claude、ChatGPT、Mistral API 密钥。",
+  "Le logiciel libre de dessin pour la gravure, ici dans ton navigateur. Tout reste sur ton appareil.": "用于雕刻的自由绘图软件，就在你的浏览器中。所有数据都留在你的设备上。",
+  "TypeEdit est une marque de son éditeur ; VectorDrive n'y est pas affilié.": "TypeEdit 是其发行商的商标；VectorDrive 与其无关联。",
+  "Plugins métier propriétaires": "专有业务插件",
+  "Création de plugins privés qui rassemblent les savoirs et savoir-faire de l'entreprise au-dessus des logiciels libres VectorDrive, NeoDrive et TauDrive : process accélérés et fiabilisés, et de nouveaux process développés, inaccessibles jusqu'alors.": "开发私有插件，在自由软件 VectorDrive、NeoDrive 和 TauDrive 之上汇集企业的知识与技能：流程更快、更可靠，并开发出此前无法实现的新流程。",
+  "Production sur centres Datron neo, gravure de précision sur laiton. Conception des logiciels libres VectorDrive, NeoDrive et TauDrive, et de leurs plugins propriétaires pour l'entreprise.": "在 Datron neo 加工中心上生产，黄铜精密雕刻。设计自由软件 VectorDrive、NeoDrive 和 TauDrive，以及为企业开发的专有插件。"
 });
