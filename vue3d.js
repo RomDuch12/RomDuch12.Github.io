@@ -11,7 +11,9 @@
 
   async function creer(el, opts = {}) {
     const T = await three();
-    const renderer = new T.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: !!opts.capture });
+    let renderer;                                                           // WebGL refusé (accélération matérielle coupée, pilote, bureau à distance) : message clair
+    try { renderer = new T.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: !!opts.capture }); }
+    catch (e) { throw new Error(window.t ? t("La 3D ne peut pas démarrer : WebGL est désactivé ou indisponible dans ce navigateur. Active l'accélération matérielle (Chrome ou Edge : Paramètres › Système), mets à jour le pilote graphique, puis relance le navigateur.") : "La 3D ne peut pas démarrer : WebGL est désactivé ou indisponible dans ce navigateur. Active l'accélération matérielle (Chrome ou Edge : Paramètres › Système), mets à jour le pilote graphique, puis relance le navigateur."); }
     renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1));
     el.append(renderer.domElement);
     Object.assign(renderer.domElement.style, { width: '100%', height: '100%', display: 'block', touchAction: 'none', cursor: 'grab' });

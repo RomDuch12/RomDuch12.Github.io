@@ -1008,7 +1008,7 @@ footer{margin-top:40px;color:var(--mute);font-size:14px}footer a{color:var(--mut
       if (vol.meshes.length) g.add(Vue3D.solide(T3, vol, { aretes: false }));
       v3.racine.add(g);
       const bb = new T3.Box3().setFromObject(g); v3.cadrer(bb, !maj3d.fait); maj3d.fait = true;
-    } catch (e) { message(e.message, true); }
+    } catch (e) { message(e.message, true); if (!v3 && mode3d) vue3d(false); }
   }
   function vue3d(oui) {
     mode3d = oui; $('vd-3d').hidden = !oui;

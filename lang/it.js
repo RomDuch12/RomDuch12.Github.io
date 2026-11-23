@@ -1322,5 +1322,6 @@ I18N.add('it', {
   "Télécharger Ollama": "Scarica Ollama",
   "Copié : {t}": "Copiato: {t}",
   "{f} est prêt, avec le modèle {m}.": "{f} è pronto, con il modello {m}.",
-  "Télécharger VDConvert {v} (Windows 64 bits, .zip)": "Scarica VDConvert {v} (Windows 64 bit, .zip)"
+  "Télécharger VDConvert {v} (Windows 64 bits, .zip)": "Scarica VDConvert {v} (Windows 64 bit, .zip)",
+  "La 3D ne peut pas démarrer : WebGL est désactivé ou indisponible dans ce navigateur. Active l'accélération matérielle (Chrome ou Edge : Paramètres › Système), mets à jour le pilote graphique, puis relance le navigateur.": "Il 3D non può avviarsi: WebGL è disattivato o non disponibile in questo browser. Attiva l'accelerazione hardware (Chrome o Edge: Impostazioni › Sistema), aggiorna il driver grafico, poi riavvia il browser."
 });

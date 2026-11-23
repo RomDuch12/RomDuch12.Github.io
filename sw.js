@@ -1,7 +1,7 @@
 /* Fonctionnement hors ligne (atelier sans réseau).
    Fichiers du site : réseau d'abord (toujours la dernière version), cache en secours.
    Bibliothèques et polices externes (CDN) : cache d'abord, elles ne changent pas pour une version donnée. */
-const CACHE = 'romduch-v7';
+const CACHE = 'romduch-v8';
 const SITE = ['./', 'index.html', 'neodrive.html', 'taudrive.html', 'vdconvert.html', 'visualiseur.html', 'vectordrive.html', 'outils.html', 'coupe.html', 'cv.html', 'tuto.html',
   'themes.css', 'site.css', 'i18n.js', 'theme.js', 'ui.js', 'stockage.js', 'generateur.js', 'simpl-editeur.js', 'simpl-lecture.js', 'outils-format.js',
   'coupe.js', 'taudrive.js', 'vecteurs.js', 'codes.js', 'dessin-outil.js', 'vue3d.js', 'neodrive-3d.js', 'vdz.js', 'vd-web.js', 'vd-outils.js', 'vd-fao.js', 'vd-ia.js', 'vd-te.js', 'catalogue-datron.json', 'tools.json', 'tools-demo.json', 'NeoDrive.png',

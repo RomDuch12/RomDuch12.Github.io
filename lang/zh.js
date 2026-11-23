@@ -1322,5 +1322,6 @@ I18N.add('zh', {
   "Télécharger Ollama": "下载 Ollama",
   "Copié : {t}": "已复制：{t}",
   "{f} est prêt, avec le modèle {m}.": "{f} 已就绪，模型为 {m}。",
-  "Télécharger VDConvert {v} (Windows 64 bits, .zip)": "下载 VDConvert {v}（Windows 64 位，.zip）"
+  "Télécharger VDConvert {v} (Windows 64 bits, .zip)": "下载 VDConvert {v}（Windows 64 位，.zip）",
+  "La 3D ne peut pas démarrer : WebGL est désactivé ou indisponible dans ce navigateur. Active l'accélération matérielle (Chrome ou Edge : Paramètres › Système), mets à jour le pilote graphique, puis relance le navigateur.": "无法启动 3D：此浏览器中的 WebGL 已禁用或不可用。请开启硬件加速（Chrome 或 Edge：设置 › 系统），更新显卡驱动，然后重启浏览器。"
 });

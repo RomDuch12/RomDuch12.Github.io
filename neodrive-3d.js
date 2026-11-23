@@ -105,7 +105,7 @@
   let v = null, vP = null, el = null, prog = null, segs = [], G = {}, brut = null, piece = null, choix = null, dernierBrut = 0, info = () => {};
   async function activer(conteneur, opts = {}) {
     el = conteneur; info = opts.info || info;
-    if (!vP) vP = Vue3D.creer(conteneur, { onPick: choisir }).then(x => (v = x));
+    if (!vP) vP = Vue3D.creer(conteneur, { onPick: choisir }).then(x => (v = x), e => { vP = null; throw e; });
     return vP;
   }
   function choisir(hit) {
