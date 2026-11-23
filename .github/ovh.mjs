@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 
 const R = join(dirname(fileURLToPath(import.meta.url)), '..'), S = join(R, '_ovh');
-const GH = 'https://romduch12.github.io/', FR = 'https://vectordrive.fr/';
+const FR = 'https://vectordrive.fr/';
 
 /* fichiers suivis par git, hors programmes, tests, CI et fichier de vérification Google (propre à github.io) */
 const HORS = /^(Programmes\/|tests\/|\.github\/|\.gitignore$|google[0-9a-f]+\.html$)/;
@@ -17,11 +17,11 @@ const FICHIERS = execFileSync('git', ['ls-files', '-z'], { cwd: R, encoding: 'ut
 rmSync(S, { recursive: true, force: true });
 for (const f of FICHIERS) { mkdirSync(dirname(join(S, f)), { recursive: true }); copyFileSync(join(R, f), join(S, f)); }
 
-/* canonical : VectorDrive -> vectordrive.fr/ ; les autres pages -> leur adresse github.io (contenu identique) */
+/* canonical : chaque page -> son adresse vectordrive.fr (racine = VectorDrive web) ; github.io porte les mêmes balises */
 const PAGES = FICHIERS.filter(f => f.endsWith('.html') && !f.includes('/'));
 for (const p of PAGES) {
   let html = readFileSync(join(S, p), 'utf8');
-  const url = p === 'vectordrive.html' ? FR : GH + (p === 'index.html' ? '' : p);
+  const url = p === 'vectordrive.html' ? FR : FR + (p === 'tauconvert.html' ? 'vdconvert.html' : p);
   const lien = `<link rel="canonical" href="${url}">`;
   html = /<link rel="canonical" href="[^"]*">/.test(html) ? html.replace(/<link rel="canonical" href="[^"]*">/, lien) : html.replace('</head>', `  ${lien}\n</head>`);
   if (!html.includes(lien)) throw new Error('canonical non posé : ' + p);

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://romduch12.github.io/sitemap.xml
+Sitemap: https://vectordrive.fr/sitemap.xml
