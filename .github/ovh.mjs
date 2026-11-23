@@ -31,8 +31,9 @@ for (const p of PAGES) {
 /* racine = VectorDrive web */
 const ht = join(S, '.htaccess');
 writeFileSync(ht, readFileSync(ht, 'utf8').replace('Options -Indexes', 'Options -Indexes\nDirectoryIndex vectordrive.html index.html'));
-writeFileSync(join(S, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${FR}sitemap.xml\n`);
-writeFileSync(join(S, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${FR}</loc><lastmod>${new Date().toISOString().slice(0, 10)}</lastmod></url>\n</urlset>\n`);
+/* robots.txt et sitemap.xml du dépôt pointent déjà vers vectordrive.fr (toutes les pages) */
+if (!readFileSync(join(S, 'sitemap.xml'), 'utf8').includes(FR + 'index.html')) throw new Error('sitemap.xml : adresses vectordrive.fr attendues');
+if (!readFileSync(join(S, 'robots.txt'), 'utf8').includes(FR + 'sitemap.xml')) throw new Error('robots.txt : sitemap vectordrive.fr attendu');
 
 /* contrôle : aucun lien relatif vers un fichier absent */
 const casses = [];
